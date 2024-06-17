@@ -25,7 +25,6 @@ void DemoApp::Render()
 	using namespace TimeSystem;
 	using namespace InputSystem;
 
-	
 	const float fontSize = 50.f;
 
 	static D2D1_SIZE_F clientSize = D2DRenderer::GetRenderTarget().GetSize();

@@ -239,7 +239,7 @@ void D2DRenderer::DrawRect(D2D1_RECT_F rectPoint, D2D1_COLOR_F color, bool rectF
 
 }
 
-ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const WCHAR* filePath)
+ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 {
 	HRESULT hr;
 	// Create a decoder
