@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DEngine", "D2DEngine\D2DE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoSolarSystem", "DemoSolarSystem\DemoSolarSystem.vcxproj", "{17AFBDAD-3178-4F79-B486-6667C38E97D2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoApp", "DemoApp\DemoApp.vcxproj", "{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +36,14 @@ Global
 		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x64.Build.0 = Release|x64
 		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x86.ActiveCfg = Release|Win32
 		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x86.Build.0 = Release|Win32
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Debug|x64.ActiveCfg = Debug|x64
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Debug|x64.Build.0 = Debug|x64
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Debug|x86.ActiveCfg = Debug|Win32
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Debug|x86.Build.0 = Debug|Win32
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Release|x64.ActiveCfg = Release|x64
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Release|x64.Build.0 = Release|x64
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Release|x86.ActiveCfg = Release|Win32
+		{4D4EC1A9-03AF-4AD4-B0E5-7B3CC7F88E99}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
