@@ -2,8 +2,9 @@
 #include "WinGameApp.h"
 #include <stdio.h>
 
-#include "D2DRenderer.h"
-#include "TimeSystem.h"
+#include "Framework/D2DRenderer.h"
+#include "Framework/TimeSystem.h"
+#include "Framework/InputSystem.h"
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
@@ -53,25 +54,36 @@ void WinGameApp::Uninitialize()
 
 void WinGameApp::Run()
 {
+	using namespace TimeSystem;
+	using namespace InputSystem;
+
 	//게임용 루프
 	MSG msg;
-
-	TimeSystem::Time.UpdateTime();
-
+	Time.UpdateTime();
 	while (!isEnd)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
-			if (msg.message == WM_QUIT)
+			if (msg.message == WM_QUIT) break;
+
+			if (msg.message == WM_KEYDOWN && !Input.IsKey(static_cast<KeyCode>(msg.wParam)))
 			{
-				isEnd = true;
+				Input.SetKeyDown(static_cast<KeyCode>(msg.wParam));
 			}
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			else if (msg.message == WM_KEYUP && Input.IsKey(static_cast<KeyCode>(msg.wParam)))
+			{
+				Input.SetKeyUp(static_cast<KeyCode>(msg.wParam));
+			}
+			else
+			{
+				DispatchMessage(&msg);
+			}
 		}
 		else if(!isEnd)
 		{
-			TimeSystem::Time.UpdateTime();
+			Time.UpdateTime();
+			Input.UpdateInput();
+			Input.UpdateMouse();
 			Update();
 
 			D2DRenderer::BeginDraw();

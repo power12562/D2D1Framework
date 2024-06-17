@@ -1,7 +1,8 @@
 ﻿#include "DemoApp.h"
 #include <iostream>
-#include "Framework\D2DRenderer.h"
-#include "Framework\TimeSystem.h"
+#include "Framework/D2DRenderer.h"
+#include "Framework/TimeSystem.h"
+#include "Framework/InputSystem.h"
 
 DemoApp::DemoApp(bool _Debug)
 {
@@ -23,6 +24,7 @@ void DemoApp::Render()
 {
 	using namespace D2D1;
 	using namespace TimeSystem;
+	using namespace InputSystem;
 
 	const float fontSize = 50.f;
 
@@ -71,6 +73,7 @@ void DemoApp::Render()
 	static float elapsedTime = Time.GetDeltatime();
 	static wchar_t frameText[15];
 	static wchar_t deltaText[30];
+	static wchar_t inputKeyText[30];
 	elapsedTime += Time.GetDeltatime();
 	if (0.5f < elapsedTime)
 	{
@@ -79,7 +82,29 @@ void DemoApp::Render()
 		elapsedTime = 0.f;
 	}
 	swprintf_s(deltaText, ARRAYSIZE(deltaText), L"deltaTime : %.06f", Time.GetDeltatime());
+	const MouseState& mouse = Input.GetMouseState();
+	if (mouse.isLeftClick)
+	{
+		swprintf_s(inputKeyText, ARRAYSIZE(inputKeyText), L"Left Click");
+	}
+	else if(mouse.isRightClick)
+	{
+		swprintf_s(inputKeyText, ARRAYSIZE(inputKeyText), L"Right Click");
+	}
+	else if (mouse.isMiddleClick)
+	{
+		swprintf_s(inputKeyText, ARRAYSIZE(inputKeyText), L"Middle Click");
+	}
+	else if (Input.IsAnyKey())
+	{
+		swprintf_s(inputKeyText, ARRAYSIZE(inputKeyText), L"Keyboard");
+	}
+	else
+	{
+		swprintf_s(inputKeyText, ARRAYSIZE(inputKeyText), L"Input null");
+	}
 	D2DRenderer::DrawTextW(frameText, fontFormat, { 0, 0 , clientSize.width, 500}, ColorF(ColorF::Black));
 	D2DRenderer::DrawTextW(deltaText, fontFormat, { 0, fontSize , clientSize.width, 500}, ColorF(ColorF::Black));
+	D2DRenderer::DrawTextW(inputKeyText, fontFormat, { 0, fontSize * 2, clientSize.width, 500 });
 }
 
