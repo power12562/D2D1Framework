@@ -11,7 +11,7 @@ int APIENTRY WinMain
 #ifdef _DEBUG
 	DemoApp App(true);
 #else 
-	DemoApp App;
+	DemoApp App(false);
 #endif
 	App.Initialize(hInstance);
 	App.Run();

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Framework\WinGameApp.h"
+#include "Framework/WinGameApp.h"
 
 class DemoApp : public WinGameApp
 {

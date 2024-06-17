@@ -14,7 +14,6 @@ DemoApp::~DemoApp()
 
 }
 
-
 void DemoApp::Update()
 {
 
@@ -26,6 +25,7 @@ void DemoApp::Render()
 	using namespace TimeSystem;
 	using namespace InputSystem;
 
+	
 	const float fontSize = 50.f;
 
 	static D2D1_SIZE_F clientSize = D2DRenderer::GetRenderTarget().GetSize();
@@ -106,5 +106,7 @@ void DemoApp::Render()
 	D2DRenderer::DrawTextW(frameText, fontFormat, { 0, 0 , clientSize.width, 500}, ColorF(ColorF::Black));
 	D2DRenderer::DrawTextW(deltaText, fontFormat, { 0, fontSize , clientSize.width, 500}, ColorF(ColorF::Black));
 	D2DRenderer::DrawTextW(inputKeyText, fontFormat, { 0, fontSize * 2, clientSize.width, 500 });
+	
+
 }
 
