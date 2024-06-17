@@ -8,38 +8,31 @@ const Vector2 Vector2::Down{ 0,-1 };
 
 Vector2::Vector2(float x, float y)
 {
-	this->X = x;
-	this->Y = y;
+	this->x = x;
+	this->y = y;
 }
 
 Vector2::Vector2(double x, double y)
 {
-	this->X = (float)x;
-	this->Y = (float)y;
+	this->x = (float)x;
+	this->y = (float)y;
 }
 
 Vector2::Vector2(int x, int y)
 {
-	this->X = float(x);
-	this->Y = float(y);
+	this->x = float(x);
+	this->y = float(y);
 }
 
 Vector2::Vector2(const Vector2& other)
 {
-	this->X = other.X;
-	this->Y = other.Y;
-}
-
-Vector2 Vector2::Lerp(const Vector2& startPos,const Vector2& EndPos, const float t)
-{
-	Vector2 Lerp = { (1.f - t) * startPos.X + t * EndPos.X, (1.f - t) * startPos.Y + t * EndPos.Y };
-
-	return Lerp;
+	this->x = other.x;
+	this->y = other.y;
 }
 
 float Vector2::SqrMagnitude() const
 {
-	return X * X + Y * Y;
+	return x * x + y * y;
 }
 
 float Vector2::Magnitude() const
@@ -50,31 +43,31 @@ float Vector2::Magnitude() const
 
 Vector2 Vector2::Normalized()
 {
-	Vector2 normal = { float(X / Magnitude()) , float(Y / Magnitude()) };
+	Vector2 normal = { float(x / Magnitude()) , float(y / Magnitude()) };
 	return normal;
 }
 
 Vector2 Vector2::operator*(const float scala) const
 {
-	Vector2 value = { this->X, this->Y };
-	value.X *= scala;
-	value.Y *= scala;
+	Vector2 value = { this->x, this->y };
+	value.x *= scala;
+	value.y *= scala;
 
 	return value;
 }
 
 Vector2& Vector2::operator+=(const Vector2& other)
 {
-	this->X += other.X;
-	this->Y += other.Y;
+	this->x += other.x;
+	this->y += other.y;
 
 	return *this;
 }
 
 Vector2& Vector2::operator-=(const Vector2& other)
 {
-	this->X -= other.X;
-	this->Y -= other.Y;
+	this->x -= other.x;
+	this->y -= other.y;
 
 	return *this;
 }
@@ -82,8 +75,8 @@ Vector2& Vector2::operator-=(const Vector2& other)
 Vector2 Vector2::operator+(const Vector2& other)
 {
 	Vector2 sum = { 0, 0 };
-	sum.X = this->X + other.X;
-	sum.Y = this->Y + other.Y;
+	sum.x = this->x + other.x;
+	sum.y = this->y + other.y;
 
 	return sum;
 }
@@ -91,18 +84,35 @@ Vector2 Vector2::operator+(const Vector2& other)
 Vector2 Vector2::operator-(const Vector2& other)
 {
 	Vector2 sub = { 0, 0 };
-	sub.X = this->X - other.X;
-	sub.Y = this->Y - other.Y;
+	sub.x = this->x - other.x;
+	sub.y = this->y - other.y;
 
 	return sub;
 }
 
 bool Vector2::operator!=(const Vector2& other)
 {
-	return (this->X != other.X || this->Y != other.Y);
+	return (this->x != other.x || this->y != other.y);
 }
 
 bool Vector2::operator==(const Vector2& other)
 {
-	return (this->X == other.X && this->Y == other.Y);
+	return (this->x == other.x && this->y == other.y);
+}
+
+
+//static:
+
+Vector2 Vector2::Lerp(const Vector2& startPos, const Vector2& endPos, const float t)
+{
+	Vector2 Lerp = { (1.f - t) * startPos.x + t * endPos.x, (1.f - t) * startPos.y + t * endPos.y };
+
+	return Lerp;
+}
+
+Vector2 Vector2::BezierCurve(const Vector2& startPos, const Vector2& middlePos, const Vector2& endPos, const float t)
+{
+	Vector2 bezierCurve = Lerp(Lerp(startPos, middlePos, t), Lerp(middlePos, endPos, t), t);
+	
+	return bezierCurve;
 }
