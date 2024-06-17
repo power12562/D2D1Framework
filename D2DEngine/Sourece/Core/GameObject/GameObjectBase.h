@@ -5,9 +5,13 @@
 
 struct Transform
 {
-	Vector2 position{0,0};
+	Vector2 position{ 0,0 };
 	float rotation = 0;
-	Vector2 scale{1,1};
+	Vector2 scale{ 1,1 };
+
+	Vector2 localPosition{ 0,0 };
+	float localRotation = 0;
+	Vector2 localScale{ 1,1 };
 }; 
 
 class GameObjectBase
@@ -21,7 +25,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	void SetParent(GameObjectBase* parent) { this->parent = parent; }
+	void SetParent(GameObjectBase* parent);
 	GameObjectBase* GetParent() { return parent; }
 
 	/** 컴포넌트를 오브젝트에 추가합니다.*/
@@ -34,6 +38,8 @@ private:
 	GameObjectBase* parent{};
 	std::list<GameObjectBase*> childsList;
 	std::list<ComponentBase*> componentsList;
+
+	void UpdateChildTransform(GameObjectBase& parent);
 };
 
 

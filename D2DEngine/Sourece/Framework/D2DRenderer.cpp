@@ -170,9 +170,9 @@ void D2DRenderer::EndDraw()
 	}
 }
 
-void D2DRenderer::Clear(D2D1::ColorF color)
+void D2DRenderer::Clear(D2D1_COLOR_F color)
 {
-	pRenderTarget->Clear(D2D1::ColorF(color));
+	pRenderTarget->Clear(color);
 }
 
 void D2DRenderer::DrawLine(
@@ -330,6 +330,12 @@ void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& po
 {
 	D2D1_SIZE_F dwPos = GetDrawPos(ID2D1Bitmap, position, scale, angle);
 	DrawBitmap_(ID2D1Bitmap, dwPos, D2D1_SIZE_F{ scale.x, scale.y }, angle, { position.x - dwPos.width, position.y - dwPos.height });
+}
+
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle, D2D1_POINT_2F& rotPoint)
+{
+	D2D1_SIZE_F dwPos = GetDrawPos(ID2D1Bitmap, position, scale, angle);
+	DrawBitmap_(ID2D1Bitmap, dwPos, D2D1_SIZE_F{ scale.x, scale.y }, angle, { rotPoint.x - dwPos.width,  rotPoint.y - dwPos.height });
 }
 
 D2D1_VECTOR_2F D2DRenderer::GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle)

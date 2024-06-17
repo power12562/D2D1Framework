@@ -21,7 +21,7 @@ public:
 
 	static void BeginDraw();
 	static void EndDraw();
-	static void Clear(D2D1::ColorF color);
+	static void Clear(D2D1_COLOR_F color);
 	static void DrawLine(
 		D2D1_POINT_2F startPosition, D2D1_POINT_2F endPosition, 
 		D2D1_COLOR_F color = D2D1::ColorF(D2D1::ColorF::Black), 
@@ -47,6 +47,7 @@ public:
 	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale);
 	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const float angle);
 	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle, D2D1_POINT_2F& rotPoint);
 
 	/** Vertex 회전 위치 리턴*/
 	static D2D1_VECTOR_2F GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle);

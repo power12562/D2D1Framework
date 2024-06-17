@@ -19,24 +19,10 @@ void SpriteRenderer::Render()
 		return;
 	else
 	{
-		if (gameobject.GetParent())
-		{
-			Transform parent = gameobject.GetParent()->transform;
-
-			Vector2 position = parent.position + gameobject.transform.position;
-			Vector2 scale = { parent.scale.x * gameobject.transform.scale.x, parent.scale.y * gameobject.transform.scale.y };
-			float angle = parent.rotation + gameobject.transform.rotation;
-
-			D2DRenderer::DrawBitmap(image, { position.x, position.y }, { scale.x, scale.y }, angle);
-		}
-		else
-		{
-			Vector2& position = gameobject.transform.position;
-			Vector2& scale = gameobject.transform.scale;
-			float angle = gameobject.transform.rotation;
-
-			D2DRenderer::DrawBitmap(image, { position.x, position.y }, { scale.x, scale.y }, angle);
-		}		
+		Vector2& position = gameobject.transform.position;
+		Vector2& scale = gameobject.transform.scale;
+		float angle = gameobject.transform.rotation;
+		D2DRenderer::DrawBitmap(image, { position.x, position.y }, { scale.x, scale.y }, angle);		
 	}
 }
 

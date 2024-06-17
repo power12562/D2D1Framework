@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <Windows.h>
+#include <d2d1.h>
 
 //custom message
 #define WM_CUSTOM_INITD2D (WM_USER +1)
@@ -27,22 +28,13 @@ public:
 
 	static HWND GetHwnd() { return hwnd; };
 
+	static void SetClientSize(const SIZE& size);
 	static SIZE GetClientSize() { return size; }
 
 	static bool IsResize() { return isResize; }
 	
 protected:
 	bool isDebug = false;
-
-private:
-	void WinInitialize(HINSTANCE hinstance);
-
-	static bool isResize;
-	static bool isMaxsize;
-	bool isEnd = false;
-
-	/** 클라이언트 사이즈. 기본 값 : 1920, 1080*/
-	static SIZE size;
 
 	/** 클래스 스타일.*/
 	const UINT winClassStyle = CS_HREDRAW | CS_VREDRAW;
@@ -55,6 +47,18 @@ private:
 
 	/** 윈도우 클라이언트 이름*/
 	const LPCWSTR windowName = L"DemoApp";
+
+	/** 배경 색. 기본 값 : 검정*/
+	D2D1_COLOR_F bgColor = D2D1::ColorF(D2D1::ColorF::Black);
+private:
+	/** 클라이언트 사이즈. 기본 값 : 1920, 1080*/
+	static SIZE size;
+
+	void WinInitialize(HINSTANCE hinstance);
+
+	static bool isResize;
+	static bool isMaxsize;
+	bool isEnd = false;
 
 	static HINSTANCE hInstance;
 	static HWND hwnd;

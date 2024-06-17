@@ -87,6 +87,7 @@ void WinGameApp::Run()
 			Update();
 
 			D2DRenderer::BeginDraw();
+			D2DRenderer::Clear(bgColor);
 			Render();
 			D2DRenderer::EndDraw();
 		}
@@ -104,6 +105,14 @@ void WinGameApp::WinToScrrenCenter(HWND hwnd)
 	x = (rtDesk.right - width) / 2;
 	y = (rtDesk.bottom - height) / 2;
 	MoveWindow(hwnd, x, y, width, height, TRUE);
+}
+
+void WinGameApp::SetClientSize(const SIZE& size)
+{
+	WinGameApp::size = size;
+	MoveWindow(hwnd, 0, 0, size.cx, size.cy, TRUE);
+
+	WinToScrrenCenter(GetHwnd());
 }
 
 void WinGameApp::WinInitialize(HINSTANCE hinstance)
@@ -175,6 +184,8 @@ void WinGameApp::ReSizeClient()
 	GetClientRect(hwnd, &rc);
 
 	size = {rc.right - rc.left, rc.bottom - rc.top};	
+
+	D2DRenderer::InitDirect2D();
 }
 
 // 윈도우 프로시저 함수 정의
