@@ -19,6 +19,12 @@
     <Filter Include="소스 파일\Framework">
       <UniqueIdentifier>{df988be2-c603-4c32-9bf1-a29dcf6adb76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Vector">
+      <UniqueIdentifier>{1319109b-1504-41b9-9a8e-725368b5be13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Vector">
+      <UniqueIdentifier>{cbf8426b-adc7-40fa-af08-e958288b1d58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sourece\Framework\D2DRenderer.cpp">
@@ -30,6 +36,9 @@
     <ClCompile Include="Sourece\Framework\WinGameApp.cpp">
       <Filter>소스 파일\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Sourece\Vector\Vector2.cpp">
+      <Filter>소스 파일\Vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Framework\D2DRenderer.h">
@@ -40,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="Sourece\Framework\WinGameApp.h">
       <Filter>헤더 파일\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Sourece\Vector\Vector2.h">
+      <Filter>헤더 파일\Vector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
