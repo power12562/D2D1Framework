@@ -1,0 +1,108 @@
+#include <math.h>
+#include "Vector/Vector2.h"
+
+const Vector2 Vector2::Right{ 1,0 };
+const Vector2 Vector2::Left{ -1,0 };
+const Vector2 Vector2::Up{ 0,1 };
+const Vector2 Vector2::Down{ 0,-1 };
+
+Vector2::Vector2(float x, float y)
+{
+	this->X = x;
+	this->Y = y;
+}
+
+Vector2::Vector2(double x, double y)
+{
+	this->X = (float)x;
+	this->Y = (float)y;
+}
+
+Vector2::Vector2(int x, int y)
+{
+	this->X = float(x);
+	this->Y = float(y);
+}
+
+Vector2::Vector2(const Vector2& other)
+{
+	this->X = other.X;
+	this->Y = other.Y;
+}
+
+Vector2 Vector2::Lerp(const Vector2& startPos,const Vector2& EndPos, const float t)
+{
+	Vector2 Lerp = { (1.f - t) * startPos.X + t * EndPos.X, (1.f - t) * startPos.Y + t * EndPos.Y };
+
+	return Lerp;
+}
+
+float Vector2::SqrMagnitude() const
+{
+	return X * X + Y * Y;
+}
+
+float Vector2::Magnitude() const
+{
+	float magnitude = sqrtf(SqrMagnitude());
+	return magnitude;
+}
+
+Vector2 Vector2::Normalized()
+{
+	Vector2 normal = { float(X / Magnitude()) , float(Y / Magnitude()) };
+	return normal;
+}
+
+Vector2 Vector2::operator*(const float scala) const
+{
+	Vector2 value = { this->X, this->Y };
+	value.X *= scala;
+	value.Y *= scala;
+
+	return value;
+}
+
+Vector2& Vector2::operator+=(const Vector2& other)
+{
+	this->X += other.X;
+	this->Y += other.Y;
+
+	return *this;
+}
+
+Vector2& Vector2::operator-=(const Vector2& other)
+{
+	this->X -= other.X;
+	this->Y -= other.Y;
+
+	return *this;
+}
+
+Vector2 Vector2::operator+(const Vector2& other)
+{
+	Vector2 sum = { 0, 0 };
+	sum.X = this->X + other.X;
+	sum.Y = this->Y + other.Y;
+
+	return sum;
+}
+
+Vector2 Vector2::operator-(const Vector2& other)
+{
+	Vector2 sub = { 0, 0 };
+	sub.X = this->X - other.X;
+	sub.Y = this->Y - other.Y;
+
+	return sub;
+}
+
+bool Vector2::operator!=(const Vector2& other)
+{
+	return (this->X != other.X || this->Y != other.Y);
+}
+
+bool Vector2::operator==(const Vector2& other)
+{
+	return (this->X == other.X && this->Y == other.Y);
+}

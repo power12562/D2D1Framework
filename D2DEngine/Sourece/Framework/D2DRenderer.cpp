@@ -163,7 +163,7 @@ void D2DRenderer::EndDraw()
 	if (FAILED(hr))
 	{
 		_com_error err(hr);
-		if (0x88990001 != hr)
+		if (0x88990001 != hr) //d2d 초기화 중에는 에러 예외 처리
 		{
 			::MessageBox(GetActiveWindow(), err.ErrorMessage(), L"Error : D2DEndDraw", MB_OK);
 		}		
@@ -380,12 +380,12 @@ void D2DRenderer::GetRectBounds(D2D1_RECT_F& rect, const float angle)
 	rect.bottom = max.y;
 }
 
-float D2DRenderer::GetDegToRad(const float degree)
+float D2DRenderer::DegToRad(const float degree)
 {
 	return DirectX::XMConvertToRadians(degree);
 }
 
-float D2DRenderer::GetRadToDeg(const float radian)
+float D2DRenderer::RadToDeg(const float radian)
 {
 	return DirectX::XMConvertToDegrees(radian);
 }

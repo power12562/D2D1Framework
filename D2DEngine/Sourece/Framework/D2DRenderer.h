@@ -54,8 +54,8 @@ public:
 	/** Rect에 회전이 적용된 bounds 값 리턴*/
 	static void GetRectBounds(D2D1_RECT_F& rect, const float angle);
 
-	static float GetDegToRad(const float degree);
-	static float GetRadToDeg(const float radian);
+	static float DegToRad(const float degree);
+	static float RadToDeg(const float radian);
 
 	/** 그릴 폰트를 생성합니다. 설치된 폰트만 사용 가능합니다.*/
 	static IDWriteTextFormat* CreateD2DFont(const wchar_t* fontName, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, float fontSize);

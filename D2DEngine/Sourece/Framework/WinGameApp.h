@@ -41,13 +41,13 @@ private:
 	static bool isMaxsize;
 	bool isEnd = false;
 
-	/** 클라이언트 사이즈. 기본 값 : 1920, 1080 */
+	/** 클라이언트 사이즈. 기본 값 : 1920, 1080*/
 	static SIZE size;
 
-	/** 클래스 스타일. 기본값 : CS_HREDRAW | CS_VREDRAW */
+	/** 클래스 스타일.*/
 	const UINT winClassStyle = CS_HREDRAW | CS_VREDRAW;
 
-	/** 클라이언트 윈도우 스타일. 기본값 : WS_OVERLAPPEDWINDOW */
+	/** 클라이언트 윈도우 스타일.*/
 	const DWORD windowStyle = WS_OVERLAPPEDWINDOW;
 
 	/** 윈도우 클래스 구조체 이름*/
