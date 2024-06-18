@@ -2,44 +2,30 @@
 #include <list>
 #include "Vector/Vector2.h"
 #include "Core/Componet/ComponentBase.h"
-
-struct Transform
-{
-	Vector2 position{ 0,0 };
-	float rotation = 0;
-	Vector2 scale{ 1,1 };
-
-	Vector2 localPosition{ 0,0 };
-	float localRotation = 0;
-	Vector2 localScale{ 1,1 };
-}; 
+#include "Core/Componet/Transform.h"
 
 class GameObjectBase
 {
+	friend class Transform;
 public:
 	GameObjectBase();
 	virtual ~GameObjectBase();
-
-	Transform transform;
-
+	
 	virtual void Update();
 	virtual void Render();
 
-	void SetParent(GameObjectBase* parent);
-	GameObjectBase* GetParent() { return parent; }
+	/** 트랜스폼*/
+	Transform& transform();
 
 	/** 컴포넌트를 오브젝트에 추가합니다.*/
 	template <typename T> T* AddComponent();
 
 	/** 컴포넌트를 가져옵니다.*/
 	template <typename T> T* GetComponent();
-
-private:
-	GameObjectBase* parent{};
-	std::list<GameObjectBase*> childsList;
+	
+private:	
+	Transform* pTransform;
 	std::list<ComponentBase*> componentsList;
-
-	void UpdateChildTransform(GameObjectBase& parent);
 };
 
 

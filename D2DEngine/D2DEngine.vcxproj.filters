@@ -78,6 +78,9 @@
     <ClCompile Include="Sourece\Core\Componet\SpriteRenderer.cpp">
       <Filter>소스 파일\Core\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Sourece\Core\Componet\Transform.cpp">
+      <Filter>소스 파일\Core\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Framework\D2DRenderer.h">
@@ -105,6 +108,9 @@
       <Filter>헤더 파일\Core\Component</Filter>
     </ClInclude>
     <ClInclude Include="Sourece\Core\Componet\SpriteRenderer.h">
+      <Filter>헤더 파일\Core\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Sourece\Core\Componet\Transform.h">
       <Filter>헤더 파일\Core\Component</Filter>
     </ClInclude>
   </ItemGroup>

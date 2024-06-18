@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Sourece\Core\Componet\ComponentBase.cpp" />
     <ClCompile Include="Sourece\Core\Componet\SpriteRenderer.cpp" />
+    <ClCompile Include="Sourece\Core\Componet\Transform.cpp" />
     <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp" />
     <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
@@ -32,6 +33,7 @@
   <ItemGroup>
     <ClInclude Include="Sourece\Core\Componet\ComponentBase.h" />
     <ClInclude Include="Sourece\Core\Componet\SpriteRenderer.h" />
+    <ClInclude Include="Sourece\Core\Componet\Transform.h" />
     <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h" />
     <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
     <ClInclude Include="Sourece\Framework\InputSystem.h" />

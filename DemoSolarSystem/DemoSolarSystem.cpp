@@ -16,27 +16,27 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 	auto screenSize = GetClientSize();
 
 	GameObjectBase* bg = new GameObjectBase;
-	bg->transform.position = { screenSize.cx * 0.5f, screenSize.cy * 0.5f };
+	bg->transform().position = {screenSize.cx * 0.5f, screenSize.cy * 0.5f};
 	SpriteRenderer* sprite = bg->AddComponent<SpriteRenderer>();
 	sprite->LoadImage(L"Resource/bg.png");
 
 	GameObjectBase* sun = new GameObjectBase;
-	sun->transform.scale = { 0.3f, 0.3f };
-	sun->transform.position = { screenSize.cx * 0.5f, screenSize.cy * 0.5f };
-	sun->transform.rotation = 0;
+	sun->transform().scale = {0.3f, 0.3f};
+	sun->transform().position = {screenSize.cx * 0.5f, screenSize.cy * 0.5f};
+	sun->transform().rotation = 0;
 	sprite = sun->AddComponent<SpriteRenderer>();
 	sprite->LoadImage(L"Resource/Sun.png");
 
 	GameObjectBase* earth = new GameObjectBase;
-	earth->SetParent(sun);
-	earth->transform.localPosition = { -300, 0 };
+	earth->transform().SetParent(sun->transform());
+	earth->transform().localPosition = {-300, 0};
 	sprite = earth->AddComponent<SpriteRenderer>();
 	sprite->LoadImage(L"Resource/earth.png");
 
 	GameObjectBase* moon = new GameObjectBase;
-	moon->SetParent(earth);
-	moon->transform.localScale = { 2.0f, 2.0f };
-	moon->transform.localPosition = { 150, 0 };
+	moon->transform().SetParent(earth->transform());
+	moon->transform().localScale = {2.0f, 2.0f};
+	moon->transform().localPosition = {150, 0};
 	sprite = moon->AddComponent<SpriteRenderer>();
 	sprite->LoadImage(L"Resource/moon.png");
 
@@ -67,9 +67,9 @@ void DemoSolarSystem::Update()
 	{
 		obj->Update();
 	}
-	gameObjectList[1]->transform.rotation += sunRotSpeed * Time.GetDeltatime();
-	gameObjectList[2]->transform.localRotation += earthRotSpeed * Time.GetDeltatime();
-	gameObjectList[3]->transform.localRotation += moonRotSpeed * Time.GetDeltatime();
+	gameObjectList[1]->transform().rotation += sunRotSpeed * Time.GetDeltatime();
+	gameObjectList[2]->transform().localRotation += earthRotSpeed * Time.GetDeltatime();
+	gameObjectList[3]->transform().localRotation += moonRotSpeed * Time.GetDeltatime();
 }
 
 void DemoSolarSystem::Render()
