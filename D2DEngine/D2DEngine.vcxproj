@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sourece\Core\Componet\ComponentBase.cpp" />
+    <ClCompile Include="Sourece\Core\Componet\Base\ComponentBase.cpp" />
     <ClCompile Include="Sourece\Core\Componet\SpriteRenderer.cpp" />
     <ClCompile Include="Sourece\Core\Componet\Transform.cpp" />
     <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp" />
@@ -31,7 +31,7 @@
     <ClCompile Include="Sourece\Vector\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sourece\Core\Componet\ComponentBase.h" />
+    <ClInclude Include="Sourece\Core\Componet\Base\ComponentBase.h" />
     <ClInclude Include="Sourece\Core\Componet\SpriteRenderer.h" />
     <ClInclude Include="Sourece\Core\Componet\Transform.h" />
     <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h" />
