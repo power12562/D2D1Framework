@@ -2,6 +2,7 @@
 #include "Core/GameObject/GameObjectBase.h"
 #include "Core/Componet/SpriteRenderer.h"
 #include "Framework/TimeSystem.h"
+#include "Framework/InputSystem.h"
 
 DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 {
@@ -57,7 +58,9 @@ DemoSolarSystem::~DemoSolarSystem()
 void DemoSolarSystem::Update()
 {
 	using namespace TimeSystem;
+	using namespace InputSystem;
 
+	static const float sunMovespeed = 300.f;
 	static const float sunRotSpeed = 25.f;
 	static const float earthRotSpeed = -40.f;
 	static const float moonRotSpeed = 60.f;
@@ -69,6 +72,7 @@ void DemoSolarSystem::Update()
 	{
 		obj->Update();
 	}
+
 	gameObjectList[1]->transform().rotation += sunRotSpeed * Time.GetDeltatime();
 	gameObjectList[2]->transform().localRotation += earthRotSpeed * Time.GetDeltatime();
 	gameObjectList[3]->transform().localRotation += moonRotSpeed * Time.GetDeltatime();	

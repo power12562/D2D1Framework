@@ -1,10 +1,11 @@
 #include <math.h>
 #include "Vector/Vector2.h"
+#include "Framework/WinGameApp.h"
 
 const Vector2 Vector2::Right{ 1,0 };
 const Vector2 Vector2::Left{ -1,0 };
-const Vector2 Vector2::Up{ 0,1 };
-const Vector2 Vector2::Down{ 0,-1 };
+const Vector2 Vector2::Up{ 0, 1 };
+const Vector2 Vector2::Down{ 0, -1 };
 
 Vector2::Vector2(float x, float y)
 {
@@ -110,6 +111,11 @@ bool Vector2::operator==(const Vector2& other)
 
 
 //static:
+
+Vector2 Vector2::WorldToScreenPoint(const Vector2& pos)
+{
+	return { pos.x, (float)WinGameApp::GetClientSize().cy - pos.y};
+}
 
 Vector2 Vector2::Lerp(const Vector2& startPos, const Vector2& endPos, const float t)
 {

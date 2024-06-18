@@ -38,6 +38,9 @@ public:
 	/** Down Vector2(0, -1) */
 	static const Vector2 Down;
 
+	/** 화면 좌표로 변환*/
+	static Vector2 WorldToScreenPoint(const Vector2& pos);
+
 	/** 선형 보간*/
 	static Vector2 Lerp(const Vector2& startPos, const Vector2& endPos, const float t);
 

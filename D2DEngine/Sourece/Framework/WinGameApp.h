@@ -30,7 +30,7 @@ public:
 	static HWND GetHwnd() { return hwnd; };
 
 	static void SetClientSize(const SIZE& size);
-	static SIZE GetClientSize() { return size; }
+	static const SIZE& GetClientSize() { return size; } const
 
 	static bool IsResize() { return isResize; }
 	
