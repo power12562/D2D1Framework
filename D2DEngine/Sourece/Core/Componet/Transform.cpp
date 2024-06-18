@@ -40,21 +40,41 @@ void Transform::UpdateChildTransform(Transform& parent)
 	}
 }
 
-
 void Transform::SetParent(Transform& parent)
 {
 #pragma warning(disable:6011)
 
-	for (auto iter = parent.childsList.begin(); iter != parent.childsList.end(); ++iter)
+	if (this->parent)
 	{
-		if (this == *iter)
+		for (auto iter = this->parent->childsList.begin(); iter != this->parent->childsList.end(); ++iter)
 		{
-			parent.childsList.erase(iter);
-			this->parent = nullptr;
+			if (this == *iter)
+			{
+				this->parent->childsList.erase(iter);
+				this->parent = nullptr;
+				break;
+			}
 		}
 	}
 	this->parent = &parent;
 	parent.childsList.push_back(this);
 
 #pragma warning(default:6011)
+}
+//부모 헤제
+void Transform::SetParent(void* ptr)
+{
+	if (ptr == nullptr && this->parent)
+	{
+		std::list<Transform*> parentChilds = this->parent->childsList;
+		for (auto iter = parentChilds.begin(); iter != parentChilds.end(); ++iter)
+		{
+			if (this == *iter)
+			{
+				parentChilds.erase(iter);
+				this->parent = nullptr;
+				break;
+			}
+		}
+	}
 }

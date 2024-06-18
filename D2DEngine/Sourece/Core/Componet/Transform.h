@@ -17,7 +17,9 @@ public:
 	float localRotation = 0;
 	Vector2 localScale{ 1,1 };
 
-	void SetParent(Transform& parent);
+	/** 부모 오브젝트를 설정합니다. nullptr을 넘기면 헤제됩니다.*/
+	void SetParent(Transform& parent);	
+	void SetParent(void* ptr);
 	Transform& GetParent() { return *parent; }
 
 	virtual void Update() override;
@@ -25,8 +27,8 @@ public:
 
 private:
 	Transform* parent{};
-	void UpdateChildTransform(Transform& parent);
 	std::list<Transform*> childsList;
+	void UpdateChildTransform(Transform& parent);
 };
 
 
