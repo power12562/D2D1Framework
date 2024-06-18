@@ -3,6 +3,7 @@
 #include <d2d1.h>
 
 //custom message
+/** InitDirect2D() 호출시 보내는 커스텀 메시지*/
 #define WM_CUSTOM_INITD2D (WM_USER +1)
 
 class WinGameApp

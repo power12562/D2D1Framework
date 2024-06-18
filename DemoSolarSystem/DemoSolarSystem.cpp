@@ -73,8 +73,7 @@ void DemoSolarSystem::Update()
 }
 
 void DemoSolarSystem::Render()
-{
-	
+{	
 	for (auto& obj : gameObjectList)
 	{
 		obj->Render();

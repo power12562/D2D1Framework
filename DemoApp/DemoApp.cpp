@@ -31,7 +31,7 @@ void DemoApp::Render()
 	static ID2D1Bitmap* testBitmap1 = D2DRenderer::CreateD2DBitmapFromFile(L"Resource/test.png");
 	static IDWriteTextFormat* fontFormat = D2DRenderer::CreateD2DFont(L"Consolelas", DWRITE_FONT_WEIGHT_NORMAL,DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, fontSize);
 
-	D2DRenderer::Clear(D2D1::ColorF::Violet);
+	D2DRenderer::Clear(ColorF(ColorF::Violet));
 	D2DRenderer::DrawLine({ 0, clientSize.height * 0.5f }, { clientSize.width, clientSize.height * 0.5f }, ColorF(ColorF::Blue), 15.f);
 	D2DRenderer::DrawRect(
 		{ clientSize.width / 2.f - 100.f, clientSize.height / 2.f - 100.f

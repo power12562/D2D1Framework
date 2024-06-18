@@ -5,6 +5,7 @@
 #include "Framework/D2DRenderer.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
+#include "Core/Componet/SpriteRenderer.h"
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
@@ -220,6 +221,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_CUSTOM_INITD2D:
+		SpriteRenderer::ReloadImage();
 		WinGameApp::isResize = false;
 		break;
 
