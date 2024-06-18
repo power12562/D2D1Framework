@@ -1,5 +1,4 @@
 #include "Core/GameObject/GameObjectBase.h"
-#include "Framework/D2DRenderer.h"
 
 GameObjectBase::GameObjectBase()
 {

@@ -1,7 +1,6 @@
-#include <math.h>
 #include "Vector/Vector2.h"
 #include "Framework/WinGameApp.h"
-
+#include <math.h>
 const Vector2 Vector2::Right{ 1,0 };
 const Vector2 Vector2::Left{ -1,0 };
 const Vector2 Vector2::Up{ 0, 1 };

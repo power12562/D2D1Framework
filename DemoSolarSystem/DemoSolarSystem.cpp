@@ -1,8 +1,8 @@
 #include "DemoSolarSystem.h"
-#include "Core/GameObject/GameObjectBase.h"
 #include "Core/Componet/SpriteRenderer.h"
-#include "Framework/TimeSystem.h"
+#include "Core/GameObject/GameObjectBase.h"
 #include "Framework/InputSystem.h"
+#include "Framework/TimeSystem.h"
 
 DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 {

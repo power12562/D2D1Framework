@@ -1,7 +1,4 @@
-﻿// WinApp.cpp : 정적 라이브러리를 위한 함수를 정의합니다.
-#include "WinGameApp.h"
-#include <stdio.h>
-
+﻿#include "WinGameApp.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"

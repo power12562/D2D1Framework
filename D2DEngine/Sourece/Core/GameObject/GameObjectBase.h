@@ -1,6 +1,5 @@
 #pragma once
 #include <list>
-#include "Vector/Vector2.h"
 #include "Core/Componet/Base/ComponentBase.h"
 #include "Core/Componet/Transform.h"
 

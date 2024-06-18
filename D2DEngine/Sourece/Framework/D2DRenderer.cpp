@@ -1,7 +1,7 @@
 ﻿#include "D2DRenderer.h"
 #include "WinGameApp.h"
-#include <iostream>
 #include <directxmath.h>
+#include <iostream>
 
 #pragma comment(lib,"d2d1.lib")
 #pragma comment(lib,"dwrite.lib")
