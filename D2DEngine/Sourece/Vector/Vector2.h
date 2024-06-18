@@ -9,7 +9,7 @@ public:
 	Vector2(float x = 0, float y = 0);
 	Vector2(double x, double y);
 	Vector2(int x, int y);
-	~Vector2() = default;
+	virtual ~Vector2() = default;
 
 	Vector2(const Vector2& other);
 
@@ -18,14 +18,14 @@ public:
 
 	Vector2 Normalized();
 
-	Vector2 operator*(const float scala) const;
-	Vector2& operator+=(const Vector2& other);
-	Vector2& operator-=(const Vector2& other);
-	Vector2 operator+(const Vector2& other);
-	Vector2 operator-(const Vector2& other);
-	bool operator!=(const Vector2& other);
-	bool operator==(const Vector2& other);
-
+	virtual Vector2& operator=(const Vector2& other);
+	virtual Vector2 operator*(const float scala) const;
+	virtual Vector2& operator+=(const Vector2& other);
+	virtual Vector2& operator-=(const Vector2& other);
+	virtual Vector2 operator+(const Vector2& other);
+	virtual Vector2 operator-(const Vector2& other);
+	virtual bool operator!=(const Vector2& other);
+	virtual bool operator==(const Vector2& other);
 
 	//static:
 

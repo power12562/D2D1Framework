@@ -47,6 +47,14 @@ Vector2 Vector2::Normalized()
 	return normal;
 }
 
+Vector2& Vector2::operator=(const Vector2& other)
+{
+	this->x = other.x;
+	this->y = other.y;
+
+	return *this;
+}
+
 Vector2 Vector2::operator*(const float scala) const
 {
 	Vector2 value = { this->x, this->y };

@@ -4,7 +4,7 @@ class GameObjectBase;
 
 class ComponentBase
 {
-	friend GameObjectBase;
+	friend class GameObjectBase;
 public:
 	ComponentBase(GameObjectBase& gameObject);
 	virtual ~ComponentBase();

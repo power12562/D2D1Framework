@@ -6,7 +6,6 @@
 
 class GameObjectBase
 {
-	friend class Transform;
 public:
 	GameObjectBase();
 	virtual ~GameObjectBase();

@@ -3,7 +3,13 @@
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
-
+	position.InitTVector2(this);
+	rotation.InitTFloat(this);
+	scale.InitTVector2(this);
+	
+	localPosition.InitTVector2(this);
+	localRotation.InitTFloat(this);
+	localScale.InitTVector2(this);	
 }
 
 Transform::~Transform()
@@ -12,9 +18,10 @@ Transform::~Transform()
 
 void Transform::Update()
 {
-	if (!parent && !childsList.empty())
+	if (isTranslation && !parent && !childsList.empty())
 	{
 		UpdateChildTransform(*this);
+		isTranslation = false;
 	}
 }
 
@@ -32,12 +39,22 @@ void Transform::UpdateChildTransform(Transform& parent)
 		D2D1_VECTOR_2F rotPos = D2DRenderer::GetRotatedPoint({ child->localPosition.x, child->localPosition.y }, parent.rotation);
 		child->position = Vector2{ rotPos.x, rotPos.y } + parent.position;
 
-		child->scale = { parent.scale.x * child->localScale.x, parent.scale.y * child->localScale.y };
+		child->scale = Vector2{ parent.scale.x * child->localScale.x, parent.scale.y * child->localScale.y };
 		if (!child->childsList.empty())
 		{
 			UpdateChildTransform(*child);
 		}
 	}
+}
+
+void Transform::SetParentIsTranslation(Transform& transform)
+{
+	Transform* topParent = transform.parent;
+	while (topParent->parent)
+	{
+		topParent = topParent->parent;
+	}
+	topParent->isTranslation = true;
 }
 
 void Transform::SetParent(Transform& parent)
@@ -77,4 +94,99 @@ void Transform::SetParent(void* ptr)
 			}
 		}
 	}
+}
+
+void Transform::TVector2::InitTVector2(Transform* thisTransform)
+{
+	if (!pTransform)
+	{
+		pTransform = thisTransform;
+	}
+}
+
+Transform::TVector2::TVector2(const Vector2& other)
+{
+	this->x = other.x;
+	this->y = other.y;
+}
+
+Vector2& Transform::TVector2::operator=(const Vector2& other)
+{
+	if (!pTransform->parent)
+	{
+		pTransform->isTranslation = true;
+		return Vector2::operator=(other);
+	}
+	else
+	{
+		SetParentIsTranslation(*pTransform);
+		return Vector2::operator=(other);
+	}	
+}
+
+Vector2& Transform::TVector2::operator+=(const Vector2& other)
+{
+	if (!pTransform->parent)
+	{
+		pTransform->isTranslation = true;
+		return Vector2::operator+=(other);
+	}
+	else
+	{
+		SetParentIsTranslation(*pTransform);
+		return Vector2::operator+=(other);
+	}
+}
+
+Vector2& Transform::TVector2::operator-=(const Vector2& other)
+{
+	if (!pTransform->parent)
+	{
+		pTransform->isTranslation = true;
+		return Vector2::operator-=(other);
+	}
+	else
+	{
+		SetParentIsTranslation(*pTransform);
+		return Vector2::operator-=(other);
+	}
+}
+
+void Transform::TFloat::InitTFloat(Transform* thisTransform)
+{
+	if (!pTransform)
+	{
+		pTransform = thisTransform;
+	}
+}
+
+Transform::TFloat::TFloat(const float& rotation)
+{	
+	this->angle = rotation;
+}
+
+Transform::TFloat::operator float() const
+{
+	return this->angle;
+}
+
+float& Transform::TFloat::operator=(const float rotation)
+{
+	pTransform->isTranslation = true;
+	this->angle = rotation;
+	return this->angle;
+}
+
+float& Transform::TFloat::operator+=(const float rotation)
+{
+	pTransform->isTranslation = true;
+	this->angle += rotation;
+	return this->angle;
+}
+
+float& Transform::TFloat::operator-=(const float rotation)
+{
+	pTransform->isTranslation = true;
+	this->angle -= rotation;
+	return this->angle;
 }
