@@ -452,7 +452,7 @@ D2D1_VECTOR_2F D2DRenderer::GetRectOrigin(D2D1_RECT_F& rect, const float angle)
 		point[i] = GetRotatedPoint(point[i], angle);
 	}
 
-	return D2D1_VECTOR_2F{ (point[1].x - point[0].x) * 0.5f,  (point[1].y - point[0].y) * 0.5f };
+	return D2D1_VECTOR_2F{ (point[1].x - point[0].x) * 0.5f, (point[1].y - point[0].y) * 0.5f};
 }
 
 D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position)

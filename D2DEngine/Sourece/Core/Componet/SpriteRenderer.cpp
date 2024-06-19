@@ -1,5 +1,6 @@
 #include "Core/Componet/SpriteRenderer.h"
 #include "Framework/D2DRenderer.h"
+#include "Framework/WinGameApp.h"
 #include "Core/GameObject/GameObjectBase.h"
 #undef LoadImage
 
@@ -33,7 +34,7 @@ void SpriteRenderer::Render()
 		Vector2& position = gameobject.transform().position; 
 		Vector2& scale = gameobject.transform().scale;
 		float angle = gameobject.transform().rotation;
-		D2DRenderer::DrawBitmap(image, { position.x, position.y }, { scale.x, scale.y }, angle);
+		D2DRenderer::DrawBitmap(image, { position.x, WinGameApp::GetClientSize().cy - position.y}, {scale.x, scale.y}, -angle);
 	} 
 }
 

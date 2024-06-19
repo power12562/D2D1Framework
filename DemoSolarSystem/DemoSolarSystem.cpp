@@ -30,7 +30,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 	GameObjectBase* earth = new GameObjectBase;
 	earth->transform().SetParent(sun->transform());
-	earth->transform().localPosition = Vector2{-300, 0};
+	earth->transform().localPosition = Vector2{300, 0};
 	sprite = earth->AddComponent<SpriteRenderer>();
 	sprite->LoadImage(L"Resource/earth.png");
 
@@ -76,6 +76,24 @@ void DemoSolarSystem::Update()
 	gameObjectList[1]->transform().rotation += sunRotSpeed * Time.GetDeltatime();
 	gameObjectList[2]->transform().localRotation += earthRotSpeed * Time.GetDeltatime();
 	gameObjectList[3]->transform().localRotation += moonRotSpeed * Time.GetDeltatime();	
+
+	if (Input.IsKey(KeyCode::UpArrow))
+	{
+		gameObjectList[1]->transform().position += Vector2::Up *sunMovespeed * Time.GetDeltatime();
+	}
+	else if (Input.IsKey(KeyCode::DownArrow))
+	{
+		gameObjectList[1]->transform().position += Vector2::Down * sunMovespeed * Time.GetDeltatime();
+	}
+	if (Input.IsKey(KeyCode::LeftArrow))
+	{
+		gameObjectList[1]->transform().position += Vector2::Left * sunMovespeed * Time.GetDeltatime();
+	}
+	else if (Input.IsKey(KeyCode::RightArrow))
+	{
+		gameObjectList[1]->transform().position += Vector2::Right * sunMovespeed * Time.GetDeltatime();
+	}
+
 }
 
 void DemoSolarSystem::Render()
