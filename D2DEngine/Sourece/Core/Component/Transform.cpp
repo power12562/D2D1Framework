@@ -1,4 +1,4 @@
-#include "Core/Componet/Transform.h"
+#include "Core/Component/Transform.h"
 #include "Framework/D2DRenderer.h"
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)

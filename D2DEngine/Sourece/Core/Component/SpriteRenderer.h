@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Componet/Base/ComponentBase.h"
+#include "Core/Component/Base/ComponentBase.h"
 #include <Windows.h>
 #include <list>
 #undef LoadImage
