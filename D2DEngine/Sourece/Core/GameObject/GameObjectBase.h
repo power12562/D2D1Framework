@@ -16,10 +16,10 @@ public:
 	Transform& transform();
 
 	/** 컴포넌트를 오브젝트에 추가합니다.*/
-	template <typename T> T* AddComponent();
+	template <typename T> void AddComponent();
 
 	/** 컴포넌트를 가져옵니다.*/
-	template <typename T> T* GetComponent();
+	template <typename T> T& GetComponent();
 	
 private:	
 	Transform* pTransform;
@@ -27,7 +27,7 @@ private:
 };
 
 
-template<typename T> inline T* GameObjectBase::AddComponent()
+template<typename T> inline void GameObjectBase::AddComponent()
 {
 	// T가 ComponentBase로부터 상속받는지 확인
 	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
@@ -36,19 +36,15 @@ template<typename T> inline T* GameObjectBase::AddComponent()
 	if (component)
 	{
 		componentsList.push_back(component);
-
-		return component;
 	}
-
-	return nullptr;
 }
 
-template<typename T> inline T* GameObjectBase::GetComponent()
+template<typename T> inline T& GameObjectBase::GetComponent()
 {
 	T* component = nullptr;
 	for (auto& parentComponent : componentsList)
 	{
 		component = dynamic_cast<T*>(parentComponent);
 	}
-	return component;
+	return *component;
 }

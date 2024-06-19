@@ -18,28 +18,28 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 	GameObjectBase* bg = new GameObjectBase;
 	bg->transform().position = Vector2{screenSize.cx * 0.5f, screenSize.cy * 0.5f};
-	SpriteRenderer* sprite = bg->AddComponent<SpriteRenderer>();
-	sprite->LoadImage(L"Resource/bg.png");
+	bg->AddComponent<SpriteRenderer>();
+	bg->GetComponent<SpriteRenderer>().LoadImage(L"Resource/bg.png");
 
 	GameObjectBase* sun = new GameObjectBase;
 	sun->transform().scale = Vector2{0.3f, 0.3f};
 	sun->transform().position = Vector2{screenSize.cx * 0.5f, screenSize.cy * 0.5f};
 	sun->transform().rotation = 0;
-	sprite = sun->AddComponent<SpriteRenderer>();
-	sprite->LoadImage(L"Resource/Sun.png");
+	sun->AddComponent<SpriteRenderer>();
+	sun->GetComponent<SpriteRenderer>().LoadImage(L"Resource/Sun.png");
 
 	GameObjectBase* earth = new GameObjectBase;
 	earth->transform().SetParent(sun->transform());
 	earth->transform().localPosition = Vector2{300, 0};
-	sprite = earth->AddComponent<SpriteRenderer>();
-	sprite->LoadImage(L"Resource/earth.png");
+	earth->AddComponent<SpriteRenderer>();
+	earth->GetComponent<SpriteRenderer>().LoadImage(L"Resource/earth.png");
 
 	GameObjectBase* moon = new GameObjectBase;
 	moon->transform().SetParent(earth->transform());
 	moon->transform().localScale = Vector2{2.0f, 2.0f};
 	moon->transform().localPosition = Vector2{150, 0};
-	sprite = moon->AddComponent<SpriteRenderer>();
-	sprite->LoadImage(L"Resource/moon.png");
+	moon->AddComponent<SpriteRenderer>();
+	moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");
 
 	gameObjectList.push_back(bg); //0
 	gameObjectList.push_back(sun); //1
