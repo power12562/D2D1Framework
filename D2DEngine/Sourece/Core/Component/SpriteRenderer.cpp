@@ -31,10 +31,7 @@ void SpriteRenderer::Render()
 		return;
 	else if(enabled)
 	{
-		Vector2& position = gameobject.transform().position; 
-		Vector2& scale = gameobject.transform().scale;
-		float angle = gameobject.transform().rotation;
-		D2DRenderer::DrawBitmap(image, { position.x, WinGameApp::GetClientSize().cy - position.y}, {scale.x, scale.y}, -angle);
+		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix());
 	} 
 }
 
@@ -57,6 +54,8 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 		image = nullptr;
 	}
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
+	auto size = image->GetSize();
+	gameobject.transform().pivot = Vector2{ size.width * 0.5f, size.height * 0.5f};
 
 	if (lastLoadPath == nullptr || wcscmp(path, lastLoadPath))
 	{

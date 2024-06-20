@@ -43,7 +43,7 @@ public:
 	static ID2D1Bitmap* CreateD2DBitmapFromFile(const wchar_t* filePath);
 
 	/** 비트맵 그리기*/
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1::Matrix3x2F& worldMatrix);
 
 	/** Vertex 회전 위치 리턴*/
 	static D2D1_VECTOR_2F GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle);
@@ -74,8 +74,6 @@ private:
 	static D2D1_VECTOR_2F GetRectOrigin(D2D1_RECT_F& rect, const float angle);
 
 	static D2D1_SIZE_F GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
-
-	static void DrawBitmap_(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_SIZE_F& position, const D2D1_SIZE_F& scale, const float angle, const D2D1_POINT_2F& rotPoint);
 };
 
 

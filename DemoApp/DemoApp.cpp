@@ -66,7 +66,7 @@ void DemoApp::Render()
 		D2D1_VECTOR_2F size = { (bounds.right - bounds.left) * bit1scale, (bounds.bottom - bounds.top) * bit1scale };
 		
 		D2DRenderer::DrawRect(D2D1_VECTOR_2F{ clientSize.width * 0.5f,  clientSize.height * 0.5f }, D2D1_SIZE_F{ size.x, size.y }, ColorF(ColorF::Black), false);
-		D2DRenderer::DrawBitmap(testBitmap1, { clientSize.width * 0.5f,  clientSize.height * 0.5f }, { bit1scale, bit1scale }, elapsedAngle);
+		D2DRenderer::DrawBitmap(testBitmap1, Matrix3x2F::Scale(bit1scale, bit1scale) * Matrix3x2F::Rotation(elapsedAngle) * Matrix3x2F::Translation(clientSize.width * 0.5f, clientSize.height * 0.5f));
 	}
 
 	static float elapsedTime = Time.GetDeltatime();

@@ -3,13 +3,23 @@
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
+	using namespace D2D1;
+
 	position.InitTVector2(this);
 	rotation.InitTFloat(this);
 	scale.InitTVector2(this);
 	
+	pivot.InitTVector2(this);
+	mPivot = Matrix3x2F::Identity();
+	
 	localPosition.InitTVector2(this);
+	mPosition = Matrix3x2F::Identity();
+
 	localRotation.InitTFloat(this);
+	mRotation = Matrix3x2F::Identity();
+
 	localScale.InitTVector2(this);	
+	mScale = Matrix3x2F::Identity();
 }
 
 Transform::~Transform()
@@ -18,9 +28,15 @@ Transform::~Transform()
 
 void Transform::Update()
 {
-	if (isTranslation && !parent && !childsList.empty())
+	if (isTranslation && !childsList.empty())
 	{
+		UpdateWorldMatrix();
 		UpdateChildTransform(*this);
+		isTranslation = false;
+	}
+	else if(isTranslation)
+	{
+		UpdateWorldMatrix();
 		isTranslation = false;
 	}
 }
@@ -34,12 +50,7 @@ void Transform::UpdateChildTransform(Transform& parent)
 {
 	for (auto& child : parent.childsList)
 	{
-		child->rotation = parent.rotation + child->localRotation;
-
-		D2D1_VECTOR_2F rotPos = D2DRenderer::GetRotatedPoint({ child->localPosition.x, child->localPosition.y }, parent.rotation);
-		child->position = Vector2{ rotPos.x, rotPos.y } + parent.position;
-
-		child->scale = Vector2{ parent.scale.x * child->localScale.x, parent.scale.y * child->localScale.y };
+		child->UpdateWorldMatrix();
 		if (!child->childsList.empty())
 		{
 			UpdateChildTransform(*child);
@@ -55,6 +66,36 @@ void Transform::SetParentIsTranslation(Transform& transform)
 		topParent = topParent->parent;
 	}
 	topParent->isTranslation = true;
+}
+
+void Transform::UpdateWorldMatrix()
+{
+	using namespace D2D1;
+
+	if (!parent)
+	{
+		mScale = Matrix3x2F::Scale(scale.x, scale.y);
+		mRotation = Matrix3x2F::Rotation(-rotation);
+		mPosition = Matrix3x2F::Translation(position.x - pivot.x, position.y - pivot.y);
+		mPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
+		mInvertPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
+		mInvertPivot.Invert();
+	}
+	else if (parent)
+	{
+		mScale = Matrix3x2F::Scale(localScale.x, localScale.y);
+		mRotation = Matrix3x2F::Rotation(-localRotation);
+		mPosition = Matrix3x2F::Translation(localPosition.x - pivot.x, localPosition.y - pivot.y);
+		mPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
+		mInvertPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
+		mInvertPivot.Invert();
+	}
+	
+	worldMatrix = mInvertPivot * mScale * mRotation * mPosition * mPivot;
+	if (parent)
+	{
+		worldMatrix = worldMatrix * parent->worldMatrix;
+	}
 }
 
 void Transform::SetParent(Transform& parent)
@@ -96,11 +137,11 @@ void Transform::SetParent(void* ptr)
 	}
 }
 
-void Transform::TVector2::InitTVector2(Transform* thisTransform)
+void Transform::TVector2::InitTVector2(Transform* _thisTransform)
 {
-	if (!pTransform)
+	if (!thisTransform)
 	{
-		pTransform = thisTransform;
+		thisTransform = _thisTransform;
 	}
 }
 
@@ -112,51 +153,56 @@ Transform::TVector2::TVector2(const Vector2& other)
 
 Vector2& Transform::TVector2::operator=(const Vector2& other)
 {
-	if (!pTransform->parent)
-	{
-		pTransform->isTranslation = true;
-		return Vector2::operator=(other);
-	}
-	else
-	{
-		SetParentIsTranslation(*pTransform);
-		return Vector2::operator=(other);
-	}	
+	return SetTVector(other);
 }
 
 Vector2& Transform::TVector2::operator+=(const Vector2& other)
 {
-	if (!pTransform->parent)
-	{
-		pTransform->isTranslation = true;
-		return Vector2::operator+=(other);
-	}
-	else
-	{
-		SetParentIsTranslation(*pTransform);
-		return Vector2::operator+=(other);
-	}
+	return SetTVector(*this + other);
 }
 
 Vector2& Transform::TVector2::operator-=(const Vector2& other)
 {
-	if (!pTransform->parent)
+	return SetTVector(*this - other);
+}
+
+Vector2& Transform::TVector2::SetTVector(const Vector2& other)
+{
+	thisTransform->isTranslation = true;
+	if (this == &(thisTransform->localPosition))
 	{
-		pTransform->isTranslation = true;
-		return Vector2::operator-=(other);
+		assert(thisTransform->parent && "부모가 없는 Transform은 local을 변경할 수 없습니다.");		
+		return Vector2::operator=(other);
 	}
-	else
+	else if(this == &(thisTransform->pivot))
 	{
-		SetParentIsTranslation(*pTransform);
-		return Vector2::operator-=(other);
+		return Vector2::operator=(other);
+	}
+	else if (this == &(thisTransform->scale))
+	{
+		return  Vector2::operator=(other);
+	}
+	else if (this == &(thisTransform->position))
+	{
+		if (thisTransform->parent)
+		{
+			//추가 필요
+			
+
+			return thisTransform->position;
+		}
+		else
+		{
+			return  Vector2::operator=(other);
+		}
 	}
 }
 
-void Transform::TFloat::InitTFloat(Transform* thisTransform)
+void Transform::TFloat::InitTFloat(Transform* _thisTransform)
 {
-	if (!pTransform)
+	if (!thisTransform)
 	{
-		pTransform = thisTransform;
+		thisTransform = _thisTransform;
 	}
 }
 
@@ -170,23 +216,48 @@ Transform::TFloat::operator float() const
 	return this->angle;
 }
 
-float& Transform::TFloat::operator=(const float rotation)
+float& Transform::TFloat::operator=(const float& rotation)
 {
-	pTransform->isTranslation = true;
-	this->angle = rotation;
+	SetAngle(rotation);
 	return this->angle;
 }
 
-float& Transform::TFloat::operator+=(const float rotation)
+float& Transform::TFloat::operator+=(const float& rotation)
 {
-	pTransform->isTranslation = true;
-	this->angle += rotation;
+	SetAngle(angle + rotation);
 	return this->angle;
 }
 
-float& Transform::TFloat::operator-=(const float rotation)
+float& Transform::TFloat::operator-=(const float& rotation)
 {
-	pTransform->isTranslation = true;
-	this->angle -= rotation;
+	SetAngle(angle - rotation);
 	return this->angle;
+}
+
+void Transform::TFloat::SetAngle(const float& rotation)
+{	
+
+	thisTransform->isTranslation = true;
+	if (this == &(thisTransform->localRotation))
+	{
+		assert(thisTransform->parent && "부모가 없는 Transform은 local을 변경할 수 없습니다.");
+		this->angle = rotation;
+		return;
+	}
+	else if (this == &(thisTransform->localRotation))
+	{
+		this->angle = rotation;
+	}
+	else if (this == &(thisTransform->rotation))
+	{
+		if (thisTransform->parent)
+		{
+			//추가 필요
+
+		}
+		else
+		{
+			this->angle = rotation;
+		}
+	}
 }

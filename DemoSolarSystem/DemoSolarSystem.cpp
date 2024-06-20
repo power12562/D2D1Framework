@@ -27,23 +27,23 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 	sun->transform().rotation = 0;
 	sun->AddComponent<SpriteRenderer>();
 	sun->GetComponent<SpriteRenderer>().LoadImage(L"Resource/Sun.png");
-
+	
 	GameObjectBase* earth = new GameObjectBase;
 	earth->transform().SetParent(sun->transform());
-	earth->transform().localPosition = Vector2{300, 0};
+	earth->transform().localPosition = Vector2{1000.f, 0.f};
 	earth->AddComponent<SpriteRenderer>();
 	earth->GetComponent<SpriteRenderer>().LoadImage(L"Resource/earth.png");
 
 	GameObjectBase* moon = new GameObjectBase;
 	moon->transform().SetParent(earth->transform());
-	moon->transform().localScale = Vector2{2.0f, 2.0f};
-	moon->transform().localPosition = Vector2{150, 0};
+	moon->transform().scale = Vector2{2.0f, 2.0f};
+	moon->transform().localPosition = Vector2{500.f, 0.f};
 	moon->AddComponent<SpriteRenderer>();
 	moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");
 
 	gameObjectList.push_back(bg); //0
 	gameObjectList.push_back(sun); //1
-	gameObjectList.push_back(earth); //2
+	gameObjectList.push_back(earth); //2z
 	gameObjectList.push_back(moon); //3
 }
 
@@ -65,8 +65,6 @@ void DemoSolarSystem::Update()
 	static const float earthRotSpeed = -40.f;
 	static const float moonRotSpeed = 60.f;
 
-	gameObjectList[2]->transform().position = Vector2{ 320, 512 };
-
 	printf("%.0f\n", Time.GetFrameRate());
 	for (auto& obj : gameObjectList)
 	{
@@ -75,7 +73,7 @@ void DemoSolarSystem::Update()
 
 	gameObjectList[1]->transform().rotation += sunRotSpeed * Time.GetDeltatime();
 	gameObjectList[2]->transform().localRotation += earthRotSpeed * Time.GetDeltatime();
-	gameObjectList[3]->transform().localRotation += moonRotSpeed * Time.GetDeltatime();	
+	gameObjectList[3]->transform().localRotation += moonRotSpeed * Time.GetDeltatime();
 
 	if (Input.IsKey(KeyCode::UpArrow))
 	{
