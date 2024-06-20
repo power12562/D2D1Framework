@@ -310,32 +310,10 @@ ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position)
-{
-	DrawBitmap_(ID2D1Bitmap, GetDrawPos(ID2D1Bitmap, position));
-}
-
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale)
-{
-	DrawBitmap_(ID2D1Bitmap, GetDrawPos(ID2D1Bitmap, position, scale), D2D1_SIZE_F{scale.x, scale.y});
-}
-
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const float angle)
-{
-	D2D1_SIZE_F dwPos = GetDrawPos(ID2D1Bitmap, position, angle);
-	DrawBitmap_(ID2D1Bitmap, dwPos, angle, { position.x - dwPos.width, position.y - dwPos.height });
-}
-
 void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle)
 {
 	D2D1_SIZE_F dwPos = GetDrawPos(ID2D1Bitmap, position, scale, angle);
 	DrawBitmap_(ID2D1Bitmap, dwPos, D2D1_SIZE_F{ scale.x, scale.y }, angle, { position.x - dwPos.width, position.y - dwPos.height });
-}
-
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle, D2D1_POINT_2F& rotPoint)
-{
-	D2D1_SIZE_F dwPos = GetDrawPos(ID2D1Bitmap, position, scale, angle);
-	DrawBitmap_(ID2D1Bitmap, dwPos, D2D1_SIZE_F{ scale.x, scale.y }, angle, { rotPoint.x - dwPos.width,  rotPoint.y - dwPos.height });
 }
 
 D2D1_VECTOR_2F D2DRenderer::GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle)
@@ -455,50 +433,6 @@ D2D1_VECTOR_2F D2DRenderer::GetRectOrigin(D2D1_RECT_F& rect, const float angle)
 	return D2D1_VECTOR_2F{ (point[1].x - point[0].x) * 0.5f, (point[1].y - point[0].y) * 0.5f};
 }
 
-D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position)
-{
-	D2D1_SIZE_F size = ID2D1Bitmap->GetSize();
-
-	float halfWidth = size.width * 0.5f;
-	float halfHeight = size.height * 0.5f;
-
-	D2D1_SIZE_F drPos{ position.x - halfWidth, position.y - halfHeight };
-
-	return drPos;
-}
-
-D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale)
-{
-	D2D1_SIZE_F size = ID2D1Bitmap->GetSize();
-
-	size.width *= scale.x;
-	size.height *= scale.y;
-
-	float halfWidth = size.width * 0.5f;
-	float halfHeight = size.height * 0.5f;
-
-	D2D1_SIZE_F drPos{ position.x - halfWidth, position.y - halfHeight };
-
-	return drPos;
-}
-
-D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const float angle)
-{
-	D2D1_SIZE_F size = ID2D1Bitmap->GetSize();
-
-	D2D1_VECTOR_2F halfSize{ size.width * 0.5f, size.height * 0.5f };
-
-	D2D1_RECT_F rect{0, 0, halfSize.x, halfSize.y};
-	GetRectOrigin(rect, angle);
-
-	halfSize.x = rect.right - rect.left;
-	halfSize.y = rect.bottom - rect.top;
-
-	D2D1_SIZE_F drPos{ position.x - halfSize.x, position.y - halfSize.y };
-
-	return drPos;
-}
-
 D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle)
 {
 	D2D1_SIZE_F size = ID2D1Bitmap->GetSize();
@@ -514,37 +448,6 @@ D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR
 	D2D1_SIZE_F drPos{ position.x - halfSize.x, position.y - halfSize.y };
 
 	return drPos;
-}
-
-void D2DRenderer::DrawBitmap_(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_SIZE_F& position)
-{
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
-	pRenderTarget->SetTransform(Matrix3x2F::Translation(position));
-
-	pRenderTarget->DrawBitmap(ID2D1Bitmap);
-
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
-}
-
-void D2DRenderer::DrawBitmap_(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_SIZE_F& position, const D2D1_SIZE_F& scale)
-{
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
-	pRenderTarget->SetTransform(Matrix3x2F::Scale(scale, Point2F(0, 0)));
-	pRenderTarget->SetTransform(Matrix3x2F::Translation(position));
-
-	pRenderTarget->DrawBitmap(ID2D1Bitmap);
-
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
-}
-
-void D2DRenderer::DrawBitmap_(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_SIZE_F& position, const float angle, const D2D1_POINT_2F& rotPoint)
-{
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
-	pRenderTarget->SetTransform(Matrix3x2F::Rotation(angle, rotPoint) * (Matrix3x2F::Translation(position)));
-
-	pRenderTarget->DrawBitmap(ID2D1Bitmap);
-
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
 }
 
 void D2DRenderer::DrawBitmap_(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_SIZE_F& position, const D2D1_SIZE_F& scale, const float angle, const D2D1_POINT_2F& rotPoint)

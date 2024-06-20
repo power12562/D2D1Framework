@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
-#include "Core/Componet/Base/ComponentBase.h"
-#include "Core/Componet/Transform.h"
+#include "Core/Component/Base/ComponentBase.h"
+#include "Core/Component/Transform.h"
 
 class GameObjectBase
 {

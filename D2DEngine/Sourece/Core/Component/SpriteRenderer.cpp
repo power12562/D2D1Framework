@@ -1,4 +1,4 @@
-#include "Core/Componet/SpriteRenderer.h"
+#include "Core/Component/SpriteRenderer.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
 #include "Core/GameObject/GameObjectBase.h"
