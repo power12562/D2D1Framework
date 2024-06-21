@@ -54,8 +54,22 @@ public:
 	static float DegToRad(const float degree);
 	static float RadToDeg(const float radian);
 
-	/** 그릴 폰트를 생성합니다. 설치된 폰트만 사용 가능합니다.*/
-	static IDWriteTextFormat* CreateD2DFont(const wchar_t* fontName, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, float fontSize);
+	/**
+	 * @brief 폰트정보의 포인터를 생성합니다. 설치된 폰트만 사용 가능합니다.
+	 * @param fontName : 사용할 폰트 이름.
+	 * @param fontWeight : 텍스트 개체의 글꼴 두께 값입니다.
+	 * @param fontStyle : 글꼴 스타일을 나타내는 값입니다.
+	 * @param fontStretch : 글꼴 스트레치를 나타내는 값입니다.
+	 * @param fontSize : DIP 단위로 된 글꼴의 논리적 크기입니다. DIP는 1/96 인치와 같습니다.
+	 * @return 생성된 폰트의 정보를 가지고 있는 포인터 객체.
+	 */
+	static IDWriteTextFormat* CreateD2DFont(
+		const wchar_t* fontName, 
+		float fontSize = 30.f,
+		DWRITE_FONT_WEIGHT fontWeight = DWRITE_FONT_WEIGHT_THIN,
+		DWRITE_FONT_STYLE fontStyle = DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH fontStretch = DWRITE_FONT_STRETCH_NORMAL	
+	);
 
 	/** 폰트 그리기.*/
 	static void DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, D2D1_RECT_F drawRect, D2D1_COLOR_F color = D2D1::ColorF(D2D1::ColorF::Black));

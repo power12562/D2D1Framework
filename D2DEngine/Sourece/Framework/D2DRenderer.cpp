@@ -376,7 +376,7 @@ float D2DRenderer::RadToDeg(const float radian)
 	return DirectX::XMConvertToDegrees(radian);
 }
 
-IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, float fontSize)
+IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fontSize, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch)
 {
 	IDWriteTextFormat* pDWriteTextFormat = nullptr;
 
@@ -394,7 +394,7 @@ IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, DWRITE_FO
 	if (FAILED(hr))
 	{
 		_com_error err(hr);
-		::MessageBox(GetActiveWindow(), err.ErrorMessage(), L"Error InitDirect2D", MB_OK);
+		::MessageBox(GetActiveWindow(), err.ErrorMessage(), L"Error CreateD2DFont", MB_OK);
 		return nullptr;
 	}
 

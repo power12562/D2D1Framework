@@ -3,6 +3,7 @@
 #include "Core/GameObject/GameObjectBase.h"
 #include "Framework/InputSystem.h"
 #include "Framework/TimeSystem.h"
+#include "Framework/D2DRenderer.h"
 
 DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 {
@@ -43,7 +44,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 	gameObjectList.push_back(bg); //0
 	gameObjectList.push_back(sun); //1
-	gameObjectList.push_back(earth); //2z
+	gameObjectList.push_back(earth); //2
 	gameObjectList.push_back(moon); //3
 }
 
@@ -100,4 +101,10 @@ void DemoSolarSystem::Render()
 	{
 		obj->Render();
 	}
+	static auto textFont = D2DRenderer::CreateD2DFont(L"Consolas", 40.f);
+	wchar_t objPos[45];
+	const Vector2& debugPos = gameObjectList[1]->transform().position;
+	swprintf_s(objPos, _ARRAYSIZE(objPos), L"position.x : %.03f\nposition.y : %.03f", debugPos.x, debugPos.y);
+	D2DRenderer::DrawTextW(objPos, textFont, {0,0,500,500}, D2D1::ColorF(D2D1::ColorF::AliceBlue));
+	
 }
