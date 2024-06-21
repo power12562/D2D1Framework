@@ -1,123 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일\Framework">
-      <UniqueIdentifier>{0a89b715-b603-42fc-bcc6-bb979fb1219e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Framework">
-      <UniqueIdentifier>{df988be2-c603-4c32-9bf1-a29dcf6adb76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Vector">
-      <UniqueIdentifier>{1319109b-1504-41b9-9a8e-725368b5be13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Vector">
-      <UniqueIdentifier>{cbf8426b-adc7-40fa-af08-e958288b1d58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Math">
-      <UniqueIdentifier>{330e65d6-38f3-43e0-b7b3-2c91689e6d28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Math">
-      <UniqueIdentifier>{fb200aae-e6d7-435a-9bf6-9ca71acb809d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Core">
-      <UniqueIdentifier>{34560aaa-7071-46d5-91da-e8a7321dd4a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Core\GameObject">
-      <UniqueIdentifier>{a39bdf18-3140-433b-8fe1-dcefcd74d068}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Core">
-      <UniqueIdentifier>{a3bd7ced-b53c-4bff-bfcb-d4975c2e83ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Core\GameObject">
-      <UniqueIdentifier>{0017186f-4e73-489e-b30a-66f8fd334802}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Core\Component">
-      <UniqueIdentifier>{0920ddd6-8042-41a2-8970-e737dc7a4563}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Core\Component">
-      <UniqueIdentifier>{d3ad0c40-6218-41e9-a953-25a3a6778a04}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Core\Component\Base">
-      <UniqueIdentifier>{1c7a23aa-e176-4e1c-8ffb-b08239450ab7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Core\Component\Base">
-      <UniqueIdentifier>{58b60930-684d-4f71-abbd-b2bdfd71121b}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp" />
+    <ClCompile Include="Sourece\Core\Component\Transform.cpp" />
+    <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp" />
+    <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
+    <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
+    <ClCompile Include="Sourece\Framework\TimeSystem.cpp" />
+    <ClCompile Include="Sourece\Framework\WinGameApp.cpp" />
+    <ClCompile Include="Sourece\Math\Mathf.cpp" />
+    <ClCompile Include="Sourece\Vector\Vector2.cpp" />
+    <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sourece\Framework\D2DRenderer.cpp">
-      <Filter>소스 파일\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Framework\TimeSystem.cpp">
-      <Filter>소스 파일\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Framework\WinGameApp.cpp">
-      <Filter>소스 파일\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Vector\Vector2.cpp">
-      <Filter>소스 파일\Vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Framework\InputSystem.cpp">
-      <Filter>소스 파일\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Math\Mathf.cpp">
-      <Filter>소스 파일\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp">
-      <Filter>소스 파일\Core\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp">
-      <Filter>소스 파일\Core\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Core\Component\Transform.cpp">
-      <Filter>소스 파일\Core\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp">
-      <Filter>소스 파일\Core\Component\Base</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Sourece\Framework\D2DRenderer.h">
-      <Filter>헤더 파일\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Framework\TimeSystem.h">
-      <Filter>헤더 파일\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Framework\WinGameApp.h">
-      <Filter>헤더 파일\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Vector\Vector2.h">
-      <Filter>헤더 파일\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Framework\InputSystem.h">
-      <Filter>헤더 파일\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Math\Mathf.h">
-      <Filter>헤더 파일\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h">
-      <Filter>헤더 파일\Core\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h">
-      <Filter>헤더 파일\Core\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Core\Component\Transform.h">
-      <Filter>헤더 파일\Core\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h">
-      <Filter>헤더 파일\Core\Component\Base</Filter>
-    </ClInclude>
+    <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
+    <ClInclude Include="Sourece\Core\Component\Transform.h" />
+    <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h" />
+    <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
+    <ClInclude Include="Sourece\Framework\InputSystem.h" />
+    <ClInclude Include="Sourece\Framework\TimeSystem.h" />
+    <ClInclude Include="Sourece\Framework\WinGameApp.h" />
+    <ClInclude Include="Sourece\Math\Mathf.h" />
+    <ClInclude Include="Sourece\Vector\Vector2.h" />
+    <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h" />
   </ItemGroup>
 </Project>

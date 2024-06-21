@@ -72,11 +72,13 @@ void Transform::UpdateWorldMatrix()
 {
 	using namespace D2D1;
 
+	const D2D_SIZE_F& ScreenSize = D2DRenderer::GetRenderTarget().GetSize();
+
 	if (!parent)
 	{
 		mScale = Matrix3x2F::Scale(scale.x, scale.y);
 		mRotation = Matrix3x2F::Rotation(-rotation);
-		mPosition = Matrix3x2F::Translation(position.x - pivot.x, position.y - pivot.y);
+		mPosition = Matrix3x2F::Translation(position.x - pivot.x, ScreenSize.height - position.y - pivot.y);
 		mPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
 		mInvertPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
 		mInvertPivot.Invert();
@@ -193,7 +195,7 @@ Vector2& Transform::TVector2::SetTVector(const Vector2& other)
 		}
 		else
 		{
-			return  Vector2::operator=(other);
+			return Vector2::operator=(other);
 		}
 	}
 }
