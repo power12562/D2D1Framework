@@ -102,8 +102,8 @@ void DemoSolarSystem::Render()
 		obj->Render();
 	}
 	static auto textFont = D2DRenderer::CreateD2DFont(L"Consolas", 40.f);
-	wchar_t objPos[45];
-	const Vector2& debugPos = gameObjectList[1]->transform().position;
+	wchar_t objPos[45];	
+	const Vector2 debugPos = gameObjectList[1]->transform().position;
 	swprintf_s(objPos, _ARRAYSIZE(objPos), L"position.x : %.03f\nposition.y : %.03f", debugPos.x, debugPos.y);
 	D2DRenderer::DrawTextW(objPos, textFont, {0,0,500,500}, D2D1::ColorF(D2D1::ColorF::AliceBlue));
 	

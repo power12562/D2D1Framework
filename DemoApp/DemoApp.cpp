@@ -29,7 +29,7 @@ void DemoApp::Render()
 
 	static D2D1_SIZE_F clientSize = D2DRenderer::GetRenderTarget().GetSize();
 	static ID2D1Bitmap* testBitmap1 = D2DRenderer::CreateD2DBitmapFromFile(L"Resource/test.png");
-	static IDWriteTextFormat* fontFormat = D2DRenderer::CreateD2DFont(L"Consolelas", DWRITE_FONT_WEIGHT_NORMAL,DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, fontSize);
+	static IDWriteTextFormat* fontFormat = D2DRenderer::CreateD2DFont(L"Consolelas", fontSize, DWRITE_FONT_WEIGHT_NORMAL,DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL);
 
 	D2DRenderer::Clear(ColorF(ColorF::Violet));
 	D2DRenderer::DrawLine({ 0, clientSize.height * 0.5f }, { clientSize.width, clientSize.height * 0.5f }, ColorF(ColorF::Blue), 15.f);
@@ -48,7 +48,7 @@ void DemoApp::Render()
 		D2DRenderer::InitDirect2D();
 		clientSize = D2DRenderer::GetRenderTarget().GetSize();
 		testBitmap1 = D2DRenderer::CreateD2DBitmapFromFile(L"Resource/test.png");
-		IDWriteTextFormat* fontFormat = D2DRenderer::CreateD2DFont(L"Cooper", DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, fontSize);
+		IDWriteTextFormat* fontFormat = D2DRenderer::CreateD2DFont(L"Cooper", fontSize, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL);
 	}
 	if (testBitmap1)
 	{
