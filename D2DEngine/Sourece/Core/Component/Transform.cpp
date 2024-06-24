@@ -1,25 +1,25 @@
 #include "Core/Component/Transform.h"
 #include "Framework/D2DRenderer.h"
+#include "Framework/WinGameApp.h"
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 	using namespace D2D1;
 
 	position.InitTVector2(this);
-	rotation.InitTFloat(this);
-	scale.InitTVector2(this);
-	
-	pivot.InitTVector2(this);
-	mPivot = Matrix3x2F::Identity();
-	
 	localPosition.InitTVector2(this);
 	mPosition = Matrix3x2F::Identity();
 
+	rotation.InitTFloat(this);
 	localRotation.InitTFloat(this);
 	mRotation = Matrix3x2F::Identity();
 
-	localScale.InitTVector2(this);	
+	scale.InitTVector2(this);
 	mScale = Matrix3x2F::Identity();
+	
+	pivot.InitTVector2(this);
+	mPivot = Matrix3x2F::Identity();	
+	
 }
 
 Transform::~Transform()
@@ -72,24 +72,24 @@ void Transform::UpdateWorldMatrix()
 {
 	using namespace D2D1;
 
-	const D2D_SIZE_F& ScreenSize = D2DRenderer::GetRenderTarget().GetSize();
+	const SIZE& ScreenSize = WinGameApp::GetClientSize();
 
 	if (!parent)
 	{
-		mScale = Matrix3x2F::Scale(scale.x, scale.y);
+		mScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
 		mRotation = Matrix3x2F::Rotation(-rotation);
-		mPosition = Matrix3x2F::Translation(position.x - pivot.x, ScreenSize.height - position.y - pivot.y);
-		mPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
-		mInvertPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
+		mPosition = Matrix3x2F::Translation(position.value.x - pivot.value.x, ScreenSize.cy - position.value.y - pivot.value.y);
+		mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
+		mInvertPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
 		mInvertPivot.Invert();
 	}
 	else if (parent)
 	{
-		mScale = Matrix3x2F::Scale(localScale.x, localScale.y);
+		mScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
 		mRotation = Matrix3x2F::Rotation(-localRotation);
-		mPosition = Matrix3x2F::Translation(localPosition.x - pivot.x, localPosition.y - pivot.y);
-		mPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
-		mInvertPivot = Matrix3x2F::Translation(pivot.x, pivot.y);
+		mPosition = Matrix3x2F::Translation(localPosition.value.x - pivot.value.x, localPosition.value.y - pivot.value.y);
+		mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
+		mInvertPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
 		mInvertPivot.Invert();
 	}
 	
@@ -97,6 +97,9 @@ void Transform::UpdateWorldMatrix()
 	if (parent)
 	{
 		worldMatrix = worldMatrix * parent->worldMatrix;
+		Vector2 translation = { worldMatrix._31, WinGameApp::GetClientSize().cy - worldMatrix._32 };		
+		position.value = translation;
+		rotation.angle = parent->rotation + localRotation;
 	}
 }
 
@@ -139,6 +142,47 @@ void Transform::SetParent(void* ptr)
 	}
 }
 
+Transform::TVector2::TVector2(const TVector2& other)
+{
+	value = other.value;
+}
+
+Transform::TVector2::TVector2(const Vector2& other)
+{
+	value = other;
+}
+
+
+Transform::TVector2::operator Vector2()
+{
+	return Vector2(value);
+}
+
+Vector2 Transform::TVector2::operator-(const Vector2& other)
+{
+	return value - other;
+}
+
+Vector2 Transform::TVector2::operator+(const Vector2& other)
+{
+	return value + other;
+}
+
+Transform::TVector2& Transform::TVector2::operator=(const Vector2& other)
+{
+	return SetTVector(other);
+}
+
+Transform::TVector2& Transform::TVector2::operator+=(const Vector2& other)
+{
+	return SetTVector(value + other);
+}
+
+Transform::TVector2& Transform::TVector2::operator-=(const Vector2& other)
+{
+	return SetTVector(value - other);
+}
+
 void Transform::TVector2::InitTVector2(Transform* _thisTransform)
 {
 	if (!thisTransform)
@@ -147,56 +191,34 @@ void Transform::TVector2::InitTVector2(Transform* _thisTransform)
 	}
 }
 
-Transform::TVector2::TVector2(const Vector2& other)
-{
-	this->x = other.x;
-	this->y = other.y;
-}
-
-Vector2& Transform::TVector2::operator=(const Vector2& other)
-{
-	return SetTVector(other);
-}
-
-Vector2& Transform::TVector2::operator+=(const Vector2& other)
-{
-	return SetTVector(*this + other);
-}
-
-Vector2& Transform::TVector2::operator-=(const Vector2& other)
-{
-	return SetTVector(*this - other);
-}
-
-Vector2& Transform::TVector2::SetTVector(const Vector2& other)
+Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 {
 	thisTransform->isTranslation = true;
 	if (this == &(thisTransform->localPosition))
 	{
-		assert(thisTransform->parent && "부모가 없는 Transform은 local을 변경할 수 없습니다.");		
-		return Vector2::operator=(other);
-	}
-	else if(this == &(thisTransform->pivot))
-	{
-		return Vector2::operator=(other);
-	}
-	else if (this == &(thisTransform->scale))
-	{
-		return  Vector2::operator=(other);
+		if (thisTransform->parent)
+		{
+			value.operator=(other);
+			return thisTransform->localPosition;
+		}
 	}
 	else if (this == &(thisTransform->position))
 	{
 		if (thisTransform->parent)
 		{
-			//추가 필요
-			
-
-			return thisTransform->position;
+			thisTransform->position.value = other;	
+			return *this;
 		}
 		else
 		{
-			return Vector2::operator=(other);
+			value.operator=(other);
+			return *this;
 		}
+	}
+	else
+	{
+		value.operator=(other);
+		return *this;
 	}
 }
 
@@ -238,28 +260,26 @@ float& Transform::TFloat::operator-=(const float& rotation)
 
 void Transform::TFloat::SetAngle(const float& rotation)
 {	
-
 	thisTransform->isTranslation = true;
 	if (this == &(thisTransform->localRotation))
 	{
-		assert(thisTransform->parent && "부모가 없는 Transform은 local을 변경할 수 없습니다.");
-		this->angle = rotation;
-		return;
-	}
-	else if (this == &(thisTransform->localRotation))
-	{
-		this->angle = rotation;
+		if (thisTransform->parent)
+		{
+			this->angle = rotation;
+			return;
+		}	
 	}
 	else if (this == &(thisTransform->rotation))
 	{
 		if (thisTransform->parent)
 		{
-			//추가 필요
-
+			this->angle = rotation;
+			return;
 		}
 		else
 		{
 			this->angle = rotation;
+			return;
 		}
 	}
 }

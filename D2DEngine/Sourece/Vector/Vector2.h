@@ -18,14 +18,14 @@ public:
 
 	Vector2 Normalized();
 
-	virtual Vector2& operator=(const Vector2& other);
-	virtual Vector2 operator*(const float scala) const;
-	virtual Vector2& operator+=(const Vector2& other);
-	virtual Vector2& operator-=(const Vector2& other);
-	virtual Vector2 operator+(const Vector2& other);
-	virtual Vector2 operator-(const Vector2& other);
-	virtual bool operator!=(const Vector2& other);
-	virtual bool operator==(const Vector2& other);
+	Vector2& operator=(const Vector2& other);
+	Vector2 operator*(const float scala) const;
+	Vector2& operator+=(const Vector2& other);
+	Vector2& operator-=(const Vector2& other);
+	Vector2 operator+(const Vector2& other);
+	Vector2 operator-(const Vector2& other);
+	bool operator!=(const Vector2& other);
+	bool operator==(const Vector2& other);
 
 	//static:
 

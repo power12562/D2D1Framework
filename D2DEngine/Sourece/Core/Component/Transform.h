@@ -11,27 +11,34 @@ class Transform : public ComponentBase
 	friend class GameObjectBase;
 	friend class SpriteRenderer;
 
-	class TVector2 : public Vector2
-	{
-	protected:
+	class TVector2
+	{	
+		friend class Transform;
 		Transform* thisTransform = nullptr;
+		Vector2 value;
 	public:
-		virtual ~TVector2() override = default;
-		void InitTVector2(Transform* thisTransform);
-		TVector2(float x = 0, float y = 0) : Vector2(x, y) {}
-		TVector2(double x, double y) : Vector2(x, y) {}
-		TVector2(int x, int y) : Vector2(x, y) {}
+		TVector2(int x, int y) { value.x = (float)x; value.y = (float)y; }
+		TVector2(float x, float y) { value.x = x; value.y = y; }
+		TVector2(double x, double y) { value.x = (double)x; value.y = (double)y; }
+
+		~TVector2() = default;
+		TVector2(const TVector2& other);
 		TVector2(const Vector2& other);
 		
-		virtual Vector2& operator=(const Vector2& other) override;
-		virtual Vector2& operator+=(const Vector2& other) override;
-		virtual Vector2& operator-=(const Vector2& other) override;
-	private: 
-		Vector2& SetTVector(const Vector2& other);
+		operator Vector2();
+		Vector2 operator-(const Vector2& other);
+		Vector2 operator+(const Vector2& other);
 
+		TVector2& operator=(const Vector2& other);
+		TVector2& operator+=(const Vector2& other);
+		TVector2& operator-=(const Vector2& other);
+	private: 
+		void InitTVector2(Transform* thisTransform);
+		TVector2& SetTVector(const Vector2& other);		
 	};
 	class TFloat
 	{
+		friend class Transform;
 	protected:
 		Transform* thisTransform = nullptr;
 	public:
@@ -59,7 +66,6 @@ public:
 
 	TVector2 localPosition{ 0,0 };
 	TFloat localRotation = 0;
-	TVector2 localScale{ 1,1 };
 
 	D2D1::Matrix3x2F& GetWorldMatrix() { return worldMatrix; }
 

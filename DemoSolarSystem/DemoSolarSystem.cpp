@@ -37,7 +37,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 	GameObjectBase* moon = new GameObjectBase;
 	moon->transform().SetParent(earth->transform());
-	moon->transform().scale = Vector2{2.0f, 2.0f};
+	moon->transform().scale = Vector2{1.0f, 1.0f};
 	moon->transform().localPosition = Vector2{500.f, 0.f};
 	moon->AddComponent<SpriteRenderer>();
 	moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");
@@ -103,7 +103,7 @@ void DemoSolarSystem::Render()
 	}
 	static auto textFont = D2DRenderer::CreateD2DFont(L"Consolas", 40.f);
 	wchar_t objPos[45];	
-	const Vector2 debugPos = gameObjectList[1]->transform().position;
+	const Vector2 debugPos = gameObjectList[3]->transform().position;
 	swprintf_s(objPos, _ARRAYSIZE(objPos), L"position.x : %.03f\nposition.y : %.03f", debugPos.x, debugPos.y);
 	D2DRenderer::DrawTextW(objPos, textFont, {0,0,500,500}, D2D1::ColorF(D2D1::ColorF::AliceBlue));
 	
