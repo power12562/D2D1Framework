@@ -8,19 +8,16 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 
 	position.InitTVector2(this);
 	localPosition.InitTVector2(this);
-	mPosition = Matrix3x2F::Identity();
 
 	rotation.InitTFloat(this);
 	localRotation.InitTFloat(this);
-	mRotation = Matrix3x2F::Identity();
 
 	scale.InitTVector2(this);
 	localScale.InitTVector2(this);
-	mScale = Matrix3x2F::Identity();
-	
+
 	pivot.InitTVector2(this);
-	mPivot = Matrix3x2F::Identity();	
-	
+
+	worldMatrix = Matrix3x2F::Identity();
 }
 
 Transform::~Transform()
@@ -35,7 +32,7 @@ void Transform::Update()
 		UpdateChildTransform(*this);
 		isTranslation = false;
 	}
-	else if(isTranslation)
+	else if (isTranslation)
 	{
 		UpdateWorldMatrix();
 		isTranslation = false;
@@ -74,28 +71,26 @@ void Transform::UpdateWorldMatrix()
 	using namespace D2D1;
 
 	const SIZE& ScreenSize = WinGameApp::GetClientSize();
-
 	if (!parent)
 	{
 		mScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
-		mRotation = Matrix3x2F::Rotation(-rotation);
-		mPosition = Matrix3x2F::Translation(position.value.x - pivot.value.x, ScreenSize.cy - position.value.y - pivot.value.y);		
+		mRotation = Matrix3x2F::Rotation(rotation);
+		mPosition = Matrix3x2F::Translation(position.value.x, ScreenSize.cy - position.value.y);
 	}
-	else if (parent)
+	else
 	{
 		mScale = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
-		mRotation = Matrix3x2F::Rotation(-localRotation);
-		mPosition = Matrix3x2F::Translation(localPosition.value.x - pivot.value.x, localPosition.value.y - pivot.value.y);
+		mRotation = Matrix3x2F::Rotation(localRotation);
+		mPosition = Matrix3x2F::Translation(localPosition.value.x, -localPosition.value.y);
 	}
 	mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-	mInvertPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-	mInvertPivot.Invert();
-	
-	worldMatrix = mInvertPivot * mScale * mRotation * mPosition * mPivot;
+	mInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
+
+	worldMatrix = mInvertPivot * mScale * mRotation * mPosition;
 	if (parent)
 	{
-		worldMatrix = worldMatrix * parent->worldMatrix;
-		Vector2 translation = { worldMatrix._31, WinGameApp::GetClientSize().cy - worldMatrix._32 };		
+		worldMatrix = worldMatrix * parent->mPivot * parent->worldMatrix;
+		Vector2 translation = parent->position + localPosition;
 		position.value = translation;
 		rotation.angle = parent->rotation + localRotation;
 	}
@@ -204,7 +199,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			thisTransform->position.value = other;	
+			thisTransform->position.value = other;
 			return *this;
 		}
 		else
@@ -250,7 +245,7 @@ void Transform::TFloat::InitTFloat(Transform* _thisTransform)
 }
 
 Transform::TFloat::TFloat(const float& rotation)
-{	
+{
 	this->angle = rotation;
 }
 
@@ -278,7 +273,7 @@ float& Transform::TFloat::operator-=(const float& rotation)
 }
 
 void Transform::TFloat::SetAngle(const float& rotation)
-{	
+{
 	thisTransform->isTranslation = true;
 	if (this == &(thisTransform->localRotation))
 	{
@@ -286,7 +281,7 @@ void Transform::TFloat::SetAngle(const float& rotation)
 		{
 			this->angle = rotation;
 			return;
-		}	
+		}
 	}
 	else if (this == &(thisTransform->rotation))
 	{

@@ -25,19 +25,19 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 	GameObjectBase* sun = new GameObjectBase;
 	sun->transform().scale = Vector2{0.3f, 0.3f};
 	sun->transform().position = Vector2{screenSize.cx * 0.5f, screenSize.cy * 0.5f};
-	sun->transform().rotation = 0;
 	sun->AddComponent<SpriteRenderer>();
 	sun->GetComponent<SpriteRenderer>().LoadImage(L"Resource/Sun.png");
 	
 	GameObjectBase* earth = new GameObjectBase;
 	earth->transform().SetParent(sun->transform());
-	earth->transform().localPosition = Vector2{0.f, 0.f};
+	earth->transform().localPosition = Vector2{1000.f, 0.f};
 	earth->AddComponent<SpriteRenderer>();
 	earth->GetComponent<SpriteRenderer>().LoadImage(L"Resource/earth.png");
 
 	GameObjectBase* moon = new GameObjectBase;
 	moon->transform().SetParent(earth->transform());
-	moon->transform().localPosition = Vector2{500.f, 0.f};
+	moon->transform().localPosition = Vector2{450.f, 0.f};
+	moon->transform().localScale = Vector2{1.5f, 1.5f};
 	moon->AddComponent<SpriteRenderer>();
 	moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");
 
@@ -59,7 +59,7 @@ void DemoSolarSystem::Update()
 
 	static const float sunMovespeed = 300.f;
 	static const float sunRotSpeed = 25.f;
-	static const float earthRotSpeed = -40.f;
+	static const float earthRotSpeed = 40.f;
 	static const float moonRotSpeed = 60.f;
 
 	printf("%.0f\n", Time.GetFrameRate());
@@ -99,7 +99,7 @@ void DemoSolarSystem::Render()
 	}
 	static auto textFont = D2DRenderer::CreateD2DFont(L"Consolas", 40.f);
 	wchar_t objPos[45];	
-	const Vector2 debugPos = gameObjectList[3]->transform().position;
+	const Vector2 debugPos = gameObjectList[1]->transform().position;
 	swprintf_s(objPos, _ARRAYSIZE(objPos), L"position.x : %.03f\nposition.y : %.03f", debugPos.x, debugPos.y);
 	D2DRenderer::DrawTextW(objPos, textFont, {0,0,500,500}, D2D1::ColorF(D2D1::ColorF::AliceBlue));
 	

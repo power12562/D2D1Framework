@@ -16,6 +16,7 @@ SpriteRenderer::~SpriteRenderer()
 	if (image)
 	{
 		image->Release();
+		image = nullptr;
 	}
 }
 

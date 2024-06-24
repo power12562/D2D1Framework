@@ -68,7 +68,7 @@ public:
 	TFloat localRotation = 0;
 	TVector2 localScale{ 1,1 };
 
-	D2D1::Matrix3x2F& GetWorldMatrix() { return worldMatrix; }
+	D2D1_MATRIX_3X2_F& GetWorldMatrix() { return worldMatrix; }
 
 	/** 부모 오브젝트를 설정합니다. nullptr을 넘기면 헤제됩니다.*/
 	void SetParent(Transform& parent);	
@@ -89,10 +89,13 @@ private:
 	/** 최상위 부모의 isTranslation 변수를 true로 변경 해줍니다.*/
 	static void SetParentIsTranslation(Transform& transform);
 
-	D2D1::Matrix3x2F worldMatrix;
+	D2D1_MATRIX_3X2_F worldMatrix;
 	void UpdateWorldMatrix();
-
-	D2D1::Matrix3x2F mScale, mPosition, mRotation, mPivot, mInvertPivot;
+	D2D1_MATRIX_3X2_F mScale;
+	D2D1_MATRIX_3X2_F mRotation;
+	D2D1_MATRIX_3X2_F mPosition;
+	D2D1_MATRIX_3X2_F mPivot;
+	D2D1_MATRIX_3X2_F mInvertPivot;
 };
 
 

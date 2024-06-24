@@ -348,7 +348,7 @@ ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1::Matrix3x2F& worldMatrix)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix)
 {
 	pRenderTarget->SetTransform(Matrix3x2F::Identity());
 	pRenderTarget->SetTransform(worldMatrix);
