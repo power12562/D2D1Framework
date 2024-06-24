@@ -15,6 +15,7 @@ SpriteRenderer::~SpriteRenderer()
 {
 	if (lastLoadPath)
 	{
+		image->Release();
 		delete[] lastLoadPath;
 		lastLoadPath = nullptr;
 	}

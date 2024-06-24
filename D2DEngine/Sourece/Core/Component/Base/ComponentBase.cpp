@@ -11,5 +11,10 @@ ComponentBase::~ComponentBase()
 	
 }
 
+void ComponentBase::Start()
+{
+
+}
+
 
 

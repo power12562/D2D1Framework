@@ -11,6 +11,8 @@
     <ClCompile Include="Sourece\Math\Mathf.cpp" />
     <ClCompile Include="Sourece\Vector\Vector2.cpp" />
     <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp" />
+    <ClCompile Include="Sourece\Framework\SceneManager.cpp" />
+    <ClCompile Include="Sourece\Core\Scene\SceneBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
@@ -23,5 +25,7 @@
     <ClInclude Include="Sourece\Math\Mathf.h" />
     <ClInclude Include="Sourece\Vector\Vector2.h" />
     <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h" />
+    <ClInclude Include="Sourece\Framework\SceneManager.h" />
+    <ClInclude Include="Sourece\Core\Scene\SceneBase.h" />
   </ItemGroup>
 </Project>

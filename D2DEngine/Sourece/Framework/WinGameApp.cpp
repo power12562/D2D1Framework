@@ -2,6 +2,7 @@
 #include "Framework/D2DRenderer.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
+#include "Framework/SceneManager.h"
 #include "Core/Component/SpriteRenderer.h"
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
@@ -91,6 +92,17 @@ void WinGameApp::Run()
 		}
 	}
 }
+
+void WinGameApp::Update()
+{
+	SceneManager::Update();
+}
+
+void WinGameApp::Render()
+{
+	SceneManager::Render();
+}
+
 
 void WinGameApp::WinToScrrenCenter(HWND hwnd)
 {

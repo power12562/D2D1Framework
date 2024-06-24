@@ -8,6 +8,7 @@ public:
 	GameObjectBase();
 	virtual ~GameObjectBase();
 	
+	virtual void Start();
 	virtual void Update();
 	virtual void Render();
 
@@ -40,6 +41,9 @@ template<typename T> inline void GameObjectBase::AddComponent()
 
 template<typename T> inline T& GameObjectBase::GetComponent()
 {
+	// T가 ComponentBase로부터 상속받는지 확인
+	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
+
 	T* component = nullptr;
 	for (auto& parentComponent : componentsList)
 	{

@@ -19,7 +19,7 @@ class Transform : public ComponentBase
 	public:
 		TVector2(int x, int y) { value.x = (float)x; value.y = (float)y; }
 		TVector2(float x, float y) { value.x = x; value.y = y; }
-		TVector2(double x, double y) { value.x = (double)x; value.y = (double)y; }
+		TVector2(double x, double y) { value.x = (float)x; value.y = (float)y; }
 
 		~TVector2() = default;
 		TVector2(const TVector2& other);

@@ -19,8 +19,8 @@ public:
 	void Run();
 	void End() { isEnd = true; }
 
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void Update();
+	virtual void Render();
 
 	/**클라이언트를 화면 가운데로 위치 시킨다.*/
 	static void WinToScrrenCenter(HWND hwnd);

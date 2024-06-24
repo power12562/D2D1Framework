@@ -18,6 +18,14 @@ GameObjectBase::~GameObjectBase()
 	componentsList.clear();
 }
 
+void GameObjectBase::Start()
+{
+	for (auto& component : componentsList)
+	{
+		component->Start();
+	}
+}
+
 void GameObjectBase::Update()
 {
 	pTransform->Update();
