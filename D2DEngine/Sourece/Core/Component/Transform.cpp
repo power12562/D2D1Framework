@@ -89,9 +89,18 @@ void Transform::UpdateWorldMatrix()
 	worldMatrix = mInvertPivot * mScale * mRotation * mPosition;
 	if (parent)
 	{
-		worldMatrix = worldMatrix * parent->mPivot * parent->worldMatrix;
-		Vector2 translation = parent->position + localPosition;
-		position.value = translation;
+		worldMatrix = worldMatrix * parent->mPivot * parent->worldMatrix; //matrix
+
+		//Local To World
+		scale.value.x = parent->scale.value.x * localScale.value.x;
+		scale.value.y = parent->scale.value.y * localScale.value.y;
+
+		Vector2 translation = localPosition;
+		translation.x *= parent->scale.value.x;
+		translation.y *= parent->scale.value.y;
+
+		position.value = parent->position + translation;
+
 		rotation.angle = parent->rotation + localRotation;
 	}
 }
