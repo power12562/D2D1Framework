@@ -13,11 +13,9 @@ SpriteRenderer::SpriteRenderer(GameObjectBase& gameObject) : ComponentBase(gameO
 
 SpriteRenderer::~SpriteRenderer()
 {
-	if (lastLoadPath)
+	if (image)
 	{
 		image->Release();
-		delete[] lastLoadPath;
-		lastLoadPath = nullptr;
 	}
 }
 
@@ -61,8 +59,7 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 	if (lastLoadPath == nullptr || wcscmp(path, lastLoadPath))
 	{
 		if (lastLoadPath)
-		{
-			delete[] lastLoadPath;
+		{			
 			lastLoadPath = nullptr;
 		}
 		size_t size = wcslen(path) + 1;

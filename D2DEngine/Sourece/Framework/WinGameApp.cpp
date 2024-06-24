@@ -91,6 +91,12 @@ void WinGameApp::Run()
 			D2DRenderer::EndDraw();
 		}
 	}
+
+	if (SceneManager::currentScene)
+	{
+		delete SceneManager::currentScene;
+		SceneManager::currentScene = nullptr;
+	}	
 }
 
 void WinGameApp::Update()

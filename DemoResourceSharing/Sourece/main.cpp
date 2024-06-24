@@ -8,4 +8,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	SceneManager::LoadScene<Scene1>();
 	app.Run();
 	app.Uninitialize();
+
+	return 0;
 }

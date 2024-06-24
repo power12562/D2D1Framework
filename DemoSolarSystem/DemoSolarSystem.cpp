@@ -31,7 +31,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 	
 	GameObjectBase* earth = new GameObjectBase;
 	earth->transform().SetParent(sun->transform());
-	earth->transform().localPosition = Vector2{1000.f, 0.f};
+	earth->transform().localPosition = Vector2{0.f, 0.f};
 	earth->AddComponent<SpriteRenderer>();
 	earth->GetComponent<SpriteRenderer>().LoadImage(L"Resource/earth.png");
 
@@ -49,10 +49,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 DemoSolarSystem::~DemoSolarSystem()
 {
-	for (auto& obj : gameObjectList)
-	{
-		delete obj;
-	}
+
 }
 
 void DemoSolarSystem::Update()
