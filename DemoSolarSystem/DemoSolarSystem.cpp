@@ -37,7 +37,6 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 	GameObjectBase* moon = new GameObjectBase;
 	moon->transform().SetParent(earth->transform());
-	moon->transform().scale = Vector2{1.0f, 1.0f};
 	moon->transform().localPosition = Vector2{500.f, 0.f};
 	moon->AddComponent<SpriteRenderer>();
 	moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");

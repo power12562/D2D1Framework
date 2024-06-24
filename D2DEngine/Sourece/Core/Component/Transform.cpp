@@ -15,6 +15,7 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 	mRotation = Matrix3x2F::Identity();
 
 	scale.InitTVector2(this);
+	localScale.InitTVector2(this);
 	mScale = Matrix3x2F::Identity();
 	
 	pivot.InitTVector2(this);
@@ -78,20 +79,17 @@ void Transform::UpdateWorldMatrix()
 	{
 		mScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
 		mRotation = Matrix3x2F::Rotation(-rotation);
-		mPosition = Matrix3x2F::Translation(position.value.x - pivot.value.x, ScreenSize.cy - position.value.y - pivot.value.y);
-		mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-		mInvertPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-		mInvertPivot.Invert();
+		mPosition = Matrix3x2F::Translation(position.value.x - pivot.value.x, ScreenSize.cy - position.value.y - pivot.value.y);		
 	}
 	else if (parent)
 	{
-		mScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
+		mScale = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
 		mRotation = Matrix3x2F::Rotation(-localRotation);
 		mPosition = Matrix3x2F::Translation(localPosition.value.x - pivot.value.x, localPosition.value.y - pivot.value.y);
-		mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-		mInvertPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-		mInvertPivot.Invert();
 	}
+	mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
+	mInvertPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
+	mInvertPivot.Invert();
 	
 	worldMatrix = mInvertPivot * mScale * mRotation * mPosition * mPivot;
 	if (parent)
@@ -207,6 +205,27 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 		if (thisTransform->parent)
 		{
 			thisTransform->position.value = other;	
+			return *this;
+		}
+		else
+		{
+			value.operator=(other);
+			return *this;
+		}
+	}
+	else if (this == &(thisTransform->localScale))
+	{
+		if (thisTransform->parent)
+		{
+			value.operator=(other);
+			return thisTransform->localScale;
+		}
+	}
+	else if (this == &(thisTransform->scale))
+	{
+		if (thisTransform->parent)
+		{
+			thisTransform->scale.value = other;
 			return *this;
 		}
 		else

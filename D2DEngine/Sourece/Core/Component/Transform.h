@@ -66,6 +66,7 @@ public:
 
 	TVector2 localPosition{ 0,0 };
 	TFloat localRotation = 0;
+	TVector2 localScale{ 1,1 };
 
 	D2D1::Matrix3x2F& GetWorldMatrix() { return worldMatrix; }
 
