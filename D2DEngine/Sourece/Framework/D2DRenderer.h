@@ -4,6 +4,7 @@
 #include <wincodec.h>
 #include <comdef.h>
 #include <dwrite.h>
+#include <dxgi1_4.h>
 
 class D2DRenderer
 {
@@ -74,6 +75,9 @@ public:
 	/** 폰트 그리기.*/
 	static void DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, D2D1_RECT_F drawRect, D2D1_COLOR_F color = D2D1::ColorF(D2D1::ColorF::Black));
 
+	/** Vram 사용량 확인하기.*/
+	static size_t GetUsedVram();
+
 private:
 	D2DRenderer() = default;
 	~D2DRenderer() = default;
@@ -84,6 +88,8 @@ private:
 	static ID2D1SolidColorBrush* pColorBrush;
 	static IWICImagingFactory* pWICFactory;
 	static IDWriteFactory* pDWriteFactory;
+	static IDXGIFactory* pDXGIFactory;
+	static IDXGIAdapter3* pDXGIAdapter;
 
 	static D2D1_VECTOR_2F GetRectOrigin(D2D1_RECT_F& rect, const float angle);
 

@@ -22,6 +22,9 @@ IWICImagingFactory* D2DRenderer::pWICFactory = NULL; //bitmap 생성을 위한 f
 
 IDWriteFactory* D2DRenderer::pDWriteFactory = NULL; //text 생성을 위한 factory
 
+IDXGIFactory* D2DRenderer::pDXGIFactory = NULL;
+IDXGIAdapter3* D2DRenderer::pDXGIAdapter = NULL;
+
 bool D2DRenderer::InitDirect2D()
 {
 	HWND hwnd = GetActiveWindow();
@@ -108,8 +111,31 @@ bool D2DRenderer::InitDirect2D()
 		return FALSE;
 	}
 
-	SendMessage(hwnd, WM_CUSTOM_INITD2D, 0, 0);
+	// VRAM 정보얻기 위한 개체 생성
+	if (SUCCEEDED(hr))
+	{
+		// Create DXGI factory
+		hr = CreateDXGIFactory1(__uuidof(IDXGIFactory4), (void**)&pDXGIFactory);
+	}
+	if (FAILED(hr))
+	{
+		_com_error err(hr);
+		::MessageBox(hwnd, err.ErrorMessage(), L"Error : InitDirect2D", MB_OK);
+		return FALSE;
+	}
 
+	if (SUCCEEDED(hr))
+	{
+		pDXGIFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&pDXGIAdapter));
+	}
+	if (FAILED(hr))
+	{
+		_com_error err(hr);
+		::MessageBox(hwnd, err.ErrorMessage(), L"Error : InitDirect2D", MB_OK);
+		return FALSE;
+	}
+
+	SendMessage(hwnd, WM_CUSTOM_INITD2D, 0, 0);
 	isInit = true;
 	return TRUE;
 }
@@ -118,6 +144,18 @@ void D2DRenderer::UninitDirect2D()
 {
 	if (isInit == false)
 		return;
+
+	if (pDXGIAdapter)
+	{
+		pDXGIAdapter->Release();
+		pDXGIAdapter = nullptr;
+	}
+
+	if (pDXGIFactory)
+	{
+		pDXGIFactory->Release();
+		pDXGIFactory = nullptr;
+	}
 
 	if (pDWriteFactory)
 	{
@@ -414,6 +452,13 @@ void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat,
 		drawRect,
 		pColorBrush
 	);
+}
+
+size_t D2DRenderer::GetUsedVram()
+{
+	DXGI_QUERY_VIDEO_MEMORY_INFO videoMemoryInfo;
+	pDXGIAdapter->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &videoMemoryInfo);
+	return videoMemoryInfo.CurrentUsage / 1024 / 1024;
 }
 
 

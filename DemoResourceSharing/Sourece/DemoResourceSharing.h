@@ -8,8 +8,10 @@ public:
 	DemoResourceSharing();
 	virtual ~DemoResourceSharing() override;
 
-private:
+	virtual void Update() override;
+	virtual void Render() override;
 
+private:
 
 };
 
