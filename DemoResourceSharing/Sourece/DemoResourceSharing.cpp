@@ -21,7 +21,7 @@ void DemoResourceSharing::Update()
 {
 	__super::Update();
 	size_t vram = D2DRenderer::GetUsedVram();
-	printf("Vram = %ull\n", vram);
+	printf("Vram = %llu\n", vram);
 }
 
 void DemoResourceSharing::Render()
@@ -37,7 +37,7 @@ Scene1::Scene1()
 	GameObjectBase* test1 = new GameObjectBase;
 	test1->transform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.5f };
 	test1->AddComponent<SpriteRenderer>();
-	test1->GetComponent<SpriteRenderer>().LoadImage(L"../Resource/moon.png");
+	test1->GetComponent<SpriteRenderer>().LoadImage(L"../Resource/run.png");
 
 	gameObjectList.push_back(test1); //0
 }

@@ -26,6 +26,7 @@
     <ClCompile Include="Sourece\Core\Scene\SceneBase.cpp" />
     <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
+    <ClCompile Include="Sourece\Framework\ResourceManager.cpp" />
     <ClCompile Include="Sourece\Framework\SceneManager.cpp" />
     <ClCompile Include="Sourece\Framework\TimeSystem.cpp" />
     <ClCompile Include="Sourece\Framework\WinGameApp.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="Sourece\Core\Scene\SceneBase.h" />
     <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
     <ClInclude Include="Sourece\Framework\InputSystem.h" />
+    <ClInclude Include="Sourece\Framework\ResourceManager.h" />
     <ClInclude Include="Sourece\Framework\SceneManager.h" />
     <ClInclude Include="Sourece\Framework\TimeSystem.h" />
     <ClInclude Include="Sourece\Framework\WinGameApp.h" />
