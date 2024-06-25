@@ -5,6 +5,8 @@
 #include <comdef.h>
 #include <dwrite.h>
 #include <dxgi1_4.h>
+#include <map>
+#include <string>
 
 class D2DRenderer
 {
@@ -42,6 +44,9 @@ public:
 
 	/** 비트맵 포인터 생성*/
 	static ID2D1Bitmap* CreateD2DBitmapFromFile(const wchar_t* filePath);
+
+	/** 생성된 비트맵 해제*/
+	static void ReleaseD2D1Bitmap(const wchar_t* filePath);
 
 	/** 비트맵 그리기*/
 	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix);
@@ -94,6 +99,11 @@ private:
 	static D2D1_VECTOR_2F GetRectOrigin(D2D1_RECT_F& rect, const float angle);
 
 	static D2D1_SIZE_F GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
+
+	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //중복 로드 방지용
+
+	/** 로드된 모든 리소스 삭제*/
+	static void ReleaseAllID2D1Bitmap();
 };
 
 

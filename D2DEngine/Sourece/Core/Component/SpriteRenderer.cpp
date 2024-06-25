@@ -13,10 +13,9 @@ SpriteRenderer::SpriteRenderer(GameObjectBase& gameObject) : ComponentBase(gameO
 
 SpriteRenderer::~SpriteRenderer()
 {
-	if (image)
+	if (lastLoadPath != nullptr)
 	{
-		image->Release();
-		image = nullptr;
+		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
 	}
 }
 
@@ -47,12 +46,10 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 {
 	if (path == nullptr)
 		return;
+	
+	if(lastLoadPath != nullptr)
+		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
 
-	if (image)
-	{
-		image->Release();
-		image = nullptr;
-	}
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	auto size = image->GetSize();
 	gameobject.transform().pivot = Vector2{ size.width * 0.5f, size.height * 0.5f};

@@ -25,12 +25,17 @@ IDWriteFactory* D2DRenderer::pDWriteFactory = NULL; //text 생성을 위한 fact
 IDXGIFactory* D2DRenderer::pDXGIFactory = NULL;
 IDXGIAdapter3* D2DRenderer::pDXGIAdapter = NULL;
 
+//중복 로드 방지용 리소스 맵
+std::map<std::wstring, ID2D1Bitmap*> D2DRenderer::ID2D1BitmapResourceMap;
+
 bool D2DRenderer::InitDirect2D()
 {
 	HWND hwnd = GetActiveWindow();
 
 	UninitDirect2D();
 
+	ReleaseAllID2D1Bitmap();
+	
 	HRESULT hr = S_OK;
 	// 컴포넌트 오브젝트 모델 (COM) 초기화.
 	hr = CoInitialize(NULL);
@@ -279,6 +284,13 @@ void D2DRenderer::DrawRect(D2D1_RECT_F rectPoint, D2D1_COLOR_F color, bool rectF
 
 ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 {
+	auto iter = ID2D1BitmapResourceMap.find(filePath);
+	if (iter != ID2D1BitmapResourceMap.end()) //end가 아니면 찾음
+	{
+		iter->second->AddRef();
+		return iter->second;
+	}
+
 	HRESULT hr;
 	// Create a decoder
 	IWICBitmapDecoder* pDecoder = NULL;
@@ -334,7 +346,10 @@ ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 		pFrame->Release();
 
 	if (SUCCEEDED(hr))
+	{
+		ID2D1BitmapResourceMap[filePath] = pID2D1Bitmap;
 		return pID2D1Bitmap;
+	}		
 	else
 	{		
 		_com_error err(hr);
@@ -346,6 +361,19 @@ ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 		return nullptr;
 	}
 
+}
+
+void D2DRenderer::ReleaseD2D1Bitmap(const wchar_t* filePath)
+{
+	auto iter = ID2D1BitmapResourceMap.find(filePath);
+	if (iter != ID2D1BitmapResourceMap.end())
+	{
+		LONG refCount = iter->second->Release();
+		if (refCount == 0)
+		{
+			ID2D1BitmapResourceMap.erase(iter);
+		}
+	}
 }
 
 void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix)
@@ -495,4 +523,20 @@ D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR
 	D2D1_SIZE_F drPos{ position.x - halfSize.x, position.y - halfSize.y };
 
 	return drPos;
+}
+
+void D2DRenderer::ReleaseAllID2D1Bitmap()
+{
+	if (!ID2D1BitmapResourceMap.empty())
+	{
+		for (auto& item : ID2D1BitmapResourceMap)
+		{
+			ULONG refCount = item.second->Release();
+			while (refCount != 0)
+			{
+				refCount = item.second->Release();
+			}
+		}
+		ID2D1BitmapResourceMap.clear();
+	}
 }
