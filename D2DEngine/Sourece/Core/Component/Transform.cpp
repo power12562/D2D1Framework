@@ -6,18 +6,23 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 	using namespace D2D1;
 
+	worldMatrix = Matrix3x2F::Identity();
+
 	position.InitTVector2(this);
 	localPosition.InitTVector2(this);
+	mPosition = Matrix3x2F::Identity();
 
 	rotation.InitTFloat(this);
 	localRotation.InitTFloat(this);
+	mRotation = Matrix3x2F::Identity();
 
 	scale.InitTVector2(this);
 	localScale.InitTVector2(this);
+	mScale = Matrix3x2F::Identity();
 
 	pivot.InitTVector2(this);
-
-	worldMatrix = Matrix3x2F::Identity();
+	mPivot = Matrix3x2F::Identity();
+	mInvertPivot = Matrix3x2F::Identity();
 }
 
 Transform::~Transform()
@@ -203,6 +208,10 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 			value.operator=(other);
 			return thisTransform->localPosition;
 		}
+		else
+		{
+			return thisTransform->localPosition;
+		}
 	}
 	else if (this == &(thisTransform->position))
 	{
@@ -289,6 +298,10 @@ void Transform::TFloat::SetAngle(const float& rotation)
 		if (thisTransform->parent)
 		{
 			this->angle = rotation;
+			return;
+		}
+		else
+		{
 			return;
 		}
 	}

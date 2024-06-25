@@ -20,13 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp" />
+    <ClCompile Include="Sourece\Core\Component\SpriteAnimationRender.cpp" />
     <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Sourece\Core\Component\Transform.cpp" />
     <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp" />
     <ClCompile Include="Sourece\Core\Scene\SceneBase.cpp" />
     <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
-    <ClCompile Include="Sourece\Framework\ResourceManager.cpp" />
     <ClCompile Include="Sourece\Framework\SceneManager.cpp" />
     <ClCompile Include="Sourece\Framework\TimeSystem.cpp" />
     <ClCompile Include="Sourece\Framework\WinGameApp.cpp" />
@@ -35,13 +35,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h" />
+    <ClInclude Include="Sourece\Core\Component\SpriteAnimationRender.h" />
     <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
     <ClInclude Include="Sourece\Core\Component\Transform.h" />
     <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h" />
     <ClInclude Include="Sourece\Core\Scene\SceneBase.h" />
     <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
     <ClInclude Include="Sourece\Framework\InputSystem.h" />
-    <ClInclude Include="Sourece\Framework\ResourceManager.h" />
     <ClInclude Include="Sourece\Framework\SceneManager.h" />
     <ClInclude Include="Sourece\Framework\TimeSystem.h" />
     <ClInclude Include="Sourece\Framework\WinGameApp.h" />
