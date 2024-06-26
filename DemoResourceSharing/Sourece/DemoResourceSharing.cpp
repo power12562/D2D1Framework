@@ -1,7 +1,7 @@
 #include "DemoResourceSharing.h"
 #include "Framework/SceneManager.h"
 #include "Core/GameObject/GameObjectBase.h"
-#include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/SpriteAnimationRender.h"
 #include "Framework/D2DRenderer.h"
 
 DemoResourceSharing::DemoResourceSharing()

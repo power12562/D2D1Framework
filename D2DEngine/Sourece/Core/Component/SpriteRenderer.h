@@ -12,6 +12,7 @@ public:
 	virtual ~SpriteRenderer() override;
 
 	void LoadImage(const wchar_t* path);
+	void UnloadImage();
 
 protected:
 	virtual void Update() override;

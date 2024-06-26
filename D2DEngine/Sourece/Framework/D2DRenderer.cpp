@@ -368,7 +368,7 @@ void D2DRenderer::ReleaseD2D1Bitmap(const wchar_t* filePath)
 	auto iter = ID2D1BitmapResourceMap.find(filePath);
 	if (iter != ID2D1BitmapResourceMap.end())
 	{
-		LONG refCount = iter->second->Release();
+		ULONG refCount = iter->second->Release();
 		if (refCount == 0)
 		{
 			ID2D1BitmapResourceMap.erase(iter);

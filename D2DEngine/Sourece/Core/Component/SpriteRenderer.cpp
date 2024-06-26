@@ -65,3 +65,15 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 		wcscpy_s(lastLoadPath, size, path);
 	}
 }
+
+void SpriteRenderer::UnloadImage()
+{
+	if (image == nullptr)
+		return;
+	else
+	{
+		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
+		image = nullptr;
+		gameobject.transform().pivot = Vector2( 0,0 );
+	}
+}

@@ -16,5 +16,15 @@ void ComponentBase::Start()
 
 }
 
+void ComponentBase::Update()
+{
+
+}
+
+void ComponentBase::Render()
+{
+
+}
+
 
 

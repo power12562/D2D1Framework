@@ -8,12 +8,13 @@ public:
 	template<typename T> static void LoadScene();
 
 private:
+	SceneManager();
+	~SceneManager();
+
 	static void Start();
 	static void Update();
 	static void Render();
 
-	SceneManager();
-	~SceneManager();
 	static class SceneBase* currentScene;
 };
 

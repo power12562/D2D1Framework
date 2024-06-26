@@ -12,8 +12,8 @@ public:
 	bool enabled = true;
 protected:
 	virtual void Start();
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void Update();
+	virtual void Render();
 
 	class GameObjectBase& gameObject() { return gameobject; }
 protected:

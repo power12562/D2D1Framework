@@ -100,7 +100,7 @@ private:
 
 	static D2D1_SIZE_F GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
 
-	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //중복 로드 방지용
+	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //리소스 맵
 
 	/** 로드된 모든 리소스 삭제*/
 	static void ReleaseAllID2D1Bitmap();

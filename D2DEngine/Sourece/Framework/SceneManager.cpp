@@ -2,6 +2,17 @@
 #include "Core/Scene/SceneBase.h"
 #include "Core/GameObject/GameObjectBase.h"
 
+SceneManager::SceneManager()
+{
+
+}
+
+
+SceneManager::~SceneManager()
+{
+
+}
+
 SceneBase* SceneManager::currentScene = nullptr;
 
 void SceneManager::Start()
@@ -35,15 +46,4 @@ void SceneManager::Render()
 			item->Render();
 		}
 	}
-}
-
-SceneManager::SceneManager()
-{
-
-}
-
-
-SceneManager::~SceneManager()
-{
-
 }
