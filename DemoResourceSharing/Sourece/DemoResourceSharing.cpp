@@ -60,15 +60,9 @@ void DemoResourceSharing::Update()
 void DemoResourceSharing::Render()
 {
 	__super::Render();
-	static float elapsedTime = 1.f;
 	static auto consolas = D2DRenderer::CreateD2DFont(L"Consolas");
-	elapsedTime += TimeSystem::Time.GetDeltatime();
 	static wchar_t frameRate[30]{};
-	if (elapsedTime >= 0.5f)
-	{
-		swprintf_s(frameRate, _ARRAYSIZE(frameRate), L"fps : %.0f\nVram : %llu", TimeSystem::Time.GetFrameRate(), D2DRenderer::GetUsedVram());
-		elapsedTime = 0;
-	}
+	swprintf_s(frameRate, _ARRAYSIZE(frameRate), L"fps : %.0f\nVram : %llu", TimeSystem::Time.GetFrameRate(), D2DRenderer::GetUsedVram());
 	D2DRenderer::DrawTextW(frameRate, consolas, { 0,0, _ARRAYSIZE(frameRate) * consolas->GetFontSize(), consolas->GetFontSize() }, D2D1::ColorF(D2D1::ColorF::AliceBlue));
 }
 
