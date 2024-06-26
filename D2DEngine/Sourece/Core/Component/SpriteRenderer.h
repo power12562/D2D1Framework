@@ -23,7 +23,7 @@ public:
 	D2D1_SIZE_F GetImageSize() const { return currentImageSize; }
 
 	/** 애니메이션 적용하기.*/
-	void SetSpriteAnimation(SpriteAnimation& animationComponet) { pSpriteAnimation = &animationComponet; }
+	void SetSpriteAnimation(SpriteAnimation& animationComponet);
 	/** 애니메이션 사용안하기. 인자에 애니메이션 컴포넌트를 넘겨주면 적용할 수 있습니다..*/
 	void SetSpriteAnimation() { pSpriteAnimation = nullptr; }
 

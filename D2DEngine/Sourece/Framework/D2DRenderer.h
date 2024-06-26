@@ -49,8 +49,9 @@ public:
 	static void ReleaseD2D1Bitmap(const wchar_t* filePath);
 
 	/** 비트맵 그리기*/
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& outRect);
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& outRect, const D2D1_RECT_F& sourceRect);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& sourceRect);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix,const D2D1_RECT_F& outRect ,const D2D1_RECT_F& sourceRect);
 
 	/** Vertex 회전 위치 리턴*/
 	static D2D1_VECTOR_2F GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle);

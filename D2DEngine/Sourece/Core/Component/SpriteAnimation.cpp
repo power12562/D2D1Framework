@@ -106,10 +106,10 @@ SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(con
 	{
 		AnimationClip* newClip = new AnimationClip;
 		newClip->frames.resize(4);
-		newClip->frames[0] = { 0,0, 784, 320, 0,0, 0.2 };
-		newClip->frames[1] = {789, 0, 1573, 320, 0, 0, 0.2};
-		newClip->frames[2] = { 0,325,  784,645 ,0,0,0.2 };
-		newClip->frames[3] = { 789,325, 1573,645 ,0,0,0.2 };
+		newClip->frames[0] = { 0,0, 784, 320, 0,0, 0.2f };
+		newClip->frames[1] = {789, 0, 1573, 320, 0, 0, 0.2f};
+		newClip->frames[2] = { 0,325,  784,645 ,0,0, 0.2f };
+		newClip->frames[3] = { 789,325, 1573,645 ,0,0, 0.2f };
 
 		clipResourceMap[filePath] = newClip;
 		return newClip;

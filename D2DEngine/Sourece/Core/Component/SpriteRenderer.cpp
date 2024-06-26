@@ -20,6 +20,13 @@ SpriteRenderer::~SpriteRenderer()
 	}
 }
 
+void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
+{
+	pSpriteAnimation = &animationComponet;
+	const auto& frame = pSpriteAnimation->GetCurrentFrame();
+	gameobject.transform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
+}
+
 void SpriteRenderer::Render()
 {
 	if (!image || !enabled)
@@ -27,33 +34,20 @@ void SpriteRenderer::Render()
 
 	if (pSpriteAnimation == nullptr)
 	{
-		D2D1_RECT_F pivotRect;
-
-		Vector2 pivot = gameobject.transform().pivot;
-		pivotRect.left = -pivot.x * 0.5f;
-		pivotRect.top = -pivot.y * 0.5f;
-		pivotRect.right = currentImageSize.width;
-		pivotRect.bottom = currentImageSize.height;
-
-		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix(), pivotRect);
+		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix());
 	}		
 	else
 	{
 		const FrameInfo& frame = pSpriteAnimation->GetCurrentFrame();
-		D2D1_RECT_F sourceRect = frame.source;
-		sourceRect.left -= frame.center.x;
-		sourceRect.right += frame.center.x;
-		sourceRect.top -= frame.center.y;
-		sourceRect.bottom += frame.center.y;
+		const D2D1_RECT_F& sourceRect = frame.source;
+		D2D1_SIZE_F halfSize = { sourceRect.right - sourceRect.left, sourceRect.bottom - sourceRect.top };
 
-		D2D1_RECT_F pivotRect;
-		Vector2 pivot = gameobject.transform().pivot;
-		pivotRect.left = -pivot.x * 0.5f;
-		pivotRect.top = -pivot.y * 0.5f;
-		pivotRect.right = sourceRect.right - sourceRect.left;
-		pivotRect.bottom = sourceRect.bottom - sourceRect.top;
+		halfSize.width *= 0.5f;
+		halfSize.height *= 0.5f;
 
-		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix(),pivotRect, sourceRect);
+		D2D1_MATRIX_3X2_F translate = D2D1::Matrix3x2F::Translation(halfSize.width, halfSize.height);
+
+		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix() * translate, sourceRect);		
 	}
 }
 
