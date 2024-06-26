@@ -85,7 +85,7 @@ void Inputsystem::SetKeyUp(KeyCode _key)
     isAnyKeyUp = true;
 }
 
-void Inputsystem::UpdateInput()
+void Inputsystem::ResetInput()
 {
     isAnyKey = false;
 

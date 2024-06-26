@@ -10,7 +10,7 @@ public:
 	SceneBase();
 	virtual ~SceneBase();
 
-protected:
+private:
 	std::list<GameObjectBase*> gameObjectList;
 
 };

@@ -56,9 +56,10 @@ void WinGameApp::Run()
 	using namespace TimeSystem;
 	using namespace InputSystem;
 
-	//게임용 루프
+	//게임용 루프	
 	MSG msg;
 	Time.UpdateTime();
+	SceneManager::AddObjectToQList();
 	while (!isEnd)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -81,7 +82,6 @@ void WinGameApp::Run()
 		else if(!isEnd)
 		{
 			Time.UpdateTime();
-			Input.UpdateInput();
 			Input.UpdateMouse();
 			Update();
 
@@ -89,6 +89,11 @@ void WinGameApp::Run()
 			D2DRenderer::Clear(bgColor);
 			Render();
 			D2DRenderer::EndDraw();
+
+			SceneManager::AddObjectToQList();
+			SceneManager::DelObjectToSetList();
+
+			Input.ResetInput();
 		}
 	}
 

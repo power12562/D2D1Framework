@@ -337,7 +337,7 @@ public:
 private:
 	void SetKeyDown(InputSystem::KeyCode key);
 	void SetKeyUp(InputSystem::KeyCode key);
-	void UpdateInput();
+	void ResetInput();
 	void UpdateMouse();
 
     bool isKeyDown[256];

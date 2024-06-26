@@ -233,6 +233,10 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 			value.operator=(other);
 			return thisTransform->localScale;
 		}
+		else
+		{
+			return thisTransform->localScale;
+		}
 	}
 	else if (this == &(thisTransform->scale))
 	{

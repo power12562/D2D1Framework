@@ -480,7 +480,7 @@ IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fon
 	return pDWriteTextFormat;
 }
 
-void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, D2D1_RECT_F drawRect, D2D1_COLOR_F color)
+void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color)
 {
 	pRenderTarget->SetTransform(Matrix3x2F::Identity());
 

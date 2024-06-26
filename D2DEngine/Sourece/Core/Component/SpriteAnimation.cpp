@@ -135,7 +135,7 @@ SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(con
 
 	/*
 	AnimationClip* newClip = new AnimationClip;
-	파싱 로직 들어가야 함.
+	csv 파싱 로직 들어가야 함.
 	clipResourceMap[filePath] = newClip;
 	*/
 	return nullptr;
