@@ -19,26 +19,26 @@ public:
 	/** D2D 사용 종료*/
 	static void UninitDirect2D();
 
-	static ID2D1HwndRenderTarget& GetRenderTarget() { return  *pRenderTarget; }
+	static ID2D1HwndRenderTarget& GetRenderTarget() { return *pRenderTarget; }
 	//static ID2D1Factory& GetD2DFactory() { return  *pD2DFactory; }
 
 	static void BeginDraw();
 	static void EndDraw();
-	static void Clear(D2D1_COLOR_F color);
+	static void Clear(const D2D1_COLOR_F& color);
 	static void DrawLine(
-		D2D1_POINT_2F startPosition, D2D1_POINT_2F endPosition, 
-		D2D1_COLOR_F color = D2D1::ColorF(D2D1::ColorF::Black), 
+		const D2D1_POINT_2F& startPosition, const D2D1_POINT_2F& endPosition, 
+		const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black), 
 		float LineWidth = 0.5f
 	);	
 
 	static void DrawRect(
 		const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& size,
-		D2D1_COLOR_F color = D2D1::ColorF(D2D1::ColorF::Black),
+		const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black),
 		bool rectFill = false
 	);
 	static void DrawRect(
-		D2D1_RECT_F rectPoint,
-		D2D1_COLOR_F color = D2D1::ColorF(D2D1::ColorF::Black),
+		const D2D1_RECT_F& rectPoint,
+		const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black),
 		bool rectFill = false
 	);
 
@@ -49,7 +49,8 @@ public:
 	static void ReleaseD2D1Bitmap(const wchar_t* filePath);
 
 	/** 비트맵 그리기*/
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& outRect);
+	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& outRect, const D2D1_RECT_F& sourceRect);
 
 	/** Vertex 회전 위치 리턴*/
 	static D2D1_VECTOR_2F GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle);

@@ -13,7 +13,8 @@
     <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp" />
     <ClCompile Include="Sourece\Framework\SceneManager.cpp" />
     <ClCompile Include="Sourece\Core\Scene\SceneBase.cpp" />
-    <ClCompile Include="Sourece\Core\Component\SpriteAnimationRender.cpp" />
+    <ClCompile Include="Sourece\Core\Component\SpriteAnimation.cpp" />
+    <ClCompile Include="Sourece\Framework\ReferenceCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
@@ -28,6 +29,10 @@
     <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h" />
     <ClInclude Include="Sourece\Framework\SceneManager.h" />
     <ClInclude Include="Sourece\Core\Scene\SceneBase.h" />
-    <ClInclude Include="Sourece\Core\Component\SpriteAnimationRender.h" />
+    <ClInclude Include="Sourece\Core\Component\SpriteAnimation.h" />
+    <ClInclude Include="Sourece\Framework\ReferenceCounter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

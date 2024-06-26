@@ -213,14 +213,14 @@ void D2DRenderer::EndDraw()
 	}
 }
 
-void D2DRenderer::Clear(D2D1_COLOR_F color)
+void D2DRenderer::Clear(const D2D1_COLOR_F& color)
 {
 	pRenderTarget->Clear(color);
 }
 
 void D2DRenderer::DrawLine(
-	D2D1_POINT_2F startPosition, D2D1_POINT_2F endPosition,
-	D2D1_COLOR_F color,
+	const D2D1_POINT_2F& startPosition, const D2D1_POINT_2F& endPosition,
+	const D2D1_COLOR_F& color,
 	float LineWidth
 )
 {
@@ -237,7 +237,7 @@ void D2DRenderer::DrawLine(
 	);
 }
 
-void D2DRenderer::DrawRect(const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& rectSize, D2D1_COLOR_F color, bool rectFill)
+void D2DRenderer::DrawRect(const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& rectSize, const D2D1_COLOR_F& color, bool rectFill)
 {
 	if (pColorBrush == nullptr)
 		return;
@@ -263,11 +263,13 @@ void D2DRenderer::DrawRect(const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& re
 	}
 }
 
-void D2DRenderer::DrawRect(D2D1_RECT_F rectPoint, D2D1_COLOR_F color, bool rectFill)
+void D2DRenderer::DrawRect(const D2D1_RECT_F& rectPoint,const D2D1_COLOR_F& color, bool rectFill)
 {
 
 	if (pColorBrush == nullptr)
 		return;
+
+	pRenderTarget->SetTransform(Matrix3x2F::Identity());
 
 	pColorBrush->SetColor(color);
 
@@ -376,12 +378,16 @@ void D2DRenderer::ReleaseD2D1Bitmap(const wchar_t* filePath)
 	}
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& outRect)
 {
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
 	pRenderTarget->SetTransform(worldMatrix);
-	pRenderTarget->DrawBitmap(ID2D1Bitmap);
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
+	pRenderTarget->DrawBitmap(ID2D1Bitmap, outRect);
+}
+
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& outRect,const D2D1_RECT_F& sourceRect)
+{
+	pRenderTarget->SetTransform(worldMatrix);
+	pRenderTarget->DrawBitmap(ID2D1Bitmap, outRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
 }
 
 D2D1_VECTOR_2F D2DRenderer::GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle)
@@ -469,6 +475,8 @@ IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fon
 
 void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, D2D1_RECT_F drawRect, D2D1_COLOR_F color)
 {
+	pRenderTarget->SetTransform(Matrix3x2F::Identity());
+
 	pColorBrush->SetColor(color);
 
 	size_t bufferSize = wcslen(text);

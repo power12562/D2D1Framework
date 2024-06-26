@@ -2,6 +2,7 @@
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
 #include "Core/GameObject/GameObjectBase.h"
+#include "Core/Component/SpriteAnimation.h"
 #undef LoadImage
 
 std::list<SpriteRenderer*> SpriteRenderer::instanceList;
@@ -19,19 +20,41 @@ SpriteRenderer::~SpriteRenderer()
 	}
 }
 
-void SpriteRenderer::Update()
-{
-
-}
-
 void SpriteRenderer::Render()
 {
-	if (!image)
+	if (!image || !enabled)
 		return;
-	else if(enabled)
+
+	if (pSpriteAnimation == nullptr)
 	{
-		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix());
-	} 
+		D2D1_RECT_F pivotRect;
+
+		Vector2 pivot = gameobject.transform().pivot;
+		pivotRect.left = -pivot.x * 0.5f;
+		pivotRect.top = -pivot.y * 0.5f;
+		pivotRect.right = currentImageSize.width;
+		pivotRect.bottom = currentImageSize.height;
+
+		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix(), pivotRect);
+	}		
+	else
+	{
+		const FrameInfo& frame = pSpriteAnimation->GetCurrentFrame();
+		D2D1_RECT_F sourceRect = frame.source;
+		sourceRect.left -= frame.center.x;
+		sourceRect.right += frame.center.x;
+		sourceRect.top -= frame.center.y;
+		sourceRect.bottom += frame.center.y;
+
+		D2D1_RECT_F pivotRect;
+		Vector2 pivot = gameobject.transform().pivot;
+		pivotRect.left = -pivot.x * 0.5f;
+		pivotRect.top = -pivot.y * 0.5f;
+		pivotRect.right = sourceRect.right - sourceRect.left;
+		pivotRect.bottom = sourceRect.bottom - sourceRect.top;
+
+		D2DRenderer::DrawBitmap(image, gameobject.transform().GetWorldMatrix(),pivotRect, sourceRect);
+	}
 }
 
 void SpriteRenderer::ReloadImage()
@@ -51,8 +74,8 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
 
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
-	auto size = image->GetSize();
-	gameobject.transform().pivot = Vector2{ size.width * 0.5f, size.height * 0.5f};
+	currentImageSize = image->GetSize();
+	gameobject.transform().pivot = Vector2{ currentImageSize.width * 0.5f, currentImageSize.height * 0.5f};
 
 	if (lastLoadPath == nullptr || wcscmp(path, lastLoadPath))
 	{

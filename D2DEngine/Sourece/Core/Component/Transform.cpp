@@ -91,10 +91,10 @@ void Transform::UpdateWorldMatrix()
 	mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
 	mInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
 
-	worldMatrix = mInvertPivot * mScale * mRotation * mPosition;
+	worldMatrix = mInvertPivot * mScale * mRotation * mPosition * mPivot;
 	if (parent)
 	{
-		worldMatrix = worldMatrix * parent->mPivot * parent->worldMatrix; //matrix
+		worldMatrix = worldMatrix * parent->worldMatrix; //matrix
 
 		//Local To World
 		scale.value.x = parent->scale.value.x * localScale.value.x;

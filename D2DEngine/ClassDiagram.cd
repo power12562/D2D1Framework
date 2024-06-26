@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ReferenceCounter" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAACAAQAAAIgBAAAAA=</HashCode>
+      <FileName>Sourece\Framework\ReferenceCounter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneBase" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAABAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sourece\Core\Scene\SceneBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObjectBase" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAgCEIAAAAAAAABAAAAAAEAAYAABAAAAAAAAA=</HashCode>
+      <FileName>Sourece\Core\GameObject\GameObjectBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneManager" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAEgAAAAACAAAAAAAAAAAABAAAAAAAAQ=</HashCode>
+      <FileName>Sourece\Framework\SceneManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpriteAnimation" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="SpriteAnimation::AnimationClip" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Sourece\Core\Component\SpriteAnimation.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAgSIAAAAAAAAAAAAQAIEBAAAAQAAAEAAAAII=</HashCode>
+      <FileName>Sourece\Core\Component\SpriteAnimation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Transform" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYCAAAAFgAABABAAACAIBUCBAABCAAAAFCBAAQAAoA=</HashCode>
+      <FileName>Sourece\Core\Component\Transform.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inputsystem" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAACCABwgFEAAAAQABAAAAgQAABIAAAgQAAAIAA=</HashCode>
+      <FileName>Sourece\Framework\InputSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyTime" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQABAAAAAQAAAAAAAAAAAAAAAACAAABAAAAAAgA=</HashCode>
+      <FileName>Sourece\Framework\TimeSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QPCTime" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgUABAAAAgQAAAAAAAAAQAAAAAASAAABAAAAAAAA=</HashCode>
+      <FileName>Sourece\Framework\TimeSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinGameApp" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACYAIQAAABCAAQAAAIAEAAAACBAIgAgKABKBAAkAAYo=</HashCode>
+      <FileName>Sourece\Framework\WinGameApp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ComponentBase" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAgCAAAAAAAQAAAAAAhAAIAAAAAA=</HashCode>
+      <FileName>Sourece\Core\Component\Base\ComponentBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="D2DRenderer" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hIAYAgAAAAAAACByQIwBEAAAQKAAACQgIEYgAABAAKA=</HashCode>
+      <FileName>Sourece\Framework\D2DRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpriteRenderer" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQQAAAAAAAICAAAAAAACAAAEAAAAAAAARAAAAAAIAA=</HashCode>
+      <FileName>Sourece\Core\Component\SpriteRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector2" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAMAAAAFAAAAAAAAAQAAAAAAAQAQiADgAAEAAAI=</HashCode>
+      <FileName>Sourece\Vector\Vector2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="FrameInfo" Collapsed="true">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sourece\Core\Component\SpriteAnimation.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="InputSystem::MouseState" Collapsed="true">
+    <Position X="9.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAkQAAAAAAAAAAAAAAAAAAAAQGBgIBAAAAA=</HashCode>
+      <FileName>Sourece\Framework\InputSystem.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="ULONG" Collapsed="true">
+    <Position X="7.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\intsafe.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="InputSystem::KeyCode" Collapsed="true">
+    <Position X="7.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YILuU+k9AcEomAzYEpP/+/8HC020VDti7PCy////5+M=</HashCode>
+      <FileName>Sourece\Framework\InputSystem.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

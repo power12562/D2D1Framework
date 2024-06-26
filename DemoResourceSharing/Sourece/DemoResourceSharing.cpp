@@ -1,7 +1,8 @@
 #include "DemoResourceSharing.h"
 #include "Framework/SceneManager.h"
 #include "Core/GameObject/GameObjectBase.h"
-#include "Core/Component/SpriteAnimationRender.h"
+#include "Core/Component/SpriteAnimation.h"
+#include "Core/Component/SpriteRenderer.h"
 #include "Framework/D2DRenderer.h"
 
 DemoResourceSharing::DemoResourceSharing()
@@ -34,19 +35,28 @@ Scene1::Scene1()
 {
 	SIZE screenSize = WinGameApp::GetClientSize();
 
-	GameObjectBase* test1 = new GameObjectBase;
-	test1->transform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.25f };
-	test1->AddComponent<SpriteRenderer>();
-	test1->GetComponent<SpriteRenderer>().LoadImage(L"../Resource/run.png");
+	GameObjectBase* midnight = new GameObjectBase;
+	midnight->transform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.5f };
 
-	GameObjectBase* test2 = new GameObjectBase;
-	test2->transform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.5f };
-	test2->AddComponent<SpriteRenderer>();
-	//test2->GetComponent<SpriteRenderer>().LoadImage(L"../Resource/midnight.png");
-	test2->GetComponent<SpriteRenderer>().LoadImage(L"../Resource/run.png");
-	
-	gameObjectList.push_back(test1);
-	gameObjectList.push_back(test2); 
+	midnight->AddComponent<SpriteAnimation>();
+	SpriteAnimation& midnightAnime = midnight->GetComponent<SpriteAnimation>();
+	midnightAnime.LoadAnimationClip(L"Bg", L"Idle");
+	midnightAnime.SetAnimationClip(L"Idle", true);
+
+	midnight->AddComponent<SpriteRenderer>();
+	SpriteRenderer& midnightRenderer = midnight->GetComponent<SpriteRenderer>();
+	midnightRenderer.LoadImage(L"../Resource/midnight.png");
+	midnightRenderer.SetSpriteAnimation(midnightAnime);
+
+	GameObjectBase* run = new GameObjectBase;
+	run->transform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.5f };
+	run->AddComponent<SpriteAnimation>();
+	SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
+	runAnime.LoadAnimationClip(L"Run", L"Run");
+	runAnime.SetAnimationClip(L"Run", true);
+
+	gameObjectList.push_back(midnight);
+	gameObjectList.push_back(run); 
 }
 
 Scene1::~Scene1()
