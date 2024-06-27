@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Sourece\Core\Component\Transform.cpp" />
-    <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp" />
+    <ClCompile Include="Sourece\Core\GameObject\Base\GameObjectBase.cpp" />
     <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
     <ClCompile Include="Sourece\Framework\TimeSystem.cpp" />
@@ -16,11 +16,12 @@
     <ClCompile Include="Sourece\Core\Component\SpriteAnimation.cpp" />
     <ClCompile Include="Sourece\Framework\ReferenceCounter.cpp" />
     <ClCompile Include="Sourece\Core\Component\Camera.cpp" />
+    <ClCompile Include="Sourece\Core\GameObject\MainCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
     <ClInclude Include="Sourece\Core\Component\Transform.h" />
-    <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h" />
+    <ClInclude Include="Sourece\Core\GameObject\Base\GameObjectBase.h" />
     <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
     <ClInclude Include="Sourece\Framework\InputSystem.h" />
     <ClInclude Include="Sourece\Framework\TimeSystem.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Sourece\Core\Component\SpriteAnimation.h" />
     <ClInclude Include="Sourece\Framework\ReferenceCounter.h" />
     <ClInclude Include="Sourece\Core\Component\Camera.h" />
+    <ClInclude Include="Sourece\Core\GameObject\MainCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -1,7 +1,7 @@
 #include "SpriteAnimation.h"
 #include "Framework/WinGameApp.h"
 #include "Framework/TimeSystem.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 
 #include <iostream>
 #include <fstream>

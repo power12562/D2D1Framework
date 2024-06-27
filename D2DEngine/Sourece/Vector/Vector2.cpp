@@ -43,7 +43,7 @@ float Vector2::Magnitude() const
 
 Vector2 Vector2::Normalized()
 {
-	Vector2 normal = { float(x / Magnitude()) , float(y / Magnitude()) };
+	Vector2 normal = Vector2{ float(x / Magnitude()) , float(y / Magnitude()) };
 	return normal;
 }
 
@@ -57,7 +57,7 @@ Vector2& Vector2::operator=(const Vector2& other)
 
 Vector2 Vector2::operator*(const float scala) const
 {
-	Vector2 value = { this->x, this->y };
+	Vector2 value = Vector2{ this->x, this->y };
 	value.x *= scala;
 	value.y *= scala;
 
@@ -90,7 +90,7 @@ Vector2& Vector2::operator-=(const Vector2& other)
 
 Vector2 Vector2::operator+(const Vector2& other)
 {
-	Vector2 sum = { 0, 0 };
+	Vector2 sum = Vector2{ 0, 0 };
 	sum.x = this->x + other.x;
 	sum.y = this->y + other.y;
 
@@ -99,7 +99,7 @@ Vector2 Vector2::operator+(const Vector2& other)
 
 Vector2 Vector2::operator-(const Vector2& other)
 {
-	Vector2 sub = { 0, 0 };
+	Vector2 sub = Vector2{ 0, 0 };
 	sub.x = this->x - other.x;
 	sub.y = this->y - other.y;
 
@@ -121,12 +121,12 @@ bool Vector2::operator==(const Vector2& other)
 
 Vector2 Vector2::WorldToScreenPoint(const Vector2& pos)
 {
-	return { pos.x, (float)WinGameApp::GetClientSize().cy - pos.y};
+	return Vector2{ pos.x, (float)WinGameApp::GetClientSize().cy - pos.y};
 }
 
 Vector2 Vector2::Lerp(const Vector2& startPos, const Vector2& endPos, const float t)
 {
-	Vector2 Lerp = { (1.f - t) * startPos.x + t * endPos.x, (1.f - t) * startPos.y + t * endPos.y };
+	Vector2 Lerp = Vector2{ (1.f - t) * startPos.x + t * endPos.x, (1.f - t) * startPos.y + t * endPos.y };
 
 	return Lerp;
 }

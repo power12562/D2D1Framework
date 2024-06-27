@@ -24,7 +24,8 @@
     <ClCompile Include="Sourece\Core\Component\SpriteAnimation.cpp" />
     <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Sourece\Core\Component\Transform.cpp" />
-    <ClCompile Include="Sourece\Core\GameObject\GameObjectBase.cpp" />
+    <ClCompile Include="Sourece\Core\GameObject\Base\GameObjectBase.cpp" />
+    <ClCompile Include="Sourece\Core\GameObject\MainCamera.cpp" />
     <ClCompile Include="Sourece\Core\Scene\SceneBase.cpp" />
     <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
@@ -41,7 +42,8 @@
     <ClInclude Include="Sourece\Core\Component\SpriteAnimation.h" />
     <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
     <ClInclude Include="Sourece\Core\Component\Transform.h" />
-    <ClInclude Include="Sourece\Core\GameObject\GameObjectBase.h" />
+    <ClInclude Include="Sourece\Core\GameObject\Base\GameObjectBase.h" />
+    <ClInclude Include="Sourece\Core\GameObject\MainCamera.h" />
     <ClInclude Include="Sourece\Core\Scene\SceneBase.h" />
     <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
     <ClInclude Include="Sourece\Framework\InputSystem.h" />

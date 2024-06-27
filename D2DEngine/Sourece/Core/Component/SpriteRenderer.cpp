@@ -1,8 +1,9 @@
 #include "Core/Component/SpriteRenderer.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
+#include "Core/Component/Camera.h"
 #undef LoadImage
 
 std::list<SpriteRenderer*> SpriteRenderer::instanceList;
@@ -29,51 +30,23 @@ void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
 	currentImageSize = { sourceRect.right - sourceRect.left, sourceRect.bottom - sourceRect.top };
 }
 
-void SpriteRenderer::FlipX(bool isflip)
-{
-	float absX = abs(gameObject.GetTransform().scale.x);
-	if (isflip)
-	{
-		gameObject.GetTransform().scale = Vector2{ -absX, gameObject.GetTransform().scale.y };
-	}
-	else
-	{
-		gameObject.GetTransform().scale = Vector2{ absX, gameObject.GetTransform().scale.y };
-	}
-}
-
-void SpriteRenderer::FlipX()
-{
-	gameObject.GetTransform().scale = Vector2{ -gameObject.GetTransform().scale.x, gameObject.GetTransform().scale.y };
-}
-
-void SpriteRenderer::FlipY(bool isflip)
-{
-	float absY = abs(gameObject.GetTransform().scale.y);
-	if (isflip)
-	{
-		gameObject.GetTransform().scale = Vector2{ gameObject.GetTransform().scale.x, absY };
-	}
-	else
-	{
-		gameObject.GetTransform().scale = Vector2{ gameObject.GetTransform().scale.x, absY };
-	}
-}
-
-void SpriteRenderer::FlipY()
-{
-	gameObject.GetTransform().scale = Vector2{ gameObject.GetTransform().scale.x, -gameObject.GetTransform().scale.y };
-}
 
 void SpriteRenderer::Render()
 {
 	if (!image || !enabled)
 		return;
-
-	const D2D1_MATRIX_3X2_F& worldMatrix = gameObject.GetTransform().GetWorldMatrix();
+	Camera* const mainCam = Camera::mainCamera();
+	const D2D1_MATRIX_3X2_F& objMatrix = gameObject.GetTransform().GetWorldMatrix();
 	if (pSpriteAnimation == nullptr)
 	{
-		D2DRenderer::DrawBitmap(image, worldMatrix);
+		if (mainCam)
+		{
+			D2DRenderer::DrawBitmap(image, objMatrix * mainCam->gameObject.transform.matrixInvertPivot);
+		}
+		else
+		{ 
+			D2DRenderer::DrawBitmap(image, objMatrix);
+		}	
 	}		
 	else
 	{
@@ -85,7 +58,14 @@ void SpriteRenderer::Render()
 		halfSize.height = currentImageSize.height * 0.5f;
 		D2D1_MATRIX_3X2_F pivotCenter = D2D1::Matrix3x2F::Translation(halfSize.width + frame.center.x, halfSize.height + frame.center.y);
 
-		D2DRenderer::DrawBitmap(image, pivotCenter * worldMatrix, sourceRect);
+		if (mainCam)
+		{
+			D2DRenderer::DrawBitmap(image, (pivotCenter * objMatrix) * mainCam->gameObject.transform.InvertWorldMatrix, sourceRect);
+		}
+		else
+		{
+			D2DRenderer::DrawBitmap(image, pivotCenter * objMatrix, sourceRect);
+		}
 	}
 }
 

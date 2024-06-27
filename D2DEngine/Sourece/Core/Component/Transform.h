@@ -85,6 +85,13 @@ public:
 	void SetParent();
 	Transform& GetParent() { return *parent; }
 
+	/** X축 반전*/
+	void FlipX(bool isflip);
+	void FlipX();
+	/** Y축 반전*/
+	void FlipY(bool isflip);
+	void FlipY();
+
 protected:
 	virtual void Update() override;
 	virtual void Render() override;
@@ -95,12 +102,13 @@ private:
 	void UpdateChildTransform();
 
 	D2D1_MATRIX_3X2_F worldMatrix;
+	D2D1_MATRIX_3X2_F InvertWorldMatrix; //역행렬
 	void UpdateWorldMatrix();
-	D2D1_MATRIX_3X2_F mScale;
-	D2D1_MATRIX_3X2_F mRotation;
-	D2D1_MATRIX_3X2_F mPosition;
-	D2D1_MATRIX_3X2_F mPivot;
-	D2D1_MATRIX_3X2_F mInvertPivot;
+	D2D1_MATRIX_3X2_F matrixScale;
+	D2D1_MATRIX_3X2_F matrixRotation;
+	D2D1_MATRIX_3X2_F matrixTranslation;
+	D2D1_MATRIX_3X2_F matrixPivot;
+	D2D1_MATRIX_3X2_F matrixInvertPivot;
 };
 
 

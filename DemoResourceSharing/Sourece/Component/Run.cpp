@@ -2,7 +2,7 @@
 #include "Framework/WinGameApp.h"
 #include "Framework/InputSystem.h"
 #include "Framework/SceneManager.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/SpriteRenderer.h"
 
@@ -22,8 +22,7 @@ void Run::Start()
 {
 	SIZE screenSize = WinGameApp::GetClientSize();
 
-	gameObject.GetTransform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.1f };
-
+	gameObject.transform.position = Vector2{ 0.f, -screenSize.cy * 0.45f};
 	gameObject.AddComponent<SpriteAnimation>();
 	SpriteAnimation& runAnime = gameObject.GetComponent<SpriteAnimation>();
 	runAnime.LoadAnimationClip(L"Run", L"Run");
@@ -40,12 +39,12 @@ void Run::Update()
 	using namespace InputSystem;
 
 	SIZE screenSize = WinGameApp::GetClientSize();
-	static int instanceCount = 2;
+	static int instanceCount = 1;
 	static std::list<GameObjectBase*> runList;
 	if (Input.IsKeyDown(KeyCode::UpArrow))
 	{
 		GameObjectBase* run = new GameObjectBase;
-		run->transform.position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.1f * instanceCount++ };
+		run->transform.position = Vector2{ gameObject.transform.position.x, gameObject.transform.position.y + 90.f * instanceCount++ };
 
 		run->AddComponent<SpriteAnimation>();
 		SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
@@ -74,7 +73,7 @@ void Run::Update()
 		{		
 			for (auto& item : runList)
 			{
-				item->GetComponent<SpriteRenderer>().FlipX(true);
+				item->transform.FlipX(true);
 			}
 		}
 	}
@@ -85,18 +84,18 @@ void Run::Update()
 		{
 			for (auto& item : runList)
 			{
-				item->GetComponent<SpriteRenderer>().FlipX(false);
+				item->transform.FlipX(false);
 			}
 		}
 	}
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
-		gameObject.GetComponent<SpriteRenderer>().FlipY();
+		gameObject.transform.FlipY();
 		if (!runList.empty())
 		{
 			for (auto& item : runList)
 			{
-				item->GetComponent<SpriteRenderer>().FlipY();
+				item->transform.FlipY();
 			}
 		}
 	}

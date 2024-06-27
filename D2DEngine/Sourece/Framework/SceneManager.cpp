@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include "Core/Scene/SceneBase.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 #include <vector>
 
 SceneBase* SceneManager::currentScene = nullptr;

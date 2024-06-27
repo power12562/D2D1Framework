@@ -8,22 +8,23 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 	using namespace D2D1;
 
 	worldMatrix = Matrix3x2F::Identity();
+	InvertWorldMatrix = Matrix3x2F::Identity();
 
 	position.InitTVector2(this);
 	localPosition.InitTVector2(this);
-	mPosition = Matrix3x2F::Identity();
+	matrixTranslation = Matrix3x2F::Identity();
 
 	rotation.InitTFloat(this);
 	localRotation.InitTFloat(this);
-	mRotation = Matrix3x2F::Identity();
+	matrixRotation = Matrix3x2F::Identity();
 
 	scale.InitTVector2(this);
 	localScale.InitTVector2(this);
-	mScale = Matrix3x2F::Identity();
+	matrixScale = Matrix3x2F::Identity();
 
 	pivot.InitTVector2(this);
-	mPivot = Matrix3x2F::Identity();
-	mInvertPivot = Matrix3x2F::Identity();
+	matrixPivot = Matrix3x2F::Identity();
+	matrixInvertPivot = Matrix3x2F::Identity();
 }
 
 Transform::~Transform()
@@ -82,23 +83,25 @@ void Transform::UpdateWorldMatrix()
 	const SIZE& ScreenSize = WinGameApp::GetClientSize();
 	if (!parent)
 	{
-		mScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
-		mRotation = Matrix3x2F::Rotation(rotation);
-		mPosition = Matrix3x2F::Translation(position.value.x, ScreenSize.cy - position.value.y);
+		matrixScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
+		matrixRotation = Matrix3x2F::Rotation(rotation);
+		matrixTranslation = Matrix3x2F::Translation(position.value.x, ScreenSize.cy - position.value.y);
 	}
 	else
 	{
-		mScale = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
-		mRotation = Matrix3x2F::Rotation(localRotation);
-		mPosition = Matrix3x2F::Translation(localPosition.value.x, -localPosition.value.y);
+		matrixScale = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
+		matrixRotation = Matrix3x2F::Rotation(localRotation);
+		matrixTranslation = Matrix3x2F::Translation(localPosition.value.x, -localPosition.value.y);
 	}
-	mPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-	mInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
+	matrixPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
+	matrixInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
 
-	worldMatrix = mInvertPivot * mScale * mRotation * mPosition;
+	worldMatrix = matrixInvertPivot * matrixScale * matrixRotation * matrixTranslation;
+	InvertWorldMatrix = worldMatrix;
+	D2D1InvertMatrix(&InvertWorldMatrix);
 	if (parent)
 	{
-		worldMatrix = worldMatrix * parent->mPivot * parent->worldMatrix; //matrix
+		worldMatrix = worldMatrix * parent->matrixPivot * parent->worldMatrix; //matrix
 
 		//Local To World
 		scale.value.x = parent->scale.value.x * localScale.value.x;
@@ -153,6 +156,44 @@ void Transform::SetParent()
 		}
 	}
 }
+
+void Transform::FlipX()
+{
+	scale = Vector2{ -scale.x, scale.y };
+}
+
+void Transform::FlipX(bool isflip)
+{
+	float absX = abs(scale.x);
+	if (isflip)
+	{
+		scale = Vector2{ -absX, scale.y };
+	}
+	else
+	{
+		scale = Vector2{ absX, scale.y };
+	}
+}
+
+void Transform::FlipY(bool isflip)
+{
+	float absY = abs(scale.y);
+	if (isflip)
+	{
+		scale = Vector2{scale.x, -absY };
+	}
+	else
+	{
+		scale = Vector2{scale.x, absY };
+	}
+}
+
+void Transform::FlipY()
+{
+	scale = Vector2{ scale.x, -scale.y };
+}
+
+
 
 Transform::TVector2::TVector2(const TVector2& other)
 {

@@ -1,6 +1,6 @@
 #include "BackGround.h"
 #include "Framework/WinGameApp.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/SpriteRenderer.h"
 
@@ -17,8 +17,6 @@ BackGround::~BackGround()
 void BackGround::Start()
 {
 	SIZE screenSize = WinGameApp::GetClientSize();
-
-	gameObject.GetTransform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.5f };
 	gameObject.GetTransform().scale = Vector2(2.f, 2.f);
 
 	gameObject.AddComponent<SpriteAnimation>();

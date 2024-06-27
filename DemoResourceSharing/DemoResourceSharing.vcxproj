@@ -111,6 +111,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Sourece\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>26495</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,6 +129,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Sourece\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>26495</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,12 +142,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Sourece\Component\BackGround.cpp" />
+    <ClCompile Include="Sourece\Component\CameraMove.cpp" />
     <ClCompile Include="Sourece\Component\Run.cpp" />
     <ClCompile Include="Sourece\DemoResourceSharing.cpp" />
     <ClCompile Include="Sourece\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Component\BackGround.h" />
+    <ClInclude Include="Sourece\Component\CameraMove.h" />
     <ClInclude Include="Sourece\Component\Run.h" />
     <ClInclude Include="Sourece\DemoResourceSharing.h" />
   </ItemGroup>

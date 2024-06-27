@@ -4,9 +4,12 @@
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
 
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
+#include "Core/GameObject/MainCamera.h"
+
 #include "Component/BackGround.h"
 #include "Component/Run.h"
+#include "Component/CameraMove.h"
 
 #include <stack>
 
@@ -47,6 +50,11 @@ Scene1::Scene1()
 	GameObjectBase* run = new GameObjectBase;
 	run->AddComponent<Run>();
 	SceneManager::AddGameObject(run);
+
+	GameObjectBase* mainCamera = new MainCamera;
+	mainCamera->AddComponent<CameraMove>();
+	SceneManager::AddGameObject(mainCamera);
+
 }
 
 Scene1::~Scene1()

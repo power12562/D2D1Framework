@@ -1,4 +1,4 @@
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 
 GameObjectBase::GameObjectBase()
 {

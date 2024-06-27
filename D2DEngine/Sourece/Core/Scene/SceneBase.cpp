@@ -1,5 +1,5 @@
 #include "SceneBase.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 
 SceneBase::SceneBase()
 {
