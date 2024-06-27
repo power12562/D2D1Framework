@@ -1,4 +1,5 @@
 #include "Core/Component/Transform.h"
+#include <stack>
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
 
@@ -31,16 +32,17 @@ Transform::~Transform()
 
 void Transform::Update()
 {
-	if (isTranslation && !childsList.empty())
+	if (parent == nullptr)
 	{
-		UpdateWorldMatrix();
-		UpdateChildTransform(*this);
-		isTranslation = false;
-	}
-	else if (isTranslation)
-	{
-		UpdateWorldMatrix();
-		isTranslation = false;
+		if (!childsList.empty())
+		{
+			UpdateWorldMatrix();
+			UpdateChildTransform();
+		}
+		else
+		{
+			UpdateWorldMatrix();
+		}
 	}
 }
 
@@ -49,26 +51,28 @@ void Transform::Render()
 
 }
 
-void Transform::UpdateChildTransform(Transform& parent)
+void Transform::UpdateChildTransform()
 {
-	for (auto& child : parent.childsList)
+	/*for (auto& child : parent.childsList)
 	{
 		child->UpdateWorldMatrix();
 		if (!child->childsList.empty())
 		{
 			UpdateChildTransform(*child);
 		}
-	}
-}
+	}*/
+	std::stack<Transform*> stack;
+	stack.push(this);
 
-void Transform::SetParentIsTranslation(Transform& transform)
-{
-	Transform* topParent = transform.parent;
-	while (topParent->parent)
-	{
-		topParent = topParent->parent;
+	while (!stack.empty()) {
+		Transform* current = stack.top();
+		stack.pop();
+		current->UpdateWorldMatrix();
+
+		for (auto iter = current->childsList.rbegin(); iter != current->childsList.rend(); ++iter) {
+			stack.push(*iter);
+		}
 	}
-	topParent->isTranslation = true;
 }
 
 void Transform::UpdateWorldMatrix()
@@ -131,10 +135,11 @@ void Transform::SetParent(Transform& parent)
 
 #pragma warning(default:6011)
 }
-//何葛 庆力
-void Transform::SetParent(void* ptr)
+
+//何葛 秦力
+void Transform::SetParent()
 {
-	if (ptr == nullptr && this->parent)
+	if (this->parent)
 	{
 		std::list<Transform*> parentChilds = this->parent->childsList;
 		for (auto iter = parentChilds.begin(); iter != parentChilds.end(); ++iter)
@@ -200,7 +205,6 @@ void Transform::TVector2::InitTVector2(Transform* _thisTransform)
 
 Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 {
-	thisTransform->isTranslation = true;
 	if (this == &(thisTransform->localPosition))
 	{
 		if (thisTransform->parent)
@@ -296,7 +300,6 @@ float& Transform::TFloat::operator-=(const float& rotation)
 
 void Transform::TFloat::SetAngle(const float& rotation)
 {
-	thisTransform->isTranslation = true;
 	if (this == &(thisTransform->localRotation))
 	{
 		if (thisTransform->parent)

@@ -70,9 +70,10 @@ public:
 
 	D2D1_MATRIX_3X2_F& GetWorldMatrix() { return worldMatrix; }
 
-	/** 부모 오브젝트를 설정합니다. nullptr을 넘기면 헤제됩니다.*/
+	/** 부모 오브젝트를 설정합니다.*/
 	void SetParent(Transform& parent);	
-	void SetParent(void* ptr);
+	/** 부모 오브젝트를 해제합니다. 부모로 둘 대상을 인자로 넘길 수 있습니다.*/
+	void SetParent();
 	Transform& GetParent() { return *parent; }
 
 protected:
@@ -82,12 +83,7 @@ protected:
 private:
 	Transform* parent{};
 	std::list<Transform*> childsList;
-	void UpdateChildTransform(Transform& parent);
-
-	bool isTranslation = true;
-
-	/** 최상위 부모의 isTranslation 변수를 true로 변경 해줍니다.*/
-	static void SetParentIsTranslation(Transform& transform);
+	void UpdateChildTransform();
 
 	D2D1_MATRIX_3X2_F worldMatrix;
 	void UpdateWorldMatrix();

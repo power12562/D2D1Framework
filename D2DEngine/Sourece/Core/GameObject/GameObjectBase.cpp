@@ -24,24 +24,25 @@ void GameObjectBase::Start()
 	{
 		component->Start();
 	}
+	pTransform->Start();
 }
 
 void GameObjectBase::Update()
 {
-	pTransform->Update();
 	for (auto& component : componentsList)
 	{
 		component->Update();
 	}
+	pTransform->Update();
 }
 
 void GameObjectBase::Render()
-{
-	pTransform->Render();
+{	
 	for (auto& component : componentsList)
 	{
 		component->Render();
 	}
+	pTransform->Render();
 }
 
 Transform& GameObjectBase::transform()

@@ -45,6 +45,20 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 	gameObjectList.push_back(sun); //1
 	gameObjectList.push_back(earth); //2
 	gameObjectList.push_back(moon); //3
+
+	/*
+	for (int i = 0; i < 10000; i++)
+	{
+		GameObjectBase* moon = new GameObjectBase;
+		moon->transform().SetParent(earth->transform());
+		moon->transform().localPosition = Vector2{ 450.f + i, 0.f };
+		moon->transform().localScale = Vector2{ 1.5f, 1.5f };
+		moon->AddComponent<SpriteRenderer>();
+		moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");
+
+		gameObjectList.push_back(moon);
+	}
+	*/
 }
 
 DemoSolarSystem::~DemoSolarSystem()
