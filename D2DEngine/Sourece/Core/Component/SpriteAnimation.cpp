@@ -65,7 +65,7 @@ void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
 		CurrentClip = iter->second.second;
 		lastFrameIndex = CurrentClip->frames.size() - 1;
 		const FrameInfo& frame = GetCurrentFrame();
-		gameobject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
+		gameObject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
 	}
 	else
 	{
@@ -95,7 +95,7 @@ void SpriteAnimation::Update()
 				}
 			}
 			const FrameInfo& frame = GetCurrentFrame();
-			gameobject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
+			gameObject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
 		}
 	}
 }

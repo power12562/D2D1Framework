@@ -22,15 +22,15 @@ void Run::Start()
 {
 	SIZE screenSize = WinGameApp::GetClientSize();
 
-	gameobject.GetTransform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.1f };
+	gameObject.GetTransform().position = Vector2{ screenSize.cx * 0.5f, screenSize.cy * 0.1f };
 
-	gameobject.AddComponent<SpriteAnimation>();
-	SpriteAnimation& runAnime = gameobject.GetComponent<SpriteAnimation>();
+	gameObject.AddComponent<SpriteAnimation>();
+	SpriteAnimation& runAnime = gameObject.GetComponent<SpriteAnimation>();
 	runAnime.LoadAnimationClip(L"Run", L"Run");
 	runAnime.SetAnimationClip(L"Run", true);
 
-	gameobject.AddComponent<SpriteRenderer>();
-	SpriteRenderer& runRenderer = gameobject.GetComponent<SpriteRenderer>();
+	gameObject.AddComponent<SpriteRenderer>();
+	SpriteRenderer& runRenderer = gameObject.GetComponent<SpriteRenderer>();
 	runRenderer.LoadImage(L"../Resource/Run.png");
 	runRenderer.SetSpriteAnimation(runAnime);
 }
@@ -68,7 +68,7 @@ void Run::Update()
 	}
 	if (Input.IsKeyDown(KeyCode::LeftArrow))
 	{
-		gameobject.transform.scale = Vector2(-1.f, 1.f);
+		gameObject.transform.scale = Vector2(-1.f, 1.f);
 
 		if (!runList.empty())
 		{		
@@ -80,7 +80,7 @@ void Run::Update()
 	}
 	else if (Input.IsKeyDown(KeyCode::RightArrow))
 	{
-		gameobject.transform.scale = Vector2(1.f, 1.f);
+		gameObject.transform.scale = Vector2(1.f, 1.f);
 		if (!runList.empty())
 		{
 			for (auto& item : runList)
@@ -91,7 +91,7 @@ void Run::Update()
 	}
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
-		gameobject.GetComponent<SpriteRenderer>().FlipY();
+		gameObject.GetComponent<SpriteRenderer>().FlipY();
 		if (!runList.empty())
 		{
 			for (auto& item : runList)

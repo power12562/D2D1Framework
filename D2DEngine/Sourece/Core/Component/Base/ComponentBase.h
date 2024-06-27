@@ -15,6 +15,6 @@ protected:
 	virtual void Update();
 	virtual void Render();
 
-	GameObjectBase& gameobject;
+	GameObjectBase& gameObject;
 };
 
