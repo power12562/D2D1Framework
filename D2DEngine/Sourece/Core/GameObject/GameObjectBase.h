@@ -13,7 +13,8 @@ public:
 	virtual void Render();
 
 	/** 트랜스폼*/
-	Transform& transform();
+	Transform& GetTransform() { return *pTransform; }
+	__declspec(property(get = GetTransform)) Transform& transform;
 
 	/** 컴포넌트를 오브젝트에 추가합니다.*/
 	template <typename T> void AddComponent();

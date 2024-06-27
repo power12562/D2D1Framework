@@ -64,6 +64,14 @@ Vector2 Vector2::operator*(const float scala) const
 	return value;
 }
 
+Vector2& Vector2::operator*=(const float scala)
+{
+	this->x *= scala;
+	this->y *= scala;
+
+	return *this;
+}
+
 Vector2& Vector2::operator+=(const Vector2& other)
 {
 	this->x += other.x;

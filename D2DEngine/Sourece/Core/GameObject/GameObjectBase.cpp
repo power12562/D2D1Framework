@@ -45,12 +45,6 @@ void GameObjectBase::Render()
 	pTransform->Render();
 }
 
-Transform& GameObjectBase::transform()
-{
-	return *pTransform;
-}
-
-
 
 
 

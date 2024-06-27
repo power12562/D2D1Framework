@@ -15,8 +15,6 @@ protected:
 	virtual void Update();
 	virtual void Render();
 
-	class GameObjectBase& gameObject() { return gameobject; }
-protected:
 	GameObjectBase& gameobject;
 };
 

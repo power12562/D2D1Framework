@@ -20,6 +20,7 @@ public:
 
 	Vector2& operator=(const Vector2& other);
 	Vector2 operator*(const float scala) const;
+	Vector2& operator*=(const float scala);
 	Vector2& operator+=(const Vector2& other);
 	Vector2& operator-=(const Vector2& other);
 	Vector2 operator+(const Vector2& other);

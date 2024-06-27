@@ -139,10 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sourece\Component\BackGround.cpp" />
+    <ClCompile Include="Sourece\Component\Run.cpp" />
     <ClCompile Include="Sourece\DemoResourceSharing.cpp" />
     <ClCompile Include="Sourece\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sourece\Component\BackGround.h" />
+    <ClInclude Include="Sourece\Component\Run.h" />
     <ClInclude Include="Sourece\DemoResourceSharing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

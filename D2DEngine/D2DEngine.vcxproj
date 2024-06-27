@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp" />
+    <ClCompile Include="Sourece\Core\Component\Camera.cpp" />
     <ClCompile Include="Sourece\Core\Component\SpriteAnimation.cpp" />
     <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Sourece\Core\Component\Transform.cpp" />
@@ -36,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h" />
+    <ClInclude Include="Sourece\Core\Component\Camera.h" />
     <ClInclude Include="Sourece\Core\Component\SpriteAnimation.h" />
     <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
     <ClInclude Include="Sourece\Core\Component\Transform.h" />

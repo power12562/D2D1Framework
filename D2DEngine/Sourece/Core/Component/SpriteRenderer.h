@@ -27,6 +27,13 @@ public:
 	/** 애니메이션 사용안하기. 인자에 애니메이션 컴포넌트를 넘겨주면 적용할 수 있습니다..*/
 	void SetSpriteAnimation() { pSpriteAnimation = nullptr; }
 
+	/** 이미지 X축 반전*/
+	void FlipX(bool isflip);
+	void FlipX();
+	/** 이미지 Y축 반전*/
+	void FlipY(bool isflip);
+	void FlipY();
+
 protected:
 	virtual void Render() override;
 

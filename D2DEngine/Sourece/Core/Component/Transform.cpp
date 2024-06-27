@@ -175,6 +175,16 @@ Vector2 Transform::TVector2::operator-(const Vector2& other)
 	return value - other;
 }
 
+bool Transform::TVector2::operator!=(const Vector2& other)
+{
+	return (value.x != other.x || value.y != other.y);
+}
+
+bool Transform::TVector2::operator==(const Vector2& other)
+{
+	return (value.x == other.x && value.y == other.y);
+}
+
 Vector2 Transform::TVector2::operator+(const Vector2& other)
 {
 	return value + other;
@@ -183,6 +193,18 @@ Vector2 Transform::TVector2::operator+(const Vector2& other)
 Transform::TVector2& Transform::TVector2::operator=(const Vector2& other)
 {
 	return SetTVector(other);
+}
+
+Vector2 Transform::TVector2::operator*(const float scala) const
+{
+	return Vector2(value) * scala;
+}
+
+Transform::TVector2& Transform::TVector2::operator*=(const float scala)
+{
+	value.x *= scala;
+	value.y *= scala;
+	return *this;
 }
 
 Transform::TVector2& Transform::TVector2::operator+=(const Vector2& other)

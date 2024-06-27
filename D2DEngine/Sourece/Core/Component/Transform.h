@@ -16,6 +16,7 @@ class Transform : public ComponentBase
 		friend class Transform;
 		Transform* thisTransform = nullptr;
 		Vector2 value;
+
 	public:
 		TVector2(int x, int y) { value.x = (float)x; value.y = (float)y; }
 		TVector2(float x, float y) { value.x = x; value.y = y; }
@@ -25,13 +26,21 @@ class Transform : public ComponentBase
 		TVector2(const TVector2& other);
 		TVector2(const Vector2& other);
 		
-		operator Vector2();
-		Vector2 operator-(const Vector2& other);
-		Vector2 operator+(const Vector2& other);
+		float GetX() const { return value.x; } //property
+		float GetY() const { return value.y; } //property
+		__declspec(property(get = GetX)) float x;
+		__declspec(property(get = GetY)) float y;
 
+		operator Vector2();
 		TVector2& operator=(const Vector2& other);
+		Vector2 operator*(const float scala) const;
+		TVector2& operator*=(const float scala);
 		TVector2& operator+=(const Vector2& other);
 		TVector2& operator-=(const Vector2& other);
+		Vector2 operator+(const Vector2& other);
+		Vector2 operator-(const Vector2& other);
+		bool operator!=(const Vector2& other);
+		bool operator==(const Vector2& other);
 	private: 
 		void InitTVector2(Transform* thisTransform);
 		TVector2& SetTVector(const Vector2& other);		
