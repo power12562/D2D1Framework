@@ -10,9 +10,9 @@ public:
 	GameObjectBase();
 	virtual ~GameObjectBase();
 	
-	virtual void Start();
-	virtual void Update();
-	virtual void Render();
+	virtual void Start() final;
+	virtual void Update() final;
+	virtual void Render() final;
 
 	/** Transform*/
 	Transform& GetTransform() { return *pTransform; }

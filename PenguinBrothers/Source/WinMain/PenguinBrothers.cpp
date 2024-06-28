@@ -1,6 +1,8 @@
 ﻿#include "PenguinBrothers.h"
 #include "Framework/SceneManager.h"
 
+#include "Source/Scenes/Stage1.h"
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR    lpCmdLine,
@@ -8,7 +10,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    //SceneManager::LoadScene<Stage1>();
+    SceneManager::LoadScene<Stage1>();
     app.Run();
     app.Uninitialize();
 }

@@ -77,6 +77,8 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
 
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
+	if (image == nullptr)
+		return;
 	currentImageSize = image->GetSize();
 	gameObject.GetTransform().pivot = Vector2{ currentImageSize.width * 0.5f, currentImageSize.height * 0.5f};
 

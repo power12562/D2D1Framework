@@ -110,7 +110,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PenguinBrothers\;$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,6 +128,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)PenguinBrothers\;$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,9 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\PlayerMove.cpp" />
+    <ClCompile Include="Source\GameObject\Player.cpp" />
+    <ClCompile Include="Source\Scenes\Stage1.cpp" />
     <ClCompile Include="Source\WinMain\PenguinBrothers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component\PlayerMove.h" />
+    <ClInclude Include="Source\GameObject\Player.h" />
+    <ClInclude Include="Source\Scenes\Stage1.h" />
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
