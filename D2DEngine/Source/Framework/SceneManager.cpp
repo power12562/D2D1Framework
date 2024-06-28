@@ -83,9 +83,17 @@ void SceneManager::AddObjectToQList()
 		while (!addQueueList.empty())
 		{
 			auto& obj = addQueueList.front();
-			obj->Start();
-			currentScene->gameObjectList.push_back(obj);
-			currentScene->gameObjectMap[obj->name] = std::prev(currentScene->gameObjectList.end());
+			if (IsGameObject(obj->name))
+			{
+				assert(!"중복되는 오브젝트 이름입니다.");
+				delete obj;
+			}
+			else
+			{
+				obj->Start();
+				currentScene->gameObjectList.push_back(obj);
+				currentScene->gameObjectMap[obj->name] = std::prev(currentScene->gameObjectList.end());
+			}		
 			addQueueList.pop();
 		}
 	}

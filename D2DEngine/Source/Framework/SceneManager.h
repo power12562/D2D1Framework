@@ -66,14 +66,6 @@ inline void SceneManager::LoadScene()
 
 inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 {
-	if (currentScene)
-	{
-		if (IsGameObject(objectName))
-		{
-			assert(!"중복되는 오브젝트 이름입니다.");
-			return nullptr;
-		}
-	}
 	GameObjectBase* gameObject = new GameObjectBase;
 	gameObject->name = objectName;
 	addQueueList.push(gameObject);
@@ -86,14 +78,6 @@ inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 	// T가 GameObject로부터 상속받는지 확인
 	static_assert(std::is_base_of<GameObjectBase, T>::value, "Is not Object");
 
-	if (currentScene)
-	{
-		if (IsGameObject(objectName))
-		{
-			assert(!"중복되는 오브젝트 이름입니다.");
-			return nullptr;
-		}
-	}
 	GameObjectBase* gameObject = new T;
 	gameObject->name = objectName;
 	addQueueList.push(gameObject);
