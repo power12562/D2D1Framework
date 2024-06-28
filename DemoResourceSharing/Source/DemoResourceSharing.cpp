@@ -49,7 +49,7 @@ Scene1::Scene1()
 
 	GameObjectBase* bg = SceneManager::AddGameObject(L"BackGround");
 	bg->AddComponent<BackGround>();
-
+	
 	GameObjectBase* run = SceneManager::AddGameObject(L"Run");
 	run->AddComponent<Run>();
 

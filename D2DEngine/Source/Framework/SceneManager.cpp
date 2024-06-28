@@ -2,10 +2,9 @@
 #include "Core/Scene/SceneBase.h"
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include <vector>
-#include <cassert>
 
 SceneBase* SceneManager::currentScene = nullptr;
-std::queue<std::pair<std::wstring, GameObjectBase*>> SceneManager::addQueueList;
+std::queue<GameObjectBase*> SceneManager::addQueueList;
 std::set<std::wstring> SceneManager::delNameSetList;
 
 SceneManager::SceneManager()
@@ -19,26 +18,14 @@ SceneManager::~SceneManager()
 
 }
 
-GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
-{	
-	if (currentScene)
-	{
-		auto iter = currentScene->gameObjectMap.find(objectName);
-		if (iter != currentScene->gameObjectMap.end())
-		{
-			MessageBox(GetActiveWindow(), L"중복되는 이름입니다.", L"SceneManager::AddGameObject()", MB_OK);
-			assert(!"중복되는 오브젝트 이름입니다.");
-			return nullptr;
-		}
-	}
-	GameObjectBase* gameObject = new GameObjectBase;
-	addQueueList.push(std::pair<std::wstring, GameObjectBase*>(objectName, gameObject));
-	return gameObject;
-}
-
 void SceneManager::DelGameObject(const wchar_t* objectName)
 {
 	delNameSetList.insert(objectName);
+}
+
+void SceneManager::DelGameObject(GameObjectBase& gameObject)
+{
+	delNameSetList.insert(gameObject.name);
 }
 
 GameObjectBase* SceneManager::FindGameObject(const wchar_t* objectName)
@@ -52,6 +39,19 @@ GameObjectBase* SceneManager::FindGameObject(const wchar_t* objectName)
 		}	
 	}
 	return nullptr;	
+}
+
+bool SceneManager::IsGameObject(const wchar_t* objectName)
+{
+	if (currentScene)
+	{
+		auto findIter = currentScene->gameObjectMap.find(objectName);
+		if (findIter != currentScene->gameObjectMap.end())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void SceneManager::Update()
@@ -83,9 +83,9 @@ void SceneManager::AddObjectToQList()
 		while (!addQueueList.empty())
 		{
 			auto& obj = addQueueList.front();
-			obj.second->Start();
-			currentScene->gameObjectList.push_back(obj.second);
-			currentScene->gameObjectMap[obj.first] = std::prev(currentScene->gameObjectList.end());
+			obj->Start();
+			currentScene->gameObjectList.push_back(obj);
+			currentScene->gameObjectMap[obj->name] = std::prev(currentScene->gameObjectList.end());
 			addQueueList.pop();
 		}
 	}

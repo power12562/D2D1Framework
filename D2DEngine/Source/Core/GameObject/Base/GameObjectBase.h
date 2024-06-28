@@ -1,6 +1,8 @@
 #pragma once
-#include <list>
 #include "Core/Component/Transform.h"
+
+#include <list>
+#include <string>
 
 class GameObjectBase
 {
@@ -12,7 +14,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	/** 트랜스폼*/
+	/** Transform*/
 	Transform& GetTransform() { return *pTransform; }
 	__declspec(property(get = GetTransform)) Transform& transform;
 
@@ -24,10 +26,17 @@ public:
 
 	/**현재 씬에서 게임 오브젝트를 찾습니다.*/
 	static GameObjectBase* Find(const wchar_t* name);
-	
-private:	
+
+	/** 오브젝트 이름을 변경합니다. */
+	void SetName(const wchar_t* name);
+	const wchar_t* GetName() { return objName.c_str(); }
+	__declspec(property(get = GetName, put = SetName)) const wchar_t* name; //프로퍼티
+
+
+private:
 	Transform* pTransform;
 	std::list<ComponentBase*> componentsList;
+	std::wstring objName;
 };
 
 

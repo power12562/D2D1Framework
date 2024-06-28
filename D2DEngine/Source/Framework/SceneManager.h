@@ -1,30 +1,41 @@
 #pragma once
 #include "Core/Scene/SceneBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
+
 #include <iostream>
 #include <queue>
 #include <set>
+#include <cassert>
 
 class SceneManager
 {
 	friend class WinGameApp;
+	friend void GameObjectBase::SetName(const wchar_t* name);
 public:
 	/** 씬을 불러옵니다*/
 	template<typename T> static void LoadScene();
+
 	/** 현재 씬에 기본 오브젝트를 추가합니다.*/
 	static GameObjectBase* AddGameObject(const wchar_t* objectName);
 	/** 현재 씬에 특정 오브젝트를 추가합니다.*/
 	template<typename T> static GameObjectBase* AddGameObject(const wchar_t* objectName);
+
 	/** 현재 씬에 오브젝트를 삭제합니다.*/
 	static void DelGameObject(const wchar_t* objectName);
+	static void DelGameObject(GameObjectBase& gameObject);
+
 	/** 현재 씬에 오브젝트를 검색합니다.*/
 	static GameObjectBase* FindGameObject(const wchar_t* objectName);
+
+	/** 현재 씬에 오브젝트 존재 유무를 반환합니다.*/
+	static bool IsGameObject(const wchar_t* objectName);
 
 private:
 	SceneManager();
 	~SceneManager();
 
 	static class SceneBase* currentScene;
-	static std::queue<std::pair<std::wstring,GameObjectBase*>> addQueueList;
+	static std::queue<GameObjectBase*> addQueueList;
 	static std::set<std::wstring> delNameSetList;
 
 #pragma region WinGameApp->Run()루프에서만 호출하는 함수들
@@ -53,13 +64,38 @@ inline void SceneManager::LoadScene()
 	currentScene = new T;
 }
 
+inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
+{
+	if (currentScene)
+	{
+		if (IsGameObject(objectName))
+		{
+			assert(!"중복되는 오브젝트 이름입니다.");
+			return nullptr;
+		}
+	}
+	GameObjectBase* gameObject = new GameObjectBase;
+	gameObject->name = objectName;
+	addQueueList.push(gameObject);
+	return gameObject;
+}
+
 template<typename T>
 inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 {
 	// T가 GameObject로부터 상속받는지 확인
 	static_assert(std::is_base_of<GameObjectBase, T>::value, "Is not Object");
 
+	if (currentScene)
+	{
+		if (IsGameObject(objectName))
+		{
+			assert(!"중복되는 오브젝트 이름입니다.");
+			return nullptr;
+		}
+	}
 	GameObjectBase* gameObject = new T;
-	addQueueList.push(std::pair<const wchar_t*, GameObjectBase*>(objectName, gameObject));
+	gameObject->name = objectName;
+	addQueueList.push(gameObject);
 	return gameObject;
 }

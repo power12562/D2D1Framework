@@ -1,13 +1,14 @@
 #pragma once
+#include "Core/GameObject/Base/GameObjectBase.h"
+
 #include <list>
 #include <map>
 #include <string>
 
-class GameObjectBase;
-
 class SceneBase
 {
 	friend class SceneManager;
+	friend void GameObjectBase::SetName(const wchar_t* name);
 public:
 	SceneBase();
 	virtual ~SceneBase();
