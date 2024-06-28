@@ -105,7 +105,7 @@ void Transform::UpdateWorldMatrix()
 	matrixInvertWorld = matrixWorld;
 	D2D1InvertMatrix(&matrixInvertWorld);
 	matrixMainCamera = matrixWorld;
-	if (Camera* main = Camera::mainCamera())
+	if (Camera* main = Camera::GetMainCamera())
 	{
 		matrixMainCamera = matrixMainCamera * main->GetInvertMatrix();
 	}

@@ -13,8 +13,8 @@ public:
 	/** 이 카메라를 메인으로 설정 합니다.*/
 	void SetMain();
 
-	/** 메인 카메라*/
-	static inline Camera* const mainCamera() { return mainCam; }
+	/** 메인 카메라. 없으면 nullptr 반환합니다.*/
+	static inline Camera* const GetMainCamera() { return mainCam; }
 
 	/** 이 카메라의 역행렬*/
 	const D2D1_MATRIX_3X2_F& GetInvertMatrix();

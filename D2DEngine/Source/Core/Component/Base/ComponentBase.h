@@ -12,9 +12,9 @@ public:
 	GameObjectBase& gameObject;
 
 	bool enabled = true;
+
 protected:
 	virtual void Start();
 	virtual void Update();
 	virtual void Render();
 };
-

@@ -17,14 +17,6 @@ SIZE WinGameApp::size = {1920, 1080};
 bool WinGameApp::isResize = false;
 bool WinGameApp::isMaxsize = false;
 
-WinGameApp::WinGameApp() 
-{
-	
-}
-
-WinGameApp::~WinGameApp()
-{
-}
 
 void WinGameApp::Initialize(HINSTANCE hinstance)
 {

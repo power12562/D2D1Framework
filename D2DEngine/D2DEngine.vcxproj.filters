@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Sourece\Core\Component\SpriteRenderer.cpp" />
-    <ClCompile Include="Sourece\Core\Component\Transform.cpp" />
-    <ClCompile Include="Sourece\Core\GameObject\Base\GameObjectBase.cpp" />
-    <ClCompile Include="Sourece\Framework\D2DRenderer.cpp" />
-    <ClCompile Include="Sourece\Framework\InputSystem.cpp" />
-    <ClCompile Include="Sourece\Framework\TimeSystem.cpp" />
-    <ClCompile Include="Sourece\Framework\WinGameApp.cpp" />
-    <ClCompile Include="Sourece\Math\Mathf.cpp" />
-    <ClCompile Include="Sourece\Vector\Vector2.cpp" />
-    <ClCompile Include="Sourece\Core\Component\Base\ComponentBase.cpp" />
-    <ClCompile Include="Sourece\Framework\SceneManager.cpp" />
-    <ClCompile Include="Sourece\Core\Scene\SceneBase.cpp" />
-    <ClCompile Include="Sourece\Core\Component\SpriteAnimation.cpp" />
-    <ClCompile Include="Sourece\Framework\ReferenceCounter.cpp" />
-    <ClCompile Include="Sourece\Core\Component\Camera.cpp" />
-    <ClCompile Include="Sourece\Core\GameObject\MainCamera.cpp" />
+    <ClCompile Include="Source\Core\Component\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Core\Component\Transform.cpp" />
+    <ClCompile Include="Source\Core\GameObject\Base\GameObjectBase.cpp" />
+    <ClCompile Include="Source\Framework\D2DRenderer.cpp" />
+    <ClCompile Include="Source\Framework\InputSystem.cpp" />
+    <ClCompile Include="Source\Framework\TimeSystem.cpp" />
+    <ClCompile Include="Source\Framework\WinGameApp.cpp" />
+    <ClCompile Include="Source\Math\Mathf.cpp" />
+    <ClCompile Include="Source\Vector\Vector2.cpp" />
+    <ClCompile Include="Source\Core\Component\Base\ComponentBase.cpp" />
+    <ClCompile Include="Source\Framework\SceneManager.cpp" />
+    <ClCompile Include="Source\Core\Scene\SceneBase.cpp" />
+    <ClCompile Include="Source\Core\Component\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\Framework\ReferenceCounter.cpp" />
+    <ClCompile Include="Source\Core\Component\Camera.cpp" />
+    <ClCompile Include="Source\Core\GameObject\MainCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sourece\Core\Component\SpriteRenderer.h" />
-    <ClInclude Include="Sourece\Core\Component\Transform.h" />
-    <ClInclude Include="Sourece\Core\GameObject\Base\GameObjectBase.h" />
-    <ClInclude Include="Sourece\Framework\D2DRenderer.h" />
-    <ClInclude Include="Sourece\Framework\InputSystem.h" />
-    <ClInclude Include="Sourece\Framework\TimeSystem.h" />
-    <ClInclude Include="Sourece\Framework\WinGameApp.h" />
-    <ClInclude Include="Sourece\Math\Mathf.h" />
-    <ClInclude Include="Sourece\Vector\Vector2.h" />
-    <ClInclude Include="Sourece\Core\Component\Base\ComponentBase.h" />
-    <ClInclude Include="Sourece\Framework\SceneManager.h" />
-    <ClInclude Include="Sourece\Core\Scene\SceneBase.h" />
-    <ClInclude Include="Sourece\Core\Component\SpriteAnimation.h" />
-    <ClInclude Include="Sourece\Framework\ReferenceCounter.h" />
-    <ClInclude Include="Sourece\Core\Component\Camera.h" />
-    <ClInclude Include="Sourece\Core\GameObject\MainCamera.h" />
+    <ClInclude Include="Source\Core\Component\SpriteRenderer.h" />
+    <ClInclude Include="Source\Core\Component\Transform.h" />
+    <ClInclude Include="Source\Core\GameObject\Base\GameObjectBase.h" />
+    <ClInclude Include="Source\Framework\D2DRenderer.h" />
+    <ClInclude Include="Source\Framework\InputSystem.h" />
+    <ClInclude Include="Source\Framework\TimeSystem.h" />
+    <ClInclude Include="Source\Framework\WinGameApp.h" />
+    <ClInclude Include="Source\Math\Mathf.h" />
+    <ClInclude Include="Source\Vector\Vector2.h" />
+    <ClInclude Include="Source\Core\Component\Base\ComponentBase.h" />
+    <ClInclude Include="Source\Framework\SceneManager.h" />
+    <ClInclude Include="Source\Core\Scene\SceneBase.h" />
+    <ClInclude Include="Source\Core\Component\SpriteAnimation.h" />
+    <ClInclude Include="Source\Framework\ReferenceCounter.h" />
+    <ClInclude Include="Source\Core\Component\Camera.h" />
+    <ClInclude Include="Source\Core\GameObject\MainCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

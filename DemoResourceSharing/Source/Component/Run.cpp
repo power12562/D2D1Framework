@@ -7,6 +7,7 @@
 #include "Core/Component/SpriteRenderer.h"
 
 #include <list>
+#include <string>
 
 Run::Run(GameObjectBase& object) : ComponentBase(object)
 {
@@ -40,10 +41,12 @@ void Run::Update()
 
 	SIZE screenSize = WinGameApp::GetClientSize();
 	static int instanceCount = 1;
-	static std::list<GameObjectBase*> runList;
+	static std::list<std::wstring> runList;
 	if (Input.IsKeyDown(KeyCode::UpArrow))
 	{
-		GameObjectBase* run = new GameObjectBase;
+		std::wstring name = L"Run";
+		name += std::to_wstring(instanceCount);
+		GameObjectBase* run = SceneManager::AddGameObject(name.c_str());
 		run->transform.position = Vector2{ gameObject.transform.position.x, gameObject.transform.position.y + 90.f * instanceCount++ };
 
 		run->AddComponent<SpriteAnimation>();
@@ -55,13 +58,11 @@ void Run::Update()
 		SpriteRenderer& runRenderer = run->GetComponent<SpriteRenderer>();
 		runRenderer.LoadImage(L"../Resource/Run.png");
 		runRenderer.SetSpriteAnimation(runAnime);
-
-		SceneManager::AddGameObject(run);
-		runList.push_back(run);
+		runList.push_back(name.c_str());
 	}
 	else if (Input.IsKeyDown(KeyCode::DownArrow) && !runList.empty())
 	{
-		SceneManager::DelGameObject(runList.back());
+		SceneManager::DelGameObject(runList.back().c_str());
 		runList.pop_back();
 		instanceCount--;
 	}
@@ -73,7 +74,7 @@ void Run::Update()
 		{		
 			for (auto& item : runList)
 			{
-				item->transform.FlipX(true);
+				GameObjectBase::Find(item.c_str())->transform.FlipX(true);
 			}
 		}
 	}
@@ -84,7 +85,7 @@ void Run::Update()
 		{
 			for (auto& item : runList)
 			{
-				item->transform.FlipX(false);
+				GameObjectBase::Find(item.c_str())->transform.FlipX(false);
 			}
 		}
 	}
@@ -95,7 +96,7 @@ void Run::Update()
 		{
 			for (auto& item : runList)
 			{
-				item->transform.FlipY();
+				GameObjectBase::Find(item.c_str())->transform.FlipY();
 			}
 		}
 	}

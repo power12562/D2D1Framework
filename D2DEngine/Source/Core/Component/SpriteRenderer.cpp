@@ -39,7 +39,7 @@ void SpriteRenderer::Render()
 {
 	if (!image || !enabled)
 		return;
-	Camera* const mainCam = Camera::mainCamera();
+	Camera* const mainCam = Camera::GetMainCamera();
 	const D2D1_MATRIX_3X2_F& objMatrix = gameObject.transform.GetCameraMatrix();
 	if (pSpriteAnimation == nullptr)
 	{	

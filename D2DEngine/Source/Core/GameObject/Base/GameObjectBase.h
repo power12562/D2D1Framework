@@ -21,6 +21,9 @@ public:
 
 	/** 컴포넌트를 가져옵니다.*/
 	template <typename T> T& GetComponent();
+
+	/**현재 씬에서 게임 오브젝트를 찾습니다.*/
+	static GameObjectBase* Find(const wchar_t* name);
 	
 private:	
 	Transform* pTransform;
@@ -52,3 +55,4 @@ template<typename T> inline T& GameObjectBase::GetComponent()
 	}
 	return *component;
 }
+

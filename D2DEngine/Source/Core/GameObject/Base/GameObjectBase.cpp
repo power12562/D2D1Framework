@@ -1,4 +1,5 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
+#include "Framework/SceneManager.h"
 
 GameObjectBase::GameObjectBase()
 {
@@ -46,7 +47,10 @@ void GameObjectBase::Render()
 }
 
 
-
+GameObjectBase* GameObjectBase::Find(const wchar_t* name)
+{
+	return SceneManager::FindGameObject(name);
+}
 
 
 

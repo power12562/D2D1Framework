@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <Windows.h>
+#define WIN32_LEAN_AND_MEAN    
 #include <d2d1.h>
 
 //custom message
@@ -9,15 +10,14 @@
 class WinGameApp
 {
 public:
-	WinGameApp();
-	virtual ~WinGameApp();
+	WinGameApp() {}
+	virtual ~WinGameApp() {}
 
 	void Initialize(HINSTANCE hinstance);
+	void Run(); //기본 메시지 루프
 	void Uninitialize();
 
-	/** 기본 메시지 루프*/
-	void Run();
-	void End() { isEnd = true; }
+	void End() { isEnd = true; } //루프 종료
 
 	virtual void Update();
 	virtual void Render();
@@ -37,17 +37,17 @@ public:
 protected:
 	bool isDebug = false;
 
-	/** 클래스 스타일.*/
-	const UINT winClassStyle = CS_HREDRAW | CS_VREDRAW;
+	/** 클래스 스타일. Initialize() 실행전에만 적용됩니다.*/
+	UINT winClassStyle = CS_HREDRAW | CS_VREDRAW;
 
-	/** 클라이언트 윈도우 스타일.*/
-	const DWORD windowStyle = WS_OVERLAPPEDWINDOW;
+	/** 클라이언트 윈도우 스타일. Initialize() 실행전에만 적용됩니다.*/
+	DWORD windowStyle = WS_OVERLAPPEDWINDOW;
 
-	/** 윈도우 클래스 구조체 이름*/
-	const LPCWSTR winClassName = L"D2D1_ENGINE";
+	/** 윈도우 클래스 구조체 이름. Initialize() 실행전에만 적용됩니다.*/
+	LPCWSTR winClassName = L"D2D1_ENGINE";
 
-	/** 윈도우 클라이언트 이름*/
-	const LPCWSTR windowName = L"DemoApp";
+	/** 윈도우 클라이언트 이름. Initialize() 실행전에만 적용됩니다.*/
+	LPCWSTR windowName = L"DemoApp";
 
 	/** 배경 색. 기본 값 : 검정*/
 	D2D1_COLOR_F bgColor = D2D1::ColorF(D2D1::ColorF::Black);
