@@ -9,7 +9,7 @@ class D2D1::Matrix3x2F;
 class Transform : public ComponentBase
 {
 	friend class GameObjectBase;
-	friend class SpriteRenderer;
+	friend class Camera;
 
 	class TVector2
 	{	
@@ -77,7 +77,8 @@ public:
 	TFloat localRotation = 0;
 	TVector2 localScale{ 1,1 };
 
-	D2D1_MATRIX_3X2_F& GetWorldMatrix() { return worldMatrix; }
+	inline D2D1_MATRIX_3X2_F& GetWorldMatrix() { return matrixWorld; }
+	inline D2D1_MATRIX_3X2_F& GetCameraMatrix() { return matrixMainCamera; }
 
 	/** 부모 오브젝트를 설정합니다.*/
 	void SetParent(Transform& parent);	
@@ -101,8 +102,9 @@ private:
 	std::list<Transform*> childsList;
 	void UpdateChildTransform();
 
-	D2D1_MATRIX_3X2_F worldMatrix;
-	D2D1_MATRIX_3X2_F InvertWorldMatrix; //역행렬
+	D2D1_MATRIX_3X2_F matrixWorld; //월드
+	D2D1_MATRIX_3X2_F matrixInvertWorld; //월드 역행렬
+	D2D1_MATRIX_3X2_F matrixMainCamera; //카메라
 	void UpdateWorldMatrix();
 	D2D1_MATRIX_3X2_F matrixScale;
 	D2D1_MATRIX_3X2_F matrixRotation;

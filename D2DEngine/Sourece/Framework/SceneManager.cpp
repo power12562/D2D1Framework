@@ -83,6 +83,7 @@ void SceneManager::DelObjectToSetList()
 			{
 				if (*iter == delVectorList[i])
 				{
+					delete (*iter);
 					currentScene->gameObjectList.erase(iter);
 					break;
 				}

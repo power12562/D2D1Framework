@@ -33,6 +33,9 @@ protected:
 private:
 	struct ID2D1Bitmap* image = nullptr;
 
+	/**즉시 삭제를 위한 자신의 이터레이터 (노드)*/
+	std::list<SpriteRenderer*>::iterator instanceIter;
+
 	/** 적용시킬 애니메이션 컴포넌트*/
 	SpriteAnimation* pSpriteAnimation = nullptr;
 

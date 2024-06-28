@@ -150,6 +150,8 @@ void D2DRenderer::UninitDirect2D()
 	if (isInit == false)
 		return;
 
+	ReleaseAllID2D1Bitmap();
+
 	if (pDXGIAdapter)
 	{
 		pDXGIAdapter->Release();

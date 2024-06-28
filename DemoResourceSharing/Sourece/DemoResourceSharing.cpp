@@ -6,6 +6,7 @@
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/GameObject/MainCamera.h"
+#include "Core/Component/SpriteRenderer.h"
 
 #include "Component/BackGround.h"
 #include "Component/Run.h"
@@ -43,6 +44,10 @@ void DemoResourceSharing::Render()
 
 Scene1::Scene1()
 {
+	GameObjectBase* mainCamera = new MainCamera;
+	mainCamera->AddComponent<CameraMove>();
+	SceneManager::AddGameObject(mainCamera);
+
 	GameObjectBase* bg = new GameObjectBase;
 	bg->AddComponent<BackGround>();
 	SceneManager::AddGameObject(bg);
@@ -50,10 +55,6 @@ Scene1::Scene1()
 	GameObjectBase* run = new GameObjectBase;
 	run->AddComponent<Run>();
 	SceneManager::AddGameObject(run);
-
-	GameObjectBase* mainCamera = new MainCamera;
-	mainCamera->AddComponent<CameraMove>();
-	SceneManager::AddGameObject(mainCamera);
 
 }
 

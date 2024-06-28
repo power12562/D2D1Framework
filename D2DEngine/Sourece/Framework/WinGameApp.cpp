@@ -4,6 +4,7 @@
 #include "Framework/InputSystem.h"
 #include "Framework/SceneManager.h"
 #include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/Camera.h"
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
@@ -205,8 +206,6 @@ void WinGameApp::ReSizeClient()
 	GetClientRect(hwnd, &rc);
 
 	size = {rc.right - rc.left, rc.bottom - rc.top};	
-
-	D2DRenderer::InitDirect2D();
 }
 
 // 윈도우 프로시저 함수 정의
@@ -219,7 +218,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_SIZE:
-		WinGameApp::ReSizeClient();
 		switch (wParam)
 		{	
 		case SIZE_RESTORED:
@@ -238,10 +236,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	case WM_EXITSIZEMOVE:
 		WinGameApp::isResize = true;
+		WinGameApp::ReSizeClient();
+		D2DRenderer::InitDirect2D();
 		break;
 
-	case WM_CUSTOM_INITD2D:
+	case WM_CUSTOM_INITD2D:	
 		SpriteRenderer::ReloadImage();
+		Camera::ResetCameraPivot();
 		WinGameApp::isResize = false;
 		break;
 

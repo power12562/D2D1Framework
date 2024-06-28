@@ -1,14 +1,19 @@
 #include "Core/Component/Transform.h"
-#include <stack>
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
+
+#include "Core/Component/Camera.h"
+
+#include <stack>
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 	using namespace D2D1;
 
-	worldMatrix = Matrix3x2F::Identity();
-	InvertWorldMatrix = Matrix3x2F::Identity();
+	matrixWorld = Matrix3x2F::Identity();
+	matrixInvertWorld = Matrix3x2F::Identity();
+
+	matrixMainCamera = Matrix3x2F::Identity();
 
 	position.InitTVector2(this);
 	localPosition.InitTVector2(this);
@@ -96,12 +101,17 @@ void Transform::UpdateWorldMatrix()
 	matrixPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
 	matrixInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
 
-	worldMatrix = matrixInvertPivot * matrixScale * matrixRotation * matrixTranslation;
-	InvertWorldMatrix = worldMatrix;
-	D2D1InvertMatrix(&InvertWorldMatrix);
+	matrixWorld = matrixInvertPivot * matrixScale * matrixRotation * matrixTranslation;
+	matrixInvertWorld = matrixWorld;
+	D2D1InvertMatrix(&matrixInvertWorld);
+	matrixMainCamera = matrixWorld;
+	if (Camera* main = Camera::mainCamera())
+	{
+		matrixMainCamera = matrixMainCamera * main->GetInvertMatrix();
+	}
 	if (parent)
 	{
-		worldMatrix = worldMatrix * parent->matrixPivot * parent->worldMatrix; //matrix
+		matrixWorld = matrixWorld * parent->matrixPivot * parent->matrixWorld; //matrix
 
 		//Local To World
 		scale.value.x = parent->scale.value.x * localScale.value.x;

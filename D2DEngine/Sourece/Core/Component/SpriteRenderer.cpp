@@ -11,14 +11,18 @@ std::list<SpriteRenderer*> SpriteRenderer::instanceList;
 SpriteRenderer::SpriteRenderer(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 	instanceList.push_back(this);
+	instanceIter = std::prev(instanceList.end()); //마지막 이터를 자신의 이터레이터로 저장
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
-	if (lastLoadPath != nullptr)
+	if (image != nullptr)
 	{
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
+		delete[] lastLoadPath;
+		lastLoadPath = nullptr;
 	}
+	instanceList.erase(instanceIter); //자신을 인스턴스 리스트에서 제거
 }
 
 void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
@@ -36,17 +40,10 @@ void SpriteRenderer::Render()
 	if (!image || !enabled)
 		return;
 	Camera* const mainCam = Camera::mainCamera();
-	const D2D1_MATRIX_3X2_F& objMatrix = gameObject.GetTransform().GetWorldMatrix();
+	const D2D1_MATRIX_3X2_F& objMatrix = gameObject.transform.GetCameraMatrix();
 	if (pSpriteAnimation == nullptr)
-	{
-		if (mainCam)
-		{
-			D2DRenderer::DrawBitmap(image, objMatrix * mainCam->gameObject.transform.matrixInvertPivot);
-		}
-		else
-		{ 
-			D2DRenderer::DrawBitmap(image, objMatrix);
-		}	
+	{	
+		D2DRenderer::DrawBitmap(image, objMatrix);	
 	}		
 	else
 	{
@@ -57,15 +54,8 @@ void SpriteRenderer::Render()
 		halfSize.width = currentImageSize.width * 0.5f;
 		halfSize.height = currentImageSize.height * 0.5f;
 		D2D1_MATRIX_3X2_F pivotCenter = D2D1::Matrix3x2F::Translation(halfSize.width + frame.center.x, halfSize.height + frame.center.y);
-
-		if (mainCam)
-		{
-			D2DRenderer::DrawBitmap(image, (pivotCenter * objMatrix) * mainCam->gameObject.transform.InvertWorldMatrix, sourceRect);
-		}
-		else
-		{
-			D2DRenderer::DrawBitmap(image, pivotCenter * objMatrix, sourceRect);
-		}
+	
+		D2DRenderer::DrawBitmap(image, pivotCenter * objMatrix, sourceRect);
 	}
 }
 
@@ -73,6 +63,7 @@ void SpriteRenderer::ReloadImage()
 {
 	for (auto& component : instanceList)
 	{
+		component->image = nullptr;
 		component->LoadImage(component->lastLoadPath);
 	}
 }
@@ -82,7 +73,7 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 	if (path == nullptr)
 		return;
 	
-	if(lastLoadPath != nullptr)
+	if(image != nullptr)
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
 
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
@@ -92,8 +83,9 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 	if (lastLoadPath == nullptr || wcscmp(path, lastLoadPath))
 	{
 		if (lastLoadPath)
-		{			
-			lastLoadPath = nullptr;
+		{		
+			delete[] lastLoadPath;
+			lastLoadPath = nullptr;		
 		}
 		size_t size = wcslen(path) + 1;
 		lastLoadPath = new wchar_t[size];
