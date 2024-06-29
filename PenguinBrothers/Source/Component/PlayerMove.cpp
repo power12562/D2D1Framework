@@ -27,10 +27,14 @@ void PlayerMove::Update()
 	if (Input.IsKey(KeyCode::LeftArrow))
 	{
 		gameObject.transform.position += Vector2::Left * moveSpeed * Time.GetDeltatime();
+		if(!gameObject.transform.flipX)
+			gameObject.transform.FlipX(true);
 	}
 	else if (Input.IsKey(KeyCode::RightArrow))
 	{
 		gameObject.transform.position += Vector2::Right * moveSpeed * Time.GetDeltatime();
+		if (gameObject.transform.flipX)
+			gameObject.transform.FlipX(false);
 	}
 
 

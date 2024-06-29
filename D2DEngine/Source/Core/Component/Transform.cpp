@@ -167,11 +167,6 @@ void Transform::SetParent()
 	}
 }
 
-void Transform::FlipX()
-{
-	scale = Vector2{ -scale.x, scale.y };
-}
-
 void Transform::FlipX(bool isflip)
 {
 	float absX = abs(scale.x);
@@ -183,6 +178,13 @@ void Transform::FlipX(bool isflip)
 	{
 		scale = Vector2{ absX, scale.y };
 	}
+	isFlipX = isflip;
+}
+
+void Transform::FlipX()
+{
+	scale = Vector2{ -scale.x, scale.y };
+	!isFlipX;
 }
 
 void Transform::FlipY(bool isflip)
@@ -196,11 +198,13 @@ void Transform::FlipY(bool isflip)
 	{
 		scale = Vector2{scale.x, absY };
 	}
+	isFlipY = isflip;
 }
 
 void Transform::FlipY()
 {
 	scale = Vector2{ scale.x, -scale.y };
+	!isFlipY;
 }
 
 

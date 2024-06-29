@@ -86,12 +86,19 @@ public:
 	void SetParent();
 	Transform& GetParent() { return *parent; }
 
-	/** X축 반전*/
+	/** X축 반전 시키기*/
 	void FlipX(bool isflip);
 	void FlipX();
-	/** Y축 반전*/
+	/** Y축 반전 시키기*/
 	void FlipY(bool isflip);
 	void FlipY();
+
+	bool IsFlipX() const { return isFlipX; }
+	/** 현재 좌우반전 여부. 읽기 전용*/
+	__declspec(property(get = IsFlipX)) bool flipX;
+	bool IsFlipY() const { return isFlipY; } 
+	/** 현재 좌우반전 여부. 읽기 전용*/
+	__declspec(property(get = IsFlipY)) bool flipY;
 
 protected:
 	virtual void Update() override;
@@ -111,6 +118,9 @@ private:
 	D2D1_MATRIX_3X2_F matrixTranslation;
 	D2D1_MATRIX_3X2_F matrixPivot;
 	D2D1_MATRIX_3X2_F matrixInvertPivot;
+
+	bool isFlipX;
+	bool isFlipY;
 };
 
 
