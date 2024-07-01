@@ -24,7 +24,7 @@ Player::Player()
 	spriteRenderer.SetSpriteAnimation(spriteAnimation);
 
 	AddComponent <PlayerCtrl>();
-	transform.scale = Vector2(5.0f, 5.0f);
+	transform.scale = Vector2(2.0f, 2.0f);
 }
 
 Player::~Player()

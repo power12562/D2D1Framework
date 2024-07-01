@@ -1,21 +1,22 @@
 #pragma once
-#include "Core/Component/Base/ComponentBase.h"
+#include "Vector/Vector2.h"
 
-enum PlayerState
-{
-	Idle,
-	Duck,
-	Walk,
-	Jump,
-	Slide,
-	Attack
-};
+#include "Core/Component/Base/ComponentBase.h"
 
 class PlayerCtrl : public ComponentBase
 {
-	PlayerState playerState = PlayerState::Idle;
 	class SpriteAnimation* spriteAnimation;
 public:
+	enum class State
+	{
+		Idle,
+		Duck,
+		Walk,
+		Jump,
+		Slide,
+		Attack
+	};
+
 	PlayerCtrl(GameObjectBase& gameObject);
 	virtual ~PlayerCtrl();
 
@@ -25,7 +26,13 @@ protected:
 	virtual void Render();
 
 private:
+	Vector2 dir = Vector2::Right;
+	State playerState;
+	State animeState;
 	float moveSpeed;
-	void SetAnime(PlayerState state);
+	float slideSpeed;
+	void SetState(State state);
+	void UpdateState();
+	void UpdateAnime();
 
 };

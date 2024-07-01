@@ -27,6 +27,7 @@ IDXGIAdapter3* D2DRenderer::pDXGIAdapter = NULL;
 
 //중복 로드 방지용 리소스 맵
 std::map<std::wstring, ID2D1Bitmap*> D2DRenderer::ID2D1BitmapResourceMap;
+std::map<std::wstring, IDWriteTextFormat*> D2DRenderer::ID2D1FontResourceMap;
 
 bool D2DRenderer::InitDirect2D()
 {
@@ -151,6 +152,7 @@ void D2DRenderer::UninitDirect2D()
 		return;
 
 	ReleaseAllID2D1Bitmap();
+	ReleaseAllID2D1Font();
 
 	if (pDXGIAdapter)
 	{
@@ -458,7 +460,14 @@ float D2DRenderer::RadToDeg(const float radian)
 }
 
 IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fontSize, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch)
-{
+{	
+	auto iter = ID2D1FontResourceMap.find(fontName);
+	if (iter != ID2D1FontResourceMap.end()) //end가 아니면 찾음
+	{
+		iter->second->AddRef();
+		return iter->second;
+	}
+
 	IDWriteTextFormat* pDWriteTextFormat = nullptr;
 
 	// DirectWrite 텍스트 형식 개체를 만듭니다.
@@ -479,7 +488,21 @@ IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fon
 		return nullptr;
 	}
 
+	ID2D1FontResourceMap[fontName] = pDWriteTextFormat;
 	return pDWriteTextFormat;
+}
+
+void D2DRenderer::ReleaseD2DFont(const wchar_t* fontName)
+{
+	auto iter = ID2D1FontResourceMap.find(fontName);
+	if (iter != ID2D1FontResourceMap.end())
+	{
+		ULONG refCount = iter->second->Release();
+		if (refCount == 0)
+		{
+			ID2D1FontResourceMap.erase(iter);
+		}
+	}
 }
 
 void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color)
@@ -555,5 +578,21 @@ void D2DRenderer::ReleaseAllID2D1Bitmap()
 			}
 		}
 		ID2D1BitmapResourceMap.clear();
+	}
+}
+
+void D2DRenderer::ReleaseAllID2D1Font()
+{
+	if (!ID2D1FontResourceMap.empty())
+	{
+		for (auto& item : ID2D1FontResourceMap)
+		{
+			ULONG refCount = item.second->Release();
+			while (refCount != 0)
+			{
+				refCount = item.second->Release();
+			}
+		}
+		ID2D1FontResourceMap.clear();
 	}
 }

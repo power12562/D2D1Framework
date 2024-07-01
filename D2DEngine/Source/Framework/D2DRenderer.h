@@ -65,10 +65,10 @@ public:
 	/**
 	 * @brief 폰트정보의 포인터를 생성합니다. 설치된 폰트만 사용 가능합니다.
 	 * @param fontName : 사용할 폰트 이름.
+	 * @param fontSize : DIP 단위로 된 글꼴의 논리적 크기입니다. DIP는 1/96 인치와 같습니다.
 	 * @param fontWeight : 텍스트 개체의 글꼴 두께 값입니다.
 	 * @param fontStyle : 글꼴 스타일을 나타내는 값입니다.
-	 * @param fontStretch : 글꼴 스트레치를 나타내는 값입니다.
-	 * @param fontSize : DIP 단위로 된 글꼴의 논리적 크기입니다. DIP는 1/96 인치와 같습니다.
+	 * @param fontStretch : 글꼴 스트레치를 나타내는 값입니다.	
 	 * @return 생성된 폰트의 정보를 가지고 있는 포인터 객체.
 	 */
 	static IDWriteTextFormat* CreateD2DFont(
@@ -78,6 +78,9 @@ public:
 		DWRITE_FONT_STYLE fontStyle = DWRITE_FONT_STYLE_NORMAL,
 		DWRITE_FONT_STRETCH fontStretch = DWRITE_FONT_STRETCH_NORMAL	
 	);
+
+	/** 생성된 폰트 해제*/
+	static void ReleaseD2DFont(const wchar_t* fontName);
 
 	/** 폰트 그리기.*/
 	static void DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black));
@@ -102,10 +105,15 @@ private:
 
 	static D2D1_SIZE_F GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
 
-	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //리소스 맵
+	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //비트맵 리소스 맵
 
-	/** 로드된 모든 리소스 삭제*/
+	static std::map<std::wstring, IDWriteTextFormat*> ID2D1FontResourceMap; //폰트 리소스 맵
+
+	/** 로드된 모든 비트맵 리소스 삭제*/
 	static void ReleaseAllID2D1Bitmap();
+
+	/** 로드된 모든 폰트 리소스 삭제*/
+	static void ReleaseAllID2D1Font();
 };
 
 

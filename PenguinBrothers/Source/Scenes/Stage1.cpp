@@ -6,7 +6,6 @@
 Stage1::Stage1()
 {
 	SceneManager::AddGameObject<Player>(L"Player");
-
 }
 
 Stage1::~Stage1()
