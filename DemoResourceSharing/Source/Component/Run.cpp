@@ -1,7 +1,9 @@
 #include "Run.h"
 #include "Framework/WinGameApp.h"
 #include "Framework/InputSystem.h"
+#include "Framework/TimeSystem.h"
 #include "Framework/SceneManager.h"
+
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/SpriteRenderer.h"
@@ -38,6 +40,7 @@ void Run::Start()
 void Run::Update()
 {
 	using namespace InputSystem;
+	using namespace TimeSystem;
 
 	SIZE screenSize = WinGameApp::GetClientSize();
 	static int instanceCount = 1;

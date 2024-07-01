@@ -461,13 +461,6 @@ float D2DRenderer::RadToDeg(const float radian)
 
 IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fontSize, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch)
 {	
-	auto iter = ID2D1FontResourceMap.find(fontName);
-	if (iter != ID2D1FontResourceMap.end()) //end가 아니면 찾음
-	{
-		iter->second->AddRef();
-		return iter->second;
-	}
-
 	IDWriteTextFormat* pDWriteTextFormat = nullptr;
 
 	// DirectWrite 텍스트 형식 개체를 만듭니다.
@@ -488,7 +481,6 @@ IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fon
 		return nullptr;
 	}
 
-	ID2D1FontResourceMap[fontName] = pDWriteTextFormat;
 	return pDWriteTextFormat;
 }
 
