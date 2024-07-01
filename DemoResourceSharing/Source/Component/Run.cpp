@@ -7,6 +7,7 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/Collider/BoxCollider2D.h"
 
 #include <list>
 #include <string>
@@ -35,6 +36,9 @@ void Run::Start()
 	SpriteRenderer& runRenderer = gameObject.GetComponent<SpriteRenderer>();
 	runRenderer.LoadImage(L"../Resource/Run.png");
 	runRenderer.SetSpriteAnimation(runAnime);
+
+	gameObject.AddComponent<BoxCollider2D>();
+	gameObject.GetComponent<BoxCollider2D>().isDrawRect = true;
 }
 
 void Run::Update()

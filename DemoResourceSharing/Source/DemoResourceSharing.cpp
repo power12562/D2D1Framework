@@ -18,7 +18,7 @@
 DemoResourceSharing::DemoResourceSharing()
 {
 #ifdef _DEBUG
-	isDebug = true;
+	isDrawRect = true;
 #endif // _DEBUG
 
 }
@@ -37,7 +37,7 @@ void DemoResourceSharing::Render()
 	swprintf_s
 	(
 		frameRate, _ARRAYSIZE(frameRate), 
-		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nflip : ArrowLeft, ArrowRight, Space", 
+		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nMoveCamera : w, a, s, d ", 
 		TimeSystem::Time.GetFrameRate(), D2DRenderer::GetUsedVram()
 	);
 	D2DRenderer::DrawTextW(frameRate, consolas, { 0,0, _ARRAYSIZE(frameRate) * consolas->GetFontSize(), consolas->GetFontSize() * 3 }, D2D1::ColorF(D2D1::ColorF::AliceBlue));

@@ -119,8 +119,8 @@ private:
 	D2D1_MATRIX_3X2_F matrixPivot;
 	D2D1_MATRIX_3X2_F matrixInvertPivot;
 
-	bool isFlipX;
-	bool isFlipY;
+	bool isFlipX = false;
+	bool isFlipY = false;
 };
 
 

@@ -241,7 +241,7 @@ void D2DRenderer::DrawLine(
 	);
 }
 
-void D2DRenderer::DrawRect(const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& rectSize, const D2D1_COLOR_F& color, bool rectFill)
+void D2DRenderer::DrawRect(const D2D1_MATRIX_3X2_F& matrix, const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& rectSize, const D2D1_COLOR_F& color, bool rectFill)
 {
 	if (pColorBrush == nullptr)
 		return;
@@ -256,6 +256,7 @@ void D2DRenderer::DrawRect(const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& re
 	rectPoint.bottom = position.y + halfHeight;
 
 	pColorBrush->SetColor(color);
+	pRenderTarget->SetTransform(matrix);
 
 	if (rectFill)
 	{
@@ -267,15 +268,14 @@ void D2DRenderer::DrawRect(const D2D1_VECTOR_2F& position, const D2D1_SIZE_F& re
 	}
 }
 
-void D2DRenderer::DrawRect(const D2D1_RECT_F& rectPoint,const D2D1_COLOR_F& color, bool rectFill)
+void D2DRenderer::DrawRect(const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& rectPoint,const D2D1_COLOR_F& color, bool rectFill)
 {
 
 	if (pColorBrush == nullptr)
 		return;
 
-	pRenderTarget->SetTransform(Matrix3x2F::Identity());
-
 	pColorBrush->SetColor(color);
+	pRenderTarget->SetTransform(matrix);
 
 	if (rectFill)
 	{
@@ -382,22 +382,22 @@ void D2DRenderer::ReleaseD2D1Bitmap(const wchar_t* filePath)
 	}
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix)
 {
-	pRenderTarget->SetTransform(worldMatrix);
+	pRenderTarget->SetTransform(matrix);
 	pRenderTarget->DrawBitmap(ID2D1Bitmap);
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix, const D2D1_RECT_F& sourceRect)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& sourceRect)
 {
-	pRenderTarget->SetTransform(worldMatrix);
+	pRenderTarget->SetTransform(matrix);
 	pRenderTarget->DrawBitmap(ID2D1Bitmap, NULL, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
 }
 
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& worldMatrix,const D2D1_RECT_F& outRect,const D2D1_RECT_F& sourceRect)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect,const D2D1_RECT_F& sourceRect)
 {
-	pRenderTarget->SetTransform(worldMatrix);
+	pRenderTarget->SetTransform(matrix);
 	pRenderTarget->DrawBitmap(ID2D1Bitmap, outRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
 }
 

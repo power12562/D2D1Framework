@@ -19,7 +19,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 PenguinBrothers::PenguinBrothers()
 {
 #ifdef _DEBUG
-    isDebug = true;
+    isDrawRect = true;
 #endif // _DEBUG
     windowName = L"PenguinBrothers";
     winClassName = L"PenguinBro";

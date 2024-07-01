@@ -17,6 +17,8 @@
     <ClCompile Include="Source\Framework\ReferenceCounter.cpp" />
     <ClCompile Include="Source\Core\Component\Camera.cpp" />
     <ClCompile Include="Source\Core\GameObject\MainCamera.cpp" />
+    <ClCompile Include="Source\Bounds\Bounds.cpp" />
+    <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\SpriteRenderer.h" />
@@ -35,6 +37,8 @@
     <ClInclude Include="Source\Framework\ReferenceCounter.h" />
     <ClInclude Include="Source\Core\Component\Camera.h" />
     <ClInclude Include="Source\Core\GameObject\MainCamera.h" />
+    <ClInclude Include="Source\Bounds\Bounds.h" />
+    <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

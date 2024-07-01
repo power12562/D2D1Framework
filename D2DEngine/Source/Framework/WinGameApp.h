@@ -35,7 +35,7 @@ public:
 	static bool IsResize() { return isResize; }
 	
 protected:
-	bool isDebug = false;
+	bool isDrawRect = false;
 
 	/** 클래스 스타일. Initialize() 실행전에만 적용됩니다.*/
 	UINT winClassStyle = CS_HREDRAW | CS_VREDRAW;

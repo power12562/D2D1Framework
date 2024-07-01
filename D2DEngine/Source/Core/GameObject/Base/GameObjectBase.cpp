@@ -70,6 +70,21 @@ void GameObjectBase::SetName(const wchar_t* name)
 	objName = name;
 }
 
+const Bounds& GameObjectBase::GetBounds()
+{
+	Bounds bounds;
+	bounds.center = transform.pivot;
+	bounds.center.x += transform.position.x;
+	bounds.center.y += transform.position.y;
+
+	bounds.extents = transform.pivot;
+	bounds.size = transform.pivot * 2.f;
+
+	bounds.leftTop = transform.position - transform.pivot;
+	bounds.rightBottom = transform.position + transform.pivot;
+
+	return bounds;
+}
 
 
 
