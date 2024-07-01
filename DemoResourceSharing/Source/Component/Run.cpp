@@ -46,6 +46,7 @@ void Run::Update()
 	using namespace InputSystem;
 	using namespace TimeSystem;
 
+	gameObject.transform.rotation += 30.0f * Time.GetDeltatime();
 	SIZE screenSize = WinGameApp::GetClientSize();
 	static int instanceCount = 1;
 	static std::list<std::wstring> runList;
