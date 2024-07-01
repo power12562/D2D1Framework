@@ -18,4 +18,8 @@ struct Bounds
 
 	/** 오른쪽 아래*/
 	Vector2 rightBottom;
+
+	/** Bounds에 회전이 적용된 bounds 값 리턴*/
+	static void GetRotationBounds(Bounds& bounds, const float angle);
+
 };

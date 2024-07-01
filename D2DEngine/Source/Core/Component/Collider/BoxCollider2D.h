@@ -1,6 +1,10 @@
 #pragma once
 #include "Core/Component/Base/ComponentBase.h"
 
+#include "Bounds/Bounds.h"
+
+#include <d2d1.h>
+
 class BoxCollider2D : public ComponentBase
 {
 public:
@@ -16,7 +20,8 @@ protected:
 	virtual void Render() override;
 
 private:
-	
-
+	Bounds bounds;
+	D2D1_MATRIX_3X2_F pivotMatrix;
+	D2D1_MATRIX_3X2_F trMatrix;
 };
 

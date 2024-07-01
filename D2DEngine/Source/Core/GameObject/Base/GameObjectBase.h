@@ -43,6 +43,8 @@ private:
 	std::list<ComponentBase*> componentsList;
 	std::wstring objName;
 
+	void UpdateBounds();
+	Bounds bounds;
 };
 
 

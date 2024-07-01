@@ -55,12 +55,6 @@ public:
 	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& sourceRect);
 	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect ,const D2D1_RECT_F& sourceRect);
 
-	/** Vertex 회전 위치 리턴*/
-	static D2D1_VECTOR_2F GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle);
-
-	/** Rect에 회전이 적용된 bounds 값 리턴*/
-	static void GetRectBounds(D2D1_RECT_F& rect, const float angle);
-
 	static float DegToRad(const float degree);
 	static float RadToDeg(const float radian);
 
@@ -102,10 +96,6 @@ private:
 	static IDWriteFactory* pDWriteFactory;
 	static IDXGIFactory* pDXGIFactory;
 	static IDXGIAdapter3* pDXGIAdapter;
-
-	static D2D1_VECTOR_2F GetRectOrigin(D2D1_RECT_F& rect, const float angle);
-
-	static D2D1_SIZE_F GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle);
 
 	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //비트맵 리소스 맵
 

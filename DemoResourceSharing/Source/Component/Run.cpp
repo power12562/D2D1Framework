@@ -66,6 +66,10 @@ void Run::Update()
 		SpriteRenderer& runRenderer = run->GetComponent<SpriteRenderer>();
 		runRenderer.LoadImage(L"../Resource/Run.png");
 		runRenderer.SetSpriteAnimation(runAnime);
+
+		run->AddComponent<BoxCollider2D>();
+		run->GetComponent<BoxCollider2D>().isDrawRect = true;
+
 		runList.push_back(name.c_str());
 	}
 	else if (Input.IsKeyDown(KeyCode::DownArrow) && !runList.empty())

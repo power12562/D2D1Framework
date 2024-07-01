@@ -47,4 +47,7 @@ public:
 
 	/** 베지에 곡선*/
 	static Vector2 BezierCurve(const Vector2& startPos, const Vector2& middlePos, const Vector2& endPos, const float t);
+
+	/** Vertex 회전 위치 리턴*/
+	static Vector2 GetRotatedPoint(const Vector2& point, const float angle, const Vector2& center);
 };

@@ -1,6 +1,10 @@
 #include "Vector/Vector2.h"
+
 #include "Framework/WinGameApp.h"
+#include "Math/Mathf.h"
+
 #include <math.h>
+
 const Vector2 Vector2::Right{ 1,0 };
 const Vector2 Vector2::Left{ -1,0 };
 const Vector2 Vector2::Up{ 0, 1 };
@@ -136,4 +140,26 @@ Vector2 Vector2::BezierCurve(const Vector2& startPos, const Vector2& middlePos, 
 	Vector2 bezierCurve = Lerp(Lerp(startPos, middlePos, t), Lerp(middlePos, endPos, t), t);
 	
 	return bezierCurve;
+}
+
+Vector2 Vector2::GetRotatedPoint(const Vector2& point, const float angle, const Vector2& center)
+{
+	float radian = angle * Mathf::Deg2Rad;
+
+	float cos = cosf(radian);
+	float sin = sinf(radian);
+
+	// 평행 이동: 중점 기준으로 이동
+	float translatedX = point.x - center.x;
+	float translatedY = point.y - center.y;
+
+	// 회전 변환 적용
+	float rotX = translatedX * cos - translatedY * sin;
+	float rotY = translatedX * sin + translatedY * cos;
+
+	// 다시 원래 위치로 평행 이동
+	rotX += center.x;
+	rotY += center.y;
+
+	return Vector2{ rotX , rotY };
 }

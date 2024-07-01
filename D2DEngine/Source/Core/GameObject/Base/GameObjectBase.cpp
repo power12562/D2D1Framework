@@ -1,5 +1,7 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
+
 #include "Framework/SceneManager.h"
+#include "Bounds/Bounds.h"
 
 GameObjectBase::GameObjectBase()
 {
@@ -72,7 +74,13 @@ void GameObjectBase::SetName(const wchar_t* name)
 
 const Bounds& GameObjectBase::GetBounds()
 {
-	Bounds bounds;
+	UpdateBounds();
+	return bounds;
+}
+
+
+void GameObjectBase::UpdateBounds()
+{
 	bounds.center = transform.pivot;
 	bounds.center.x += transform.position.x;
 	bounds.center.y += transform.position.y;
@@ -83,7 +91,7 @@ const Bounds& GameObjectBase::GetBounds()
 	bounds.leftTop = transform.position - transform.pivot;
 	bounds.rightBottom = transform.position + transform.pivot;
 
-	return bounds;
+	Bounds::GetRotationBounds(bounds, transform.rotation);
 }
 
 

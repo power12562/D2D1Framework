@@ -401,54 +401,6 @@ void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F&
 	pRenderTarget->DrawBitmap(ID2D1Bitmap, outRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
 }
 
-D2D1_VECTOR_2F D2DRenderer::GetRotatedPoint(const D2D1_VECTOR_2F point, const float angle)
-{
-	float radian = DirectX::XMConvertToRadians(angle);
-
-	float cos = cosf(radian);
-	float sin = sinf(radian);
-
-	float rotX = point.x * cos - point.y * sin;
-	float rotY = point.x * sin + point.y * cos;
-
-	return D2D1_VECTOR_2F{ rotX , rotY };
-}
-
-void D2DRenderer::GetRectBounds(D2D1_RECT_F& rect, const float angle)
-{
-	D2D1_VECTOR_2F point[4];
-	point[0].x = rect.left;
-	point[0].y = rect.top;
-
-	point[1].x = rect.left;
-	point[1].y = rect.bottom;
-
-	point[2].x = rect.right;
-	point[2].y = rect.top;
-
-	point[3].x = rect.right;
-	point[3].y = rect.bottom;
-
-	for (int i = 0; i < 4; i++)
-	{
-		point[i] = GetRotatedPoint(point[i], angle);
-	}
-	D2D1_VECTOR_2F min = { FLT_MAX, }, max = { FLT_MIN, };
-	for (int i = 0; i < 4; i++)
-	{
-		min.x = (min.x > point[i].x) ? point[i].x : min.x;
-		min.y = (min.y > point[i].y) ? point[i].y : min.y;
-
-		max.x = (max.x < point[i].x) ? point[i].x : max.x;
-		max.y = (max.y < point[i].y) ? point[i].y : max.y;
-	}
-
-	rect.left = min.x;
-	rect.top = min.y;
-	rect.right = max.x;
-	rect.bottom = max.y;
-}
-
 float D2DRenderer::DegToRad(const float degree)
 {
 	return DirectX::XMConvertToRadians(degree);
@@ -521,41 +473,6 @@ size_t D2DRenderer::GetUsedVram()
 	return videoMemoryInfo.CurrentUsage / 1024 / 1024;
 }
 
-
-//private:
-D2D1_VECTOR_2F D2DRenderer::GetRectOrigin(D2D1_RECT_F& rect, const float angle)
-{
-	D2D1_VECTOR_2F point[2];
-	point[0].x = rect.left;
-	point[0].y = rect.top;
-
-	point[1].x = rect.right;
-	point[1].y = rect.bottom;
-
-	for (int i = 0; i < 2; i++)
-	{
-		point[i] = GetRotatedPoint(point[i], angle);
-	}
-
-	return D2D1_VECTOR_2F{ (point[1].x - point[0].x) * 0.5f, (point[1].y - point[0].y) * 0.5f};
-}
-
-D2D1_SIZE_F D2DRenderer::GetDrawPos(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_VECTOR_2F& position, const D2D1_VECTOR_2F& scale, const float angle)
-{
-	D2D1_SIZE_F size = ID2D1Bitmap->GetSize();
-
-	D2D1_VECTOR_2F halfSize{ size.width * 0.5f * scale.x, size.height * 0.5f * scale.y };
-
-	D2D1_RECT_F rect{ 0, 0, halfSize.x, halfSize.y };
-	GetRectOrigin(rect, angle);
-
-	halfSize.x = rect.right - rect.left;
-	halfSize.y = rect.bottom - rect.top;
-	
-	D2D1_SIZE_F drPos{ position.x - halfSize.x, position.y - halfSize.y };
-
-	return drPos;
-}
 
 void D2DRenderer::ReleaseAllID2D1Bitmap()
 {
