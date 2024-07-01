@@ -61,6 +61,16 @@ public:
 	/** 재생중인 애니메이션의 프레임 정보*/
 	const FrameInfo& GetCurrentFrame() { return CurrentClip->frames[currentFrame]; }
 
+	/** 현재 클립의 마지막 인덱스*/
+	int GetLastFrameIndex() const { return lastFrameIndex; }
+	/** 현재 클립의 마지막 인덱스. 읽기 전용 프로퍼티*/
+	__declspec(property(get = GetLastFrameIndex)) int LastFrameIndex;
+
+	/** 현재 클립 종료 여부*/
+	bool GetCurrentClipEnd() const { return isCurrentClipEnd; }
+	/** 현재 클립 종료 여부. 읽기 전용 프로퍼티*/
+	__declspec(property(get = GetCurrentClipEnd)) bool CurrentClipEnd;
+
 protected:
 	virtual void Update() override;
 
