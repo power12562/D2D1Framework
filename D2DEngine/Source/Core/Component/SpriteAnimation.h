@@ -16,7 +16,7 @@ struct FrameInfo //프레임 정보
 };
 
 class SpriteAnimation : public ComponentBase
-{	
+{
 private:
 	class AnimationClip : public ReferenceCounter  //애니메이션 클립
 	{
@@ -37,9 +37,9 @@ private:
 	/**애니메이션 클립 모음 <이름, 클립>*/
 	std::map<std::wstring, std::pair<std::wstring, AnimationClip*>> Animations;
 
-//static :
-	/**리소스 공유용 맵 <경로, 클립>*/
-	static std::map<std::wstring, AnimationClip*> clipResourceMap; 
+	//static :
+		/**리소스 공유용 맵 <경로, 클립>*/
+	static std::map<std::wstring, AnimationClip*> clipResourceMap;
 	/** 중복 체크 후 애니메이션 리소스 생성*/
 	static AnimationClip* CreateAnimationClipFromFile(const wchar_t* filePath);
 	/** 안전한 애니메이션 리소스 제거*/
@@ -59,7 +59,7 @@ public:
 	void SetAnimationClip(const wchar_t* clipName, bool isLoop = false);
 
 	/** 재생중인 애니메이션의 프레임 정보*/
-	const FrameInfo& GetCurrentFrame() { return CurrentClip->frames[currentFrame]; }
+	FrameInfo* const GetCurrentFrame();
 
 	/** 현재 클립의 마지막 인덱스*/
 	int GetLastFrameIndex() const { return lastFrameIndex; }
@@ -70,6 +70,9 @@ public:
 	bool GetCurrentClipEnd() const { return isCurrentClipEnd; }
 	/** 현재 클립 종료 여부. 읽기 전용 프로퍼티*/
 	__declspec(property(get = GetCurrentClipEnd)) bool CurrentClipEnd;
+
+	/**현재 프레임의 피봇 위치를 transform에 적용해준다.*/
+	void UpdateCurrentPivot();
 
 protected:
 	virtual void Update() override;

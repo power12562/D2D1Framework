@@ -1,7 +1,9 @@
 #include "Core/Component/SpriteRenderer.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
+
 #include "Core/GameObject/Base/GameObjectBase.h"
+
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/Camera.h"
 #undef LoadImage
@@ -28,10 +30,10 @@ SpriteRenderer::~SpriteRenderer()
 void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
 {
 	pSpriteAnimation = &animationComponet;
-	const auto& frame = pSpriteAnimation->GetCurrentFrame();
-	const D2D1_RECT_F& sourceRect = frame.source;
-	gameObject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
-	currentImageSize = { sourceRect.right - sourceRect.left, sourceRect.bottom - sourceRect.top };
+	if (pSpriteAnimation->GetCurrentFrame())
+	{
+		pSpriteAnimation->UpdateCurrentPivot();
+	}	
 }
 
 
@@ -47,15 +49,7 @@ void SpriteRenderer::Render()
 	}		
 	else
 	{
-		const FrameInfo& frame = pSpriteAnimation->GetCurrentFrame();
-		const D2D1_RECT_F& sourceRect = frame.source;
-		currentImageSize = { sourceRect.right - sourceRect.left, sourceRect.bottom - sourceRect.top };
-		D2D1_SIZE_F halfSize{};
-		halfSize.width = currentImageSize.width * 0.5f;
-		halfSize.height = currentImageSize.height * 0.5f;
-		D2D1_MATRIX_3X2_F pivotCenter = D2D1::Matrix3x2F::Translation(halfSize.width + frame.center.x, halfSize.height + frame.center.y);
-	
-		D2DRenderer::DrawBitmap(image, pivotCenter * objMatrix, sourceRect);
+		D2DRenderer::DrawBitmap(image, objMatrix, pSpriteAnimation->GetCurrentFrame()->source);
 	}
 }
 
@@ -79,9 +73,13 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	if (image == nullptr)
 		return;
-	currentImageSize = image->GetSize();
-	gameObject.GetTransform().pivot = Vector2{ currentImageSize.width * 0.5f, currentImageSize.height * 0.5f};
 
+	if (!pSpriteAnimation)
+	{
+		currentImageSize = image->GetSize();
+		gameObject.GetTransform().pivot = Vector2{ currentImageSize.width * 0.5f, currentImageSize.height * 0.5f };
+	}
+	
 	if (lastLoadPath == nullptr || wcscmp(path, lastLoadPath))
 	{
 		if (lastLoadPath)

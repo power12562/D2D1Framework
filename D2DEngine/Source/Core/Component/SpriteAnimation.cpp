@@ -66,14 +66,26 @@ void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
 		currentFrame = 0;
 		CurrentClip = iter->second.second;
 		lastFrameIndex = CurrentClip->frames.size() - 1;
-		const FrameInfo& frame = GetCurrentFrame();
-		gameObject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
+		UpdateCurrentPivot();
 	}
 	else
 	{
 		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::SetAnimationClip", MB_OK);
 	}
 }
+
+FrameInfo* const SpriteAnimation::GetCurrentFrame()
+{
+	if (CurrentClip)
+	{
+		return &CurrentClip->frames[currentFrame];
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
 
 
 void SpriteAnimation::Update()
@@ -88,7 +100,9 @@ void SpriteAnimation::Update()
 			if (lastFrameIndex < currentFrame)
 			{
 				if (isLoop)
+				{
 					currentFrame = 0;
+				}		
 				else
 				{
 					isCurrentClipEnd = true;
@@ -96,10 +110,19 @@ void SpriteAnimation::Update()
 					break;
 				}
 			}
-			const FrameInfo& frame = GetCurrentFrame();
-			gameObject.GetTransform().pivot = Vector2{ frame.source.right - frame.source.left, frame.source.bottom - frame.source.top };
+			UpdateCurrentPivot();
 		}
 	}
+}
+
+void SpriteAnimation::UpdateCurrentPivot()
+{
+	FrameInfo* frame = GetCurrentFrame();
+	Vector2 currentPivot = Vector2{ frame->source.right - frame->source.left, frame->source.bottom - frame->source.top };
+	currentPivot *= 0.5f;
+	currentPivot.x += frame->center.x;
+	currentPivot.y += frame->center.y;
+	gameObject.GetTransform().pivot = currentPivot;
 }
 
 SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* filePath)

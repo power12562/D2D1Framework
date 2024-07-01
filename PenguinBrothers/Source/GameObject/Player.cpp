@@ -16,12 +16,12 @@ Player::Player()
 	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Jump.txt", L"Jump");
 	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Slide.txt", L"Slide");
 
-	spriteAnimation.SetAnimationClip(L"Idle", true);
-	
 	AddComponent<SpriteRenderer>();
 	SpriteRenderer& spriteRenderer = GetComponent<SpriteRenderer>();
 	spriteRenderer.LoadImage(L"Resource/Player/Normal/Normal.png");
 	spriteRenderer.SetSpriteAnimation(spriteAnimation);
+
+	spriteAnimation.SetAnimationClip(L"Idle", true);
 
 	AddComponent <PlayerCtrl>();
 	transform.scale = Vector2(2.0f, 2.0f);
