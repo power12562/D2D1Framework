@@ -184,7 +184,7 @@ void Transform::FlipX(bool isflip)
 void Transform::FlipX()
 {
 	scale = Vector2{ -scale.x, scale.y };
-	!isFlipX;
+	isFlipX = !isFlipX;
 }
 
 void Transform::FlipY(bool isflip)
@@ -204,7 +204,7 @@ void Transform::FlipY(bool isflip)
 void Transform::FlipY()
 {
 	scale = Vector2{ scale.x, -scale.y };
-	!isFlipY;
+	isFlipY = !isFlipY;
 }
 
 

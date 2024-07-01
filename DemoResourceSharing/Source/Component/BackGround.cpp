@@ -21,7 +21,7 @@ void BackGround::Start()
 
 	gameObject.AddComponent<SpriteAnimation>();
 	SpriteAnimation& midnightAnime = gameObject.GetComponent<SpriteAnimation>();
-	midnightAnime.LoadAnimationClip(L"Bg", L"Idle");
+	midnightAnime.LoadAnimationClip(L"../Resource/Bg.txt", L"Idle");
 	midnightAnime.SetAnimationClip(L"Idle", true);
 
 	gameObject.AddComponent<SpriteRenderer>();

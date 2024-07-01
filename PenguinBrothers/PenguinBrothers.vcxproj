@@ -141,13 +141,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Component\PlayerMove.cpp" />
+    <ClCompile Include="Source\Component\PlayerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\Player.cpp" />
     <ClCompile Include="Source\Scenes\Stage1.cpp" />
     <ClCompile Include="Source\WinMain\PenguinBrothers.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Component\PlayerMove.h" />
+    <ClInclude Include="Source\Component\PlayerCtrl.h" />
     <ClInclude Include="Source\GameObject\Player.h" />
     <ClInclude Include="Source\Scenes\Stage1.h" />
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />

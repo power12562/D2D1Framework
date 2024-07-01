@@ -1,14 +1,29 @@
 #include "Player.h"
+
 #include "Core/Component/SpriteRenderer.h"
-#include "Source/Component/PlayerMove.h"
+#include "Core/Component/SpriteAnimation.h"
+
+#include "Source/Component/PlayerCtrl.h"
 
 Player::Player()
 {
+	AddComponent<SpriteAnimation>();
+	SpriteAnimation& spriteAnimation = GetComponent<SpriteAnimation>();
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Idle.txt", L"Idle");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Walk.txt", L"Walk");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Attack.txt", L"Attack");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Duck.txt", L"Duck");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Jump.txt", L"Jump");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Slide.txt", L"Slide");
+
+	spriteAnimation.SetAnimationClip(L"Idle", true);
+	
 	AddComponent<SpriteRenderer>();
-	GetComponent<SpriteRenderer>().LoadImage(L"Resource/Player/Normal/Idle/0.bmp");
+	SpriteRenderer& spriteRenderer = GetComponent<SpriteRenderer>();
+	spriteRenderer.LoadImage(L"Resource/Player/Normal/Normal.png");
+	spriteRenderer.SetSpriteAnimation(spriteAnimation);
 
-	AddComponent <PlayerMove>();
-
+	AddComponent <PlayerCtrl>();
 	transform.scale = Vector2(5.0f, 5.0f);
 }
 

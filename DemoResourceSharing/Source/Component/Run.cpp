@@ -26,7 +26,7 @@ void Run::Start()
 	gameObject.transform.position = Vector2{ 0.f, -screenSize.cy * 0.45f};
 	gameObject.AddComponent<SpriteAnimation>();
 	SpriteAnimation& runAnime = gameObject.GetComponent<SpriteAnimation>();
-	runAnime.LoadAnimationClip(L"Run", L"Run");
+	runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
 	runAnime.SetAnimationClip(L"Run", true);
 
 	gameObject.AddComponent<SpriteRenderer>();
@@ -51,7 +51,7 @@ void Run::Update()
 
 		run->AddComponent<SpriteAnimation>();
 		SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
-		runAnime.LoadAnimationClip(L"Run", L"Run");
+		runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
 		runAnime.SetAnimationClip(L"Run", true);
 
 		run->AddComponent<SpriteRenderer>();

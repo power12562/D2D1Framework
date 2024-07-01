@@ -62,6 +62,8 @@ void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
 	auto iter = Animations.find(clipName);
 	if (iter != Animations.end())
 	{
+		elapsedTime = 0;
+		currentFrame = 0;
 		CurrentClip = iter->second.second;
 		lastFrameIndex = CurrentClip->frames.size() - 1;
 		const FrameInfo& frame = GetCurrentFrame();
@@ -109,38 +111,6 @@ SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(con
 		return iter->second; //기존에 있던 리소스 반환
 	}
 
-	//(임시 클립임)
-	if (filePath == L"Bg")
-	{
-		AnimationClip* newClip = new AnimationClip;
-		newClip->frames.resize(4);
-		newClip->frames[0] = { 0,0, 784, 320, 0,0, 0.2f };
-		newClip->frames[1] = {789, 0, 1573, 320, 0, 0, 0.2f};
-		newClip->frames[2] = { 0,325,  784,645 ,0,0, 0.2f };
-		newClip->frames[3] = { 789,325, 1573,645 ,0,0, 0.2f };
-
-		clipResourceMap[filePath] = newClip;
-		return newClip;
-	}
-	else if (filePath == L"Run")
-	{
-		AnimationClip* newClip = new AnimationClip;
-		newClip->frames.resize(10);
-		newClip->frames[0] = { 28, 36, 131, 120, 0, 0, 0.1f };
-		newClip->frames[1] = { 148, 36, 234, 120, 0, 0, 0.1f };
-		newClip->frames[2] = { 255, 34, 342, 120, 0, 0, 0.1f };
-		newClip->frames[3] = { 363, 32, 439, 120, 0, 0, 0.1f };
-		newClip->frames[4] = { 458, 31, 549, 120, 0, 0, 0.1f };
-		newClip->frames[5] = { 567, 40, 670, 120, 0, 0, 0.1f };
-		newClip->frames[6] = { 686, 32, 771, 120, 0, 0, 0.1f };
-		newClip->frames[7] = { 792, 32, 878, 120, 0, 0, 0.1f };
-		newClip->frames[8] = { 899, 31, 975, 120, 0, 0, 0.1f };
-		newClip->frames[9] = { 993, 33, 1085, 120, 0, 0, 0.1f };
-
-		clipResourceMap[filePath] = newClip;
-		return newClip;
-	}
-
 	//csv 파싱 로직
 	std::wifstream file(filePath);
 	if (!file.is_open()) 
@@ -158,12 +128,14 @@ SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(con
 	}	
 	std::wstring line;			// 한줄의 문자열
 	int FrameCount = 0;			// 프레임의 개수
+	while (std::getline(file, line)) 
 	{
-		std::getline(file, line);		// 첫번째 줄 읽기
-		std::wstringstream wss(line);
-		wss >> FrameCount;
+			++FrameCount;
 	}
-	newClip->frames.reserve(FrameCount);
+	newClip->frames.resize(FrameCount);
+	// 파일 스트림 재설정
+	file.clear(); // 스트림의 상태 플래그를 리셋
+	file.seekg(0); // 파일의 처음으로 이동	
 	for (int j = 0; j < FrameCount; j++)
 	{
 		getline(file, line);		// 한줄 읽기
@@ -182,6 +154,8 @@ SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(con
 			newClip->frames[j].center.x = (float)_wtoi(token.c_str());
 			getline(wss, token, L',');
 			newClip->frames[j].center.y = (float)_wtoi(token.c_str());
+			getline(wss, token, L',');
+			newClip->frames[j].frameIntervalTime = (float)_wtof(token.c_str());
 		}
 	}
 	clipResourceMap[filePath] = newClip;

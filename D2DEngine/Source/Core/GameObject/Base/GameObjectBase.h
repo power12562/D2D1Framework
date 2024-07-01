@@ -61,6 +61,8 @@ template<typename T> inline T& GameObjectBase::GetComponent()
 	for (auto& parentComponent : componentsList)
 	{
 		component = dynamic_cast<T*>(parentComponent);
+		if (component)
+			break;
 	}
 	return *component;
 }
