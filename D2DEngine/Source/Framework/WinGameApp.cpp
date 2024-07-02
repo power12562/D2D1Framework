@@ -22,7 +22,7 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 {
 	WinInitialize(hinstance);
 
-	if (isDrawRect)
+	if (isDebug)
 	{
 		AllocConsole();
 		FILE* _tempFile;
@@ -37,7 +37,7 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 
 void WinGameApp::Uninitialize()
 {
-	if (isDrawRect)
+	if (isDebug)
 	{
 		FreeConsole();
 	}

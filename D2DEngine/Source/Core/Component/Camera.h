@@ -25,7 +25,7 @@ protected:
 	//virtual void Render() override;
 
 private:
-	/** 이 카메라의 instanceList에서의 노드*/
+	/**instanceList에서 삭제를 위한 카메라 객체의 노드(Iter).*/
 	std::list<Camera*>::iterator instanceIter;
 
 	/** 메인 카메라*/

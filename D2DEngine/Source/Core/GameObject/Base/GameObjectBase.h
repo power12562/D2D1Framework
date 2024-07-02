@@ -21,7 +21,7 @@ public:
 	__declspec(property(get = GetTransform)) Transform& transform;
 
 	/** 컴포넌트를 오브젝트에 추가합니다.*/
-	template <typename T> void AddComponent();
+	template <typename T> T& AddComponent();
 
 	/** 컴포넌트를 가져옵니다.*/
 	template <typename T> T& GetComponent();
@@ -48,7 +48,7 @@ private:
 };
 
 
-template<typename T> inline void GameObjectBase::AddComponent()
+template<typename T> inline T& GameObjectBase::AddComponent()
 {
 	// T가 ComponentBase로부터 상속받는지 확인
 	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
@@ -56,8 +56,9 @@ template<typename T> inline void GameObjectBase::AddComponent()
 	T* component = new T(*this);
 	if (component)
 	{
-		componentsList.push_back(component);
+		componentsList.push_back(component);		
 	}
+	return *component;
 }
 
 template<typename T> inline T& GameObjectBase::GetComponent()

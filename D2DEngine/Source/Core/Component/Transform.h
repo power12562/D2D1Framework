@@ -80,6 +80,9 @@ public:
 	inline D2D1_MATRIX_3X2_F& GetWorldMatrix() { return matrixWorld; }
 	inline D2D1_MATRIX_3X2_F& GetCameraMatrix() { return matrixMainCamera; }
 
+	inline D2D1_MATRIX_3X2_F& GetPivotMatrix() { return matrixPivot; }
+	inline D2D1_MATRIX_3X2_F& GetInvertPivotMatrix() { return matrixInvertPivot; }
+
 	/** 부모 오브젝트를 설정합니다.*/
 	void SetParent(Transform& parent);	
 	/** 부모 오브젝트를 해제합니다. 부모로 둘 대상을 인자로 넘길 수 있습니다.*/

@@ -1,6 +1,6 @@
 #include "DemoSolarSystem.h"
 #include "Core/Component/SpriteRenderer.h"
-#include "Core/GameObject/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectBase.h"
 #include "Framework/InputSystem.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/D2DRenderer.h"

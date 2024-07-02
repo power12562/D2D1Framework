@@ -101,7 +101,7 @@ void Transform::UpdateWorldMatrix()
 	matrixPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
 	matrixInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
 
-	matrixWorld = matrixInvertPivot * matrixScale * matrixRotation * matrixTranslation;
+	matrixWorld = matrixPivot * (matrixInvertPivot * matrixScale * matrixRotation * matrixTranslation);
 	matrixInvertWorld = matrixWorld;
 	D2D1InvertMatrix(&matrixInvertWorld);
 	matrixMainCamera = matrixWorld;
@@ -111,7 +111,8 @@ void Transform::UpdateWorldMatrix()
 	}
 	if (parent)
 	{
-		matrixWorld = matrixWorld * parent->matrixPivot * parent->matrixWorld; //matrix
+		matrixWorld = matrixWorld * parent->matrixWorld;
+		matrixMainCamera = matrixMainCamera * parent->matrixMainCamera; //matrix
 
 		//Local To World
 		scale.value.x = parent->scale.value.x * localScale.value.x;

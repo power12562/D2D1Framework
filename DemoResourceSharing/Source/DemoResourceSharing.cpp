@@ -18,7 +18,7 @@
 DemoResourceSharing::DemoResourceSharing()
 {
 #ifdef _DEBUG
-	isDrawRect = true;
+	isDebug = true;
 #endif // _DEBUG
 
 }

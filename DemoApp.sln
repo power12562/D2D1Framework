@@ -15,6 +15,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PenguinBrothers", "PenguinB
 		{0CF823D4-3F75-4A2E-A4BD-E03D04E605C2} = {0CF823D4-3F75-4A2E-A4BD-E03D04E605C2}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoSolarSystem", "DemoSolarSystem\DemoSolarSystem.vcxproj", "{17AFBDAD-3178-4F79-B486-6667C38E97D2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0CF823D4-3F75-4A2E-A4BD-E03D04E605C2} = {0CF823D4-3F75-4A2E-A4BD-E03D04E605C2}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,6 +52,14 @@ Global
 		{2C9B9CB6-C79F-48D4-AD36-729C0F3F3111}.Release|x64.Build.0 = Release|x64
 		{2C9B9CB6-C79F-48D4-AD36-729C0F3F3111}.Release|x86.ActiveCfg = Release|Win32
 		{2C9B9CB6-C79F-48D4-AD36-729C0F3F3111}.Release|x86.Build.0 = Release|Win32
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Debug|x64.ActiveCfg = Debug|x64
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Debug|x64.Build.0 = Debug|x64
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Debug|x86.ActiveCfg = Debug|Win32
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Debug|x86.Build.0 = Debug|Win32
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x64.ActiveCfg = Release|x64
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x64.Build.0 = Release|x64
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x86.ActiveCfg = Release|Win32
+		{17AFBDAD-3178-4F79-B486-6667C38E97D2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
