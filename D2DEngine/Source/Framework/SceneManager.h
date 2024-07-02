@@ -14,6 +14,9 @@ class SceneManager
 public:
 	/** 씬을 불러옵니다*/
 	template<typename T> static void LoadScene();
+	
+	/** 씬을 언로드 합니다*/
+	static void UnloadScene();
 
 	/** 현재 씬에 기본 오브젝트를 추가합니다.*/
 	static GameObjectBase* AddGameObject(const wchar_t* objectName);
@@ -64,6 +67,14 @@ inline void SceneManager::LoadScene()
 		delete currentScene;
 	}
 	currentScene = new T;
+}
+
+inline void SceneManager::UnloadScene()
+{
+	if (currentScene)
+	{
+		delete currentScene;
+	}
 }
 
 inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)

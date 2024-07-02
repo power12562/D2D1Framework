@@ -93,8 +93,7 @@ void WinGameApp::Run()
 
 	if (SceneManager::currentScene)
 	{
-		delete SceneManager::currentScene;
-		SceneManager::currentScene = nullptr;
+		SceneManager::UnloadScene();
 	}	
 }
 
