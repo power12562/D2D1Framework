@@ -18,7 +18,7 @@ BoxCollider2D::~BoxCollider2D()
 
 void BoxCollider2D::Start()
 {
-
+	
 }
 
 void BoxCollider2D::Update()
@@ -28,7 +28,7 @@ void BoxCollider2D::Update()
 
 void BoxCollider2D::Render()
 {
-	if (isDrawRect)
+	if (isDrawCollider)
 	{
 		const D2D1_MATRIX_3X2_F& myMatrix = gameObject.transform.GetCameraMatrix();
 		trMatrix = D2D1::Matrix3x2F::Translation(myMatrix.dx, myMatrix.dy); //회전은 적용 안되도록.

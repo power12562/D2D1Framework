@@ -35,10 +35,8 @@ public:
 	const wchar_t* GetName() { return objName.c_str(); }
 	__declspec(property(get = GetName, put = SetName)) const wchar_t* name; //프로퍼티
 
-	/** 오브젝트의 바운딩 박스 기준을 변경합니다. 사용할 함수를 전달 해야 합니다.*/
-	//void SetBounds(const Bounds& (*getBounds)());
-	/** 오브젝트의 바운딩 박스 얻기*/
-	const Bounds& GetBounds();
+	/** 오브젝트의 바운딩 박스 얻기. Pivot을 이용해 구합니다.*/
+	virtual const Bounds& GetBounds();
 private:
 	Transform* pTransform;
 	std::list<ComponentBase*> componentsList;
@@ -46,6 +44,7 @@ private:
 
 	void UpdateBounds();
 	Bounds bounds;
+
 };
 
 

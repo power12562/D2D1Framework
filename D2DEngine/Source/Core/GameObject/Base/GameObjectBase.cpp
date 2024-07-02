@@ -6,6 +6,8 @@
 GameObjectBase::GameObjectBase()
 {
 	pTransform = new Transform(*this);
+
+	
 }
 
 GameObjectBase::~GameObjectBase()

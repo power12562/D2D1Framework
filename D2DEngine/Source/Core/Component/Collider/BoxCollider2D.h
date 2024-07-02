@@ -12,7 +12,7 @@ public:
 	virtual ~BoxCollider2D() override;
 
 	/** Collider 영역 그릴지*/
-	bool isDrawRect = false;
+	bool isDrawCollider = false;
 
 protected:
 	virtual void Start() override;
@@ -22,5 +22,7 @@ protected:
 private:
 	Bounds bounds;
 	D2D1_MATRIX_3X2_F trMatrix;
+
+	
 };
 

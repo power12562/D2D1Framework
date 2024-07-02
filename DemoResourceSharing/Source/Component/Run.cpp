@@ -38,7 +38,7 @@ void Run::Start()
 	runRenderer.SetSpriteAnimation(runAnime);
 
 	gameObject.AddComponent<BoxCollider2D>();
-	gameObject.GetComponent<BoxCollider2D>().isDrawRect = true;
+	gameObject.GetComponent<BoxCollider2D>().isDrawCollider = true;
 }
 
 void Run::Update()
@@ -68,7 +68,7 @@ void Run::Update()
 		runRenderer.SetSpriteAnimation(runAnime);
 
 		run->AddComponent<BoxCollider2D>();
-		run->GetComponent<BoxCollider2D>().isDrawRect = true;
+		run->GetComponent<BoxCollider2D>().isDrawCollider = true;
 
 		runList.push_back(name.c_str());
 	}
