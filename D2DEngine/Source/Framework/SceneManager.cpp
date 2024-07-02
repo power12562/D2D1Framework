@@ -65,6 +65,17 @@ void SceneManager::Update()
 	}
 }
 
+void SceneManager::LateUpdate()
+{
+	if (currentScene)
+	{
+		for (auto& item : currentScene->gameObjectList)
+		{
+			item->LateUpdate();
+		}
+	}
+}
+
 void SceneManager::Render()
 {
 	if (currentScene)

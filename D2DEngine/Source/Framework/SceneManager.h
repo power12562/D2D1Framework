@@ -41,6 +41,8 @@ private:
 #pragma region WinGameApp->Run()루프에서만 호출하는 함수들
 	/** 현재 씬 오브젝트들의 Update() 함수를 호출해줍니다.*/
 	static void Update();
+	/** 현재 씬 오브젝트들의 LateUpdate() 함수를 호출해줍니다.*/
+	static void LateUpdate();
 	/** 현재 씬 오브젝트들의 Render() 함수를 호출해줍니다.*/
 	static void Render();
 	/** 예약된 게임 오브젝트들을 현재 씬에 추가한 뒤, 오브젝트의 Start() 함수를 호출해줍니다.*/

@@ -25,9 +25,8 @@ void Camera::SetMain()
 
 const D2D1_MATRIX_3X2_F& Camera::GetInvertMatrix()
 {
-	return gameObject.transform.matrixInvertWorld;
+	return gameObject.transform.matrixPivot * gameObject.transform.matrixInvertWorld; //카메라 중심 위치 기준으로 보정
 }
-
 
 void Camera::ResetCameraPivot()
 {

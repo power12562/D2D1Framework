@@ -21,7 +21,6 @@ protected:
 
 private:
 	Bounds bounds;
-	D2D1_MATRIX_3X2_F pivotMatrix;
 	D2D1_MATRIX_3X2_F trMatrix;
 };
 

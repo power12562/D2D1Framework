@@ -39,6 +39,15 @@ void GameObjectBase::Update()
 	pTransform->Update();
 }
 
+void GameObjectBase::LateUpdate()
+{
+	for (auto& component : componentsList)
+	{
+		component->LateUpdate();
+	}
+	pTransform->LateUpdate();
+}
+
 void GameObjectBase::Render()
 {	
 	for (auto& component : componentsList)

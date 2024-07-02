@@ -21,6 +21,11 @@ void ComponentBase::Update()
 
 }
 
+void ComponentBase::LateUpdate()
+{
+
+}
+
 void ComponentBase::Render()
 {
 

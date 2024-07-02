@@ -8,9 +8,7 @@
 
 BoxCollider2D::BoxCollider2D(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
-	pivotMatrix = D2D1::Matrix3x2F::Identity();
 	trMatrix = D2D1::Matrix3x2F::Identity();
-
 }
 
 BoxCollider2D::~BoxCollider2D()
@@ -26,15 +24,14 @@ void BoxCollider2D::Start()
 void BoxCollider2D::Update()
 {
 	bounds = gameObject.GetBounds();
-	
 }
 
 void BoxCollider2D::Render()
 {
 	if (isDrawRect)
 	{
-		pivotMatrix = D2D1::Matrix3x2F::Translation(gameObject.transform.pivot.x, gameObject.transform.pivot.y) * gameObject.transform.GetCameraMatrix();
-		trMatrix = D2D1::Matrix3x2F::Translation(pivotMatrix.dx, pivotMatrix.dy); //회전은 적용 안되도록.
+		const D2D1_MATRIX_3X2_F& myMatrix = gameObject.transform.GetCameraMatrix();
+		trMatrix = D2D1::Matrix3x2F::Translation(myMatrix.dx, myMatrix.dy); //회전은 적용 안되도록.
 		D2DRenderer::DrawRect(trMatrix, { -bounds.extents.x, -bounds.extents.y, bounds.extents.x, bounds.extents.y}, D2D1::ColorF(D2D1::ColorF::Green));
 	}
 }

@@ -14,6 +14,7 @@ public:
 	
 	virtual void Start() final;
 	virtual void Update() final;
+	virtual void LateUpdate() final;
 	virtual void Render() final;
 
 	/** Transform*/
