@@ -1,9 +1,18 @@
 #include "Framework/InputSystem.h"
 #include "Framework/WinGameApp.h"
 
+#include "Core/Component/Camera.h"
+
 namespace InputSystem
 {
-    Inputsystem Input; //global
+    Inputsystem Input;
+
+    Vector2 MouseState::GetWorldPos() const
+    {
+        const SIZE& clientSize = WinGameApp::GetClientSize();
+        D2D1_MATRIX_3X2_F worldMatrix = D2D1::Matrix3x2F::Translation((float)x, -(float)y - clientSize.cy) * Camera::GetMainCamera()->GetMatrix();
+        return Vector2(worldMatrix.dx, worldMatrix.dy);
+    }
 }
 
 using namespace InputSystem;

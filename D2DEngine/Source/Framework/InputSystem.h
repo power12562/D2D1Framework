@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector/Vector2.h"
 
 namespace InputSystem
 {
@@ -308,6 +309,8 @@ namespace InputSystem
 		bool isMiddleClick = false;
 		bool isMiddleClickUp = false;
 		bool isMiddleClickDown = false;
+
+		Vector2 GetWorldPos() const;
 	};
 }
 

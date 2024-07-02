@@ -31,9 +31,9 @@ void Bounds::GetRotationBounds(Bounds& bounds, const float angle)
 	}
 
 	bounds.leftTop.x = min.x;
-	bounds.leftTop.y = min.y;
+	bounds.leftTop.y = max.y;
 	bounds.rightBottom.x = max.x;
-	bounds.rightBottom.y = max.y;
+	bounds.rightBottom.y = min.y;
 
 	bounds.size.x = max.x - min.x;
 	bounds.size.y = max.y - min.y;
@@ -42,7 +42,12 @@ void Bounds::GetRotationBounds(Bounds& bounds, const float angle)
 	bounds.extents.y = bounds.size.y * 0.5f;
 }
 
-bool Bounds::AABB(const Bounds& other)
+bool Bounds::AABB(const Bounds& A, const Bounds& B)
+{
+	return A.AABB(B);
+}
+
+bool Bounds::AABB(const Bounds& other) const
 {
 	// Check for no overlap conditions
 	if (this->rightBottom.x < other.leftTop.x ||  // 오른쪽에 있으면 겹칠수가 없음

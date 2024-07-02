@@ -19,10 +19,13 @@ struct Bounds
 	/** 오른쪽 아래*/
 	Vector2 rightBottom;
 
+	/** Bounds끼리 AABB로 겹침 여부 검사*/
+	bool AABB(const Bounds& other) const;
+
 	/** Bounds에 회전이 적용된 bounds 값 리턴*/
 	static void GetRotationBounds(Bounds& bounds, const float angle);
 
 	/** Bounds끼리 AABB로 겹침 여부 검사*/
-	bool AABB(const Bounds& other);
+	static bool AABB(const Bounds& A, const Bounds& B);
 
 };

@@ -1,6 +1,9 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include "Framework/SceneManager.h"
+
+#include "Core/Component/Camera.h"
+
 #include "Bounds/Bounds.h"
 
 GameObjectBase::GameObjectBase()
@@ -92,15 +95,19 @@ const Bounds& GameObjectBase::GetBounds()
 
 void GameObjectBase::UpdateBounds()
 {
-	bounds.center = transform.pivot;
-	bounds.center.x += transform.position.x;
-	bounds.center.y += transform.position.y;
+	bounds.center = transform.position;
 
 	bounds.extents = transform.pivot;
-	bounds.size = transform.pivot * 2.f;
+	bounds.extents.x *= transform.scale.x;
+	bounds.extents.y *= transform.scale.y;
 
-	bounds.leftTop = transform.position - transform.pivot;
-	bounds.rightBottom = transform.position + transform.pivot;
+	bounds.size = bounds.extents * 2.f;
+
+	bounds.leftTop.x = transform.position.x - bounds.extents.x;
+	bounds.leftTop.y = transform.position.y + bounds.extents.y;
+
+	bounds.rightBottom.x = transform.position.x + bounds.extents.x;
+	bounds.rightBottom.y = transform.position.y - bounds.extents.y;
 
 	Bounds::GetRotationBounds(bounds, transform.rotation);
 }

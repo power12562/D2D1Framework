@@ -16,8 +16,13 @@ public:
 	/** 메인 카메라. 없으면 nullptr 반환합니다.*/
 	static inline Camera* const GetMainCamera() { return mainCam; }
 
-	/** 이 카메라의 역행렬*/
+	/** 이 카메라의 행렬 반환*/
+	const D2D1_MATRIX_3X2_F& GetMatrix();
+
+	/** 이 카메라의 역행렬 반환*/
 	const D2D1_MATRIX_3X2_F& GetInvertMatrix();
+
+	/** 이 카메라의 역행렬*/
 
 protected:
 	//virtual void Start() override;
@@ -37,5 +42,8 @@ private:
 
 	/** D2D factory 재생성시 호출되는 메서드*/
 	static void ResetCameraPivot();
+
+	/** 이 카메라의 역행렬*/
+	D2D1_MATRIX_3X2_F InvertMatrix;
 };
 

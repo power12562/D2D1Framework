@@ -96,7 +96,7 @@ void Transform::UpdateWorldMatrix()
 	{
 		matrixScale = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
 		matrixRotation = Matrix3x2F::Rotation(localRotation);
-		matrixTranslation = Matrix3x2F::Translation(localPosition.value.x, -localPosition.value.y);
+		matrixTranslation = Matrix3x2F::Translation(localPosition.value.x, ScreenSize.cy - localPosition.value.y);
 	}
 	matrixPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
 	matrixInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);

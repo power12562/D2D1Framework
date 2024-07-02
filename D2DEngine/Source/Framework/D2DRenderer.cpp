@@ -468,9 +468,10 @@ void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat,
 
 size_t D2DRenderer::GetUsedVram()
 {
+	const SIZE& clientSize = WinGameApp::GetClientSize();
 	DXGI_QUERY_VIDEO_MEMORY_INFO videoMemoryInfo;
 	pDXGIAdapter->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &videoMemoryInfo);
-	return videoMemoryInfo.CurrentUsage / 1024 / 1024;
+	return videoMemoryInfo.CurrentUsage / clientSize.cx / clientSize.cy;
 }
 
 

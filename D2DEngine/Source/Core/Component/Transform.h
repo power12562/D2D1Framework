@@ -26,8 +26,8 @@ class Transform : public ComponentBase
 		TVector2(const TVector2& other);
 		TVector2(const Vector2& other);
 		
-		float GetX() const { return value.x; } //property
-		float GetY() const { return value.y; } //property
+		float GetX() const { return value.x; } const //property
+		float GetY() const { return value.y; } const //property
 		__declspec(property(get = GetX)) float x;
 		__declspec(property(get = GetY)) float y;
 
@@ -77,17 +77,17 @@ public:
 	TFloat localRotation = 0;
 	TVector2 localScale{ 1,1 };
 
-	inline D2D1_MATRIX_3X2_F& GetWorldMatrix() { return matrixWorld; }
-	inline D2D1_MATRIX_3X2_F& GetCameraMatrix() { return matrixMainCamera; }
+	inline const D2D1_MATRIX_3X2_F& GetWorldMatrix() const { return matrixWorld; }
+	inline const D2D1_MATRIX_3X2_F& GetCameraMatrix() const { return matrixMainCamera; }
 
-	inline D2D1_MATRIX_3X2_F& GetPivotMatrix() { return matrixPivot; }
-	inline D2D1_MATRIX_3X2_F& GetInvertPivotMatrix() { return matrixInvertPivot; }
+	inline const D2D1_MATRIX_3X2_F& GetPivotMatrix() const { return matrixPivot; } 
+	inline const D2D1_MATRIX_3X2_F& GetInvertPivotMatrix() const { return matrixInvertPivot; }
 
 	/** 부모 오브젝트를 설정합니다.*/
 	void SetParent(Transform& parent);	
 	/** 부모 오브젝트를 해제합니다. 부모로 둘 대상을 인자로 넘길 수 있습니다.*/
 	void SetParent();
-	Transform& GetParent() { return *parent; }
+	const Transform& GetParent() const { return *parent; }
 
 	/** X축 반전 시키기*/
 	void FlipX(bool isflip);
@@ -96,7 +96,7 @@ public:
 	void FlipY(bool isflip);
 	void FlipY();
 
-	bool IsFlipX() const { return isFlipX; }
+	bool IsFlipX() const { return isFlipX; } 
 	/** 현재 좌우반전 여부. 읽기 전용*/
 	__declspec(property(get = IsFlipX)) bool flipX;
 	bool IsFlipY() const { return isFlipY; } 

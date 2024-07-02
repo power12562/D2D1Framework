@@ -30,8 +30,12 @@ void BoxCollider2D::Render()
 {
 	if (isDrawCollider)
 	{
-		const D2D1_MATRIX_3X2_F& myMatrix = gameObject.transform.GetCameraMatrix();
-		trMatrix = D2D1::Matrix3x2F::Translation(myMatrix.dx, myMatrix.dy); //회전은 적용 안되도록.
-		D2DRenderer::DrawRect(trMatrix, { -bounds.extents.x, -bounds.extents.y, bounds.extents.x, bounds.extents.y}, D2D1::ColorF(D2D1::ColorF::Green));
+		const D2D1_MATRIX_3X2_F& camMatrix = gameObject.transform.GetCameraMatrix();
+		float scaleX = sqrtf(camMatrix._11 * camMatrix._11 + camMatrix._12 * camMatrix._12);
+		float scaleY = sqrtf(camMatrix._21 * camMatrix._21 + camMatrix._22 * camMatrix._22);
+		const D2D1_MATRIX_3X2_F& drawMatrix =
+			D2D1::Matrix3x2F::Translation(camMatrix.dx, camMatrix.dy) *
+			D2D1::Matrix3x2F::Scale(scaleX, scaleY);
+		D2DRenderer::DrawRect(drawMatrix, {-bounds.extents.x, -bounds.extents.y, bounds.extents.x, bounds.extents.y}, D2D1::ColorF(D2D1::ColorF::Green));
 	}
 }
