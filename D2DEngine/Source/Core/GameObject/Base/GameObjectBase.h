@@ -36,15 +36,17 @@ public:
 	__declspec(property(get = GetName, put = SetName)) const wchar_t* name; //프로퍼티
 
 	/** 오브젝트의 바운딩 박스 얻기. Pivot을 이용해 구합니다.*/
-	virtual const Bounds& GetBounds();
+	const Bounds& GetBounds();
+
+protected:
+	/** GetBounds() return 이전에 호출되는 함수*/
+	virtual void UpdateBounds();
+	Bounds bounds;
+
 private:
 	Transform* pTransform;
 	std::list<ComponentBase*> componentsList;
 	std::wstring objName;
-
-	void UpdateBounds();
-	Bounds bounds;
-
 };
 
 

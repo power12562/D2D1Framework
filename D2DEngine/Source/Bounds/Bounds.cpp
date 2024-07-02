@@ -42,3 +42,16 @@ void Bounds::GetRotationBounds(Bounds& bounds, const float angle)
 	bounds.extents.y = bounds.size.y * 0.5f;
 }
 
+bool Bounds::AABB(const Bounds& other)
+{
+	// Check for no overlap conditions
+	if (this->rightBottom.x < other.leftTop.x ||  // 오른쪽에 있으면 겹칠수가 없음
+		this->leftTop.x > other.rightBottom.x ||  // 왼쪽에 있으면 겹칠수가 없음
+		this->leftTop.y < other.rightBottom.y ||  // 아래에 있으면 겹칠수가 없음
+		this->rightBottom.y > other.leftTop.y)	  // 위에 있으면 겹칠수가 없음
+	{
+		return false;
+	}
+	return true;
+}
+

@@ -22,4 +22,7 @@ struct Bounds
 	/** Bounds에 회전이 적용된 bounds 값 리턴*/
 	static void GetRotationBounds(Bounds& bounds, const float angle);
 
+	/** Bounds끼리 AABB로 겹침 여부 검사*/
+	bool AABB(const Bounds& other);
+
 };

@@ -1,6 +1,10 @@
 #include "SceneManager.h"
 #include "Core/Scene/SceneBase.h"
+
 #include "Core/GameObject/Base/GameObjectBase.h"
+
+#include "Core/Component/Camera.h"
+
 #include <vector>
 
 SceneBase* SceneManager::currentScene = nullptr;
@@ -79,10 +83,19 @@ void SceneManager::LateUpdate()
 void SceneManager::Render()
 {
 	if (currentScene)
-	{
-		for (auto& item : currentScene->gameObjectList)
+	{	
+		if (Camera* mainCam = Camera::GetMainCamera())
 		{
-			item->Render();
+			const Bounds& mainCamBounds = mainCam->gameObject.GetBounds();
+			for (auto& item : currentScene->gameObjectList)
+			{
+
+				item->Render();
+			}
+		}
+		else
+		{
+			assert(!"MainCamera is nullptr.");
 		}
 	}
 }
