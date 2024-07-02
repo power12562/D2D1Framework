@@ -30,12 +30,11 @@ void BoxCollider2D::Render()
 {
 	if (isDrawCollider)
 	{
+		Vector2 worldScale = gameObject.transform.scale;
 		const D2D1_MATRIX_3X2_F& camMatrix = gameObject.transform.GetCameraMatrix();
-		float scaleX = sqrtf(camMatrix._11 * camMatrix._11 + camMatrix._12 * camMatrix._12);
-		float scaleY = sqrtf(camMatrix._21 * camMatrix._21 + camMatrix._22 * camMatrix._22);
-		const D2D1_MATRIX_3X2_F& drawMatrix =
-			D2D1::Matrix3x2F::Translation(camMatrix.dx, camMatrix.dy) *
-			D2D1::Matrix3x2F::Scale(scaleX, scaleY);
-		D2DRenderer::DrawRect(drawMatrix, {-bounds.extents.x, -bounds.extents.y, bounds.extents.x, bounds.extents.y}, D2D1::ColorF(D2D1::ColorF::Green));
+		const Vector2& camScale = Vector2::GetScaleFromMatrix(camMatrix);
+		const D2D1_MATRIX_3X2_F& drawMatrix = D2D1::Matrix3x2F::Scale(camScale.x, camScale.y) * D2D1::Matrix3x2F::Translation(camMatrix.dx, camMatrix.dy); //회전 매트릭스 제외
+		const D2D1_RECT_F& drawRect = { -bounds.extents.x / worldScale.x , -bounds.extents.y / worldScale.y, bounds.extents.x / worldScale.x, bounds.extents.y / worldScale.y }; //자신의 스케일 제외(위 매트릭스에 이미 포함됨)
+		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green));
 	}
 }

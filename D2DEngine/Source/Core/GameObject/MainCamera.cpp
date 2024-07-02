@@ -17,13 +17,13 @@ void MainCamera::UpdateBounds()
 
 	bounds.extents = bounds.size * 0.5f;
 
-	bounds.leftTop = transform.position;
+	bounds.center = transform.position;
 
-	bounds.rightBottom.x = bounds.leftTop.x + bounds.size.x;
-	bounds.rightBottom.y = bounds.leftTop.y - bounds.size.y;
+	bounds.leftTop.x = bounds.center.x - bounds.extents.x;
+	bounds.leftTop.y = bounds.center.y + bounds.extents.y;
 
-	bounds.center.x = transform.position.x + bounds.extents.x;
-	bounds.center.y = transform.position.y - bounds.extents.y;
+	bounds.rightBottom.x = bounds.center.x + bounds.extents.x;
+	bounds.rightBottom.y = bounds.center.y - bounds.extents.y;
 
 	Bounds::GetRotationBounds(bounds, transform.rotation);
 }

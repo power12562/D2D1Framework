@@ -2,6 +2,8 @@
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
 
+#include "Core/GameObject/Base/GameObjectBase.h"
+
 #include "Core/Component/Camera.h"
 
 #include <stack>
@@ -10,26 +12,26 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 	using namespace D2D1;
 
-	matrixWorld = Matrix3x2F::Identity();
-	matrixInvertWorld = Matrix3x2F::Identity();
+	WM = Matrix3x2F::Identity();
+	IWM = Matrix3x2F::Identity();
 
-	matrixMainCamera = Matrix3x2F::Identity();
+	CM = Matrix3x2F::Identity();
 
 	position.InitTVector2(this);
 	localPosition.InitTVector2(this);
-	matrixTranslation = Matrix3x2F::Identity();
+	//matrixTranslation = Matrix3x2F::Identity();
 
 	rotation.InitTFloat(this);
 	localRotation.InitTFloat(this);
-	matrixRotation = Matrix3x2F::Identity();
+	//matrixRotation = Matrix3x2F::Identity();
 
 	scale.InitTVector2(this);
 	localScale.InitTVector2(this);
-	matrixScale = Matrix3x2F::Identity();
+	//matrixScale = Matrix3x2F::Identity();
 
 	pivot.InitTVector2(this);
-	matrixPivot = Matrix3x2F::Identity();
-	matrixInvertPivot = Matrix3x2F::Identity();
+	PM = Matrix3x2F::Identity();
+	IPM = Matrix3x2F::Identity();
 }
 
 Transform::~Transform()
@@ -86,34 +88,43 @@ void Transform::UpdateWorldMatrix()
 	using namespace D2D1;
 
 	const SIZE& ScreenSize = WinGameApp::GetClientSize();
+	D2D1_MATRIX_3X2_F SM, RM, TM;
 	if (!parent)
 	{
-		matrixScale = Matrix3x2F::Scale(scale.value.x, scale.value.y);
-		matrixRotation = Matrix3x2F::Rotation(rotation);
-		matrixTranslation = Matrix3x2F::Translation(position.value.x, ScreenSize.cy - position.value.y);
+		SM = Matrix3x2F::Scale(scale.value.x, scale.value.y);
+		RM = Matrix3x2F::Rotation(rotation);
+		TM = Matrix3x2F::Translation(position.value.x, ScreenSize.cy - position.value.y);
 	}
 	else
 	{
-		matrixScale = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
-		matrixRotation = Matrix3x2F::Rotation(localRotation);
-		matrixTranslation = Matrix3x2F::Translation(localPosition.value.x, ScreenSize.cy - localPosition.value.y);
+		SM = Matrix3x2F::Scale(localScale.value.x, localScale.value.y);
+		RM = Matrix3x2F::Rotation(localRotation);
+		TM = Matrix3x2F::Translation(localPosition.value.x, -localPosition.value.y); //부모에서 이미 화면 좌표계로 바꾸기 때문에 자식 로컬은 -localPosition.value.y
 	}
-	matrixPivot = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
-	matrixInvertPivot = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
+	PM = Matrix3x2F::Translation(pivot.value.x, pivot.value.y);
+	IPM = Matrix3x2F::Translation(-pivot.value.x, -pivot.value.y);
 
-	matrixWorld = matrixPivot * (matrixInvertPivot * matrixScale * matrixRotation * matrixTranslation);
-	matrixInvertWorld = matrixWorld;
-	D2D1InvertMatrix(&matrixInvertWorld);
-	matrixMainCamera = matrixWorld;
-	if (Camera* main = Camera::GetMainCamera())
+	WM = IPM * SM * RM * TM;
+	Camera* mainCam = Camera::GetMainCamera(); //카메라 확인
+	if (mainCam == nullptr || &mainCam->gameObject.transform != this) 
 	{
-		matrixMainCamera = matrixMainCamera * main->GetInvertMatrix();
+		WM = PM * WM;  //카메라 제외하고 전부다 원위치로
 	}
-	if (parent)
+	IWM = WM; 
+	D2D1InvertMatrix(&IWM);  //역행렬 계산
+	CM = WM;
+	if (!parent) //부모일때
 	{
-		matrixWorld = matrixWorld * parent->matrixWorld;
-		matrixMainCamera = matrixMainCamera * parent->matrixMainCamera; //matrix
-
+		if (mainCam)
+		{
+			CM = CM * mainCam->GetInvertMatrix(); 
+		}
+	}
+	else //자식 일때
+	{		
+		CM = CM * parent->CM; 
+		WM = WM * parent->WM;
+		
 		//Local To World
 		scale.value.x = parent->scale.value.x * localScale.value.x;
 		scale.value.y = parent->scale.value.y * localScale.value.y;

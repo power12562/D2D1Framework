@@ -30,7 +30,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 	
 	GameObjectBase* earth = new GameObjectBase;
 	earth->GetTransform().SetParent(sun->GetTransform());
-	earth->GetTransform().localPosition = Vector2{1000.f, 0.f};
+	earth->GetTransform().localPosition = Vector2{0.f, 0.f};
 	earth->AddComponent<SpriteRenderer>();
 	earth->GetComponent<SpriteRenderer>().LoadImage(L"Resource/earth.png");
 

@@ -123,6 +123,13 @@ bool Vector2::operator==(const Vector2& other)
 
 //static:
 
+Vector2 Vector2::GetScaleFromMatrix(const D2D1_MATRIX_3X2_F& matrix)
+{
+	float x = sqrtf(matrix._11 * matrix._11 + matrix._12 * matrix._12);
+	float y = sqrtf(matrix._21 * matrix._21 + matrix._22 * matrix._22);
+	return Vector2(x, y);
+}
+
 Vector2 Vector2::WorldToScreenPoint(const Vector2& pos)
 {
 	return Vector2{ pos.x, (float)WinGameApp::GetClientSize().cy - pos.y};

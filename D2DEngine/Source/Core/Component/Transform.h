@@ -77,16 +77,17 @@ public:
 	TFloat localRotation = 0;
 	TVector2 localScale{ 1,1 };
 
-	inline const D2D1_MATRIX_3X2_F& GetWorldMatrix() const { return matrixWorld; }
-	inline const D2D1_MATRIX_3X2_F& GetCameraMatrix() const { return matrixMainCamera; }
+	inline const D2D1_MATRIX_3X2_F& GetWorldMatrix() const { return WM; }
+	inline const D2D1_MATRIX_3X2_F& GetCameraMatrix() const { return CM; }
 
-	inline const D2D1_MATRIX_3X2_F& GetPivotMatrix() const { return matrixPivot; } 
-	inline const D2D1_MATRIX_3X2_F& GetInvertPivotMatrix() const { return matrixInvertPivot; }
+	inline const D2D1_MATRIX_3X2_F& GetPivotMatrix() const { return PM; } 
+	inline const D2D1_MATRIX_3X2_F& GetInvertPivotMatrix() const { return IPM; }
 
 	/** 부모 오브젝트를 설정합니다.*/
 	void SetParent(Transform& parent);	
 	/** 부모 오브젝트를 해제합니다. 부모로 둘 대상을 인자로 넘길 수 있습니다.*/
 	void SetParent();
+	bool IsParent() { return parent; } //부모 여부 확인용
 	const Transform& GetParent() const { return *parent; }
 
 	/** X축 반전 시키기*/
@@ -111,16 +112,22 @@ private:
 	Transform* parent{};
 	std::list<Transform*> childsList;
 	void UpdateChildTransform();
-
-	D2D1_MATRIX_3X2_F matrixWorld; //월드
-	D2D1_MATRIX_3X2_F matrixInvertWorld; //월드 역행렬
-	D2D1_MATRIX_3X2_F matrixMainCamera; //카메라
 	void UpdateWorldMatrix();
-	D2D1_MATRIX_3X2_F matrixScale;
-	D2D1_MATRIX_3X2_F matrixRotation;
-	D2D1_MATRIX_3X2_F matrixTranslation;
-	D2D1_MATRIX_3X2_F matrixPivot;
-	D2D1_MATRIX_3X2_F matrixInvertPivot;
+
+	/** World Matrix*/
+	D2D1_MATRIX_3X2_F WM; 
+
+	/** Invert World Matrix*/
+	D2D1_MATRIX_3X2_F IWM;
+
+	/** Camera Matrix*/
+	D2D1_MATRIX_3X2_F CM; //카메라
+
+	/** Pivot Matrix*/
+	D2D1_MATRIX_3X2_F PM;
+
+	/** Invert Pivot Matrix*/
+	D2D1_MATRIX_3X2_F IPM;
 
 	bool isFlipX = false;
 	bool isFlipY = false;

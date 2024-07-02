@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Component/Base/ComponentBase.h"
+
 #include <d2d1.h>
 #include <list>
 
@@ -22,7 +23,6 @@ public:
 	/** 이 카메라의 역행렬 반환*/
 	const D2D1_MATRIX_3X2_F& GetInvertMatrix();
 
-	/** 이 카메라의 역행렬*/
 
 protected:
 	//virtual void Start() override;
@@ -31,6 +31,7 @@ protected:
 	//virtual void Render() override;
 
 private:
+
 	/**instanceList에서 삭제를 위한 카메라 객체의 노드(Iter).*/
 	std::list<Camera*>::iterator instanceIter;
 
@@ -42,8 +43,5 @@ private:
 
 	/** D2D factory 재생성시 호출되는 메서드*/
 	static void ResetCameraPivot();
-
-	/** 이 카메라의 역행렬*/
-	D2D1_MATRIX_3X2_F InvertMatrix;
 };
 

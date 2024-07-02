@@ -1,4 +1,5 @@
 #pragma once
+#include <d2d1.h>
 
 class Vector2
 {
@@ -38,6 +39,9 @@ public:
 	static const Vector2 Up;
 	/** Down Vector2(0, -1) */
 	static const Vector2 Down;
+
+	/** 해당 매트릭스의 sclaeX 요소 추출하기*/
+	static Vector2 GetScaleFromMatrix(const D2D1_MATRIX_3X2_F& matrix);
 
 	/** 화면 좌표로 변환*/
 	static Vector2 WorldToScreenPoint(const Vector2& pos);

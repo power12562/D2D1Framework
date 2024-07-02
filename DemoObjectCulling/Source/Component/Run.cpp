@@ -9,8 +9,7 @@
 #include "Core/Component/SpriteRenderer.h"
 #include "Core/Component/Collider/BoxCollider2D.h"
 
-#include <list>
-#include <string>
+
 
 Run::Run(GameObjectBase& object) : ComponentBase(object)
 {
@@ -30,7 +29,7 @@ void Run::Start()
 	gameObject.AddComponent<SpriteAnimation>();
 	SpriteAnimation& runAnime = gameObject.GetComponent<SpriteAnimation>();
 	runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
-	//runAnime.SetAnimationClip(L"Run", true);
+	runAnime.SetAnimationClip(L"Run", true);
 
 	gameObject.AddComponent<SpriteRenderer>();
 	SpriteRenderer& runRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -39,6 +38,29 @@ void Run::Start()
 
 	gameObject.AddComponent<BoxCollider2D>();
 	gameObject.GetComponent<BoxCollider2D>().isDrawCollider = true;
+
+	for (int i = 0; i < 10; i++)
+	{
+		std::wstring name = L"Run";
+		name += std::to_wstring(instanceCount);
+		GameObjectBase* run = SceneManager::AddGameObject(name.c_str());
+		run->transform.position = Vector2{ gameObject.transform.position.x, gameObject.transform.position.y + 90.f * instanceCount++ };
+
+		run->AddComponent<SpriteAnimation>();
+		SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
+		runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
+		runAnime.SetAnimationClip(L"Run", true);
+
+		run->AddComponent<SpriteRenderer>();
+		SpriteRenderer& runRenderer = run->GetComponent<SpriteRenderer>();
+		runRenderer.LoadImage(L"../Resource/Run.png");
+		runRenderer.SetSpriteAnimation(runAnime);
+
+		run->AddComponent<BoxCollider2D>();
+		run->GetComponent<BoxCollider2D>().isDrawCollider = true;
+
+		runList.push_back(name.c_str());
+	}
 }
 
 void Run::Update()
@@ -48,8 +70,7 @@ void Run::Update()
 
 	gameObject.transform.rotation += 30.0f * Time.GetDeltatime();
 	SIZE screenSize = WinGameApp::GetClientSize();
-	static int instanceCount = 1;
-	static std::list<std::wstring> runList;
+	
 	if (Input.IsKeyDown(KeyCode::UpArrow))
 	{
 		std::wstring name = L"Run";

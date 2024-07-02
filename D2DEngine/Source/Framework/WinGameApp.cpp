@@ -76,13 +76,14 @@ void WinGameApp::Run()
 		{
 			Time.UpdateTime();
 			Input.UpdateMouse();
-			Update();
 
+			Update();		
+			LateUpdate();
 			D2DRenderer::BeginDraw();
 			D2DRenderer::Clear(bgColor);
 			Render();
 			D2DRenderer::EndDraw();
-
+			
 			SceneManager::AddObjectToQList();
 			SceneManager::DelObjectToSetList();
 
@@ -97,9 +98,16 @@ void WinGameApp::Run()
 	}	
 }
 
+#pragma region WinGameApp->Run() 게임 루프에서 호출되는 함수들.
+
 void WinGameApp::Update()
 {
 	SceneManager::Update();
+}
+
+void WinGameApp::LateUpdate()
+{
+	SceneManager::LateUpdate();
 }
 
 void WinGameApp::Render()
@@ -107,6 +115,7 @@ void WinGameApp::Render()
 	SceneManager::Render();
 }
 
+#pragma endregion
 
 void WinGameApp::WinToScrrenCenter(HWND hwnd)
 {

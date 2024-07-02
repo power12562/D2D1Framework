@@ -10,7 +10,7 @@ namespace InputSystem
     Vector2 MouseState::GetWorldPos() const
     {
         const SIZE& clientSize = WinGameApp::GetClientSize();
-        D2D1_MATRIX_3X2_F worldMatrix = D2D1::Matrix3x2F::Translation((float)x, -(float)y - clientSize.cy) * Camera::GetMainCamera()->GetMatrix();
+        D2D1_MATRIX_3X2_F worldMatrix = D2D1::Matrix3x2F::Translation((float)x, -(float)y) * Camera::GetMainCamera()->GetMatrix();
         return Vector2(worldMatrix.dx, worldMatrix.dy);
     }
 }

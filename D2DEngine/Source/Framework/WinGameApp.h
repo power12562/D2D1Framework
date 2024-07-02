@@ -19,8 +19,11 @@ public:
 
 	void End() { isEnd = true; } //루프 종료
 
+#pragma region WinGameApp->Run() 게임 루프에서 호출되는 함수들.
 	virtual void Update();
+	virtual void LateUpdate();
 	virtual void Render();
+#pragma endregion
 
 	/**클라이언트를 화면 가운데로 위치 시킨다.*/
 	static void WinToScrrenCenter(HWND hwnd);
