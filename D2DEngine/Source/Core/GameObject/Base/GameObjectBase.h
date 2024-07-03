@@ -9,8 +9,8 @@
 enum class OBJECT_TYPE
 {
 	CAMERA,
-	UI,
 	OBJECT,
+	UI,
 };
 
 class GameObjectBase
@@ -50,6 +50,9 @@ public:
 
 	/** Object Enable*/
 	bool enable = true;
+
+	/** Object Type*/
+	OBJECT_TYPE GetType() const { return objType; }
 
 protected:
 	/** GetBounds() return 이전에 호출되는 함수*/

@@ -77,6 +77,7 @@ void WinGameApp::Run()
 			Time.UpdateTime();
 			Input.UpdateMouse();
 
+			SceneManager::SortObjectList();
 			Update();		
 			LateUpdate();
 			D2DRenderer::BeginDraw();

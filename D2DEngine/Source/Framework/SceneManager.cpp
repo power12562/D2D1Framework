@@ -13,6 +13,8 @@ std::set<std::wstring> SceneManager::delNameSetList;
 
 int SceneManager::renderCount = 0;
 
+bool SceneManager::isObjectListChange = true;
+
 SceneManager::SceneManager()
 {
 
@@ -27,11 +29,13 @@ SceneManager::~SceneManager()
 void SceneManager::DelGameObject(const wchar_t* objectName)
 {
 	delNameSetList.insert(objectName);
+	isObjectListChange = true;
 }
 
 void SceneManager::DelGameObject(GameObjectBase& gameObject)
 {
 	delNameSetList.insert(gameObject.name);
+	isObjectListChange = true;
 }
 
 GameObjectBase* SceneManager::FindGameObject(const wchar_t* objectName)
@@ -68,6 +72,20 @@ void SceneManager::Update()
 		{
 			item->Update();
 		}
+	}
+}
+
+bool SceneManager::ObjectRenderCompare(const GameObjectBase* a, const GameObjectBase* b)
+{
+	return a->GetType() < b->GetType();
+}
+
+void SceneManager::SortObjectList()
+{
+	if (currentScene && isObjectListChange)
+	{
+		currentScene->gameObjectList.sort(SceneManager::ObjectRenderCompare);
+		isObjectListChange = false;
 	}
 }
 

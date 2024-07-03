@@ -5,6 +5,7 @@
 #include "Framework/InputSystem.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectUI.h"
 #include "Core/GameObject/MainCamera.h"
 #include "Core/Component/SpriteRenderer.h"
 #include "Core/Component/Camera.h"
@@ -45,7 +46,7 @@ Scene1::Scene1()
 	GameObjectBase* run = SceneManager::AddGameObject(L"Run");
 	run->AddComponent<Run>();
 
-	GameObjectBase* debug = SceneManager::AddGameObject(L"debug");
+	GameObjectBase* debug = SceneManager::AddGameObject<GameObjectUI>(L"debug");
 	debug->AddComponent<DebugText>();
 	debug->transform.SetParent(Camera::GetMainCamera()->gameObject.transform);
 }

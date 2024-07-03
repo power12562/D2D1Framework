@@ -14,7 +14,7 @@ class SceneManager
 public:
 	/** 씬을 불러옵니다*/
 	template<typename T> static void LoadScene();
-	
+
 	/** 씬을 언로드 합니다*/
 	static void UnloadScene();
 
@@ -46,7 +46,14 @@ private:
 
 	static int renderCount;
 
+	static bool isObjectListChange; //오브젝트 리스트의 변화를 감지
+
+	/** 오브젝트의 정렬 기준 (그리는 우선 순위)*/
+	static bool ObjectRenderCompare(const GameObjectBase* a, const GameObjectBase* b);
+
 #pragma region WinGameApp->Run()루프에서만 호출하는 함수들
+	/** 현재 씬 오브젝트들을 타입별로 정렬합니다.*/
+	static void SortObjectList();
 	/** 현재 씬 오브젝트들의 Update() 함수를 호출해줍니다.*/
 	static void Update();
 	/** 현재 씬 오브젝트들의 LateUpdate() 함수를 호출해줍니다.*/
@@ -87,6 +94,8 @@ inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 	GameObjectBase* gameObject = new GameObjectBase;
 	gameObject->name = objectName;
 	addQueueList.push(gameObject);
+
+	isObjectListChange = true;
 	return gameObject;
 }
 
@@ -99,6 +108,8 @@ inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 	GameObjectBase* gameObject = new T;
 	gameObject->name = objectName;
 	addQueueList.push(gameObject);
+
+	isObjectListChange = true;
 	return gameObject;
 }
 
