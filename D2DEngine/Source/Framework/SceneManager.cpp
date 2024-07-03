@@ -11,6 +11,8 @@ SceneBase* SceneManager::currentScene = nullptr;
 std::queue<GameObjectBase*> SceneManager::addQueueList;
 std::set<std::wstring> SceneManager::delNameSetList;
 
+int SceneManager::renderCount = 0;
+
 SceneManager::SceneManager()
 {
 
@@ -86,11 +88,18 @@ void SceneManager::Render()
 	{	
 		if (Camera* mainCam = Camera::GetMainCamera())
 		{
-			const Bounds& mainCamBounds = mainCam->gameObject.GetBounds();
+			renderCount = 0;
+			const Bounds& mainCamBounds = mainCam->gameObject.GetBounds(); 
 			for (auto& item : currentScene->gameObjectList)
 			{
+				if (&mainCamBounds == &item->GetBounds()) //카메라는 제외
+					continue;
 
-				item->Render();
+				if (mainCamBounds.AABB(item->GetBounds())) //AABB coulling
+				{
+					renderCount++;
+					item->Render();
+				}			
 			}
 		}
 		else
@@ -140,6 +149,7 @@ void SceneManager::DelObjectToSetList()
 			auto findIter = currentScene->gameObjectMap.find(delVectorList[0]);
 			if (findIter != currentScene->gameObjectMap.end())
 			{
+				delete *(findIter->second);
 				currentScene->gameObjectList.erase(findIter->second);
 				currentScene->gameObjectMap.erase(findIter);
 			}				

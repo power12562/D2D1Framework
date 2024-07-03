@@ -33,6 +33,9 @@ public:
 	/** 현재 씬에 오브젝트 존재 유무를 반환합니다.*/
 	static bool IsGameObject(const wchar_t* objectName);
 
+	/** 실제로 Render 함수를 실행한 오브젝트 개수를 반환합니다.*/
+	static int GetRenderCount() { return renderCount; }
+
 private:
 	SceneManager();
 	~SceneManager();
@@ -40,6 +43,8 @@ private:
 	static class SceneBase* currentScene;
 	static std::queue<GameObjectBase*> addQueueList;
 	static std::set<std::wstring> delNameSetList;
+
+	static int renderCount;
 
 #pragma region WinGameApp->Run()루프에서만 호출하는 함수들
 	/** 현재 씬 오브젝트들의 Update() 함수를 호출해줍니다.*/

@@ -34,11 +34,11 @@ private:
 	float elapsedTime = 0; //애니메이션 진행 시간
 	bool isLoop = false; //현재 애니메이션 루프 여부
 
-	/**애니메이션 클립 모음 <이름, 클립>*/
+	/**애니메이션 클립 모음 <이름, <경로, 클립>>*/
 	std::map<std::wstring, std::pair<std::wstring, AnimationClip*>> Animations;
 
 	//static :
-		/**리소스 공유용 맵 <경로, 클립>*/
+	/**리소스 공유용 맵 <경로, 클립>*/
 	static std::map<std::wstring, AnimationClip*> clipResourceMap;
 	/** 중복 체크 후 애니메이션 리소스 생성*/
 	static AnimationClip* CreateAnimationClipFromFile(const wchar_t* filePath);

@@ -48,13 +48,14 @@ void DemoObjectCulling::Render()
 	swprintf_s
 	(
 		debug, _ARRAYSIZE(debug), 
-		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nMoveCamera : w, a, s, d\nisRender = %d\nmousePos : %.1f, %.1f\nCameraBounds : %.1f, %.1f ,%.1f ,%.1f\nRunBounds : %.1f, %.1f ,%.1f ,%.1f\n", 
+		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nMoveCamera : w, a, s, d\nDrawObject = %d\nmousePos : %.1f, %.1f",
+		//\nCameraBounds : %.1f, %.1f ,%.1f ,%.1f\nRunBounds : %.1f, %.1f ,%.1f ,%.1f\n", 
 		TimeSystem::Time.GetFrameRate(), 
 		D2DRenderer::GetUsedVram(), 
-		mainCam.GetBounds().AABB(run.GetBounds()), 
-		(float)mouseWorldPos.x, (float)mouseWorldPos.y,
-		camBounds.leftTop.x, camBounds.leftTop.y, camBounds.rightBottom.x, camBounds.rightBottom.y,
-		runBounds.leftTop.x, runBounds.leftTop.y, runBounds.rightBottom.x, runBounds.rightBottom.y
+		SceneManager::GetRenderCount(), 
+		(float)mouseWorldPos.x, (float)mouseWorldPos.y
+		//,camBounds.leftTop.x, camBounds.leftTop.y, camBounds.rightBottom.x, camBounds.rightBottom.y,
+		//runBounds.leftTop.x, runBounds.leftTop.y, runBounds.rightBottom.x, runBounds.rightBottom.y
 	);
 	D2DRenderer::DrawTextW(debug, consolas, { 0,0, _ARRAYSIZE(debug) * consolas->GetFontSize(), (float)GetClientSize().cy}, D2D1::ColorF(D2D1::ColorF::AliceBlue));
 }

@@ -16,7 +16,11 @@ SpriteAnimation::SpriteAnimation(GameObjectBase& gameObject) : ComponentBase(gam
 
 SpriteAnimation::~SpriteAnimation()
 {
-
+	for (auto& clip : Animations)
+	{
+		ReleaseAnimationClip(clip.second.first.c_str());
+	}
+	Animations.clear();
 }
 
 void SpriteAnimation::LoadAnimationClip(const wchar_t* path, const wchar_t* clipName)

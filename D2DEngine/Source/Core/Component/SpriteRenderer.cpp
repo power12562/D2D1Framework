@@ -72,8 +72,10 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	if (image == nullptr)
+	{
 		return;
-
+	}
+		
 	if (!pSpriteAnimation)
 	{
 		currentImageSize = image->GetSize();
