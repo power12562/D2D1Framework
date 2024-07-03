@@ -36,7 +36,7 @@ DemoSolarSystem::DemoSolarSystem(HINSTANCE hinstance)
 
 	GameObjectBase* moon = new GameObjectBase;
 	moon->GetTransform().SetParent(earth->GetTransform());
-	moon->GetTransform().localPosition = Vector2{450.f, 0.f};
+	moon->GetTransform().localPosition = Vector2{0.f, 500.f};
 	moon->GetTransform().localScale = Vector2{1.5f, 1.5f};
 	moon->AddComponent<SpriteRenderer>();
 	moon->GetComponent<SpriteRenderer>().LoadImage(L"Resource/moon.png");
@@ -82,9 +82,9 @@ void DemoSolarSystem::Update()
 		obj->Update();
 	}
 
-	gameObjectList[1]->GetTransform().rotation += sunRotSpeed * Time.GetDeltatime();
-	gameObjectList[2]->GetTransform().localRotation += earthRotSpeed * Time.GetDeltatime();
-	gameObjectList[3]->GetTransform().localRotation += moonRotSpeed * Time.GetDeltatime();
+	//gameObjectList[1]->GetTransform().rotation += sunRotSpeed * Time.GetDeltatime();
+	//gameObjectList[2]->GetTransform().localRotation += earthRotSpeed * Time.GetDeltatime();
+	//gameObjectList[3]->GetTransform().localRotation += moonRotSpeed * Time.GetDeltatime();
 
 	if (Input.IsKey(KeyCode::UpArrow))
 	{
