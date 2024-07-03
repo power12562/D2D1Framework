@@ -28,6 +28,8 @@
     <ClCompile Include="Source\Core\Component\TextRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Transform.cpp" />
     <ClCompile Include="Source\Core\GameObject\Base\GameObjectBase.cpp" />
+    <ClCompile Include="Source\Core\GameObject\Base\GameObjectCamera.cpp" />
+    <ClCompile Include="Source\Core\GameObject\Base\GameObjectUI.cpp" />
     <ClCompile Include="Source\Core\GameObject\MainCamera.cpp" />
     <ClCompile Include="Source\Core\Scene\SceneBase.cpp" />
     <ClCompile Include="Source\Framework\D2DRenderer.cpp" />
@@ -49,6 +51,8 @@
     <ClInclude Include="Source\Core\Component\TextRenderer.h" />
     <ClInclude Include="Source\Core\Component\Transform.h" />
     <ClInclude Include="Source\Core\GameObject\Base\GameObjectBase.h" />
+    <ClInclude Include="Source\Core\GameObject\Base\GameObjectCamera.h" />
+    <ClInclude Include="Source\Core\GameObject\Base\GameObjectUI.h" />
     <ClInclude Include="Source\Core\GameObject\MainCamera.h" />
     <ClInclude Include="Source\Core\Scene\SceneBase.h" />
     <ClInclude Include="Source\Framework\D2DRenderer.h" />

@@ -6,16 +6,26 @@
 #include <list>
 #include <string>
 
+enum class OBJECT_TYPE
+{
+	CAMERA,
+	UI,
+	OBJECT,
+};
+
 class GameObjectBase
 {
+protected: 
+	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;;
+
 public:
 	GameObjectBase();
 	virtual ~GameObjectBase();
 	
-	virtual void Start() final;
-	virtual void Update() final;
-	virtual void LateUpdate() final;
-	virtual void Render() final;
+	void Start();
+	void Update();
+	void LateUpdate();
+	void Render();
 
 	/** Transform*/
 	Transform& GetTransform() { return *pTransform; }

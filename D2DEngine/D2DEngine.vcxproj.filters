@@ -20,6 +20,8 @@
     <ClCompile Include="Source\Bounds\Bounds.cpp" />
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
     <ClCompile Include="Source\Core\Component\TextRenderer.cpp" />
+    <ClCompile Include="Source\Core\GameObject\Base\GameObjectUI.cpp" />
+    <ClCompile Include="Source\Core\GameObject\Base\GameObjectCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\SpriteRenderer.h" />
@@ -41,6 +43,8 @@
     <ClInclude Include="Source\Bounds\Bounds.h" />
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
     <ClInclude Include="Source\Core\Component\TextRenderer.h" />
+    <ClInclude Include="Source\Core\GameObject\Base\GameObjectUI.h" />
+    <ClInclude Include="Source\Core\GameObject\Base\GameObjectCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

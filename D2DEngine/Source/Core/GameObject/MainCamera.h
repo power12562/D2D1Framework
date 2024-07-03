@@ -1,13 +1,10 @@
 #pragma once
-#include "Core/GameObject/Base/GameObjectBase.h"
+#include "Core/GameObject/Base/GameObjectCamera.h"
 #include "Bounds/Bounds.h"
 
-class MainCamera : public GameObjectBase
+class MainCamera : public GameObjectCamera
 {
 public:
 	MainCamera();
-	//virtual ~MainCamera() override;
-
-	void UpdateBounds() override;
 };
 
