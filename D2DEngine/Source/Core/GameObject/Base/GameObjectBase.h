@@ -38,6 +38,9 @@ public:
 	/** 오브젝트의 바운딩 박스 얻기. Pivot을 이용해 구합니다.*/
 	const Bounds& GetBounds();
 
+	/** Object Enable*/
+	bool enable = true;
+
 protected:
 	/** GetBounds() return 이전에 호출되는 함수*/
 	virtual void UpdateBounds();

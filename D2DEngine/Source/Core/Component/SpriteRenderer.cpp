@@ -39,8 +39,9 @@ void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
 
 void SpriteRenderer::Render()
 {
-	if (!image || !enabled)
+	if (!image)
 		return;
+
 	Camera* const mainCam = Camera::GetMainCamera();
 	const D2D1_MATRIX_3X2_F& objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
 	if (pSpriteAnimation == nullptr)
