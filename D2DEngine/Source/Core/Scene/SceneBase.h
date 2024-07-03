@@ -2,7 +2,7 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <string>
 
 class SceneBase
@@ -17,6 +17,6 @@ private:
 	/** ¼øÈ¯¿ë ¸®½ºÆ®*/
 	std::list<GameObjectBase*> gameObjectList;
 	/** Å½»ö¿ë ¸Ê*/
-	std::map<std::wstring, std::list<GameObjectBase*>::iterator> gameObjectMap;
+	std::unordered_map<std::wstring, std::list<GameObjectBase*>::iterator> gameObjectMap;
 };
 

@@ -101,3 +101,4 @@ inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 	addQueueList.push(gameObject);
 	return gameObject;
 }
+
