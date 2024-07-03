@@ -72,9 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Bin\</OutDir>
+    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Bin\</OutDir>
+    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -143,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Component\BackGround.cpp" />
     <ClCompile Include="Source\Component\CameraMove.cpp" />
+    <ClCompile Include="Source\Component\DebugText.cpp" />
     <ClCompile Include="Source\Component\Run.cpp" />
     <ClCompile Include="Source\DemoObjectCulling.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -150,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Component\BackGround.h" />
     <ClInclude Include="Source\Component\CameraMove.h" />
+    <ClInclude Include="Source\Component\DebugText.h" />
     <ClInclude Include="Source\Component\Run.h" />
     <ClInclude Include="Source\DemoObjectCulling.h" />
   </ItemGroup>

@@ -12,6 +12,7 @@
 #include "Component/BackGround.h"
 #include "Component/Run.h"
 #include "Component/CameraMove.h"
+#include "Component/DebugText.h"
 
 #include <stack>
 
@@ -31,33 +32,7 @@ DemoObjectCulling::~DemoObjectCulling()
 
 void DemoObjectCulling::Render()
 {
-	using namespace InputSystem;
-
 	__super::Render();
-	GameObjectBase& mainCam = Camera::GetMainCamera()->gameObject;
-	const Bounds& camBounds = mainCam.GetBounds();
-
-	GameObjectBase& run = *SceneManager::FindGameObject(L"Run");
-	const Bounds& runBounds = run.GetBounds();
-
-	auto& mouseState = Input.GetMouseState();
-	Vector2 mouseWorldPos = mouseState.GetWorldPos();
-	
-	static auto consolas = D2DRenderer::CreateD2DFont(L"Consolas");
-	static wchar_t debug[200]{};
-	swprintf_s
-	(
-		debug, _ARRAYSIZE(debug), 
-		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nMoveCamera : w, a, s, d\nDrawObject = %d\nmousePos : %.1f, %.1f",
-		//\nCameraBounds : %.1f, %.1f ,%.1f ,%.1f\nRunBounds : %.1f, %.1f ,%.1f ,%.1f\n", 
-		TimeSystem::Time.GetFrameRate(), 
-		D2DRenderer::GetUsedVram(), 
-		SceneManager::GetRenderCount(), 
-		(float)mouseWorldPos.x, (float)mouseWorldPos.y
-		//,camBounds.leftTop.x, camBounds.leftTop.y, camBounds.rightBottom.x, camBounds.rightBottom.y,
-		//runBounds.leftTop.x, runBounds.leftTop.y, runBounds.rightBottom.x, runBounds.rightBottom.y
-	);
-	D2DRenderer::DrawTextW(debug, consolas, { 0,0, _ARRAYSIZE(debug) * consolas->GetFontSize(), (float)GetClientSize().cy}, D2D1::ColorF(D2D1::ColorF::AliceBlue));
 }
 
 Scene1::Scene1()
@@ -70,6 +45,9 @@ Scene1::Scene1()
 	GameObjectBase* run = SceneManager::AddGameObject(L"Run");
 	run->AddComponent<Run>();
 
+	GameObjectBase* debug = SceneManager::AddGameObject(L"debug");
+	debug->AddComponent<DebugText>();
+	debug->transform.SetParent(Camera::GetMainCamera()->gameObject.transform);
 }
 
 Scene1::~Scene1()

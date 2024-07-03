@@ -466,6 +466,23 @@ void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat,
 	);
 }
 
+void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color)
+{
+	pRenderTarget->SetTransform(matrix);
+
+	pColorBrush->SetColor(color);
+
+	size_t bufferSize = wcslen(text);
+
+	pRenderTarget->DrawText(
+		text,
+		bufferSize,
+		fontFormat,
+		drawRect,
+		pColorBrush
+	);
+}
+
 size_t D2DRenderer::GetUsedVram()
 {
 	const SIZE& clientSize = WinGameApp::GetClientSize();

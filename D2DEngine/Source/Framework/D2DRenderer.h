@@ -80,6 +80,7 @@ public:
 
 	/** 폰트 그리기.*/
 	static void DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black));
+	static void DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black));
 
 	/** Vram 사용량 확인하기.*/
 	static size_t GetUsedVram();

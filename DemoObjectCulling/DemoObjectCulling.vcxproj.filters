@@ -6,11 +6,13 @@
     <ClCompile Include="Source\Component\BackGround.cpp" />
     <ClCompile Include="Source\Component\Run.cpp" />
     <ClCompile Include="Source\Component\CameraMove.cpp" />
+    <ClCompile Include="Source\Component\DebugText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DemoObjectCulling.h" />
     <ClInclude Include="Source\Component\BackGround.h" />
     <ClInclude Include="Source\Component\Run.h" />
     <ClInclude Include="Source\Component\CameraMove.h" />
+    <ClInclude Include="Source\Component\DebugText.h" />
   </ItemGroup>
 </Project>
