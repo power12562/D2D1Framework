@@ -1,6 +1,6 @@
 #include "BackGround.h"
 #include "Framework/WinGameApp.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 
@@ -30,7 +30,7 @@ void BackGround::Start()
 	gameObject.AddComponent<SpriteRenderer>().SetSpriteAnimation(midnightAnime);
 	gameObject.AddComponent<BoxCollider2D>().isDrawCollider = true;
 
-	GameObjectBase* run = SceneManager::AddGameObject(L"Test");
+	GameObjectBase* run = WorldManager::AddGameObject(L"Test");
 	run->transform.SetParent(gameObject.transform);
 	run->AddComponent<SpriteAnimation>();
 	SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();

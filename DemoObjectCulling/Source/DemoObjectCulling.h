@@ -1,6 +1,6 @@
 #pragma once
 #include "Framework/WinGameApp.h"
-#include "Core/Scene/SceneBase.h"
+#include "Core/Scene/WorldBase.h"
 
 class DemoObjectCulling : public WinGameApp
 {
@@ -14,7 +14,7 @@ private:
 
 };
 
-class Scene1 : public SceneBase
+class Scene1 : public WorldBase
 {
 public:
 	Scene1();

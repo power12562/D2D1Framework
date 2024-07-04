@@ -11,8 +11,8 @@
     <ClCompile Include="Source\Math\Mathf.cpp" />
     <ClCompile Include="Source\Vector\Vector2.cpp" />
     <ClCompile Include="Source\Core\Component\Base\ComponentBase.cpp" />
-    <ClCompile Include="Source\Framework\SceneManager.cpp" />
-    <ClCompile Include="Source\Core\Scene\SceneBase.cpp" />
+    <ClCompile Include="Source\Framework\WorldManager.cpp" />
+    <ClCompile Include="Source\Core\Scene\WorldBase.cpp" />
     <ClCompile Include="Source\Core\Component\SpriteAnimation.cpp" />
     <ClCompile Include="Source\Framework\ReferenceCounter.cpp" />
     <ClCompile Include="Source\Core\Component\Camera.cpp" />
@@ -34,8 +34,8 @@
     <ClInclude Include="Source\Math\Mathf.h" />
     <ClInclude Include="Source\Vector\Vector2.h" />
     <ClInclude Include="Source\Core\Component\Base\ComponentBase.h" />
-    <ClInclude Include="Source\Framework\SceneManager.h" />
-    <ClInclude Include="Source\Core\Scene\SceneBase.h" />
+    <ClInclude Include="Source\Framework\WorldManager.h" />
+    <ClInclude Include="Source\Core\Scene\WorldBase.h" />
     <ClInclude Include="Source\Core\Component\SpriteAnimation.h" />
     <ClInclude Include="Source\Framework\ReferenceCounter.h" />
     <ClInclude Include="Source\Core\Component\Camera.h" />

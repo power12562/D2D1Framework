@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Scene/SceneBase.h"
+#include "Core/Scene/WorldBase.h"
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include <iostream>
@@ -7,16 +7,16 @@
 #include <set>
 #include <cassert>
 
-class SceneManager
+class WorldManager
 {
 	friend class WinGameApp;
 	friend void GameObjectBase::SetName(const wchar_t* name);
 public:
 	/** 씬을 불러옵니다*/
-	template<typename T> static void LoadScene();
+	template<typename T> static void LoadWorld();
 
 	/** 씬을 언로드 합니다*/
-	static void UnloadScene();
+	static void UnloadWorld();
 
 	/** 현재 씬에 기본 오브젝트를 추가합니다.*/
 	static GameObjectBase* AddGameObject(const wchar_t* objectName);
@@ -37,10 +37,10 @@ public:
 	static int GetRenderCount() { return renderCount; }
 
 private:
-	SceneManager();
-	~SceneManager();
+	WorldManager();
+	~WorldManager();
 
-	static class SceneBase* currentScene;
+	static class WorldBase* currentWorld;
 	static std::queue<GameObjectBase*> addQueueList;
 	static std::set<std::wstring> delNameSetList;
 
@@ -69,27 +69,27 @@ private:
 };
 
 template<typename T>
-inline void SceneManager::LoadScene()
+inline void WorldManager::LoadWorld()
 {
 	// T가 SceneBase로부터 상속받는지 확인
-	static_assert(std::is_base_of<SceneBase, T>::value, "Is not Scene");
+	static_assert(std::is_base_of<WorldBase, T>::value, "Is not Scene");
 
-	if (currentScene)
+	if (currentWorld)
 	{
-		delete currentScene;
+		delete currentWorld;
 	}
-	currentScene = new T;
+	currentWorld = new T;
 }
 
-inline void SceneManager::UnloadScene()
+inline void WorldManager::UnloadWorld()
 {
-	if (currentScene)
+	if (currentWorld)
 	{
-		delete currentScene;
+		delete currentWorld;
 	}
 }
 
-inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
+inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 {
 	GameObjectBase* gameObject = new GameObjectBase;
 	gameObject->name = objectName;
@@ -100,7 +100,7 @@ inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
 }
 
 template<typename T>
-inline GameObjectBase* SceneManager::AddGameObject(const wchar_t* objectName)
+inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 {
 	// T가 GameObject로부터 상속받는지 확인
 	static_assert(std::is_base_of<GameObjectBase, T>::value, "Is not Object");

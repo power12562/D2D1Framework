@@ -16,13 +16,12 @@ public:
 
 protected:
 	virtual void Start() override;
-	virtual void Update() override;
+	//virtual void Update() override;
 	virtual void Render() override;
 
 private:
-	Bounds bounds;
+	Bounds* bounds;
 	D2D1_MATRIX_3X2_F trMatrix;
 
-	
 };
 

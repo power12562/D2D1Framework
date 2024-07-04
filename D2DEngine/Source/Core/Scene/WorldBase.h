@@ -5,13 +5,13 @@
 #include <unordered_map>
 #include <string>
 
-class SceneBase
+class WorldBase
 {
-	friend class SceneManager;
+	friend class WorldManager;
 	friend void GameObjectBase::SetName(const wchar_t* name);
 public:
-	SceneBase();
-	virtual ~SceneBase();
+	WorldBase();
+	virtual ~WorldBase();
 
 private:
 	/** 순환용 리스트*/

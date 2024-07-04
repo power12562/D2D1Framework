@@ -2,7 +2,7 @@
 #include "Framework/WinGameApp.h"
 #include "Framework/InputSystem.h"
 #include "Framework/TimeSystem.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
@@ -38,7 +38,7 @@ void Run::Start()
 	{
 		std::wstring name = L"Run";
 		name += std::to_wstring(instanceCount);
-		GameObjectBase* run = SceneManager::AddGameObject(name.c_str());
+		GameObjectBase* run = WorldManager::AddGameObject(name.c_str());
 		run->transform.position = Vector2{ gameObject.transform.position.x, gameObject.transform.position.y + 90.f * instanceCount++ };
 
 		run->AddComponent<SpriteAnimation>();
@@ -65,7 +65,7 @@ void Run::Update()
 	{
 		std::wstring name = L"Run";
 		name += std::to_wstring(instanceCount);
-		GameObjectBase* run = SceneManager::AddGameObject(name.c_str());
+		GameObjectBase* run = WorldManager::AddGameObject(name.c_str());
 		run->transform.position = Vector2{ gameObject.transform.position.x, gameObject.transform.position.y + 90.f * instanceCount++ };
 
 		run->AddComponent<SpriteAnimation>();
@@ -80,7 +80,7 @@ void Run::Update()
 	}
 	else if (Input.IsKeyDown(KeyCode::DownArrow) && !runList.empty())
 	{
-		SceneManager::DelGameObject(runList.back().c_str());
+		WorldManager::DelGameObject(runList.back().c_str());
 		runList.pop_back();
 		instanceCount--;
 	}

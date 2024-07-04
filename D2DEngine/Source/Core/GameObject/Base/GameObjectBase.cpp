@@ -1,6 +1,6 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 
 #include "Core/Component/Camera.h"
 
@@ -36,6 +36,7 @@ void GameObjectBase::Start()
 
 void GameObjectBase::Update()
 {
+	UpdateBounds();
 	if (enable)
 		for (auto& component : componentsList)
 		{
@@ -70,30 +71,29 @@ void GameObjectBase::Render()
 
 GameObjectBase* GameObjectBase::Find(const wchar_t* name)
 {
-	return SceneManager::FindGameObject(name);
+	return WorldManager::FindGameObject(name);
 }
 
 void GameObjectBase::SetName(const wchar_t* name)
 {
-	if (SceneManager::IsGameObject(name))
+	if (WorldManager::IsGameObject(name))
 	{
 		return; //이미 있는 이름
 	}
-	if (SceneManager::currentScene)
+	if (WorldManager::currentWorld)
 	{
-		auto myIter = SceneManager::currentScene->gameObjectMap.find(objName);
-		if (myIter != SceneManager::currentScene->gameObjectMap.end())
+		auto myIter = WorldManager::currentWorld->gameObjectMap.find(objName);
+		if (myIter != WorldManager::currentWorld->gameObjectMap.end())
 		{
-			SceneManager::currentScene->gameObjectMap[name] = myIter->second;
-			SceneManager::currentScene->gameObjectMap.erase(myIter);
+			WorldManager::currentWorld->gameObjectMap[name] = myIter->second;
+			WorldManager::currentWorld->gameObjectMap.erase(myIter);
 		}
 	}
 	objName = name;
 }
 
-const Bounds& GameObjectBase::GetBounds()
+Bounds& GameObjectBase::GetBounds()
 {
-	UpdateBounds();
 	return bounds;
 }
 

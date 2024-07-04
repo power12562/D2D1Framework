@@ -1,15 +1,15 @@
-#include "SceneBase.h"
-#include "Framework/SceneManager.h"
+#include "WorldBase.h"
+#include "Framework/WorldManager.h"
 
 #include "Core/GameObject/MainCamera.h"
 
 
-SceneBase::SceneBase()
+WorldBase::WorldBase()
 {
-	SceneManager::AddGameObject<MainCamera>(L"MainCamera");
+	WorldManager::AddGameObject<MainCamera>(L"MainCamera");
 }
 
-SceneBase::~SceneBase()
+WorldBase::~WorldBase()
 {
 	if (!gameObjectList.empty())
 	{

@@ -1,7 +1,7 @@
 #pragma once
-#include "Core/Scene/SceneBase.h"
+#include "Core/Scene/WorldBase.h"
 
-class AnimeEditScene : public SceneBase
+class AnimeEditScene : public WorldBase
 {
 public:
 	AnimeEditScene();

@@ -1,5 +1,5 @@
 #include "DemoObjectCulling.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
@@ -40,13 +40,13 @@ Scene1::Scene1()
 {
 	Camera::GetMainCamera()->gameObject.AddComponent<CameraMove>();
 
-	GameObjectBase* bg = SceneManager::AddGameObject(L"BackGround");
+	GameObjectBase* bg = WorldManager::AddGameObject(L"BackGround");
 	bg->AddComponent<BackGround>();
 	
-	GameObjectBase* run = SceneManager::AddGameObject(L"Run");
+	GameObjectBase* run = WorldManager::AddGameObject(L"Run");
 	run->AddComponent<Run>();
 
-	GameObjectBase* debug = SceneManager::AddGameObject<GameObjectUI>(L"debug");
+	GameObjectBase* debug = WorldManager::AddGameObject<GameObjectUI>(L"debug");
 	debug->AddComponent<DebugText>();
 	debug->transform.SetParent(Camera::GetMainCamera()->gameObject.transform);
 }

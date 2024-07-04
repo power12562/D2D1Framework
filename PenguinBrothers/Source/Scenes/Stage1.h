@@ -1,7 +1,7 @@
 #pragma once
-#include "Core/Scene/SceneBase.h"
+#include "Core/Scene/WorldBase.h"
 
-class Stage1 : public SceneBase
+class Stage1 : public WorldBase
 {
 public:
 	Stage1();

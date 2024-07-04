@@ -140,12 +140,30 @@ void SpriteAnimation::Update()
 	}
 }
 
+void SpriteAnimation::LateUpdate()
+{
+	if (FrameInfo* frame = GetCurrentFrame())
+	{
+		Bounds& bounds = gameObject.GetBounds();
+		bounds.center.x += frame->center.x;
+		bounds.center.y += frame->center.y;
+
+		bounds.leftTop.x += frame->center.x;
+		bounds.leftTop.y += frame->center.y;
+
+		bounds.rightBottom.x += frame->center.x;;
+		bounds.rightBottom.y += frame->center.y;
+	}
+}
+
 void SpriteAnimation::UpdateCurrentPivot()
 {
-	FrameInfo* frame = GetCurrentFrame();
-	Vector2 currentPivot = Vector2{ frame->source.right - frame->source.left, frame->source.bottom - frame->source.top };
-	currentPivot *= 0.5f;
-	gameObject.GetTransform().pivot = currentPivot;
+	if (FrameInfo* frame = GetCurrentFrame())
+	{
+		Vector2 currentPivot = Vector2{ frame->source.right - frame->source.left, frame->source.bottom - frame->source.top };
+		currentPivot *= 0.5f;
+		gameObject.GetTransform().pivot = currentPivot;
+	}
 }
 
 AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* filePath)

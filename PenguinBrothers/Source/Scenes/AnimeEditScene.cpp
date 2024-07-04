@@ -1,5 +1,5 @@
 #include "AnimeEditScene.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 
 #include "Core/Component/Camera.h"
 
@@ -8,7 +8,7 @@
 
 AnimeEditScene::AnimeEditScene()
 {
-	SceneManager::AddGameObject<Player>(L"Player");
+	WorldManager::AddGameObject<Player>(L"Player");
 	Camera::GetMainCamera()->gameObject.AddComponent<AnimeEditCameraCtrl>();
 	
 }

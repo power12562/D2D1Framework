@@ -1,7 +1,7 @@
 #include "DebugText.h"
 
 #include "Framework/InputSystem.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/D2DRenderer.h"
 
@@ -33,7 +33,7 @@ void DebugText::Update()
 	GameObjectBase& mainCam = Camera::GetMainCamera()->gameObject;
 	const Bounds& camBounds = mainCam.GetBounds();
 
-	GameObjectBase& run = *SceneManager::FindGameObject(L"Run");
+	GameObjectBase& run = *WorldManager::FindGameObject(L"Run");
 	const Bounds& runBounds = run.GetBounds();
 
 	auto& mouseState = Input.GetMouseState();
@@ -47,7 +47,7 @@ void DebugText::Update()
 		//\nCameraBounds : %.1f, %.1f ,%.1f ,%.1f\nRunBounds : %.1f, %.1f ,%.1f ,%.1f\n", 
 		TimeSystem::Time.GetFrameRate(),
 		D2DRenderer::GetUsedVram(),
-		SceneManager::GetRenderCount(),
+		WorldManager::GetRenderCount(),
 		(float)mouseWorldPos.x, (float)mouseWorldPos.y
 		//,camBounds.leftTop.x, camBounds.leftTop.y, camBounds.rightBottom.x, camBounds.rightBottom.y,
 		//runBounds.leftTop.x, runBounds.leftTop.y, runBounds.rightBottom.x, runBounds.rightBottom.y

@@ -2,7 +2,7 @@
 #include "Framework/D2DRenderer.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 #include "Core/Component/SpriteRenderer.h"
 #include "Core/Component/Camera.h"
 
@@ -52,7 +52,7 @@ void WinGameApp::Run()
 	//게임용 루프	
 	MSG msg;
 	Time.UpdateTime();
-	SceneManager::AddObjectToQList();
+	WorldManager::AddObjectToQList();
 	while (!isEnd)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -77,7 +77,7 @@ void WinGameApp::Run()
 			Time.UpdateTime();
 			Input.UpdateMouse();
 
-			SceneManager::SortObjectList();
+			WorldManager::SortObjectList();
 			Update();		
 			LateUpdate();
 			D2DRenderer::BeginDraw();
@@ -85,16 +85,16 @@ void WinGameApp::Run()
 			Render();
 			D2DRenderer::EndDraw();
 			
-			SceneManager::AddObjectToQList();
-			SceneManager::DelObjectToSetList();
+			WorldManager::AddObjectToQList();
+			WorldManager::DelObjectToSetList();
 
 			Input.ResetInput();
 		}
 	}
 
-	if (SceneManager::currentScene)
+	if (WorldManager::currentWorld)
 	{
-		SceneManager::UnloadScene();
+		WorldManager::UnloadWorld();
 	}	
 }
 
@@ -102,17 +102,17 @@ void WinGameApp::Run()
 
 void WinGameApp::Update()
 {
-	SceneManager::Update();
+	WorldManager::Update();
 }
 
 void WinGameApp::LateUpdate()
 {
-	SceneManager::LateUpdate();
+	WorldManager::LateUpdate();
 }
 
 void WinGameApp::Render()
 {
-	SceneManager::Render();
+	WorldManager::Render();
 }
 
 #pragma endregion

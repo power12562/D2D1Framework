@@ -53,7 +53,7 @@ void SpriteRenderer::Render()
 		if (ID2D1Bitmap* image = pSpriteAnimation->GetCurrentImage())
 		{
 			FrameInfo* const frame = pSpriteAnimation->GetCurrentFrame();
-			objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, frame->center.y) * objMatrix;
+			objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, -frame->center.y) * objMatrix;
 			D2DRenderer::DrawBitmap(image, objMatrix, frame->source);
 		}
 	}

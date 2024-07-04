@@ -1,5 +1,5 @@
 ﻿#include "PenguinBrothers.h"
-#include "Framework/SceneManager.h"
+#include "Framework/WorldManager.h"
 
 #include "Source/Scenes/Stage1.h"
 #include "Source/Scenes/AnimeEditScene.h"
@@ -11,7 +11,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    SceneManager::LoadScene<AnimeEditScene>();
+    WorldManager::LoadWorld<AnimeEditScene>();
     app.Run();
     app.Uninitialize();
 }
