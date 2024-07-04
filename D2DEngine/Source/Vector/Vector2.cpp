@@ -149,6 +149,36 @@ Vector2 Vector2::BezierCurve(const Vector2& startPos, const Vector2& middlePos, 
 	return bezierCurve;
 }
 
+Vector2 Vector2::LagranCurve(float x, Vector2* pointArray, float pointArraySize)
+{
+	float* L = new float[pointArraySize] {};
+	for (int i = 0; i < pointArraySize; i++)
+	{
+		float temp1 = 1;
+		float temp2 = 1;
+		for (int j = 0; j < pointArraySize; j++)
+		{
+			if (j == i)
+				continue;
+			temp1 *= (x - pointArray[j].x);
+		}
+		for (int j = 0; j < pointArraySize; j++)
+		{
+			if (j == i)
+				continue;
+			temp2 *= (pointArray[i].x - pointArray[j].x);
+		}
+		L[i] = temp1 / temp2;
+	}
+	float y = 0;
+	for (int i = 0; i < pointArraySize; i++)
+	{
+		y += L[i] * pointArray[i].y;
+	}
+	delete[] L;
+	return Vector2(x, y);
+}
+
 Vector2 Vector2::GetRotatedPoint(const Vector2& point, const float angle, const Vector2& center)
 {
 	float radian = angle * Mathf::Deg2Rad;

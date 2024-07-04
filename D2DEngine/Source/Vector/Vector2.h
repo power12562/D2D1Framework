@@ -52,6 +52,9 @@ public:
 	/** 베지에 곡선*/
 	static Vector2 BezierCurve(const Vector2& startPos, const Vector2& middlePos, const Vector2& endPos, const float t);
 
+	/** 라그랑주 보간법. 시간 복잡도 : O(pointArraySize^2)*/
+	static Vector2 LagranCurve(float x, Vector2* pointArray, float pointArraySize);
+
 	/** Vertex 회전 위치 리턴*/
 	static Vector2 GetRotatedPoint(const Vector2& point, const float angle, const Vector2& center);
 };
