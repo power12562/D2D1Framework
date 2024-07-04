@@ -43,7 +43,7 @@ void SpriteRenderer::Render()
 		return;
 
 	Camera* const mainCam = Camera::GetMainCamera();
-	const D2D1_MATRIX_3X2_F& objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
+	D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
 	if (pSpriteAnimation == nullptr)
 	{	
 		D2DRenderer::DrawBitmap(image, objMatrix);	
@@ -52,7 +52,9 @@ void SpriteRenderer::Render()
 	{	
 		if (ID2D1Bitmap* image = pSpriteAnimation->GetCurrentImage())
 		{
-			D2DRenderer::DrawBitmap(image, objMatrix, pSpriteAnimation->GetCurrentFrame()->source);
+			FrameInfo* const frame = pSpriteAnimation->GetCurrentFrame();
+			objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, frame->center.y) * objMatrix;
+			D2DRenderer::DrawBitmap(image, objMatrix, frame->source);
 		}
 	}
 }

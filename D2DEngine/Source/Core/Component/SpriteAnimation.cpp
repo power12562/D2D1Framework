@@ -145,8 +145,6 @@ void SpriteAnimation::UpdateCurrentPivot()
 	FrameInfo* frame = GetCurrentFrame();
 	Vector2 currentPivot = Vector2{ frame->source.right - frame->source.left, frame->source.bottom - frame->source.top };
 	currentPivot *= 0.5f;
-	//currentPivot.x += frame->center.x; //?? 필요한가?
-	//currentPivot.y -= frame->center.y; //?? 필요한가?
 	gameObject.GetTransform().pivot = currentPivot;
 }
 
