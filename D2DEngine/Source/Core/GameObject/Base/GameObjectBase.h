@@ -16,7 +16,7 @@ enum class OBJECT_TYPE
 class GameObjectBase
 {
 protected: 
-	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;;
+	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;
 
 public:
 	GameObjectBase();
@@ -53,6 +53,9 @@ public:
 
 	/** Object Type*/
 	OBJECT_TYPE GetType() const { return objType; }
+
+	/** Tag*/
+	std::wstring tag;
 
 protected:
 	/** GetBounds() return 이전에 호출되는 함수*/
