@@ -137,22 +137,22 @@ void PlayerCtrl::UpdateAnime()
 	switch (playerState)
 	{
 	case State::Idle:
-		spriteAnimation->SetAnimationClip(L"Idle", true);
+		spriteAnimation->SetAnimation(L"Idle", true);
 		break;
 	case State::Duck:
-		spriteAnimation->SetAnimationClip(L"Duck", true);
+		spriteAnimation->SetAnimation(L"Duck", true);
 		break;
 	case State::Walk:
-		spriteAnimation->SetAnimationClip(L"Walk", true);
+		spriteAnimation->SetAnimation(L"Walk", true);
 		break;
 	case State::Jump:
-		spriteAnimation->SetAnimationClip(L"Jump", false);
+		spriteAnimation->SetAnimation(L"Jump", false);
 		break;
 	case State::Slide:
-		spriteAnimation->SetAnimationClip(L"Slide", false);
+		spriteAnimation->SetAnimation(L"Slide", false);
 		break;
 	case State::Attack:
-		spriteAnimation->SetAnimationClip(L"Attack", false);
+		spriteAnimation->SetAnimation(L"Attack", false);
 		break;
 	}
 	animeState = playerState;

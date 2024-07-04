@@ -50,6 +50,14 @@ void AnimeEditCameraCtrl::Update()
 	{
 		gameObject.transform.position += Vector2::Right * moveSpeed * Time.GetDeltatime();
 	}
+
+	if (Input.IsKeyDown(KeyCode::Space))
+	{
+		if(Time.timeScale == 0.f)
+			Time.timeScale = 1.f;
+		else
+			Time.timeScale = 0.f;
+	}
 }
 
 void AnimeEditCameraCtrl::Render()

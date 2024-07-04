@@ -1,13 +1,13 @@
-#include "Player.h"
+#include "PlayerAnimeTest.h"
 
 #include "Core/Component/SpriteRenderer.h"
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/Collider/BoxCollider2D.h"
 
-#include "Source/Component/PlayerCtrl.h"
+#include "Source/Component/PlayerAnimeTestCtrl.h"
 
 
-Player::Player()
+PlayerAnimeTest::PlayerAnimeTest()
 {
 	AddComponent<SpriteAnimation>();
 	SpriteAnimation& spriteAnimation = GetComponent<SpriteAnimation>();
@@ -25,11 +25,10 @@ Player::Player()
 	boxCollider2D.isDrawCollider = true;
 #endif // DEBUG
 
-	AddComponent<PlayerCtrl>();
-	transform.scale = Vector2(2.0f, 2.0f);
+	AddComponent<PlayerAnimeTestCtrl>();
 }
 
-Player::~Player()
+PlayerAnimeTest::~PlayerAnimeTest()
 {
 
 }
