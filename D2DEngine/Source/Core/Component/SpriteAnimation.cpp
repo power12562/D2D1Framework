@@ -36,9 +36,9 @@ void SpriteAnimation::LoadAnimation(const wchar_t* clipPath, const wchar_t* imag
 		asset.clip = CreateAnimationClipFromFile(clipPath);
 
 		asset.imagePath = imagePath;
-		asset.imgae = D2DRenderer::CreateD2DBitmapFromFile(imagePath);
+		asset.image = D2DRenderer::CreateD2DBitmapFromFile(imagePath);
 
-		if (asset.clip && asset.imgae)
+		if (asset.clip && asset.image)
 		{
 			Animations[clipName] = asset;
 		}
@@ -108,11 +108,11 @@ FrameInfo* const SpriteAnimation::GetCurrentFrame()
 	}
 }
 
-ID2D1Bitmap* SpriteAnimation::GetCurrentImage()
+ID2D1Bitmap* const* SpriteAnimation::GetCurrentImage()
 {
 	if (currentAnimation)
 	{
-		return currentAnimation->imgae;
+		return currentAnimation->image;
 	}
 	else
 	{

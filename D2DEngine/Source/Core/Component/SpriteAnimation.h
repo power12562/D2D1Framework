@@ -35,7 +35,7 @@ struct AnimationAsset
 	/*이미지 경로*/
 	std::wstring imagePath;
 	/*애니메이션에 사용되는 이미지*/
-	ID2D1Bitmap* imgae = nullptr;
+	ID2D1Bitmap* const* image = nullptr;
 };
 
 class SpriteAnimation : public ComponentBase
@@ -80,7 +80,7 @@ public:
 	FrameInfo* const GetCurrentFrame();
 
 	/** 재생중인 애니메이션의 이미지 포인터*/
-	ID2D1Bitmap* GetCurrentImage();
+	ID2D1Bitmap* const* GetCurrentImage();
 
 	/** 현재 클립의 마지막 인덱스*/
 	int GetLastFrameIndex() const { return lastFrameIndex; }

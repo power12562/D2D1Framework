@@ -149,7 +149,7 @@ Vector2 Vector2::BezierCurve(const Vector2& startPos, const Vector2& middlePos, 
 	return bezierCurve;
 }
 
-Vector2 Vector2::LagranCurve(float x, Vector2* pointArray, float pointArraySize)
+Vector2 Vector2::LagranCurve(float x, Vector2* pointArray, int pointArraySize)
 {
 	float* L = new float[pointArraySize] {};
 	for (int i = 0; i < pointArraySize; i++)

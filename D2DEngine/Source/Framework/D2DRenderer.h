@@ -10,6 +10,8 @@
 
 class D2DRenderer
 {
+	friend class WinGameApp;
+	friend LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 public:
 	/** D2D 초기화 여부*/
 	static bool IsInit() { return isInit; }
@@ -44,16 +46,16 @@ public:
 		bool rectFill = false
 	);
 
-	/** 비트맵 포인터 생성*/
-	static ID2D1Bitmap* CreateD2DBitmapFromFile(const wchar_t* filePath);
+	/** 중복 검사 후 비트맵 포인터 생성*/
+	static ID2D1Bitmap* const* CreateD2DBitmapFromFile(const wchar_t* filePath);
 
-	/** 생성된 비트맵 해제*/
+	/** 안전한 비트맵 해제*/
 	static void ReleaseD2D1Bitmap(const wchar_t* filePath);
 
 	/** 비트맵 그리기*/
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix);
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& sourceRect);
-	static void DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect ,const D2D1_RECT_F& sourceRect);
+	static void DrawBitmap(ID2D1Bitmap* const ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix);
+	static void DrawBitmap(ID2D1Bitmap* const ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& sourceRect);
+	static void DrawBitmap(ID2D1Bitmap* const ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect ,const D2D1_RECT_F& sourceRect);
 
 	static float DegToRad(const float degree);
 	static float RadToDeg(const float radian);
@@ -76,7 +78,7 @@ public:
 	);
 
 	/** 생성된 폰트 해제*/
-	static void ReleaseD2DFont(const wchar_t* fontName);
+	//static void ReleaseD2DFont(const wchar_t* fontName);
 
 	/** 폰트 그리기.*/
 	static void DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black));
@@ -98,15 +100,21 @@ private:
 	static IDXGIFactory* pDXGIFactory;
 	static IDXGIAdapter3* pDXGIAdapter;
 
-	static std::map<std::wstring, ID2D1Bitmap*> ID2D1BitmapResourceMap; //비트맵 리소스 맵
+	/** 비트맵 생성*/
+	static ID2D1Bitmap* const* CreateD2DBitmap(const wchar_t* filePath);
 
-	static std::map<std::wstring, IDWriteTextFormat*> ID2D1FontResourceMap; //폰트 리소스 맵
+	static std::map<std::wstring, ID2D1Bitmap**> ID2D1BitmapResourceMap; //비트맵 리소스 맵
+
+	//static std::map<std::wstring, IDWriteTextFormat*> ID2D1FontResourceMap; //폰트 리소스 맵
+
+	/** D2D초기화시 리소스 존재하면 다시 만들어 준다.*/
+	static void ReloadAllID2D1Bitmap();
 
 	/** 로드된 모든 비트맵 리소스 삭제*/
 	static void ReleaseAllID2D1Bitmap();
 
 	/** 로드된 모든 폰트 리소스 삭제*/
-	static void ReleaseAllID2D1Font();
+	//static void ReleaseAllID2D1Font();
 };
 
 

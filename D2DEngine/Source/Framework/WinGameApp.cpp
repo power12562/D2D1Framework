@@ -41,6 +41,7 @@ void WinGameApp::Uninitialize()
 	{
 		FreeConsole();
 	}
+	D2DRenderer::ReleaseAllID2D1Bitmap();
 	D2DRenderer::UninitDirect2D();
 }
 
@@ -241,8 +242,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		D2DRenderer::InitDirect2D();
 		break;
 
-	case WM_CUSTOM_INITD2D:	
-		SpriteRenderer::ReloadImage();
+	case WM_CUSTOM_INITD2D:	//D2DInit 완전히 끝나면 처리되는 메시지
+		D2DRenderer::ReloadAllID2D1Bitmap();
 		Camera::ResetCameraPivot();
 		WinGameApp::isResize = false;
 		break;

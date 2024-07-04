@@ -8,12 +8,12 @@
 #include "Core/Component/Camera.h"
 #undef LoadImage
 
-std::list<SpriteRenderer*> SpriteRenderer::instanceList;
+//std::list<SpriteRenderer*> SpriteRenderer::instanceList;
 
 SpriteRenderer::SpriteRenderer(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
-	instanceList.push_back(this);
-	instanceIter = std::prev(instanceList.end()); //마지막 이터를 자신의 이터레이터로 저장
+	//instanceList.push_back(this);
+	//instanceIter = std::prev(instanceList.end()); //마지막 이터를 자신의 이터레이터로 저장
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -21,10 +21,11 @@ SpriteRenderer::~SpriteRenderer()
 	if (image != nullptr)
 	{
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
+		image = nullptr;
 		delete[] lastLoadPath;
 		lastLoadPath = nullptr;
 	}
-	instanceList.erase(instanceIter); //자신을 인스턴스 리스트에서 제거
+	//instanceList.erase(instanceIter); //자신을 인스턴스 리스트에서 제거
 }
 
 void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
@@ -46,19 +47,20 @@ void SpriteRenderer::Render()
 	D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
 	if (pSpriteAnimation == nullptr)
 	{	
-		D2DRenderer::DrawBitmap(image, objMatrix);	
+			D2DRenderer::DrawBitmap(*image, objMatrix);	
 	}		
 	else
 	{	
-		if (ID2D1Bitmap* image = pSpriteAnimation->GetCurrentImage())
+		if (ID2D1Bitmap* const* image = pSpriteAnimation->GetCurrentImage())
 		{
 			FrameInfo* const frame = pSpriteAnimation->GetCurrentFrame();
 			objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, -frame->center.y) * objMatrix;
-			D2DRenderer::DrawBitmap(image, objMatrix, frame->source);
+			D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
 		}
 	}
 }
 
+/*
 void SpriteRenderer::ReloadImage()
 {
 	for (auto& component : instanceList)
@@ -67,15 +69,19 @@ void SpriteRenderer::ReloadImage()
 		component->LoadImage(component->lastLoadPath);
 	}
 }
+*/
 
 void SpriteRenderer::LoadImage(const wchar_t* path)
 {
 	if (path == nullptr)
 		return;
 	
-	if(image != nullptr)
+	if (image != nullptr)
+	{
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
+	}
 
+	//image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	if (image == nullptr)
 	{
@@ -84,7 +90,7 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 		
 	if (!pSpriteAnimation)
 	{
-		currentImageSize = image->GetSize();
+		currentImageSize = (*image)->GetSize();
 		gameObject.GetTransform().pivot = Vector2{ currentImageSize.width * 0.5f, currentImageSize.height * 0.5f };
 	}
 	

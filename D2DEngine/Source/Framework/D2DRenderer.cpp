@@ -26,16 +26,14 @@ IDXGIFactory* D2DRenderer::pDXGIFactory = NULL;
 IDXGIAdapter3* D2DRenderer::pDXGIAdapter = NULL;
 
 //중복 로드 방지용 리소스 맵
-std::map<std::wstring, ID2D1Bitmap*> D2DRenderer::ID2D1BitmapResourceMap;
-std::map<std::wstring, IDWriteTextFormat*> D2DRenderer::ID2D1FontResourceMap;
+std::map<std::wstring, ID2D1Bitmap**> D2DRenderer::ID2D1BitmapResourceMap;
+//std::map<std::wstring, IDWriteTextFormat*> D2DRenderer::ID2D1FontResourceMap;
 
 bool D2DRenderer::InitDirect2D()
 {
 	HWND hwnd = GetActiveWindow();
 
-	UninitDirect2D();
-
-	ReleaseAllID2D1Bitmap();
+	UninitDirect2D();	
 	
 	HRESULT hr = S_OK;
 	// 컴포넌트 오브젝트 모델 (COM) 초기화.
@@ -150,9 +148,6 @@ void D2DRenderer::UninitDirect2D()
 {
 	if (isInit == false)
 		return;
-
-	ReleaseAllID2D1Bitmap();
-	ReleaseAllID2D1Font();
 
 	if (pDXGIAdapter)
 	{
@@ -288,113 +283,32 @@ void D2DRenderer::DrawRect(const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& r
 
 }
 
-ID2D1Bitmap* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
+ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 {
 	auto iter = ID2D1BitmapResourceMap.find(filePath);
 	if (iter != ID2D1BitmapResourceMap.end()) //end가 아니면 찾음
 	{
-		iter->second->AddRef();
+		(*iter->second)->AddRef();
 		return iter->second;
 	}
 
-	HRESULT hr;
-	// Create a decoder
-	IWICBitmapDecoder* pDecoder = NULL;
-	IWICFormatConverter* pConverter = NULL;
-
-	hr = pWICFactory->CreateDecoderFromFilename(
-		filePath,                      // Image to be decoded
-		NULL,                            // Do not prefer a particular vendor
-		GENERIC_READ,                    // Desired read access to the file
-		WICDecodeMetadataCacheOnDemand,  // Cache metadata when needed
-		&pDecoder                        // Pointer to the decoder
-	);
-
-	// Retrieve the first frame of the image from the decoder
-	IWICBitmapFrameDecode* pFrame = NULL;
-	if (SUCCEEDED(hr))
-	{
-		hr = pDecoder->GetFrame(0, &pFrame);
-	}
-
-	//Step 3: Format convert the frame to 32bppPBGRA
-	if (SUCCEEDED(hr))
-	{
-		hr = pWICFactory->CreateFormatConverter(&pConverter);
-	}
-
-	if (SUCCEEDED(hr))
-	{
-		hr = pConverter->Initialize(
-			pFrame,                          // Input bitmap to convert
-			GUID_WICPixelFormat32bppPBGRA,   // Destination pixel format
-			WICBitmapDitherTypeNone,         // Specified dither pattern
-			NULL,                            // Specify a particular palette 
-			0.f,                             // Alpha threshold
-			WICBitmapPaletteTypeCustom       // Palette translation type
-		);
-	}
-
-	ID2D1Bitmap* pID2D1Bitmap = nullptr;
-	if (SUCCEEDED(hr))
-	{
-		hr = pRenderTarget->CreateBitmapFromWicBitmap(pConverter, NULL, &pID2D1Bitmap);
-	}
-
-	// 파일을 사용할때마다 다시 만든다.
-	if (pConverter)
-		pConverter->Release();
-
-	if (pDecoder)
-		pDecoder->Release();
-
-	if (pFrame)
-		pFrame->Release();
-
-	if (SUCCEEDED(hr))
-	{
-		ID2D1BitmapResourceMap[filePath] = pID2D1Bitmap;
-		return pID2D1Bitmap;
-	}		
-	else
-	{		
-		_com_error err(hr);
-		std::wstring message = err.ErrorMessage();
-		message += L"\n\"";
-		message += filePath;
-		message += L"\"";
-		::MessageBox(GetActiveWindow(), message.c_str(), L"ERROR", MB_OK);
-		return nullptr;
-	}
-
+	ID2D1BitmapResourceMap[filePath] = new ID2D1Bitmap*;
+	return CreateD2DBitmap(filePath);
 }
 
-void D2DRenderer::ReleaseD2D1Bitmap(const wchar_t* filePath)
-{
-	auto iter = ID2D1BitmapResourceMap.find(filePath);
-	if (iter != ID2D1BitmapResourceMap.end())
-	{
-		ULONG refCount = iter->second->Release();
-		if (refCount == 0)
-		{
-			ID2D1BitmapResourceMap.erase(iter);
-		}
-	}
-}
-
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap* const ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix)
 {
 	pRenderTarget->SetTransform(matrix);
 	pRenderTarget->DrawBitmap(ID2D1Bitmap);
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& sourceRect)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap* const ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& sourceRect)
 {
 	pRenderTarget->SetTransform(matrix);
 	pRenderTarget->DrawBitmap(ID2D1Bitmap, NULL, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
 }
 
-void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect,const D2D1_RECT_F& sourceRect)
+void D2DRenderer::DrawBitmap(ID2D1Bitmap* const ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect,const D2D1_RECT_F& sourceRect)
 {
 	pRenderTarget->SetTransform(matrix);
 	pRenderTarget->DrawBitmap(ID2D1Bitmap, outRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
@@ -435,6 +349,7 @@ IDWriteTextFormat* D2DRenderer::CreateD2DFont(const wchar_t* fontName, float fon
 	return pDWriteTextFormat;
 }
 
+/*
 void D2DRenderer::ReleaseD2DFont(const wchar_t* fontName)
 {
 	auto iter = ID2D1FontResourceMap.find(fontName);
@@ -447,6 +362,7 @@ void D2DRenderer::ReleaseD2DFont(const wchar_t* fontName)
 		}
 	}
 }
+*/
 
 void D2DRenderer::DrawTextW(const wchar_t* text, IDWriteTextFormat*& fontFormat, const D2D1_RECT_F& drawRect, const D2D1_COLOR_F& color)
 {
@@ -491,22 +407,137 @@ size_t D2DRenderer::GetUsedVram()
 }
 
 
+ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmap(const wchar_t* filePath)
+{
+
+	HRESULT hr;
+	// Create a decoder
+	IWICBitmapDecoder* pDecoder = NULL;
+	IWICFormatConverter* pConverter = NULL;
+
+	hr = pWICFactory->CreateDecoderFromFilename(
+		filePath,                      // Image to be decoded
+		NULL,                            // Do not prefer a particular vendor
+		GENERIC_READ,                    // Desired read access to the file
+		WICDecodeMetadataCacheOnDemand,  // Cache metadata when needed
+		&pDecoder                        // Pointer to the decoder
+	);
+
+	// Retrieve the first frame of the image from the decoder
+	IWICBitmapFrameDecode* pFrame = NULL;
+	if (SUCCEEDED(hr))
+	{
+		hr = pDecoder->GetFrame(0, &pFrame);
+	}
+
+	//Step 3: Format convert the frame to 32bppPBGRA
+	if (SUCCEEDED(hr))
+	{
+		hr = pWICFactory->CreateFormatConverter(&pConverter);
+	}
+
+	if (SUCCEEDED(hr))
+	{
+		hr = pConverter->Initialize(
+			pFrame,                          // Input bitmap to convert
+			GUID_WICPixelFormat32bppPBGRA,   // Destination pixel format
+			WICBitmapDitherTypeNone,         // Specified dither pattern
+			NULL,                            // Specify a particular palette 
+			0.f,                             // Alpha threshold
+			WICBitmapPaletteTypeCustom       // Palette translation type
+		);
+	}
+
+	ID2D1Bitmap* temp{};
+	if (SUCCEEDED(hr))
+	{
+		hr = pRenderTarget->CreateBitmapFromWicBitmap(pConverter, NULL, &temp);
+	}
+
+	// 파일을 사용할때마다 다시 만든다.
+	if (pConverter)
+		pConverter->Release();
+
+	if (pDecoder)
+		pDecoder->Release();
+
+	if (pFrame)
+		pFrame->Release();
+
+	if (SUCCEEDED(hr))
+	{
+		*ID2D1BitmapResourceMap[filePath] = temp;
+		return ID2D1BitmapResourceMap[filePath];
+	}
+	else
+	{
+		_com_error err(hr);
+		std::wstring message = err.ErrorMessage();
+		message += L"\n\"";
+		message += filePath;
+		message += L"\"";
+		::MessageBox(GetActiveWindow(), message.c_str(), L"ERROR", MB_OK);
+		delete ID2D1BitmapResourceMap[filePath];
+		ID2D1BitmapResourceMap.erase(filePath);
+		return nullptr;
+	}
+}
+
+void D2DRenderer::ReleaseD2D1Bitmap(const wchar_t* filePath)
+{
+	auto iter = ID2D1BitmapResourceMap.find(filePath);
+	if (iter != ID2D1BitmapResourceMap.end())
+	{
+		ULONG refCount = (*iter->second)->Release();
+		if (refCount == 0)
+		{
+			delete iter->second;
+			ID2D1BitmapResourceMap.erase(iter);
+		}
+	}
+}
+
+void D2DRenderer::ReloadAllID2D1Bitmap()
+{
+	if (!ID2D1BitmapResourceMap.empty())
+	{
+		ULONG releaseCount = 0;
+		for (auto& item : ID2D1BitmapResourceMap)
+		{
+			releaseCount = 0;
+			ULONG refCount = (*item.second)->Release();
+			while (refCount != 0)
+			{
+				refCount = (*item.second)->Release();
+				releaseCount++;
+			}
+			*item.second = *CreateD2DBitmap(item.first.c_str());
+			for (int count = 0; count < releaseCount; count++)
+			{
+				refCount = (*item.second)->AddRef();
+			}	
+		}
+	}
+}
+
 void D2DRenderer::ReleaseAllID2D1Bitmap()
 {
 	if (!ID2D1BitmapResourceMap.empty())
 	{
 		for (auto& item : ID2D1BitmapResourceMap)
 		{
-			ULONG refCount = item.second->Release();
+			ULONG refCount =  (*item.second)->Release();
 			while (refCount != 0)
 			{
-				refCount = item.second->Release();
+				refCount = (*item.second)->Release();
 			}
+			delete item.second;
 		}
 		ID2D1BitmapResourceMap.clear();
 	}
 }
 
+/*
 void D2DRenderer::ReleaseAllID2D1Font()
 {
 	if (!ID2D1FontResourceMap.empty())
@@ -522,3 +553,4 @@ void D2DRenderer::ReleaseAllID2D1Font()
 		ID2D1FontResourceMap.clear();
 	}
 }
+*/

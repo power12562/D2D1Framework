@@ -43,7 +43,7 @@ void DebugText::Update()
 	swprintf_s
 	(
 		debugText, _ARRAYSIZE(debugText),
-		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nMoveCamera : w, a, s, d\nDrawObject = %d\nmousePos : %.1f, %.1f",
+		L"fps : %.0f\nVram : %llu\nAdd : ArrowUp, ArrowDown\nMoveCamera : w, a, s, d\nDrawObject = %d\nmousePos : %.3f, %.3f",
 		//\nCameraBounds : %.1f, %.1f ,%.1f ,%.1f\nRunBounds : %.1f, %.1f ,%.1f ,%.1f\n", 
 		TimeSystem::Time.GetFrameRate(),
 		D2DRenderer::GetUsedVram(),

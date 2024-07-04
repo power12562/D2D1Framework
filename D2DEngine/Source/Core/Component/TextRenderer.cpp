@@ -12,7 +12,10 @@ TextRenderer::TextRenderer(GameObjectBase& gameObject) : ComponentBase(gameObjec
 
 TextRenderer::~TextRenderer()
 {
-
+	if (currentTextFormat)
+	{
+		currentTextFormat->Release();
+	}
 }
 
 void TextRenderer::SetFont(const wchar_t* fontName)
