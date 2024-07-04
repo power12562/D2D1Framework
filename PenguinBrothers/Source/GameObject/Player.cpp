@@ -11,19 +11,15 @@ Player::Player()
 {
 	AddComponent<SpriteAnimation>();
 	SpriteAnimation& spriteAnimation = GetComponent<SpriteAnimation>();
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Idle.txt", L"Idle");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Walk.txt", L"Walk");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Attack.txt", L"Attack");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Duck.txt", L"Duck");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Jump.txt", L"Jump");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Slide.txt", L"Slide");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Idle.txt", L"Resource/Player/Normal/Normal.png", L"Idle");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Walk.txt", L"Resource/Player/Normal/Normal.png", L"Walk");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Attack.txt", L"Resource/Player/Normal/Normal.png", L"Attack");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Duck.txt", L"Resource/Player/Normal/Normal.png", L"Duck");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Jump.txt", L"Resource/Player/Normal/Normal.png", L"Jump");
+	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Slide.txt", L"Resource/Player/Normal/Normal.png", L"Slide");
 	spriteAnimation.SetAnimationClip(L"Idle", true);
 
-	AddComponent<SpriteRenderer>();
-	SpriteRenderer& spriteRenderer = GetComponent<SpriteRenderer>();
-	spriteRenderer.LoadImage(L"Resource/Player/Normal/Normal.png");
-	spriteRenderer.SetSpriteAnimation(spriteAnimation);
-
+	AddComponent<SpriteRenderer>().SetSpriteAnimation(spriteAnimation);
 	BoxCollider2D& boxCollider2D = AddComponent<BoxCollider2D>();
 #ifdef _DEBUG
 	boxCollider2D.isDrawCollider = true;

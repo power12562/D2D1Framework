@@ -25,29 +25,18 @@ void BackGround::Start()
 
 	gameObject.AddComponent<SpriteAnimation>();
 	SpriteAnimation& midnightAnime = gameObject.GetComponent<SpriteAnimation>();
-	midnightAnime.LoadAnimationClip(L"../Resource/Bg.txt", L"Idle");
+	midnightAnime.LoadAnimationClip(L"../Resource/Bg.txt", L"../Resource/midnight.png",L"Idle");
 	midnightAnime.SetAnimationClip(L"Idle", true);
-
-	gameObject.AddComponent<SpriteRenderer>();
-	SpriteRenderer& midnightRenderer = gameObject.GetComponent<SpriteRenderer>();
-	midnightRenderer.LoadImage(L"../Resource/midnight.png");
-	midnightRenderer.SetSpriteAnimation(midnightAnime);
-
+	gameObject.AddComponent<SpriteRenderer>().SetSpriteAnimation(midnightAnime);
 	gameObject.AddComponent<BoxCollider2D>().isDrawCollider = true;
 
 	GameObjectBase* run = SceneManager::AddGameObject(L"Test");
 	run->transform.SetParent(gameObject.transform);
-
 	run->AddComponent<SpriteAnimation>();
 	SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
-	runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
+	runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"../Resource/run.png", L"Run");
 	runAnime.SetAnimationClip(L"Run", true);
-
-	run->AddComponent<SpriteRenderer>();
-	SpriteRenderer& runRenderer = run->GetComponent<SpriteRenderer>();
-	runRenderer.LoadImage(L"../Resource/Run.png");
-	runRenderer.SetSpriteAnimation(runAnime);
-
+	run->AddComponent<SpriteRenderer>().SetSpriteAnimation(runAnime);
 	run->AddComponent<BoxCollider2D>();
 	run->GetComponent<BoxCollider2D>().isDrawCollider = true;
 }

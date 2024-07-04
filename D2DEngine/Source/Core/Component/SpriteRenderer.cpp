@@ -39,7 +39,7 @@ void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
 
 void SpriteRenderer::Render()
 {
-	if (!image)
+	if (!image && !pSpriteAnimation)
 		return;
 
 	Camera* const mainCam = Camera::GetMainCamera();
@@ -49,8 +49,11 @@ void SpriteRenderer::Render()
 		D2DRenderer::DrawBitmap(image, objMatrix);	
 	}		
 	else
-	{
-		D2DRenderer::DrawBitmap(image, objMatrix, pSpriteAnimation->GetCurrentFrame()->source);
+	{	
+		if (ID2D1Bitmap* image = pSpriteAnimation->GetCurrentImage())
+		{
+			D2DRenderer::DrawBitmap(image, objMatrix, pSpriteAnimation->GetCurrentFrame()->source);
+		}
 	}
 }
 

@@ -28,14 +28,9 @@ void Run::Start()
 	gameObject.transform.position = Vector2{ 0.f, -screenSize.cy * 0.45f};
 	gameObject.AddComponent<SpriteAnimation>();
 	SpriteAnimation& runAnime = gameObject.GetComponent<SpriteAnimation>();
-	runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
+	runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"../Resource/run.png", L"Run");
 	runAnime.SetAnimationClip(L"Run", true);
-
-	gameObject.AddComponent<SpriteRenderer>();
-	SpriteRenderer& runRenderer = gameObject.GetComponent<SpriteRenderer>();
-	runRenderer.LoadImage(L"../Resource/Run.png");
-	runRenderer.SetSpriteAnimation(runAnime);
-
+	gameObject.AddComponent<SpriteRenderer>().SetSpriteAnimation(runAnime);
 	gameObject.AddComponent<BoxCollider2D>();
 	gameObject.GetComponent<BoxCollider2D>().isDrawCollider = true;
 
@@ -48,14 +43,9 @@ void Run::Start()
 
 		run->AddComponent<SpriteAnimation>();
 		SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
-		runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
+		runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"../Resource/run.png", L"Run");
 		runAnime.SetAnimationClip(L"Run", true);
-
-		run->AddComponent<SpriteRenderer>();
-		SpriteRenderer& runRenderer = run->GetComponent<SpriteRenderer>();
-		runRenderer.LoadImage(L"../Resource/Run.png");
-		runRenderer.SetSpriteAnimation(runAnime);
-
+		run->AddComponent<SpriteRenderer>().SetSpriteAnimation(runAnime);
 		run->AddComponent<BoxCollider2D>();
 		run->GetComponent<BoxCollider2D>().isDrawCollider = true;
 
@@ -80,14 +70,9 @@ void Run::Update()
 
 		run->AddComponent<SpriteAnimation>();
 		SpriteAnimation& runAnime = run->GetComponent<SpriteAnimation>();
-		runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"Run");
+		runAnime.LoadAnimationClip(L"../Resource/Run.txt", L"../Resource/run.png", L"Run");
 		runAnime.SetAnimationClip(L"Run", true);
-
-		run->AddComponent<SpriteRenderer>();
-		SpriteRenderer& runRenderer = run->GetComponent<SpriteRenderer>();
-		runRenderer.LoadImage(L"../Resource/Run.png");
-		runRenderer.SetSpriteAnimation(runAnime);
-
+		run->AddComponent<SpriteRenderer>().SetSpriteAnimation(runAnime);
 		run->AddComponent<BoxCollider2D>();
 		run->GetComponent<BoxCollider2D>().isDrawCollider = true;
 

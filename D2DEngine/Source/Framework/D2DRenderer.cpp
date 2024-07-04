@@ -394,7 +394,6 @@ void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F&
 	pRenderTarget->DrawBitmap(ID2D1Bitmap, NULL, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &sourceRect);
 }
 
-
 void D2DRenderer::DrawBitmap(ID2D1Bitmap*& ID2D1Bitmap, const D2D1_MATRIX_3X2_F& matrix,const D2D1_RECT_F& outRect,const D2D1_RECT_F& sourceRect)
 {
 	pRenderTarget->SetTransform(matrix);

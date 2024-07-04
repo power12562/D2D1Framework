@@ -1,13 +1,15 @@
 #include "SpriteAnimation.h"
 #include "Framework/WinGameApp.h"
 #include "Framework/TimeSystem.h"
+#include "Framework/D2DRenderer.h"
+
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-std::map<std::wstring, SpriteAnimation::AnimationClip*> SpriteAnimation::clipResourceMap;
+std::map<std::wstring, AnimationClip*> SpriteAnimation::clipResourceMap;
 
 SpriteAnimation::SpriteAnimation(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -18,20 +20,27 @@ SpriteAnimation::~SpriteAnimation()
 {
 	for (auto& clip : Animations)
 	{
-		ReleaseAnimationClip(clip.second.first.c_str());
+		ReleaseAnimationClip(clip.second.clipPath.c_str());
+		D2DRenderer::ReleaseD2D1Bitmap(clip.second.imagePath.c_str());
 	}
 	Animations.clear();
 }
 
-void SpriteAnimation::LoadAnimationClip(const wchar_t* path, const wchar_t* clipName)
+void SpriteAnimation::LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter == Animations.end())
 	{
-		AnimationClip* newClip = CreateAnimationClipFromFile(path);
-		if (newClip)
+		AnimationAsset asset;
+		asset.clipPath = clipPath;
+		asset.clip = CreateAnimationClipFromFile(clipPath);
+
+		asset.imagePath = imagePath;
+		asset.imgae = D2DRenderer::CreateD2DBitmapFromFile(imagePath);
+
+		if (asset.clip && asset.imgae)
 		{
-			Animations[clipName] = std::pair<std::wstring, AnimationClip*>(path, newClip);
+			Animations[clipName] = asset;
 		}
 	}
 	else
@@ -45,12 +54,12 @@ void SpriteAnimation::UnloadAnimationClip(const wchar_t* clipName)
 	auto iter = Animations.find(clipName);
 	if (iter != Animations.end())
 	{
-		if (CurrentClip == iter->second.second)
+		if (currentAnimation == &iter->second)
 		{
-			CurrentClip = nullptr;
+			currentAnimation = nullptr;
 		}
-
-		ReleaseAnimationClip(iter->second.first.c_str());
+		ReleaseAnimationClip(iter->second.clipPath.c_str());
+		D2DRenderer::ReleaseD2D1Bitmap(iter->second.imagePath.c_str());
 		Animations.erase(iter);
 	}
 	else
@@ -68,8 +77,8 @@ void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
 	{
 		elapsedTime = 0;
 		currentFrame = 0;
-		CurrentClip = iter->second.second;
-		lastFrameIndex = CurrentClip->frames.size() - 1;
+		currentAnimation = &iter->second;
+		lastFrameIndex = currentAnimation->clip->frames.size() - 1;
 		UpdateCurrentPivot();
 	}
 	else
@@ -80,9 +89,21 @@ void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
 
 FrameInfo* const SpriteAnimation::GetCurrentFrame()
 {
-	if (CurrentClip)
+	if (currentAnimation)
 	{
-		return &CurrentClip->frames[currentFrame];
+		return &currentAnimation->clip->frames[currentFrame];
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+ID2D1Bitmap* SpriteAnimation::GetCurrentImage()
+{
+	if (currentAnimation)
+	{
+		return currentAnimation->imgae;
 	}
 	else
 	{
@@ -97,9 +118,9 @@ void SpriteAnimation::Update()
 	if (!isCurrentClipEnd || isLoop)
 	{
 		elapsedTime += TimeSystem::Time.GetDeltatime();
-		while (elapsedTime > CurrentClip->frames[currentFrame].frameIntervalTime)
+		while (elapsedTime > currentAnimation->clip->frames[currentFrame].frameIntervalTime)
 		{
-			elapsedTime -= CurrentClip->frames[currentFrame].frameIntervalTime;
+			elapsedTime -= currentAnimation->clip->frames[currentFrame].frameIntervalTime;
 			currentFrame++;
 			if (lastFrameIndex < currentFrame)
 			{
@@ -129,7 +150,7 @@ void SpriteAnimation::UpdateCurrentPivot()
 	gameObject.GetTransform().pivot = currentPivot;
 }
 
-SpriteAnimation::AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* filePath)
+AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* filePath)
 {
 	auto iter = clipResourceMap.find(filePath);
 	if (iter != clipResourceMap.end())

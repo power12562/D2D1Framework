@@ -15,27 +15,42 @@ struct FrameInfo //프레임 정보
 	float frameIntervalTime = 0.1f; //해당 프레임 재생 시간
 };
 
+class AnimationClip : public ReferenceCounter  //애니메이션 클립
+{
+	friend class SpriteAnimation; //SpriteAnimationRender를 통해서만 객체 생성 가능
+public:
+	std::vector<FrameInfo> frames; //프레임 모음
+private:
+	AnimationClip() = default;
+	~AnimationClip() = default;
+};
+
+struct AnimationAsset
+{
+	/** 클립 경로*/
+	std::wstring clipPath;
+	/** 애니메이션에 사용되는 클립*/
+	AnimationClip* clip;
+
+	/*이미지 경로*/
+	std::wstring imagePath;
+	/*애니메이션에 사용되는 이미지*/
+	ID2D1Bitmap* imgae;
+};
+
 class SpriteAnimation : public ComponentBase
 {
 private:
-	class AnimationClip : public ReferenceCounter  //애니메이션 클립
-	{
-		friend class SpriteAnimation; //SpriteAnimationRender를 통해서만 객체 생성 가능
-	public:
-		std::vector<FrameInfo> frames; //프레임 모음
-	private:
-		AnimationClip() = default;
-		~AnimationClip() = default;
-	};
-	AnimationClip* CurrentClip = nullptr; //현재 선택된 클립
+
+	AnimationAsset* currentAnimation = nullptr; //현재 선택된 애니메이션
 	int currentFrame = 0; //현재 재생중인 프레임
 	int lastFrameIndex = 0; //현재 재생중인 프레임의 마지막 인덱스
 	bool isCurrentClipEnd = true; //현재 재생중인 클립 끝낫는지
 	float elapsedTime = 0; //애니메이션 진행 시간
 	bool isLoop = false; //현재 애니메이션 루프 여부
 
-	/**애니메이션 클립 모음 <이름, <경로, 클립>>*/
-	std::map<std::wstring, std::pair<std::wstring, AnimationClip*>> Animations;
+	/**애니메이션 에셋 모음 <이름, <경로, 클립, 이미지>*/
+	std::map<std::wstring, AnimationAsset> Animations;
 
 	//static :
 	/**리소스 공유용 맵 <경로, 클립>*/
@@ -50,7 +65,7 @@ public:
 	virtual ~SpriteAnimation() override;
 
 	/** 해당 경로의 애니메이션 클립 파일 로드*/
-	void LoadAnimationClip(const wchar_t* path, const wchar_t* clipName);
+	void LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
 
 	/** 해당 이름의 애니메이션 클립 해제*/
 	void UnloadAnimationClip(const wchar_t* clipName);
@@ -60,6 +75,9 @@ public:
 
 	/** 재생중인 애니메이션의 프레임 정보*/
 	FrameInfo* const GetCurrentFrame();
+
+	/** 재생중인 애니메이션의 이미지 포인터*/
+	ID2D1Bitmap* GetCurrentImage();
 
 	/** 현재 클립의 마지막 인덱스*/
 	int GetLastFrameIndex() const { return lastFrameIndex; }
