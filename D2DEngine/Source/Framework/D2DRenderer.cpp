@@ -292,7 +292,7 @@ ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath
 		return iter->second;
 	}
 
-	ID2D1BitmapResourceMap[filePath] = new ID2D1Bitmap*;
+	ID2D1BitmapResourceMap[filePath] = new ID2D1Bitmap*; //새로 받을 공간 할당 후 해당 맵에 비트맵 생성
 	return CreateD2DBitmap(filePath);
 }
 
@@ -409,7 +409,6 @@ size_t D2DRenderer::GetUsedVram()
 
 ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmap(const wchar_t* filePath)
 {
-
 	HRESULT hr;
 	// Create a decoder
 	IWICBitmapDecoder* pDecoder = NULL;
@@ -477,8 +476,8 @@ ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmap(const wchar_t* filePath)
 		message += filePath;
 		message += L"\"";
 		::MessageBox(GetActiveWindow(), message.c_str(), L"ERROR", MB_OK);
-		delete ID2D1BitmapResourceMap[filePath];
-		ID2D1BitmapResourceMap.erase(filePath);
+		delete ID2D1BitmapResourceMap[filePath]; //생성 실패시 삭제
+		ID2D1BitmapResourceMap.erase(filePath); 
 		return nullptr;
 	}
 }
@@ -502,19 +501,19 @@ void D2DRenderer::ReloadAllID2D1Bitmap()
 	if (!ID2D1BitmapResourceMap.empty())
 	{
 		ULONG releaseCount = 0;
-		for (auto& item : ID2D1BitmapResourceMap)
+		for (auto& item : ID2D1BitmapResourceMap) //비트맵만 지우고 리소스 맵은 유지
 		{
 			releaseCount = 0;
-			ULONG refCount = (*item.second)->Release();
+			ULONG refCount = (*item.second)->Release(); 
 			while (refCount != 0)
 			{
-				refCount = (*item.second)->Release();
+				refCount = (*item.second)->Release(); 
 				releaseCount++;
 			}
-			*item.second = *CreateD2DBitmap(item.first.c_str());
+			*item.second = *CreateD2DBitmap(item.first.c_str()); //리소스맵에 포인터가 가리키던 대상만 변경
 			for (int count = 0; count < releaseCount; count++)
 			{
-				refCount = (*item.second)->AddRef();
+				refCount = (*item.second)->AddRef(); //원래 참조하고 있던 수 만큼 다시 참조 카운터 증가
 			}	
 		}
 	}
