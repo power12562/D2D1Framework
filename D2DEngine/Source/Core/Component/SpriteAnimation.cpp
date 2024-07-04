@@ -142,9 +142,9 @@ void SpriteAnimation::Update()
 
 void SpriteAnimation::LateUpdate()
 {
-	if (FrameInfo* frame = GetCurrentFrame())
+	if (FrameInfo* frame = GetCurrentFrame()) //바운드 영역 애니메이션 중심 값 만큼 이동.
 	{
-		Bounds& bounds = gameObject.GetBounds();
+		Bounds& bounds = gameObject.bounds;
 		bounds.center.x += frame->center.x;
 		bounds.center.y += frame->center.y;
 

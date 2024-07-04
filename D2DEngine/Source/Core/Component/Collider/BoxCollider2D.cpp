@@ -20,7 +20,7 @@ BoxCollider2D::~BoxCollider2D()
 
 void BoxCollider2D::Start()
 {
-	bounds = &gameObject.GetBounds();
+	bounds = &gameObject.bounds;
 }
 
 

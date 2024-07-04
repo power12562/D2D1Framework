@@ -45,8 +45,8 @@ public:
 	const wchar_t* GetName() { return objName.c_str(); }
 	__declspec(property(get = GetName, put = SetName)) const wchar_t* name; //프로퍼티
 
-	/** 오브젝트의 바운딩 박스 얻기. Pivot을 이용해 구합니다.*/
-	Bounds& GetBounds();
+	/** 오브젝트의 바운딩 박스 영역.*/
+	Bounds bounds;
 
 	/** Object Enable*/
 	bool enable = true;
@@ -60,7 +60,6 @@ public:
 protected:
 	/** componet들의 Update() 이전에 호출되는 함수*/
 	virtual void UpdateBounds();
-	Bounds bounds;
 
 private:
 	Transform* pTransform;

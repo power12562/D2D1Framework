@@ -107,13 +107,13 @@ void WorldManager::Render()
 		if (Camera* mainCam = Camera::GetMainCamera())
 		{
 			renderCount = 0;
-			const Bounds& mainCamBounds = mainCam->gameObject.GetBounds(); 
+			const Bounds& mainCamBounds = mainCam->gameObject.bounds; 
 			for (auto& item : currentWorld->gameObjectList)
 			{
-				if (&mainCamBounds == &item->GetBounds()) //카메라는 제외
+				if (&mainCamBounds == &item->bounds) //카메라는 제외
 					continue;
 
-				if (mainCamBounds.AABB(item->GetBounds())) //AABB coulling
+				if (mainCamBounds.AABB(item->bounds)) //AABB coulling
 				{
 					renderCount++;
 					item->Render();

@@ -92,12 +92,6 @@ void GameObjectBase::SetName(const wchar_t* name)
 	objName = name;
 }
 
-Bounds& GameObjectBase::GetBounds()
-{
-	return bounds;
-}
-
-
 void GameObjectBase::UpdateBounds()
 {
 	bounds.center = transform.position;

@@ -30,12 +30,12 @@ struct AnimationAsset
 	/** 클립 경로*/
 	std::wstring clipPath;
 	/** 애니메이션에 사용되는 클립*/
-	AnimationClip* clip;
+	AnimationClip* clip = nullptr;
 
 	/*이미지 경로*/
 	std::wstring imagePath;
 	/*애니메이션에 사용되는 이미지*/
-	ID2D1Bitmap* imgae;
+	ID2D1Bitmap* imgae = nullptr;
 };
 
 class SpriteAnimation : public ComponentBase

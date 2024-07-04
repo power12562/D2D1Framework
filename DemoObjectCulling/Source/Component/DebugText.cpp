@@ -31,10 +31,10 @@ void DebugText::Update()
 	using namespace InputSystem;
 
 	GameObjectBase& mainCam = Camera::GetMainCamera()->gameObject;
-	const Bounds& camBounds = mainCam.GetBounds();
+	const Bounds& camBounds = mainCam.bounds;
 
 	GameObjectBase& run = *WorldManager::FindGameObject(L"Run");
-	const Bounds& runBounds = run.GetBounds();
+	const Bounds& runBounds = run.bounds;
 
 	auto& mouseState = Input.GetMouseState();
 	Vector2 mouseWorldPos = mouseState.GetWorldPos();
