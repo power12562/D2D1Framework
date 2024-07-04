@@ -26,7 +26,7 @@ SpriteAnimation::~SpriteAnimation()
 	Animations.clear();
 }
 
-void SpriteAnimation::LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
+void SpriteAnimation::LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter == Animations.end())
@@ -45,11 +45,11 @@ void SpriteAnimation::LoadAnimationClip(const wchar_t* clipPath, const wchar_t* 
 	}
 	else
 	{
-		MessageBox(WinGameApp::GetHwnd(), L"clipName이 중복됩니다.", L"SpriteAnimationRenderer::LoadAnimationClip", MB_OK);
+		MessageBox(WinGameApp::GetHwnd(), L"clipName이 중복됩니다.", L"SpriteAnimationRenderer::LoadAnimation", MB_OK);
 	}
 }
 
-void SpriteAnimation::UnloadAnimationClip(const wchar_t* clipName)
+void SpriteAnimation::UnloadAnimation(const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter != Animations.end())
@@ -64,11 +64,11 @@ void SpriteAnimation::UnloadAnimationClip(const wchar_t* clipName)
 	}
 	else
 	{
-		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::UnloadAnimationClip", MB_OK);
+		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::UnloadAnimation", MB_OK);
 	}
 }
 
-void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
+void SpriteAnimation::SetAnimation(const wchar_t* clipName, bool isLoop)
 {
 	this->isLoop = isLoop;
 	this->isCurrentClipEnd = isLoop;
@@ -83,8 +83,17 @@ void SpriteAnimation::SetAnimationClip(const wchar_t* clipName, bool isLoop)
 	}
 	else
 	{
-		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::SetAnimationClip", MB_OK);
+		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::SetAnimation", MB_OK);
 	}
+}
+
+const AnimationAsset* SpriteAnimation::GetCurrentAnimation()
+{
+	if (currentAnimation)
+		return currentAnimation;
+
+	else
+		return nullptr;
 }
 
 FrameInfo* const SpriteAnimation::GetCurrentFrame()

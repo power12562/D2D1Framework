@@ -65,13 +65,16 @@ public:
 	virtual ~SpriteAnimation() override;
 
 	/** 해당 경로의 애니메이션 클립 파일 로드*/
-	void LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
+	void LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
 
 	/** 해당 이름의 애니메이션 클립 해제*/
-	void UnloadAnimationClip(const wchar_t* clipName);
+	void UnloadAnimation(const wchar_t* clipName);
 
 	/** 로드된 애니메이션 재생*/
-	void SetAnimationClip(const wchar_t* clipName, bool isLoop = false);
+	void SetAnimation(const wchar_t* clipName, bool isLoop = false);
+
+	/** 설정 애니메이션 정보*/
+	const AnimationAsset* GetCurrentAnimation();
 
 	/** 재생중인 애니메이션의 프레임 정보*/
 	FrameInfo* const GetCurrentFrame();
