@@ -7,6 +7,7 @@
 #include "Core/Component/Camera.h"
 
 #include <stack>
+#include <cassert>
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -303,6 +304,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 		}
 		else
 		{
+			assert(!"부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.");
 			return thisTransform->localPosition;
 		}
 	}
@@ -310,7 +312,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			thisTransform->position.value = other;
+			assert(!"부모가 있는 오브젝트는 월드 변경이 불가능 합니다.");
 			return *this;
 		}
 		else
@@ -328,6 +330,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 		}
 		else
 		{
+			assert(!"부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.");
 			return thisTransform->localScale;
 		}
 	}
@@ -335,7 +338,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			thisTransform->scale.value = other;
+			assert(!"부모가 있는 오브젝트는 월드 변경이 불가능 합니다.");
 			return *this;
 		}
 		else
@@ -398,6 +401,7 @@ void Transform::TFloat::SetAngle(const float& rotation)
 		}
 		else
 		{
+			assert(!"부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.");
 			return;
 		}
 	}
@@ -405,7 +409,7 @@ void Transform::TFloat::SetAngle(const float& rotation)
 	{
 		if (thisTransform->parent)
 		{
-			this->angle = rotation;
+			assert(!"부모가 있는 오브젝트는 월드 변경이 불가능 합니다.");
 			return;
 		}
 		else

@@ -2,6 +2,7 @@
 #include "Core/Component/Base/ComponentBase.h"
 #include "Framework/ReferenceCounter.h"
 #include <list>
+#include <unordered_map>
 #include <map>
 #include <string>
 #include <d2d1.h>
@@ -50,7 +51,7 @@ private:
 	bool isLoop = false; //현재 애니메이션 루프 여부
 
 	/**애니메이션 에셋 모음 <이름, <경로, 클립, 이미지>*/
-	std::map<std::wstring, AnimationAsset> Animations;
+	std::unordered_map<std::wstring, AnimationAsset> Animations;
 
 	//static :
 	/**리소스 공유용 맵 <경로, 클립>*/

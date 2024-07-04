@@ -124,7 +124,7 @@ ID2D1Bitmap* const* SpriteAnimation::GetCurrentImage()
 
 void SpriteAnimation::Update()
 {
-	if (!isCurrentClipEnd || isLoop)
+	if (currentAnimation && (!isCurrentClipEnd || isLoop))
 	{
 		elapsedTime += TimeSystem::Time.GetDeltatime();
 		while (elapsedTime > currentAnimation->clip->frames[currentFrame].frameIntervalTime)

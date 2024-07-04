@@ -40,14 +40,8 @@ private:
 	/** 적용시킬 애니메이션 컴포넌트*/
 	SpriteAnimation* pSpriteAnimation = nullptr;
 
-	/** 생성된 컴포넌트 리스트*/
-	//static std::list<SpriteRenderer*> instanceList;
-
 	/** 마지막으로 불러온 경로 저장하는 버퍼*/
 	wchar_t* lastLoadPath = nullptr;
-
-	/** D2D factory 재생성시 호출되는 메서드*/
-	//static void ReloadImage();
 
 	D2D1_SIZE_F currentImageSize{};
 };

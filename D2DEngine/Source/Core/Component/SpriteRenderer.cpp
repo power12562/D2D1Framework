@@ -8,12 +8,9 @@
 #include "Core/Component/Camera.h"
 #undef LoadImage
 
-//std::list<SpriteRenderer*> SpriteRenderer::instanceList;
-
 SpriteRenderer::SpriteRenderer(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
-	//instanceList.push_back(this);
-	//instanceIter = std::prev(instanceList.end()); //마지막 이터를 자신의 이터레이터로 저장
+
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -25,7 +22,6 @@ SpriteRenderer::~SpriteRenderer()
 		delete[] lastLoadPath;
 		lastLoadPath = nullptr;
 	}
-	//instanceList.erase(instanceIter); //자신을 인스턴스 리스트에서 제거
 }
 
 void SpriteRenderer::SetSpriteAnimation(SpriteAnimation& animationComponet)
@@ -47,7 +43,7 @@ void SpriteRenderer::Render()
 	D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
 	if (pSpriteAnimation == nullptr)
 	{	
-			D2DRenderer::DrawBitmap(*image, objMatrix);	
+		D2DRenderer::DrawBitmap(*image, objMatrix);	
 	}		
 	else
 	{	
@@ -60,17 +56,6 @@ void SpriteRenderer::Render()
 	}
 }
 
-/*
-void SpriteRenderer::ReloadImage()
-{
-	for (auto& component : instanceList)
-	{
-		component->image = nullptr;
-		component->LoadImage(component->lastLoadPath);
-	}
-}
-*/
-
 void SpriteRenderer::LoadImage(const wchar_t* path)
 {
 	if (path == nullptr)
@@ -81,7 +66,6 @@ void SpriteRenderer::LoadImage(const wchar_t* path)
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
 	}
 
-	//image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	image = D2DRenderer::CreateD2DBitmapFromFile(path);
 	if (image == nullptr)
 	{
@@ -111,6 +95,7 @@ void SpriteRenderer::UnloadImage()
 {
 	if (image == nullptr)
 		return;
+
 	else
 	{
 		D2DRenderer::ReleaseD2D1Bitmap(lastLoadPath);
