@@ -104,9 +104,9 @@ void GameObjectBase::UpdateBounds()
 	bounds.size = bounds.extents * 2.f;
 
 	bounds.leftTop.x = transform.position.x - bounds.extents.x;
-	bounds.rightBottom.x = transform.position.x + bounds.extents.x;
-
 	bounds.leftTop.y = transform.position.y + bounds.extents.y;
+
+	bounds.rightBottom.x = transform.position.x + bounds.extents.x;	
 	bounds.rightBottom.y = transform.position.y - bounds.extents.y;
 
 	Bounds::GetRotationBounds(bounds, transform.rotation);
