@@ -5,6 +5,7 @@
 #include "Core/Component/Camera.h"
 
 #include "Bounds/Bounds.h"
+#include <cstdlib>
 
 GameObjectBase::GameObjectBase()
 {
@@ -97,15 +98,15 @@ void GameObjectBase::UpdateBounds()
 	bounds.center = transform.position;
 
 	bounds.extents = transform.pivot;
-	bounds.extents.x *= transform.scale.x;
-	bounds.extents.y *= transform.scale.y;
+	bounds.extents.x *= abs(transform.scale.x);
+	bounds.extents.y *= abs(transform.scale.y);
 
 	bounds.size = bounds.extents * 2.f;
 
 	bounds.leftTop.x = transform.position.x - bounds.extents.x;
-	bounds.leftTop.y = transform.position.y + bounds.extents.y;
-
 	bounds.rightBottom.x = transform.position.x + bounds.extents.x;
+
+	bounds.leftTop.y = transform.position.y + bounds.extents.y;
 	bounds.rightBottom.y = transform.position.y - bounds.extents.y;
 
 	Bounds::GetRotationBounds(bounds, transform.rotation);

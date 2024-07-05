@@ -3,9 +3,13 @@
 
 #include "Core/Component/Base/ComponentBase.h"
 
+#include <string>
+
 class PlayerAnimeTestCtrl : public ComponentBase
 {
 	class SpriteAnimation* spriteAnimation;
+	class SpriteRenderer* spriteRenderer;
+	class DebugUICtrl* debugUI;
 public:
 
 	PlayerAnimeTestCtrl(GameObjectBase& gameObject);
@@ -17,6 +21,7 @@ protected:
 	virtual void Render();
 
 private:
-
+	std::wstring currentAniPath;
+	std::wstring currentImagePath;
 
 };

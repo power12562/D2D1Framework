@@ -1,6 +1,9 @@
 #include "Core/Component/Camera.h"
+
 #include "Core/GameObject/Base/GameObjectBase.h"
+
 #include "Framework/WinGameApp.h"
+
 
 Camera* Camera::mainCam = nullptr;
 std::list<Camera*> Camera::instanceList;

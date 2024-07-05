@@ -7,7 +7,7 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/GameObject/Base/GameObjectUI.h"
 #include "Core/GameObject/MainCamera.h"
-#include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/Renderer/SpriteRenderer.h"
 #include "Core/Component/Camera.h"
 
 #include "Component/BackGround.h"

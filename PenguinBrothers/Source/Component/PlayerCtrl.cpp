@@ -22,6 +22,7 @@ void PlayerCtrl::Start()
 	moveSpeed = 150.f;
 	slideSpeed = 300.f;
 	spriteAnimation = &gameObject.GetComponent<SpriteAnimation>();
+	spriteAnimation->SetAnimation(L"Spawn");
 }
 
 void PlayerCtrl::Update()
@@ -51,6 +52,9 @@ void PlayerCtrl::Render()
 	static auto* font = D2DRenderer::CreateD2DFont(L"Consolas", 50.f);
 	switch (playerState)
 	{
+	case PlayerCtrl::State::Spawn:
+		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Spawn");
+		break;
 	case PlayerCtrl::State::Idle:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Idle");
 		break;

@@ -175,6 +175,15 @@ void SpriteAnimation::UpdateCurrentPivot()
 	}
 }
 
+void SpriteAnimation::SetCurrentFrameIndex(int frame)
+{
+	if (0 <= frame && frame <= lastFrameIndex)
+	{
+		currentFrame = frame;
+		UpdateCurrentPivot();
+	}
+}
+
 AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* filePath)
 {
 	auto iter = clipResourceMap.find(filePath);

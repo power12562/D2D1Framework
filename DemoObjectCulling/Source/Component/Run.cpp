@@ -6,7 +6,7 @@
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
-#include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/Renderer/SpriteRenderer.h"
 #include "Core/Component/Collider/BoxCollider2D.h"
 
 

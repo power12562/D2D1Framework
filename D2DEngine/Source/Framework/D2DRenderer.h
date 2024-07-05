@@ -32,6 +32,12 @@ public:
 		const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black), 
 		float LineWidth = 0.5f
 	);	
+	static void DrawLine(
+		const D2D1_MATRIX_3X2_F& matrix,
+		const D2D1_POINT_2F& startPosition, const D2D1_POINT_2F& endPosition, 
+		const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black), 
+		float LineWidth = 0.5f
+	);	
 
 	static void DrawRect(
 		const D2D1_MATRIX_3X2_F& matrix,

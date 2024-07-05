@@ -227,11 +227,28 @@ void D2DRenderer::DrawLine(
 		return;
 
 	pColorBrush->SetColor(color);
+	pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
 	pRenderTarget->DrawLine(
 		startPosition,
 		endPosition,
 		pColorBrush, 
+		LineWidth
+	);
+}
+
+void D2DRenderer::DrawLine(const D2D1_MATRIX_3X2_F& matrix, const D2D1_POINT_2F& startPosition, const D2D1_POINT_2F& endPosition, const D2D1_COLOR_F& color, float LineWidth)
+{
+	if (pColorBrush == nullptr)
+		return;
+
+	pColorBrush->SetColor(color);
+	pRenderTarget->SetTransform(matrix);
+
+	pRenderTarget->DrawLine(
+		startPosition,
+		endPosition,
+		pColorBrush,
 		LineWidth
 	);
 }

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-#include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/Renderer/SpriteRenderer.h"
 #include "Core/Component/SpriteAnimation.h"
 #include "Core/Component/Collider/BoxCollider2D.h"
 
@@ -17,7 +17,7 @@ Player::Player()
 	spriteAnimation.LoadAnimation(L"Resource/Player/Normal/Ani/Duck.txt", L"Resource/Player/Normal/Normal.png", L"Duck");
 	spriteAnimation.LoadAnimation(L"Resource/Player/Normal/Ani/Jump.txt", L"Resource/Player/Normal/Normal.png", L"Jump");
 	spriteAnimation.LoadAnimation(L"Resource/Player/Normal/Ani/Slide.txt", L"Resource/Player/Normal/Normal.png", L"Slide");
-	spriteAnimation.SetAnimation(L"Idle", true);
+	spriteAnimation.LoadAnimation(L"Resource/Player/Spawn/Spawn.txt", L"Resource/Player/Spawn/Spawn.png", L"Spawn");
 
 	AddComponent<SpriteRenderer>().SetSpriteAnimation(spriteAnimation);
 	BoxCollider2D& boxCollider2D = AddComponent<BoxCollider2D>();

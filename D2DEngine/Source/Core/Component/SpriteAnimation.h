@@ -96,6 +96,12 @@ public:
 	/**현재 프레임의 피봇 위치를 transform에 적용해준다.*/
 	void UpdateCurrentPivot();
 
+	/** 재생할 프레임 선택*/
+	int GetCurrentFrameIndex() const { return currentFrame; }
+	__declspec(property(get = GetCurrentFrameIndex, put = SetCurrentFrameIndex)) int CurrentFrameIndex;
+	/** 재생할 프레임 선택*/
+	void SetCurrentFrameIndex(int frame);
+
 protected:
 	virtual void Update() override;
 	virtual void LateUpdate() override;

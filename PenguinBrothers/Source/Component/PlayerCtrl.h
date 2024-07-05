@@ -9,6 +9,7 @@ class PlayerCtrl : public ComponentBase
 public:
 	enum class State
 	{
+		Spawn,
 		Idle,
 		Duck,
 		Walk,

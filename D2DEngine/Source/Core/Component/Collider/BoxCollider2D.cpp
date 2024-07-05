@@ -36,7 +36,7 @@ void BoxCollider2D::Render()
 		const D2D1_MATRIX_3X2_F& drawMatrix =
 			(		
 				D2D1::Matrix3x2F::Scale(objScale.x, objScale.y) * 		
-				D2D1::Matrix3x2F::Translation(bounds->center.x, screenSize.cy - bounds->center.y)*
+				D2D1::Matrix3x2F::Translation(bounds->center.x, screenSize.cy - bounds->center.y) *
 				Camera::GetMainCamera()->GetInvertMatrix()
 				); //회전 매트릭스는 제외한 월드 매트릭스 * 카메라 역행렬 매트릭스 (카메라 기준 좌표로)
 		const D2D1_RECT_F& drawRect = { -bounds->extents.x / worldScale.x , -bounds->extents.y / worldScale.y, bounds->extents.x / worldScale.x, bounds->extents.y / worldScale.y }; //자신의 스케일 제외(위 매트릭스에 이미 포함됨)

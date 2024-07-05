@@ -1,9 +1,9 @@
 #include "DebugUI.h"
 
-#include "Source/Component/DebugTextCtrl.h"
+#include "Source/Component/DebugUICtrl.h"
 
 DebugUI::DebugUI()
 {
-	DebugTextCtrl& debugText = AddComponent<DebugTextCtrl>();
+	DebugUICtrl& debugUICtrl = AddComponent<DebugUICtrl>();
 
 }

@@ -146,7 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Component\AnimeEditCameraCtrl.h" />
-    <ClInclude Include="Source\Component\DebugTextCtrl.h" />
+    <ClInclude Include="Source\Component\DebugUICtrl.h" />
     <ClInclude Include="Source\Component\PlayerAnimeTestCtrl.h" />
     <ClInclude Include="Source\GameObject\DebugUI.h" />
     <ClInclude Include="Source\GameObject\PlayerAnimeTest.h" />
@@ -155,7 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Component\AnimeEditCameraCtrl.cpp" />
-    <ClCompile Include="Source\Component\DebugTextCtrl.cpp" />
+    <ClCompile Include="Source\Component\DebugUICtrl.cpp" />
     <ClCompile Include="Source\Component\PlayerAnimeTestCtrl.cpp" />
     <ClCompile Include="Source\GameObject\DebugUI.cpp" />
     <ClCompile Include="Source\GameObject\PlayerAnimeTest.cpp" />

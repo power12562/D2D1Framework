@@ -8,7 +8,7 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include "Core/Component/Camera.h"
-#include "Core/Component/TextRenderer.h"
+#include "Core/Component/Renderer/TextRenderer.h"
 
 DebugText::DebugText(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {

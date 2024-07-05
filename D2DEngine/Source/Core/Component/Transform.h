@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Component/Base/ComponentBase.h"
+
 #include "Vector/Vector2.h"
+
 #include <list>
 #include <d2d1helper.h>
 

@@ -25,38 +25,35 @@ void AnimeEditCameraCtrl::Update()
 	using namespace InputSystem;
 	using namespace TimeSystem;
 
-	if (Input.IsKeyDown(KeyCode::F1))
+	if (Input.IsKeyDown(KeyCode::Minus))
 	{
 		gameObject.transform.scale = Vector2{ gameObject.transform.scale.x + 0.1f,  gameObject.transform.scale.y + 0.1f };
 	}
-	if (Input.IsKeyDown(KeyCode::F2))
+	if (Input.IsKeyDown(KeyCode::Plus))
 	{
 		gameObject.transform.scale = Vector2{ gameObject.transform.scale.x - 0.1f,  gameObject.transform.scale.y - 0.1f };
 	}
 
+	float speedScale = 1.0f;
+	if (Input.IsKey(KeyCode::Shift))
+	{
+		speedScale = 0.25f;
+	}
 	if (Input.IsKey(KeyCode::W))
 	{
-		gameObject.transform.position += Vector2::Up * moveSpeed * Time.GetDeltatime();
+		gameObject.transform.position += Vector2::Up * moveSpeed * Time.GetDeltatime(false) * speedScale;
 	}
 	else if (Input.IsKey(KeyCode::S))
 	{
-		gameObject.transform.position += Vector2::Down * moveSpeed * Time.GetDeltatime();
+		gameObject.transform.position += Vector2::Down * moveSpeed * Time.GetDeltatime(false) * speedScale;
 	}
 	if (Input.IsKey(KeyCode::A))
 	{
-		gameObject.transform.position += Vector2::Left * moveSpeed * Time.GetDeltatime();
+		gameObject.transform.position += Vector2::Left * moveSpeed * Time.GetDeltatime(false) * speedScale;
 	}
 	else if (Input.IsKey(KeyCode::D))
 	{
-		gameObject.transform.position += Vector2::Right * moveSpeed * Time.GetDeltatime();
-	}
-
-	if (Input.IsKeyDown(KeyCode::Space))
-	{
-		if(Time.timeScale == 0.f)
-			Time.timeScale = 1.f;
-		else
-			Time.timeScale = 0.f;
+		gameObject.transform.position += Vector2::Right * moveSpeed * Time.GetDeltatime(false) * speedScale;
 	}
 }
 

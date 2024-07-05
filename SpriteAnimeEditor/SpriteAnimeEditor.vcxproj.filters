@@ -33,7 +33,7 @@
     <ClInclude Include="Source\GameObject\DebugUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Component\DebugTextCtrl.h">
+    <ClInclude Include="Source\Component\DebugUICtrl.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClCompile Include="Source\GameObject\DebugUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Component\DebugTextCtrl.cpp">
+    <ClCompile Include="Source\Component\DebugUICtrl.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

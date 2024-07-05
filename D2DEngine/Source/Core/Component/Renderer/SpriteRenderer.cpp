@@ -1,4 +1,4 @@
-#include "Core/Component/SpriteRenderer.h"
+#include "Core/Component/Renderer/SpriteRenderer.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
 
@@ -50,7 +50,9 @@ void SpriteRenderer::Render()
 		if (ID2D1Bitmap* const* image = pSpriteAnimation->GetCurrentImage())
 		{
 			FrameInfo* const frame = pSpriteAnimation->GetCurrentFrame();
-			objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, -frame->center.y) * objMatrix;
+			int flipX = (0 < gameObject.transform.scale.x) ? 1 : -1;
+			int flipY = (0 < gameObject.transform.scale.y) ? 1 : -1;
+			objMatrix = D2D1::Matrix3x2F::Translation(flipX * frame->center.x,  flipY * -frame->center.y) * objMatrix;
 			D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
 		}
 	}
