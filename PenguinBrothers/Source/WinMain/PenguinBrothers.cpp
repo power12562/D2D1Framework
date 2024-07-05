@@ -2,7 +2,6 @@
 #include "Framework/WorldManager.h"
 
 #include "Source/Scenes/Stage1.h"
-#include "Source/Scenes/AnimeEditScene.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -11,7 +10,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    WorldManager::LoadWorld<AnimeEditScene>();
+    WorldManager::LoadWorld<Stage1>();
     app.Run();
     app.Uninitialize();
 }
@@ -21,7 +20,7 @@ PenguinBrothers::PenguinBrothers()
 #ifdef _DEBUG
     isDebug = true;
 #endif // _DEBUG
-    windowName = L"PenguinBrothers";
+    windowName = L"Penguin Brothers";
     winClassName = L"PenguinBro";
     bgColor = D2D1::ColorF(D2D1::ColorF::White);
 

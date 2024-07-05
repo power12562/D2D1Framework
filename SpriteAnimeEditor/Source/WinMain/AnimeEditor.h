@@ -1,11 +1,11 @@
 #pragma once
 #include "Framework/WinGameApp.h"
 
-class PenguinBrothers : public WinGameApp
+class AnimeEditor : public WinGameApp
 {
 public:
-	PenguinBrothers();
-	virtual ~PenguinBrothers() override;
+	AnimeEditor();
+	virtual ~AnimeEditor() override;
 
 private:
 

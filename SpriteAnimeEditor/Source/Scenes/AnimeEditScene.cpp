@@ -3,14 +3,15 @@
 
 #include "Core/Component/Camera.h"
 
-#include "Source/GameObject/Player.h"
 #include "Source/Component/AnimeEditCameraCtrl.h"
+#include "Source/GameObject/PlayerAnimeTest.h"
+#include "Source/GameObject/DebugUI.h"
 
 AnimeEditScene::AnimeEditScene()
 {
-	WorldManager::AddGameObject<Player>(L"Player");
 	Camera::GetMainCamera()->gameObject.AddComponent<AnimeEditCameraCtrl>();
-	
+	WorldManager::AddGameObject<DebugUI>(L"DebugUI");
+	WorldManager::AddGameObject<PlayerAnimeTest>(L"AnimeTest");
 }
 
 AnimeEditScene::~AnimeEditScene()

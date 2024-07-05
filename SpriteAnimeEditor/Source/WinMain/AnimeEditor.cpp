@@ -22,7 +22,7 @@ AnimeEditor::AnimeEditor()
 #endif // _DEBUG
     windowName = L"AnimeEditer";
     winClassName = L"ANI_EDIT";
-    bgColor = D2D1::ColorF(D2D1::ColorF::White);
+    bgColor = D2D1::ColorF(D2D1::ColorF::LightGreen);
 
 }
 
