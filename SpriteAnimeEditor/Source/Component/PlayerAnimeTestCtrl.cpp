@@ -40,7 +40,7 @@ void PlayerAnimeTestCtrl::Start()
 
 	debugUI = &WorldManager::FindGameObject(L"DebugUI")->GetComponent<DebugUICtrl>();
 
-	debugUI->Line.resize(6);
+	debugUI->Line.resize(7);
 }
 
 void PlayerAnimeTestCtrl::Update()
@@ -79,7 +79,7 @@ void PlayerAnimeTestCtrl::Update()
 	}
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
-		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+		Time.timeScale = Time.timeScale == 0 ? 1.f : 0.f;
 	}
 	if (Input.IsKeyDown(KeyCode::R))
 	{
@@ -143,12 +143,17 @@ void PlayerAnimeTestCtrl::Update()
 	swprintf_s(camPosWString, _ARRAYSIZE(camPosWString), L"CameraPos : %01.f, %01.f", camPos.x, camPos.y);
 	debugUI->Line[4] = camPosWString;
 
-	wchar_t mousePosWString[30]{};
+	wchar_t imagePosWString[30]{};
+	const Bounds& imageBounds = gameObject.bounds;
+	swprintf_s(imagePosWString, _ARRAYSIZE(imagePosWString), L"ImagePos : %01.f, %01.f", camPos.x - imageBounds.leftTop.x, imageBounds.leftTop.y - camPos.y);
+	debugUI->Line[5] = imagePosWString;
+
+	wchar_t mousePosWString[35]{};
 	const Vector2& mousePos = Input.GetMouseState().GetWorldPos();
 	swprintf_s(mousePosWString, _ARRAYSIZE(mousePosWString), L"MousePos : %01.f, %01.f", mousePos.x, mousePos.y);
-	debugUI->Line[5] = mousePosWString;
+	debugUI->Line[6] = mousePosWString;
 
-
+	
 }
 
 void PlayerAnimeTestCtrl::Render()

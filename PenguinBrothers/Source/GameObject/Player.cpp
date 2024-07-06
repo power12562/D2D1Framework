@@ -18,6 +18,7 @@ Player::Player()
 	spriteAnimation.LoadAnimation(L"Resource/Player/Normal/Ani/Jump.txt", L"Resource/Player/Normal/Normal.png", L"Jump");
 	spriteAnimation.LoadAnimation(L"Resource/Player/Normal/Ani/Slide.txt", L"Resource/Player/Normal/Normal.png", L"Slide");
 	spriteAnimation.LoadAnimation(L"Resource/Player/Spawn/Spawn.txt", L"Resource/Player/Spawn/Spawn.png", L"Spawn");
+	spriteAnimation.LoadAnimation(L"Resource/Player/Dead/Dead.txt", L"Resource/Player/Dead/Dead.png", L"Dead");
 
 	AddComponent<SpriteRenderer>().SetSpriteAnimation(spriteAnimation);
 	BoxCollider2D& boxCollider2D = AddComponent<BoxCollider2D>();

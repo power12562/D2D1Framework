@@ -15,7 +15,8 @@ public:
 		Walk,
 		Jump,
 		Slide,
-		Attack
+		Attack,
+		Dead
 	};
 
 	PlayerCtrl(GameObjectBase& gameObject);

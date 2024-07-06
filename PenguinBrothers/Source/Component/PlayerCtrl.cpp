@@ -40,6 +40,12 @@ void PlayerCtrl::Update()
 		gameObject.transform.position += dir * moveSpeed * Time.GetDeltatime();
 		
 	}
+#ifdef _DEBUG
+	if (Input.IsKeyDown(KeyCode::R))
+	{
+		playerState = State::Dead;
+	}
+#endif // _DEBUGG
 	UpdateAnime();
 }
 
@@ -52,26 +58,29 @@ void PlayerCtrl::Render()
 	static auto* font = D2DRenderer::CreateD2DFont(L"Consolas", 50.f);
 	switch (playerState)
 	{
-	case PlayerCtrl::State::Spawn:
+	case State::Spawn:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Spawn");
 		break;
-	case PlayerCtrl::State::Idle:
+	case State::Idle:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Idle");
 		break;
-	case PlayerCtrl::State::Duck:
+	case State::Duck:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Duck");
 		break;
-	case PlayerCtrl::State::Walk:
+	case State::Walk:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Walk");
 		break;
-	case PlayerCtrl::State::Jump:
+	case State::Jump:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Jump");
 		break;
-	case PlayerCtrl::State::Slide:
+	case State::Slide:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Slide");
 		break;
-	case PlayerCtrl::State::Attack:
+	case State::Attack:
 		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Attack");
+		break;		
+	case State::Dead:
+		wcscpy_s(currentStateText, _ARRAYSIZE(currentStateText), L"Dead");
 		break;
 	}
 	lstrcatW(outputText, currentStateText);
@@ -157,6 +166,9 @@ void PlayerCtrl::UpdateAnime()
 		break;
 	case State::Attack:
 		spriteAnimation->SetAnimation(L"Attack", false);
+		break;
+	case State::Dead:
+		spriteAnimation->SetAnimation(L"Dead", false);
 		break;
 	}
 	animeState = playerState;
