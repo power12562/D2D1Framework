@@ -3,9 +3,12 @@
 #include "Framework/TimeSystem.h"
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
+#include "Framework/WorldManager.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/SpriteAnimation.h"
+
+#include "Source/GameObject/PlayerBomb.h"
 
 PlayerCtrl::PlayerCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -105,6 +108,11 @@ void PlayerCtrl::UpdateState()
 
 	if (!spriteAnimation->CurrentClipEnd)
 		return;
+
+	if (playerState == State::Attack)
+	{
+		WorldManager::AddGameObject<PlayerBomb>(L"Bomb")->transform.position = gameObject.transform.position;
+	}
 
 	if (Input.IsKey(KeyCode::DownArrow))
 	{
