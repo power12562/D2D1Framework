@@ -5,6 +5,8 @@ class PlayerBomb : public GameObjectBase
 {
 public:
 	PlayerBomb();
-	//virtual ~PlayerBomb() override;
-
+	virtual ~PlayerBomb() override;
+	static int GetObjectCount() { return objectCount; }
+private:
+	static int objectCount;
 };

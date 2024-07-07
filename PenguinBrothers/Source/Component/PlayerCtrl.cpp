@@ -26,6 +26,8 @@ void PlayerCtrl::Start()
 	slideSpeed = 300.f;
 	spriteAnimation = &gameObject.GetComponent<SpriteAnimation>();
 	spriteAnimation->SetAnimation(L"Spawn");
+
+	gameObject.transform.position += Vector2(0.f, -25.f);
 }
 
 void PlayerCtrl::Update()
@@ -111,7 +113,7 @@ void PlayerCtrl::UpdateState()
 
 	if (playerState == State::Attack)
 	{
-		WorldManager::AddGameObject<PlayerBomb>(L"Bomb")->transform.position = gameObject.transform.position;
+		SpawnBomb();
 	}
 
 	if (Input.IsKey(KeyCode::DownArrow))
@@ -126,7 +128,7 @@ void PlayerCtrl::UpdateState()
 	{
 		SetState(State::Jump);
 	}
-	else if (Input.IsKeyDown(KeyCode::Z))
+	else if (Input.IsKeyDown(KeyCode::Z) && PlayerBomb::GetObjectCount() == 0)
 	{
 		SetState(State::Attack);
 	}
@@ -180,4 +182,9 @@ void PlayerCtrl::UpdateAnime()
 		break;
 	}
 	animeState = playerState;
+}
+
+void PlayerCtrl::SpawnBomb()
+{
+		WorldManager::AddGameObject<PlayerBomb>(L"Bomb")->transform.position = gameObject.transform.position;
 }

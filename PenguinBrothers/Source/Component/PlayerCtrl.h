@@ -36,5 +36,5 @@ private:
 	void SetState(State state);
 	void UpdateState();
 	void UpdateAnime();
-
+	void SpawnBomb();
 };

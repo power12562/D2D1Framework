@@ -17,6 +17,6 @@ private:
 	class SpriteRenderer* spriteRenderer = nullptr;
 
 	float elapsedTime = 0;
-	float bombTime = 1.0f;
+	float bombTime = 1.5f;
 
 };

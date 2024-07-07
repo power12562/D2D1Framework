@@ -27,7 +27,7 @@ Player::Player()
 #endif // DEBUG
 
 	AddComponent<PlayerCtrl>();
-	transform.scale = Vector2(2.0f, 2.0f);
+	transform.scale = Vector2(4.0f, 4.0f);
 }
 
 Player::~Player()

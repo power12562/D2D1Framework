@@ -23,6 +23,7 @@ PenguinBrothers::PenguinBrothers()
     windowName = L"Penguin Brothers";
     winClassName = L"PenguinBro";
     bgColor = D2D1::ColorF(D2D1::ColorF::White);
+    SetClientSize({ 1196, 896 });
 
 }
 
