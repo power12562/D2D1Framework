@@ -20,8 +20,6 @@ bool WinGameApp::isMaxsize = false;
 
 void WinGameApp::Initialize(HINSTANCE hinstance)
 {
-	WinInitialize(hinstance);
-
 	if (isDebug)
 	{
 		AllocConsole();
@@ -29,6 +27,7 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 		freopen_s(&_tempFile, "CONOUT$", "w", stdout);
 	}
 
+	WinInitialize(hinstance);
 	if (!D2DRenderer::InitDirect2D())
 	{
 		isEnd = true;
@@ -200,6 +199,15 @@ void WinGameApp::WinInitialize(HINSTANCE hinstance)
 	// 윈도우 표시
 	ShowWindow(hwnd, 10);
 	UpdateWindow(hwnd);
+	
+	if (isDebug)
+	{
+		RECT rc;
+		GetClientRect(hwnd, &rc);
+		int sx = rc.right - rc.left;
+		int sy = rc.bottom - rc.top;
+		printf("ClientSize : %d, %d\n", sx, sy);
+	}
 }
 
 void WinGameApp::ReSizeClient()

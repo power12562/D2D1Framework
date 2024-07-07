@@ -22,9 +22,9 @@ PenguinBrothers::PenguinBrothers()
 #endif // _DEBUG
     windowName = L"Penguin Brothers";
     winClassName = L"PenguinBro";
+    windowStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     bgColor = D2D1::ColorF(D2D1::ColorF::White);
     SetClientSize({ 1196, 896 });
-
 }
 
 PenguinBrothers::~PenguinBrothers()
