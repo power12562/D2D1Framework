@@ -22,9 +22,9 @@ void DebugUICtrl::Start()
 {
 	SIZE screenSize = WinGameApp::GetClientSize();
 
-	textRenderer = &gameObject.AddComponent<TextRenderer>();
-	textRenderer->SetFont(L"consolas");
-	textRenderer->Size = 25.f;
+	stateDebugText = &gameObject.AddComponent<TextRenderer>();
+	stateDebugText->SetFont(L"consolas");
+	stateDebugText->Size = 25.f;
 
 	lineRendererX = &gameObject.AddComponent<LineRenderer>();
 	lineRendererX->Width = 1.0f;
@@ -42,9 +42,9 @@ void DebugUICtrl::Update()
 	using namespace TimeSystem;
 	using namespace InputSystem;
 
-	textRenderer->Text = Line[0];
+	stateDebugText->Text = Line[0];
 	for (int i = 1; i < Line.size(); i++)
 	{
-		textRenderer->Text += std::wstring(L"\n") += Line[i];
+		stateDebugText->Text += std::wstring(L"\n") += Line[i];
 	}
 }

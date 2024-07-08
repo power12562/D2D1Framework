@@ -23,6 +23,7 @@ public:
 protected:
 	class Movement* movement;
 	class SpriteAnimationRenderer* spriteAnimation;
+	class PlayerCtrl* playerCtrl;
 };
 
 class Spawn : public PlayerState
@@ -51,4 +52,31 @@ public:
 	virtual void Enter() override;
 	virtual void Update() override;
 	virtual void Exit() override;
+};
+
+class Duck : public PlayerState
+{
+public:
+	Duck(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
+};
+
+class Slide : public PlayerState
+{
+public:
+	Slide(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override;
+};
+
+class Attack : public PlayerState
+{
+public:
+	Attack(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
 };

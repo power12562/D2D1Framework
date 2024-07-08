@@ -18,7 +18,7 @@ protected:
 	//virtual void Render() override;
 
 private:
-	class TextRenderer* textRenderer = nullptr;
+	class TextRenderer* stateDebugText = nullptr;
 	class LineRenderer* lineRendererX = nullptr;
 	class LineRenderer* lineRendererY = nullptr;
 };

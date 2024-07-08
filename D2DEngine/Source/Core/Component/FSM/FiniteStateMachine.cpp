@@ -19,16 +19,7 @@ FiniteStateMachine::~FiniteStateMachine()
 
 void FiniteStateMachine::Update()
 {
-	if (currState != nextState)
-	{
-		if (currState != nullptr)
-		{
-			currState->Exit();
-		}
-		currState = nextState;
-		currState->Enter();
-	}
-	else
+	if (currState)
 	{
 		currState->Update();
 	}
@@ -39,7 +30,12 @@ void FiniteStateMachine::SetState(const wchar_t* name)
 	auto find = stateMap.find(name);
 	if (find != stateMap.end())
 	{
-		nextState = find->second;
+		if (currState != nullptr)
+		{
+			currState->Exit();
+		}
+		currState = find->second;
+		currState->Enter();
 	}
 	else
 	{

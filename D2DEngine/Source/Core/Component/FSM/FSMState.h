@@ -7,14 +7,14 @@ class FiniteStateMachine;
 class FSMState
 {
 	friend class FiniteStateMachine;
+public:
+	const std::wstring& GetName() const { return name; }
 protected:
 	FSMState(FiniteStateMachine& _owner, const wchar_t* _name) :
 		owner(_owner),
 		name(_name) 
 	{}
 	virtual ~FSMState() {}
-
-	const std::wstring& GetName() const { return name; }
 
 	/** 상태 진입전 실행할 내용*/
 	virtual void Enter() = 0;

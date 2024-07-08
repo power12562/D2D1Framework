@@ -8,7 +8,7 @@
 #include "Framework/WorldManager.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
-#include "Core/Component/SpriteAnimation.h"
+#include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Renderer/SpriteRenderer.h"
 #include "Core/Component/Collider/BoxCollider2D.h"
 #include "Core/Component/Camera.h"
@@ -29,11 +29,6 @@ void PlayerAnimeTestCtrl::Start()
 {
 	gameObject.AddComponent<SpriteAnimationRenderer>();
 	spriteAnimation = &gameObject.GetComponent<SpriteAnimationRenderer>();
-
-
-	spriteRenderer = &gameObject.AddComponent<SpriteRenderer>();
-	spriteRenderer->SetSpriteAnimation(*spriteAnimation);
-
 
 	BoxCollider2D& boxCollider2D = gameObject.AddComponent<BoxCollider2D>();
 	boxCollider2D.isDrawCollider = true;

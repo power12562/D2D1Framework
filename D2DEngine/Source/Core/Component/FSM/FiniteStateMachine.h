@@ -13,9 +13,11 @@ public:
 
 	template<typename T> void CreateState(const wchar_t* name);
 	void SetState(const wchar_t* name);
+
+	/** 현재 상태*/
+	const FSMState* GetCurrState() { return currState; }
 protected:
 	FSMState* currState = nullptr;  // 현재 상태	
-	FSMState* nextState = nullptr;	// 다음 상태
 
 	std::map<std::wstring, FSMState*> stateMap;	// 생성된 FSMState들을 저장하는 컨테이너
 

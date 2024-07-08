@@ -162,6 +162,11 @@ void Transform::SetParent(Transform& parent)
 #pragma warning(default:6011)
 }
 
+void Transform::SetParent(GameObjectBase& parent)
+{
+	SetParent(parent.transform);
+}
+
 //부모 해제
 void Transform::SetParent()
 {

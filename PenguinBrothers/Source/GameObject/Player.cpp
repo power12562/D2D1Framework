@@ -7,6 +7,7 @@
 #include "Core/Component/FSM/FiniteStateMachine.h"
 
 #include "Source/Component/PlayerCtrl.h"
+#include "Source/GameObject/PlayerBomb.h"
 
 
 Player::Player()
@@ -35,6 +36,9 @@ Player::Player()
 	fsm.CreateState<Idle>(L"Idle");
 	fsm.CreateState<Spawn>(L"Spawn");
 	fsm.CreateState<Walk>(L"Walk");
+	fsm.CreateState<Duck>(L"Duck");
+	fsm.CreateState<Slide>(L"Slide");
+	fsm.CreateState<Attack>(L"Attack");
 
 	fsm.SetState(L"Spawn");
 }
@@ -51,6 +55,7 @@ PlayerState::PlayerState(FiniteStateMachine& _owner, const wchar_t* _name) : FSM
 {
 	movement = &owner.gameObject.GetComponent<Movement>();
 	spriteAnimation = &owner.gameObject.GetComponent<SpriteAnimationRenderer>();
+	playerCtrl = &owner.gameObject.GetComponent<PlayerCtrl>();
 }
 
 
@@ -75,38 +80,129 @@ void Idle::Enter()
 
 void Idle::Update()
 {
-	if (movement->GetSpeed() != 0)
+	using namespace InputSystem;
+
+
+	if (Input.IsKey(KeyCode::LeftArrow))
 	{
 		owner.SetState(L"Walk");
+		movement->SetDirection(Vector2::Left);
+		owner.gameObject.transform.FlipX(true);
+	}
+	else if (Input.IsKey(KeyCode::RightArrow))
+	{
+		owner.SetState(L"Walk");
+		movement->SetDirection(Vector2::Right);
+		owner.gameObject.transform.FlipX(false);
+	}
+
+	if (Input.IsKeyDown(KeyCode::Z) && PlayerBomb::GetObjectCount() == 0)
+	{
+		owner.SetState(L"Attack");
+	}
+
+	if (Input.IsKey(KeyCode::DownArrow))
+	{
+		owner.SetState(L"Duck");
 	}
 }
 
 void Walk::Enter()
 {
 	spriteAnimation->SetAnimation(L"Walk", true);
+	movement->SetSpeed(playerCtrl->moveSpeed);
 }
 
 void Walk::Update()
 {
 	using namespace InputSystem;
-
-	Vector2 dir = movement->GetDirection();
-	if (dir == Vector2::Left)
-	{
-		owner.gameObject.transform.FlipX(true);
-	}
-	else
-	{
-		owner.gameObject.transform.FlipX(false);
-	}
-
 	if ((!Input.IsKey(KeyCode::LeftArrow) && !Input.IsKey(KeyCode::RightArrow)))
 	{
 		owner.SetState(L"Idle");
+	}
+
+	if (Input.IsKey(KeyCode::LeftArrow))
+	{
+		movement->SetDirection(Vector2::Left);
+		owner.gameObject.transform.FlipX(true);
+	}
+	else if (Input.IsKey(KeyCode::RightArrow))
+	{
+		movement->SetDirection(Vector2::Right);
+		owner.gameObject.transform.FlipX(false);
+	}
+
+	if (Input.IsKeyDown(KeyCode::Z) && PlayerBomb::GetObjectCount() == 0)
+	{
+		owner.SetState(L"Attack");
+	}
+
+	if (Input.IsKey(KeyCode::DownArrow))
+	{
+		owner.SetState(L"Duck");
 	}
 }
 
 void Walk::Exit()
 {
 	movement->SetSpeed(0.f);
+}
+
+
+void Duck::Enter()
+{
+	movement->SetSpeed(0.f);
+	spriteAnimation->SetAnimation(L"Duck");
+}
+
+void Duck::Update()
+{
+	using namespace InputSystem;
+	if (Input.IsKeyUp(KeyCode::DownArrow))
+	{
+		owner.SetState(L"Idle");
+	}
+
+	if (Input.IsKeyDown(KeyCode::X))
+	{
+		owner.SetState(L"Slide");
+	}
+}
+
+
+void Slide::Enter()
+{
+	movement->SetSpeed(playerCtrl->slideSpeed);
+	spriteAnimation->SetAnimation(L"Slide");
+}
+
+void Slide::Update()
+{
+	if (spriteAnimation->CurrentClipEnd)
+	{
+		owner.SetState(L"Idle");
+		spriteAnimation->SetAnimation(L"Idle");
+	}
+}
+
+void Slide::Exit()
+{
+	movement->SetSpeed(0.f);
+}
+
+
+
+void Attack::Enter()
+{
+	movement->SetSpeed(0.f);
+	spriteAnimation->SetAnimation(L"Attack");
+}
+
+void Attack::Update()
+{
+	if (spriteAnimation->CurrentClipEnd)
+	{
+		owner.SetState(L"Idle");
+		playerCtrl->SpawnBomb();
+	}
 }

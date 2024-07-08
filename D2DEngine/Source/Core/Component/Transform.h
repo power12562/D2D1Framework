@@ -87,6 +87,7 @@ public:
 
 	/** 부모 오브젝트를 설정합니다.*/
 	void SetParent(Transform& parent);	
+	void SetParent(GameObjectBase& parent);
 	/** 부모 오브젝트를 해제합니다. 부모로 둘 대상을 인자로 넘길 수 있습니다.*/
 	void SetParent();
 	bool IsParent() { return parent; } //부모 여부 확인용
