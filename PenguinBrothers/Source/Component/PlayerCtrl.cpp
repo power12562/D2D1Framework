@@ -22,8 +22,8 @@ PlayerCtrl::~PlayerCtrl()
 
 void PlayerCtrl::Start()
 {
-	moveSpeed = 150.f;
-	slideSpeed = 300.f;
+	moveSpeed = 350.f;
+	slideSpeed = 525.f;
 	spriteAnimation = &gameObject.GetComponent<SpriteAnimation>();
 	spriteAnimation->SetAnimation(L"Spawn");
 
@@ -90,6 +90,11 @@ void PlayerCtrl::Render()
 	}
 	lstrcatW(outputText, currentStateText);
 	D2DRenderer::DrawTextW(outputText, font, { 0,0, (float)clientSize.cx, 50 });
+	
+	wchar_t playerPosWStr[30]{};
+	swprintf_s(playerPosWStr, _ARRAYSIZE(playerPosWStr), L"PlayerPos : %.02f, %.02f\n", gameObject.transform.position.x, gameObject.transform.position.y);
+	D2DRenderer::DrawTextW(playerPosWStr, font, { 0,50, (float)clientSize.cx, 100 });
+
 #endif 
 
 

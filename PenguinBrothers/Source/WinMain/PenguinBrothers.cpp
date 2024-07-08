@@ -1,7 +1,7 @@
 ﻿#include "PenguinBrothers.h"
 #include "Framework/WorldManager.h"
 
-#include "Source/Scenes/Stage1.h"
+#include "Source/Scenes/StageBase.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -10,7 +10,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    WorldManager::LoadWorld<Stage1>();
+    WorldManager::LoadWorld<StageBase>();
     app.Run();
     app.Uninitialize();
 }
