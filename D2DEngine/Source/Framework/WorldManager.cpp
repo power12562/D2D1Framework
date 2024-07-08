@@ -13,7 +13,7 @@ std::set<std::wstring> WorldManager::delNameSetList;
 
 int WorldManager::renderCount = 0;
 
-bool WorldManager::isObjectListChange = true;
+bool WorldManager::ObjListSortFlag = true;
 
 WorldManager::WorldManager()
 {
@@ -29,13 +29,13 @@ WorldManager::~WorldManager()
 void WorldManager::DelGameObject(const wchar_t* objectName)
 {
 	delNameSetList.insert(objectName);
-	isObjectListChange = true;
+	ObjListSortFlag = true;
 }
 
 void WorldManager::DelGameObject(GameObjectBase& gameObject)
 {
 	delNameSetList.insert(gameObject.name);
-	isObjectListChange = true;
+	ObjListSortFlag = true;
 }
 
 GameObjectBase* WorldManager::FindGameObject(const wchar_t* objectName)
@@ -77,15 +77,24 @@ void WorldManager::Update()
 
 bool WorldManager::ObjectRenderCompare(const GameObjectBase* a, const GameObjectBase* b)
 {
-	return a->GetType() < b->GetType();
+	OBJECT_TYPE typeA = a->GetType();
+	OBJECT_TYPE typeB = b->GetType();
+	if (typeA == typeB)
+	{
+		return a->OderLayer < b->OderLayer;
+	}
+	else
+	{
+		return typeA < typeB;
+	}	
 }
 
 void WorldManager::SortObjectList()
 {
-	if (currentWorld && isObjectListChange)
+	if (currentWorld && ObjListSortFlag)
 	{
 		currentWorld->gameObjectList.sort(WorldManager::ObjectRenderCompare);
-		isObjectListChange = false;
+		ObjListSortFlag = false;
 	}
 }
 
@@ -103,11 +112,11 @@ void WorldManager::LateUpdate()
 void WorldManager::Render()
 {
 	if (currentWorld)
-	{	
+	{		
 		if (Camera* mainCam = Camera::GetMainCamera())
 		{
-			renderCount = 0;
-			const Bounds& mainCamBounds = mainCam->gameObject.bounds; 
+			const Bounds& mainCamBounds = mainCam->gameObject.bounds;
+			renderCount = 0;		
 			for (auto& item : currentWorld->gameObjectList)
 			{
 				if (&mainCamBounds == &item->bounds) //카메라는 제외
@@ -132,16 +141,16 @@ void WorldManager::AddObjectToQList()
 	if (currentWorld && !addQueueList.empty())
 	{
 		while (!addQueueList.empty())
-		{
+		{		
 			auto& obj = addQueueList.front();
+			obj->Start();
 			if (IsGameObject(obj->name))
 			{
 				assert(!"중복되는 오브젝트 이름입니다.");
 				delete obj;
 			}
 			else
-			{
-				obj->Start();
+			{				
 				currentWorld->gameObjectList.push_back(obj);
 				currentWorld->gameObjectMap[obj->name] = std::prev(currentWorld->gameObjectList.end());
 			}		

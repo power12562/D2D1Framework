@@ -9,6 +9,7 @@ Stage1::Stage1()
 	bgPath = L"Resource/Stage/1.png";
 	GameObjectBase* backGround = WorldManager::AddGameObject(L"Background");
 	backGround->AddComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
+	backGround->OderLayer = -1;
 
 	WorldManager::AddGameObject<Player>(L"Player");
 }

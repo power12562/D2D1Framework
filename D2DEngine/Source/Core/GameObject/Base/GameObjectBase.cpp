@@ -93,6 +93,12 @@ void GameObjectBase::SetName(const wchar_t* name)
 	objName = name;
 }
 
+void GameObjectBase::SetOderLayer(int val)
+{
+	oderLayer = val;
+	WorldManager::ObjListSortFlag = true;
+}
+
 void GameObjectBase::UpdateBounds()
 {
 	bounds.center = transform.position;

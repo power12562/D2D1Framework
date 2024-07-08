@@ -36,6 +36,9 @@ public:
 	/** 실제로 Render 함수를 실행한 오브젝트 개수를 반환합니다.*/
 	static int GetRenderCount() { return renderCount; }
 
+	/** 오브젝트의 정렬이 필요할때 활성화 합니다. 정렬 후 false로 초기화됩니다.*/
+	static bool ObjListSortFlag;
+
 private:
 	WorldManager();
 	~WorldManager();
@@ -45,8 +48,6 @@ private:
 	static std::set<std::wstring> delNameSetList;
 
 	static int renderCount;
-
-	static bool isObjectListChange; //오브젝트 리스트의 변화를 감지
 
 	/** 오브젝트의 정렬 기준 (그리는 우선 순위)*/
 	static bool ObjectRenderCompare(const GameObjectBase* a, const GameObjectBase* b);
@@ -95,7 +96,7 @@ inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 	gameObject->name = objectName;
 	addQueueList.push(gameObject);
 
-	isObjectListChange = true;
+	ObjListSortFlag = true;
 	return gameObject;
 }
 
@@ -109,7 +110,7 @@ inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 	gameObject->name = objectName;
 	addQueueList.push(gameObject);
 
-	isObjectListChange = true;
+	ObjListSortFlag = true;
 	return gameObject;
 }
 
