@@ -186,5 +186,7 @@ void PlayerCtrl::UpdateAnime()
 
 void PlayerCtrl::SpawnBomb()
 {
-		WorldManager::AddGameObject<PlayerBomb>(L"Bomb")->transform.position = gameObject.transform.position;
+	GameObjectBase* bomb = WorldManager::AddGameObject<PlayerBomb>(L"Bomb");
+	bomb->transform.position = gameObject.transform.position;
+	bomb->transform.scale = gameObject.transform.scale;
 }

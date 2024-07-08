@@ -15,8 +15,8 @@ protected:
 
 private:
 	class SpriteRenderer* spriteRenderer = nullptr;
+	class SpriteAnimation* spriteAnimation = nullptr;
 
 	float elapsedTime = 0;
-	float bombTime = 1.5f;
 
 };
