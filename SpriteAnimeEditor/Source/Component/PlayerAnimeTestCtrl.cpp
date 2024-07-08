@@ -27,8 +27,8 @@ PlayerAnimeTestCtrl::~PlayerAnimeTestCtrl()
 
 void PlayerAnimeTestCtrl::Start()
 {
-	gameObject.AddComponent<SpriteAnimation>();
-	spriteAnimation = &gameObject.GetComponent<SpriteAnimation>();
+	gameObject.AddComponent<SpriteAnimationRenderer>();
+	spriteAnimation = &gameObject.GetComponent<SpriteAnimationRenderer>();
 
 
 	spriteRenderer = &gameObject.AddComponent<SpriteRenderer>();

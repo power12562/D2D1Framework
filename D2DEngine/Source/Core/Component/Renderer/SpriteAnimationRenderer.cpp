@@ -1,4 +1,4 @@
-#include "SpriteAnimation.h"
+#include "SpriteAnimationRenderer.h"
 #include "Framework/WinGameApp.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/D2DRenderer.h"
@@ -9,14 +9,14 @@
 #include <fstream>
 #include <sstream>
 
-std::map<std::wstring, AnimationClip*> SpriteAnimation::clipResourceMap;
+std::map<std::wstring, AnimationClip*> SpriteAnimationRenderer::clipResourceMap;
 
-SpriteAnimation::SpriteAnimation(GameObjectBase& gameObject) : ComponentBase(gameObject)
+SpriteAnimationRenderer::SpriteAnimationRenderer(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 
 }
 
-SpriteAnimation::~SpriteAnimation()
+SpriteAnimationRenderer::~SpriteAnimationRenderer()
 {
 	for (auto& clip : Animations)
 	{
@@ -26,7 +26,7 @@ SpriteAnimation::~SpriteAnimation()
 	Animations.clear();
 }
 
-void SpriteAnimation::LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
+void SpriteAnimationRenderer::LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter == Animations.end())
@@ -49,7 +49,7 @@ void SpriteAnimation::LoadAnimation(const wchar_t* clipPath, const wchar_t* imag
 	}
 }
 
-void SpriteAnimation::UnloadAnimation(const wchar_t* clipName)
+void SpriteAnimationRenderer::UnloadAnimation(const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter != Animations.end())
@@ -68,7 +68,7 @@ void SpriteAnimation::UnloadAnimation(const wchar_t* clipName)
 	}
 }
 
-void SpriteAnimation::SetAnimation(const wchar_t* clipName, bool isLoop)
+void SpriteAnimationRenderer::SetAnimation(const wchar_t* clipName, bool isLoop)
 {
 	this->isLoop = isLoop;
 	this->isCurrentClipEnd = isLoop;
@@ -87,7 +87,7 @@ void SpriteAnimation::SetAnimation(const wchar_t* clipName, bool isLoop)
 	}
 }
 
-const AnimationAsset* SpriteAnimation::GetCurrentAnimation()
+const AnimationAsset* SpriteAnimationRenderer::GetCurrentAnimation()
 {
 	if (currentAnimation)
 		return currentAnimation;
@@ -96,7 +96,7 @@ const AnimationAsset* SpriteAnimation::GetCurrentAnimation()
 		return nullptr;
 }
 
-FrameInfo* const SpriteAnimation::GetCurrentFrame()
+FrameInfo* const SpriteAnimationRenderer::GetCurrentFrame()
 {
 	if (currentAnimation)
 	{
@@ -108,7 +108,7 @@ FrameInfo* const SpriteAnimation::GetCurrentFrame()
 	}
 }
 
-ID2D1Bitmap* const* SpriteAnimation::GetCurrentImage()
+ID2D1Bitmap* const* SpriteAnimationRenderer::GetCurrentImage()
 {
 	if (currentAnimation)
 	{
@@ -122,7 +122,7 @@ ID2D1Bitmap* const* SpriteAnimation::GetCurrentImage()
 
 
 
-void SpriteAnimation::Update()
+void SpriteAnimationRenderer::Update()
 {
 	if (currentAnimation && (!isCurrentClipEnd || isLoop))
 	{
@@ -149,7 +149,7 @@ void SpriteAnimation::Update()
 	}
 }
 
-void SpriteAnimation::LateUpdate()
+void SpriteAnimationRenderer::LateUpdate()
 {
 	if (FrameInfo* frame = GetCurrentFrame()) //바운드 영역 애니메이션 중심 값 만큼 이동.
 	{
@@ -165,7 +165,22 @@ void SpriteAnimation::LateUpdate()
 	}
 }
 
-void SpriteAnimation::UpdateCurrentPivot()
+void SpriteAnimationRenderer::Render()
+{
+	if (ID2D1Bitmap* const* image = this->GetCurrentImage())
+	{
+		FrameInfo* const frame = this->GetCurrentFrame();
+
+		D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
+
+		int flipX = (0 < gameObject.transform.scale.x) ? 1 : -1;
+		int flipY = (0 < gameObject.transform.scale.y) ? 1 : -1;
+		objMatrix = D2D1::Matrix3x2F::Translation(flipX * frame->center.x, flipY * -frame->center.y) * objMatrix;
+		D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
+	}
+}
+
+void SpriteAnimationRenderer::UpdateCurrentPivot()
 {
 	if (FrameInfo* frame = GetCurrentFrame())
 	{
@@ -175,7 +190,7 @@ void SpriteAnimation::UpdateCurrentPivot()
 	}
 }
 
-void SpriteAnimation::SetCurrentFrameIndex(int frame)
+void SpriteAnimationRenderer::SetCurrentFrameIndex(int frame)
 {
 	if (0 <= frame && frame <= lastFrameIndex)
 	{
@@ -184,7 +199,7 @@ void SpriteAnimation::SetCurrentFrameIndex(int frame)
 	}
 }
 
-AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* filePath)
+AnimationClip* SpriteAnimationRenderer::CreateAnimationClipFromFile(const wchar_t* filePath)
 {
 	auto iter = clipResourceMap.find(filePath);
 	if (iter != clipResourceMap.end())
@@ -193,19 +208,19 @@ AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* fileP
 		return iter->second; //기존에 있던 리소스 반환
 	}
 
-	//csv 파싱 로직
+	//csv 파싱 로직 예정
 	std::wifstream file(filePath);
 	if (!file.is_open()) 
 	{
 		wchar_t message[100];
 		swprintf_s(message, _ARRAYSIZE(message), L"%s 경로를 찾을수 없습니다.", filePath);
-		MessageBox(WinGameApp::GetHwnd(), message, L"SpriteAnimation Load Error", MB_OK);
+		MessageBox(WinGameApp::GetHwnd(), message, L"SpriteAnimationRenderer Load Error", MB_OK);
 		return nullptr;
 	}
 	AnimationClip* newClip = new AnimationClip;
 	if(newClip == nullptr)
 	{
-		MessageBox(WinGameApp::GetHwnd(), L"메모리 할당 실패", L"SpriteAnimation Load Error", MB_OK);
+		MessageBox(WinGameApp::GetHwnd(), L"메모리 할당 실패", L"SpriteAnimationRenderer Load Error", MB_OK);
 		return nullptr; //할당 실패
 	}	
 	std::wstring line;			// 한줄의 문자열
@@ -245,7 +260,7 @@ AnimationClip* SpriteAnimation::CreateAnimationClipFromFile(const wchar_t* fileP
 	return newClip;
 }
 
-void SpriteAnimation::ReleaseAnimationClip(const wchar_t* filePath)
+void SpriteAnimationRenderer::ReleaseAnimationClip(const wchar_t* filePath)
 {
 	auto iter = clipResourceMap.find(filePath);
 	if (iter != clipResourceMap.end())

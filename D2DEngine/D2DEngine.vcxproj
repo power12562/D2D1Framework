@@ -24,7 +24,7 @@
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
     <ClCompile Include="Source\Core\Component\Camera.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\LineRenderer.cpp" />
-    <ClCompile Include="Source\Core\Component\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\TextRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Transform.cpp" />
@@ -49,7 +49,7 @@
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
     <ClInclude Include="Source\Core\Component\Camera.h" />
     <ClInclude Include="Source\Core\Component\Renderer\LineRenderer.h" />
-    <ClInclude Include="Source\Core\Component\SpriteAnimation.h" />
+    <ClInclude Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\TextRenderer.h" />
     <ClInclude Include="Source\Core\Component\Transform.h" />

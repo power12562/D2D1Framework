@@ -18,7 +18,7 @@ struct FrameInfo //프레임 정보
 
 class AnimationClip : public ReferenceCounter  //애니메이션 클립
 {
-	friend class SpriteAnimation; //SpriteAnimationRender를 통해서만 객체 생성 가능
+	friend class SpriteAnimationRenderer; //SpriteAnimationRender를 통해서만 객체 생성 가능
 public:
 	std::vector<FrameInfo> frames; //프레임 모음
 private:
@@ -39,7 +39,7 @@ struct AnimationAsset
 	ID2D1Bitmap* const* image = nullptr;
 };
 
-class SpriteAnimation : public ComponentBase
+class SpriteAnimationRenderer : public ComponentBase
 {
 private:
 
@@ -62,8 +62,8 @@ private:
 	static void ReleaseAnimationClip(const wchar_t* filePath);
 
 public:
-	SpriteAnimation(GameObjectBase& gameObject);
-	virtual ~SpriteAnimation() override;
+	SpriteAnimationRenderer(GameObjectBase& gameObject);
+	virtual ~SpriteAnimationRenderer() override;
 
 	/** 해당 경로의 애니메이션 클립 파일 로드*/
 	void LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
@@ -105,5 +105,6 @@ public:
 protected:
 	virtual void Update() override;
 	virtual void LateUpdate() override;
+	virtual void Render() override;
 
 };

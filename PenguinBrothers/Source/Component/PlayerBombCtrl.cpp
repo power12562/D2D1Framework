@@ -3,8 +3,7 @@
 #include "Framework/TimeSystem.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
-#include "Core/Component/Renderer/SpriteRenderer.h"
-#include "Core/Component/SpriteAnimation.h"
+#include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 
 PlayerBombCtrl::PlayerBombCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -18,12 +17,9 @@ PlayerBombCtrl::~PlayerBombCtrl()
 
 void PlayerBombCtrl::Start()
 {
-	spriteAnimation = &gameObject.AddComponent<SpriteAnimation>();
+	spriteAnimation = &gameObject.AddComponent<SpriteAnimationRenderer>();
 	spriteAnimation->LoadAnimation(L"Resource/bomb/bomb.txt", L"Resource/bomb/blue/bomb.png", L"bomb");
 	spriteAnimation->SetAnimation(L"bomb");
-
-	spriteRenderer = &gameObject.AddComponent<SpriteRenderer>();
-	spriteRenderer->SetSpriteAnimation(*spriteAnimation);
 }
 
 void PlayerBombCtrl::Update()

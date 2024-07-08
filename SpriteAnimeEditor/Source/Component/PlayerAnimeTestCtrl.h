@@ -7,7 +7,7 @@
 
 class PlayerAnimeTestCtrl : public ComponentBase
 {
-	class SpriteAnimation* spriteAnimation;
+	class SpriteAnimationRenderer* spriteAnimation;
 	class SpriteRenderer* spriteRenderer;
 	class DebugUICtrl* debugUI;
 public:

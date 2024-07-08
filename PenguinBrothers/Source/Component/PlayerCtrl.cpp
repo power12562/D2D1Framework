@@ -6,7 +6,7 @@
 #include "Framework/WorldManager.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
-#include "Core/Component/SpriteAnimation.h"
+#include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 
 #include "Source/GameObject/PlayerBomb.h"
 
@@ -24,7 +24,7 @@ void PlayerCtrl::Start()
 {
 	moveSpeed = 350.f;
 	slideSpeed = 525.f;
-	spriteAnimation = &gameObject.GetComponent<SpriteAnimation>();
+	spriteAnimation = &gameObject.GetComponent<SpriteAnimationRenderer>();
 	spriteAnimation->SetAnimation(L"Spawn");
 
 	gameObject.transform.position += Vector2(0.f, -25.f);

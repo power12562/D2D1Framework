@@ -13,7 +13,7 @@
     <ClCompile Include="Source\Core\Component\Base\ComponentBase.cpp" />
     <ClCompile Include="Source\Framework\WorldManager.cpp" />
     <ClCompile Include="Source\Core\Scene\WorldBase.cpp" />
-    <ClCompile Include="Source\Core\Component\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.cpp" />
     <ClCompile Include="Source\Framework\ReferenceCounter.cpp" />
     <ClCompile Include="Source\Core\Component\Camera.cpp" />
     <ClCompile Include="Source\Core\GameObject\MainCamera.cpp" />
@@ -38,7 +38,7 @@
     <ClInclude Include="Source\Core\Component\Base\ComponentBase.h" />
     <ClInclude Include="Source\Framework\WorldManager.h" />
     <ClInclude Include="Source\Core\Scene\WorldBase.h" />
-    <ClInclude Include="Source\Core\Component\SpriteAnimation.h" />
+    <ClInclude Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.h" />
     <ClInclude Include="Source\Framework\ReferenceCounter.h" />
     <ClInclude Include="Source\Core\Component\Camera.h" />
     <ClInclude Include="Source\Core\GameObject\MainCamera.h" />

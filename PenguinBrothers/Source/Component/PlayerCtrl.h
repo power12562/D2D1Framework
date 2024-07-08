@@ -5,7 +5,7 @@
 
 class PlayerCtrl : public ComponentBase
 {
-	class SpriteAnimation* spriteAnimation;
+	class SpriteAnimationRenderer* spriteAnimation;
 public:
 	enum class State
 	{
