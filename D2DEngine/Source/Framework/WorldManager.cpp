@@ -6,6 +6,7 @@
 #include "Core/Component/Camera.h"
 
 #include <vector>
+#include <cassert>
 
 WorldBase* WorldManager::currentWorld = nullptr;
 std::queue<GameObjectBase*> WorldManager::addQueueList;
