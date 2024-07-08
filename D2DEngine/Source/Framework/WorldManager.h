@@ -5,7 +5,6 @@
 #include <iostream>
 #include <queue>
 #include <set>
-#include <cassert>
 
 class WorldManager
 {
