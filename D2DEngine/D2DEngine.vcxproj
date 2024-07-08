@@ -23,6 +23,9 @@
     <ClCompile Include="Source\Core\Component\Base\ComponentBase.cpp" />
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
     <ClCompile Include="Source\Core\Component\Camera.cpp" />
+    <ClCompile Include="Source\Core\Component\FSM\FiniteStateMachine.cpp" />
+    <ClCompile Include="Source\Core\Component\FSM\FSMState.cpp" />
+    <ClCompile Include="Source\Core\Component\Movement.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\LineRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\SpriteRenderer.cpp" />
@@ -48,6 +51,9 @@
     <ClInclude Include="Source\Core\Component\Base\ComponentBase.h" />
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
     <ClInclude Include="Source\Core\Component\Camera.h" />
+    <ClInclude Include="Source\Core\Component\FSM\FiniteStateMachine.h" />
+    <ClInclude Include="Source\Core\Component\FSM\FSMState.h" />
+    <ClInclude Include="Source\Core\Component\Movement.h" />
     <ClInclude Include="Source\Core\Component\Renderer\LineRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -67,9 +73,6 @@
     <ClInclude Include="Source\Math\Mathf.h" />
     <ClInclude Include="Source\Utility\WinUtility.h" />
     <ClInclude Include="Source\Vector\Vector2.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -24,6 +24,9 @@
     <ClCompile Include="Source\Core\GameObject\Base\GameObjectCamera.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\LineRenderer.cpp" />
     <ClCompile Include="Source\Utility\WinUtility.cpp" />
+    <ClCompile Include="Source\Core\Component\Movement.cpp" />
+    <ClCompile Include="Source\Core\Component\FSM\FiniteStateMachine.cpp" />
+    <ClCompile Include="Source\Core\Component\FSM\FSMState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -49,8 +52,8 @@
     <ClInclude Include="Source\Core\GameObject\Base\GameObjectCamera.h" />
     <ClInclude Include="Source\Core\Component\Renderer\LineRenderer.h" />
     <ClInclude Include="Source\Utility\WinUtility.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="Source\Core\Component\Movement.h" />
+    <ClInclude Include="Source\Core\Component\FSM\FiniteStateMachine.h" />
+    <ClInclude Include="Source\Core\Component\FSM\FSMState.h" />
   </ItemGroup>
 </Project>

@@ -2,23 +2,12 @@
 #include "Vector/Vector2.h"
 
 #include "Core/Component/Base/ComponentBase.h"
+#include "Core/Component/FSM/FSMState.h"
 
 class PlayerCtrl : public ComponentBase
 {
-	class SpriteAnimationRenderer* spriteAnimation;
+	class Movement* movement;
 public:
-	enum class State
-	{
-		Spawn,
-		Idle,
-		Duck,
-		Walk,
-		Jump,
-		Slide,
-		Attack,
-		Dead
-	};
-
 	PlayerCtrl(GameObjectBase& gameObject);
 	virtual ~PlayerCtrl();
 
@@ -29,12 +18,8 @@ protected:
 
 private:
 	Vector2 dir = Vector2::Right;
-	State playerState;
-	State animeState;
 	float moveSpeed;
 	float slideSpeed;
-	void SetState(State state);
-	void UpdateState();
-	void UpdateAnime();
 	void SpawnBomb();
 };
+
