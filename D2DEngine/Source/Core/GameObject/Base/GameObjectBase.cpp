@@ -10,7 +10,6 @@
 GameObjectBase::GameObjectBase()
 {
 	pTransform = new Transform(*this);
-
 }
 
 GameObjectBase::~GameObjectBase()
@@ -32,19 +31,16 @@ void GameObjectBase::Start()
 	{
 		component->Start();
 	}
-	pTransform->Start();
 }
 
 void GameObjectBase::Update()
 {
-	UpdateBounds();
 	if (enable)
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->Update();
 		}
-	pTransform->Update();
 }
 
 void GameObjectBase::LateUpdate()
@@ -55,7 +51,6 @@ void GameObjectBase::LateUpdate()
 			if (component->enabled)
 				component->LateUpdate();
 		}
-	pTransform->LateUpdate();
 }
 
 void GameObjectBase::Render()
@@ -66,7 +61,6 @@ void GameObjectBase::Render()
 			if (component->enabled)
 				component->Render();
 		}
-	pTransform->Render();
 }
 
 

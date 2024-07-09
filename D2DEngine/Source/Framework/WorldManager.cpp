@@ -110,6 +110,22 @@ void WorldManager::LateUpdate()
 	}
 }
 
+void WorldManager::UpdateMatrix()
+{
+	for (auto& item : currentWorld->gameObjectList)
+	{
+		item->transform.UpdateMatrix();
+	}
+}
+
+void WorldManager::UpdateBouds()
+{
+	for (auto& item : currentWorld->gameObjectList)
+	{
+		item->UpdateBounds();
+	}
+}
+
 void WorldManager::Render()
 {
 	if (currentWorld)

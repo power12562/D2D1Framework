@@ -33,13 +33,15 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 	pivot.InitTVector2(this);
 	PM = Matrix3x2F::Identity();
 	IPM = Matrix3x2F::Identity();
+
 }
 
 Transform::~Transform()
 {
+	
 }
 
-void Transform::Update()
+void Transform::UpdateMatrix()
 {
 	if (parent == nullptr)
 	{
@@ -53,11 +55,6 @@ void Transform::Update()
 			UpdateWorldMatrix();
 		}
 	}
-}
-
-void Transform::Render()
-{
-
 }
 
 void Transform::UpdateChildTransform()

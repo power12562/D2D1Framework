@@ -11,10 +11,12 @@
 #include <sstream>
 
 std::map<std::wstring, AnimationClip*> SpriteAnimationRenderer::clipResourceMap;
+std::list<SpriteAnimationRenderer*> SpriteAnimationRenderer::instanceList;
 
 SpriteAnimationRenderer::SpriteAnimationRenderer(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
-
+	instanceList.push_back(this);
+	myIter = std::prev(instanceList.end()); //자신의 이터레이터를 변수로 기억
 }
 
 SpriteAnimationRenderer::~SpriteAnimationRenderer()
@@ -25,6 +27,7 @@ SpriteAnimationRenderer::~SpriteAnimationRenderer()
 		D2DRenderer::ReleaseD2D1Bitmap(clip.second.imagePath.c_str());
 	}
 	Animations.clear();
+	instanceList.erase(myIter);
 }
 
 void SpriteAnimationRenderer::LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
@@ -122,7 +125,6 @@ ID2D1Bitmap* const* SpriteAnimationRenderer::GetCurrentImage()
 }
 
 
-
 void SpriteAnimationRenderer::Update()
 {
 	if (currentAnimation && (!isCurrentClipEnd || isLoop))
@@ -155,21 +157,6 @@ void SpriteAnimationRenderer::Update()
 	}
 }
 
-void SpriteAnimationRenderer::LateUpdate()
-{
-	if (FrameInfo* frame = GetCurrentFrame()) //바운드 영역 애니메이션 중심 값 만큼 이동.
-	{
-		Bounds& bounds = gameObject.bounds;
-		bounds.center.x += frame->center.x;
-		bounds.center.y += frame->center.y;
-
-		bounds.leftTop.x += frame->center.x;
-		bounds.leftTop.y += frame->center.y;
-
-		bounds.rightBottom.x += frame->center.x;;
-		bounds.rightBottom.y += frame->center.y;
-	}
-}
 
 void SpriteAnimationRenderer::Render()
 {
@@ -178,10 +165,6 @@ void SpriteAnimationRenderer::Render()
 		FrameInfo* const frame = this->GetCurrentFrame();
 
 		D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
-
-		int flipX = (0 < gameObject.transform.scale.x) ? 1 : -1;
-		int flipY = (0 < gameObject.transform.scale.y) ? 1 : -1;
-		objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, flipY * -frame->center.y) * objMatrix;
 		D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
 	}
 }
@@ -203,6 +186,21 @@ void SpriteAnimationRenderer::SetCurrentFrameIndex(int frame)
 		currentFrame = frame;
 		UpdateCurrentPivot();
 	}
+}
+
+void SpriteAnimationRenderer::SetRenderPos()
+{
+	originPos = gameObject.transform.position;
+	if (FrameInfo* const frame = this->GetCurrentFrame())
+	{
+		renderPos = originPos + Vector2(frame->center.x * gameObject.transform.scale.x, frame->center.y * gameObject.transform.scale.y);
+		gameObject.transform.position = renderPos;
+	}
+}
+
+void SpriteAnimationRenderer::SetOriginPos()
+{
+	gameObject.transform.position = originPos;
 }
 
 AnimationClip* SpriteAnimationRenderer::CreateAnimationClipFromFile(const wchar_t* filePath)
@@ -276,6 +274,22 @@ void SpriteAnimationRenderer::ReleaseAnimationClip(const wchar_t* filePath)
 		{
 			clipResourceMap.erase(iter);
 		}
+	}
+}
+
+void SpriteAnimationRenderer::BegineRender()
+{
+	for (auto& componet : instanceList)
+	{
+		componet->SetRenderPos();
+	}
+}
+
+void SpriteAnimationRenderer::EndRender()
+{
+	for (auto& componet : instanceList)
+	{
+		componet->SetOriginPos();
 	}
 }
 

@@ -16,6 +16,7 @@ enum class OBJECT_TYPE
 
 class GameObjectBase
 {
+	friend class WorldManager;
 protected: 
 	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;
 

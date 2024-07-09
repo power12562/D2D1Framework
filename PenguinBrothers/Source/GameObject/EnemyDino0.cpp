@@ -13,7 +13,6 @@ EnemyDino0::EnemyDino0()
 	transform.scale = Vector2(4.0f, 4.0f);
 
 	AddComponent<EnemyDino0Ctrl>();
-
 	AddComponent<Movement>();
 	auto& animationRenderer = AddComponent<SpriteAnimationRenderer>();
 	const wchar_t* dinoPngPath = L"Resource/Enemy/Dino0/EnemyDino0.png";
@@ -121,9 +120,9 @@ EnemyAttack::EnemyAttack(FiniteStateMachine& _owner, const wchar_t* _name) : Ene
 
 void EnemyAttack::Enter()
 {
+	attackSpawn = false;
 	movement->SetSpeed(0.f);
 	animationRenderer->SetAnimation(L"Attack");
-	dinoCtrl->SpawnFire();
 }
 
 void EnemyAttack::Update()
@@ -131,5 +130,10 @@ void EnemyAttack::Update()
 	if (animationRenderer->CurrentClipEnd)
 	{
 		owner.SetState(L"Idle");
+	}
+	if (!attackSpawn && animationRenderer->CurrentFrameIndex == 2)
+	{
+		dinoCtrl->SpawnFire();
+		attackSpawn = true;
 	}
 }

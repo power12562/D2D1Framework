@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Component/Base/ComponentBase.h"
 #include "Framework/ReferenceCounter.h"
+#include "Vector/Vector2.h"
+
 #include <list>
 #include <unordered_map>
 #include <map>
@@ -41,6 +43,12 @@ struct AnimationAsset
 
 class SpriteAnimationRenderer : public ComponentBase
 {
+	friend class WinGameApp;
+	Vector2 originPos;
+	Vector2 renderPos;
+
+	/** 소멸자에서 사용되는 이터레이터*/
+	std::list<SpriteAnimationRenderer*>::iterator myIter;
 private:
 
 	AnimationAsset* currentAnimation = nullptr; //현재 선택된 애니메이션
@@ -53,13 +61,27 @@ private:
 	/**애니메이션 에셋 모음 <이름, <경로, 클립, 이미지>*/
 	std::unordered_map<std::wstring, AnimationAsset> Animations;
 
+	void SetRenderPos();
+	void SetOriginPos();
+
 	//static :
+
 	/**리소스 공유용 맵 <경로, 클립>*/
 	static std::map<std::wstring, AnimationClip*> clipResourceMap;
 	/** 중복 체크 후 애니메이션 리소스 생성*/
 	static AnimationClip* CreateAnimationClipFromFile(const wchar_t* filePath);
 	/** 안전한 애니메이션 리소스 제거*/
 	static void ReleaseAnimationClip(const wchar_t* filePath);
+
+	/** 생성된 컴포넌트 리스트*/
+	static std::list<SpriteAnimationRenderer*> instanceList;
+
+#pragma region WinGameApp->Run()루프에서만 호출하는 함수들
+	/** 그리기 위해 위치를 조정*/
+	static void BegineRender();
+	/** 그린 이후 위치를 원복 위치를 조정*/
+	static void EndRender();
+#pragma endregion
 
 public:
 	SpriteAnimationRenderer(GameObjectBase& gameObject);
@@ -102,9 +124,12 @@ public:
 	/** 재생할 프레임 선택*/
 	void SetCurrentFrameIndex(int frame);
 
+
+
 protected:
+	//virtual void Start() override;
 	virtual void Update() override;
-	virtual void LateUpdate() override;
+	//virtual void LateUpdate() override;
 	virtual void Render() override;
 
 };

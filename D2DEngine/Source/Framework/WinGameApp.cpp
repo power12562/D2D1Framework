@@ -3,7 +3,9 @@
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
 #include "Framework/WorldManager.h"
-#include "Core/Component/Renderer/SpriteRenderer.h"
+
+#include "Core/Component/Transform.h"
+#include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Camera.h"
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
@@ -78,12 +80,23 @@ void WinGameApp::Run()
 			Input.UpdateMouse();
 
 			WorldManager::SortObjectList();
-			Update();		
-			LateUpdate();
+
+			WorldManager::Update();
+			WorldManager::LateUpdate();
+
+			SpriteAnimationRenderer::BegineRender();
+
+			WorldManager::UpdateMatrix();
+			WorldManager::UpdateBouds();
+			
 			D2DRenderer::BeginDraw();
 			D2DRenderer::Clear(bgColor);
-			Render();
+
+			WorldManager::Render();
+
 			D2DRenderer::EndDraw();
+
+			SpriteAnimationRenderer::EndRender();
 			
 			WorldManager::AddObjectToQList();
 			WorldManager::DelObjectToSetList();
@@ -98,24 +111,6 @@ void WinGameApp::Run()
 	}	
 }
 
-#pragma region WinGameApp->Run() 게임 루프에서 호출되는 함수들.
-
-void WinGameApp::Update()
-{
-	WorldManager::Update();
-}
-
-void WinGameApp::LateUpdate()
-{
-	WorldManager::LateUpdate();
-}
-
-void WinGameApp::Render()
-{
-	WorldManager::Render();
-}
-
-#pragma endregion
 
 void WinGameApp::WinToScrrenCenter(HWND hwnd)
 {

@@ -10,6 +10,7 @@ class D2D1::Matrix3x2F;
 
 class Transform : public ComponentBase
 {
+	friend class WorldManager;
 	friend class GameObjectBase;
 	friend class Camera;
 
@@ -107,13 +108,13 @@ public:
 	/** 현재 좌우반전 여부. 읽기 전용*/
 	__declspec(property(get = IsFlipY)) bool flipY;
 
-protected:
-	virtual void Update() override;
-	virtual void Render() override;
-
 private:
 	Transform* parent{};
 	std::list<Transform*> childsList;
+
+	/** 매트릭스를 계산 합니다. WorldManager에서 호출합니다.*/
+	void UpdateMatrix();
+
 	void UpdateChildTransform();
 	void UpdateWorldMatrix();
 

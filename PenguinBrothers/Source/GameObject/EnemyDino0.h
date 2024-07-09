@@ -58,6 +58,7 @@ protected:
 class EnemyAttack : public EnemyState
 {
 	class EnemyDino0Ctrl* dinoCtrl = nullptr;
+	bool attackSpawn;
 public:
 	EnemyAttack(FiniteStateMachine& _owner, const wchar_t* _name);
 protected:
