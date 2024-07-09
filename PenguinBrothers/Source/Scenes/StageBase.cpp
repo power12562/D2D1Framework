@@ -3,6 +3,7 @@
 #include "Core/Component/Renderer/SpriteRenderer.h"
 
 #include "Source/GameObject/Player.h"
+#include "Source/GameObject/EnemyDino0.h"
 
 StageBase::StageBase()
 {
@@ -15,6 +16,9 @@ StageBase::StageBase()
 
 	GameObjectBase* player = WorldManager::AddGameObject<Player>(L"Player");
 	player->transform.position = playerSpawnPos;
+
+	GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"Dino");
+	dino->transform.position = Vector2(0.f, -195.f);
 }
 
 StageBase::~StageBase()

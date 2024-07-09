@@ -13,6 +13,7 @@
     <ClCompile Include="Source\Component\PlayerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\PlayerBomb.cpp" />
     <ClCompile Include="Source\Component\PlayerBombCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\EnemyDino0.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
@@ -21,5 +22,6 @@
     <ClInclude Include="Source\Component\PlayerCtrl.h" />
     <ClInclude Include="Source\GameObject\PlayerBomb.h" />
     <ClInclude Include="Source\Component\PlayerBombCtrl.h" />
+    <ClInclude Include="Source\GameObject\EnemyDino0.h" />
   </ItemGroup>
 </Project>
