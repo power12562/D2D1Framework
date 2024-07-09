@@ -39,7 +39,7 @@ void PlayerCtrl::Start()
 	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
 
 	fsm = &gameObject.GetComponent<FiniteStateMachine>();
-#endif // _DEBUG
+#endif
 }
 
 void PlayerCtrl::Update()

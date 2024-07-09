@@ -16,20 +16,52 @@ class EnemyState : public FSMState
 {
 public:
 	EnemyState(FiniteStateMachine& _owner, const wchar_t* _name);
-	GameObjectBase* player;
 protected:
+	float trackingDis;
+	float attackDis;
+	static GameObjectBase* player;
 	class Movement* movement;
 	class SpriteAnimationRenderer* animationRenderer;
+};
 
+class EnemySpawn : public EnemyState
+{
+public:
+	EnemySpawn(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
+protected:
+	virtual void Enter() override {}
+	virtual void Update() override;
+	virtual void Exit() override {}
 };
 
 class EnemyIdle : public EnemyState
 {
-	const float playerTrackingDis = 200.f;
 public:
 	EnemyIdle(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
 protected:
 	virtual void Enter() override;
 	virtual void Update() override;
-	virtual void Exit() override;
+	virtual void Exit() override {}
+};
+
+class EnemyTracking : public EnemyState
+{
+	Vector2 dir;
+public:
+	EnemyTracking(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
+protected:
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
+};
+
+class EnemyAttack : public EnemyState
+{
+public:
+	EnemyAttack(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
+protected:
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
+
 };
