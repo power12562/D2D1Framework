@@ -5,7 +5,8 @@
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 
-#include <iostream>
+#include <ios>
+#include <istream>
 #include <fstream>
 #include <sstream>
 
@@ -126,6 +127,11 @@ void SpriteAnimationRenderer::Update()
 {
 	if (currentAnimation && (!isCurrentClipEnd || isLoop))
 	{
+		if (0 >= currentAnimation->clip->frames[currentFrame].frameIntervalTime)
+		{
+			assert(!"잘못된 프레임 시간 간격 입니다.");
+		}
+
 		elapsedTime += TimeSystem::Time.GetDeltatime();
 		while (elapsedTime > currentAnimation->clip->frames[currentFrame].frameIntervalTime)
 		{
@@ -175,7 +181,7 @@ void SpriteAnimationRenderer::Render()
 
 		int flipX = (0 < gameObject.transform.scale.x) ? 1 : -1;
 		int flipY = (0 < gameObject.transform.scale.y) ? 1 : -1;
-		objMatrix = D2D1::Matrix3x2F::Translation(flipX * frame->center.x, flipY * -frame->center.y) * objMatrix;
+		objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, flipY * -frame->center.y) * objMatrix;
 		D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
 	}
 }

@@ -9,6 +9,8 @@
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/FSM/FSMState.h>
 
+#include <Source/GameObject/EnemyDino0Attack.h>
+
 
 EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -16,6 +18,16 @@ EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameO
 
 EnemyDino0Ctrl::~EnemyDino0Ctrl()
 {
+}
+
+void EnemyDino0Ctrl::SpawnFire()
+{
+	GameObjectBase* fire = WorldManager::AddGameObject<EnemyDino0Attack>(L"DinoAttack");
+	fire->transform.FlipX(gameObject.transform.flipX);
+	fire->transform.position = gameObject.transform.position;
+	
+	float dir = gameObject.transform.flipX ? 1.f : -1.f;
+	fire->transform.position += Vector2(dir * 110.f, 33.f);
 }
 
 void EnemyDino0Ctrl::Start()
@@ -30,10 +42,10 @@ void EnemyDino0Ctrl::Start()
 	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
 
 	fsm = &gameObject.GetComponent<FiniteStateMachine>();
-#endif // _DEBUG
-
-
+#endif 
 	gameObject.transform.position += Vector2(0.f, -9.f);
+
+	
 
 }
 
@@ -47,6 +59,8 @@ void EnemyDino0Ctrl::Update()
 		stateDebugText->Text += state->GetName();
 	}								   
 #endif 
+
+
 }
 
 void EnemyDino0Ctrl::LateUpdate()

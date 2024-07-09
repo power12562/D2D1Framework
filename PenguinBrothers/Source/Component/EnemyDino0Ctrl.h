@@ -9,6 +9,7 @@ public:
 	EnemyDino0Ctrl(GameObjectBase& gameObject);
 	virtual ~EnemyDino0Ctrl();
 
+	void SpawnFire();
 protected:
 	virtual void Start();
 	virtual void Update();

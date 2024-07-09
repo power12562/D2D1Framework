@@ -143,20 +143,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\EnemyDino0AttackCtrl.cpp" />
     <ClCompile Include="Source\Component\EnemyDino0Ctrl.cpp" />
     <ClCompile Include="Source\Component\PlayerBombCtrl.cpp" />
     <ClCompile Include="Source\Component\PlayerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\EnemyDino0.cpp" />
+    <ClCompile Include="Source\GameObject\EnemyDino0Attack.cpp" />
     <ClCompile Include="Source\GameObject\Player.cpp" />
     <ClCompile Include="Source\GameObject\PlayerBomb.cpp" />
     <ClCompile Include="Source\Scenes\StageBase.cpp" />
     <ClCompile Include="Source\WinMain\PenguinBrothers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component\EnemyDino0AttackCtrl.h" />
     <ClInclude Include="Source\Component\EnemyDino0Ctrl.h" />
     <ClInclude Include="Source\Component\PlayerBombCtrl.h" />
     <ClInclude Include="Source\Component\PlayerCtrl.h" />
     <ClInclude Include="Source\GameObject\EnemyDino0.h" />
+    <ClInclude Include="Source\GameObject\EnemyDino0Attack.h" />
     <ClInclude Include="Source\GameObject\Player.h" />
     <ClInclude Include="Source\GameObject\PlayerBomb.h" />
     <ClInclude Include="Source\Scenes\StageBase.h" />

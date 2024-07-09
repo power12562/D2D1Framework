@@ -57,8 +57,9 @@ protected:
 
 class EnemyAttack : public EnemyState
 {
+	class EnemyDino0Ctrl* dinoCtrl = nullptr;
 public:
-	EnemyAttack(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
+	EnemyAttack(FiniteStateMachine& _owner, const wchar_t* _name);
 protected:
 	virtual void Enter() override;
 	virtual void Update() override;

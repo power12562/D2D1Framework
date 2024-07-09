@@ -114,10 +114,16 @@ void EnemyTracking::Update()
 }
 
 
+EnemyAttack::EnemyAttack(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name)
+{
+	dinoCtrl = &owner.gameObject.GetComponent<EnemyDino0Ctrl>();
+}
+
 void EnemyAttack::Enter()
 {
 	movement->SetSpeed(0.f);
 	animationRenderer->SetAnimation(L"Attack");
+	dinoCtrl->SpawnFire();
 }
 
 void EnemyAttack::Update()
