@@ -80,22 +80,16 @@ void WinGameApp::Run()
 			Input.UpdateMouse();
 
 			WorldManager::SortObjectList();
-
 			WorldManager::Update();
 			WorldManager::LateUpdate();
 
 			SpriteAnimationRenderer::BegineRender();
-
 			WorldManager::UpdateMatrix();
-			WorldManager::UpdateBouds();
-			
+			WorldManager::UpdateBouds();	
 			D2DRenderer::BeginDraw();
 			D2DRenderer::Clear(bgColor);
-
 			WorldManager::Render();
-
 			D2DRenderer::EndDraw();
-
 			SpriteAnimationRenderer::EndRender();
 			
 			WorldManager::AddObjectToQList();

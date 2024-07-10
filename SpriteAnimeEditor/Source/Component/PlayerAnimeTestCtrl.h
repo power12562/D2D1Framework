@@ -23,4 +23,10 @@ private:
 	std::wstring currentAniPath;
 	std::wstring currentImagePath;
 
+	void SelCurrentImage();
+	void SelCurrentAni();
+
+	void SaveAsCurrentAniToFile();
+	void PauseAndPlayAni();
+	void ReloadAnimation();
 };

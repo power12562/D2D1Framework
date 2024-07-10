@@ -1,5 +1,6 @@
 #include "PlayerAnimeTestCtrl.h"
 #include "Utility/WinUtility.h"
+#include "Utility/FileIO.h"
 
 #include "Framework/InputSystem.h"
 #include "Framework/TimeSystem.h"
@@ -35,60 +36,36 @@ void PlayerAnimeTestCtrl::Start()
 
 	debugUI = &WorldManager::FindGameObject(L"DebugUI")->GetComponent<DebugUICtrl>();
 
-	debugUI->Line.resize(7);
+	debugUI->Line.resize(8);
 }
 
 void PlayerAnimeTestCtrl::Update()
 {
 	using namespace TimeSystem;
 	using namespace InputSystem;
+
 	if (Input.IsKeyDown(KeyCode::F1))
 	{
-		std::wstring inputPath = WinUtility::GetFilePath(L"png");
-		if (L"" != inputPath)
-		{
-			currentImagePath = inputPath;
-			if (!currentAniPath.empty())
-			{
-				if(spriteAnimation->GetCurrentAnimation())
-					spriteAnimation->UnloadAnimation(L"set");
-				spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
-				spriteAnimation->SetAnimation(L"set", true);
-			}		
-		}	
+		SelCurrentImage();
 	}
 	if (Input.IsKeyDown(KeyCode::F2))
 	{
-		std::wstring inputPath = WinUtility::GetFilePath(L"txt");
-		if (L"" != inputPath)
-		{
-			currentAniPath = inputPath;
-			if (!currentImagePath.empty())
-			{
-				if (spriteAnimation->GetCurrentAnimation())
-					spriteAnimation->UnloadAnimation(L"set");
-				spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
-				spriteAnimation->SetAnimation(L"set", true);			
-			}		
-		}
+		SelCurrentAni();
 	}
+	if (Input.IsKeyDown(KeyCode::F4))
+	{
+		SaveAsCurrentAniToFile();
+	}
+
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
-		Time.timeScale = Time.timeScale == 0 ? 1.f : 0.f;
+		PauseAndPlayAni();
 	}
 	if (Input.IsKeyDown(KeyCode::R))
 	{
-		//다시 로드
-		if (!currentAniPath.empty() && !currentImagePath.empty())
-		{
-			int currentIndex = spriteAnimation->CurrentFrameIndex;
-			if (spriteAnimation->GetCurrentAnimation())
-				spriteAnimation->UnloadAnimation(L"set");
-			spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
-			spriteAnimation->SetAnimation(L"set", true);
-			spriteAnimation->CurrentFrameIndex = currentIndex;
-		}
+		ReloadAnimation();
 	}
+
 	bool isShift = Input.IsKey(KeyCode::Shift);
 	if (Input.IsKeyDown(KeyCode::LeftArrow))
 	{		
@@ -121,9 +98,10 @@ void PlayerAnimeTestCtrl::Update()
 		gameObject.transform.FlipY();
 	}
 
-	debugUI->Line[0] = std::wstring(L"Image : ") + currentImagePath + L" (F1)";
-	debugUI->Line[1] = std::wstring(L"AniClip : ") + currentAniPath + L" (F2)";
-	debugUI->Line[2] = std::wstring(L"CurrentFrame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);
+	debugUI->Line[0] = L"F1 : OpenImage, F2 : OpenAni, F4 : Save As";
+	debugUI->Line[1] = std::wstring(L"Image : ") + currentImagePath + L" (F1)";
+	debugUI->Line[2] = std::wstring(L"AniClip : ") + currentAniPath + L" (F2)";
+	debugUI->Line[3] = std::wstring(L"CurrentFrame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);
 
 	wchar_t aniCenterWString[30]{L"center :"};
 	if (FrameInfo* frame = spriteAnimation->GetCurrentFrame())
@@ -131,22 +109,22 @@ void PlayerAnimeTestCtrl::Update()
 		const D2D1_VECTOR_2F& aniCenter = frame->center;
 		swprintf_s(aniCenterWString, _ARRAYSIZE(aniCenterWString), L"center : %01.f, %01.f", aniCenter.x, aniCenter.y);
 	}
-	debugUI->Line[3] = aniCenterWString;
+	debugUI->Line[4] = aniCenterWString;
 	
 	wchar_t camPosWString[30]{};
 	const Vector2& camPos = Camera::GetMainCamera()->gameObject.transform.position;
 	swprintf_s(camPosWString, _ARRAYSIZE(camPosWString), L"CameraPos : %01.f, %01.f", camPos.x, camPos.y);
-	debugUI->Line[4] = camPosWString;
+	debugUI->Line[5] = camPosWString;
 
 	wchar_t imagePosWString[30]{};
 	const Bounds& imageBounds = gameObject.bounds;
 	swprintf_s(imagePosWString, _ARRAYSIZE(imagePosWString), L"ImagePos : %01.f, %01.f", camPos.x - imageBounds.leftTop.x, imageBounds.leftTop.y - camPos.y);
-	debugUI->Line[5] = imagePosWString;
+	debugUI->Line[6] = imagePosWString;
 
 	wchar_t mousePosWString[35]{};
 	const Vector2& mousePos = Input.GetMouseState().GetWorldPos();
 	swprintf_s(mousePosWString, _ARRAYSIZE(mousePosWString), L"MousePos : %01.f, %01.f", mousePos.x, mousePos.y);
-	debugUI->Line[6] = mousePosWString;
+	debugUI->Line[7] = mousePosWString;
 
 	
 }
@@ -155,4 +133,65 @@ void PlayerAnimeTestCtrl::Render()
 {
 
 
+}
+
+void PlayerAnimeTestCtrl::SelCurrentImage()
+{
+	std::wstring inputPath = WinUtility::GetOpenFilePath(L"png");
+	if (L"" != inputPath)
+	{
+		currentImagePath = inputPath;
+		if (!currentAniPath.empty())
+		{
+			if (spriteAnimation->GetCurrentAnimation())
+				spriteAnimation->UnloadAnimation(L"set");
+			spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
+			spriteAnimation->SetAnimation(L"set", true);
+		}
+	}
+}
+
+void PlayerAnimeTestCtrl::SelCurrentAni()
+{
+	std::wstring inputPath = WinUtility::GetOpenFilePath(L"txt");
+	if (L"" != inputPath)
+	{
+		currentAniPath = inputPath;
+		if (!currentImagePath.empty())
+		{
+			if (spriteAnimation->GetCurrentAnimation())
+				spriteAnimation->UnloadAnimation(L"set");
+			spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
+			spriteAnimation->SetAnimation(L"set", true);
+		}
+	}
+}
+
+void PlayerAnimeTestCtrl::SaveAsCurrentAniToFile()
+{
+	if (spriteAnimation->GetCurrentAnimation())
+	{
+		std::wstring savePath = WinUtility::GetSaveAsFilePath(L"txt");
+		if (savePath != L"")
+			SaveFlie::AnimationClipSaveToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
+	}
+}
+
+void PlayerAnimeTestCtrl::PauseAndPlayAni()
+{
+	TimeSystem::Time.timeScale = TimeSystem::Time.timeScale == 0 ? 1.f : 0.f;
+}
+
+void PlayerAnimeTestCtrl::ReloadAnimation()
+{
+	//다시 로드
+	if (!currentAniPath.empty() && !currentImagePath.empty())
+	{
+		int currentIndex = spriteAnimation->CurrentFrameIndex;
+		if (spriteAnimation->GetCurrentAnimation())
+			spriteAnimation->UnloadAnimation(L"set");
+		spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
+		spriteAnimation->SetAnimation(L"set", true);
+		spriteAnimation->CurrentFrameIndex = currentIndex;
+	}
 }
