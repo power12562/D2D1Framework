@@ -32,33 +32,31 @@ void EnemyDino0Ctrl::SpawnFire()
 
 void EnemyDino0Ctrl::Start()
 {
-#ifdef _DEBUG
-	GameObjectBase* playerStateDebug = WorldManager::AddGameObject<GameObjectUI>(L"EnemyState");
-	playerStateDebug->transform.SetParent(Camera::GetMainCamera()->gameObject);
-	playerStateDebug->transform.localPosition += Vector2(0.f, -30.f);
+//#ifdef _DEBUG
+//	GameObjectBase* playerStateDebug = WorldManager::AddGameObject<GameObjectUI>(L"EnemyState");
+//	playerStateDebug->transform.SetParent(Camera::GetMainCamera()->gameObject);
+//	playerStateDebug->transform.localPosition += Vector2(0.f, -30.f);
+//
+//	stateDebugText = &playerStateDebug->AddComponent<TextRenderer>();
+//	stateDebugText->SetFont(L"Consolas");
+//	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
+//
+//	fsm = &gameObject.GetComponent<FiniteStateMachine>();
+//#endif 
 
-	stateDebugText = &playerStateDebug->AddComponent<TextRenderer>();
-	stateDebugText->SetFont(L"Consolas");
-	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
-
-	fsm = &gameObject.GetComponent<FiniteStateMachine>();
-#endif 
 	gameObject.transform.position += Vector2(0.f, -9.f);
-
-	
-
 }
 
 void EnemyDino0Ctrl::Update()
 {
-#ifdef _DEBUG
-	stateDebugText->Text = L"Enemy State : ";
-	const FSMState* state = fsm->GetCurrState();
-	if (state)
-	{
-		stateDebugText->Text += state->GetName();
-	}								   
-#endif 
+//#ifdef _DEBUG
+//	stateDebugText->Text = L"Enemy State : ";
+//	const FSMState* state = fsm->GetCurrState();
+//	if (state)
+//	{
+//		stateDebugText->Text += state->GetName();
+//	}								   
+//#endif 
 
 
 }

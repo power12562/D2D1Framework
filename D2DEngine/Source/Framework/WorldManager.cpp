@@ -163,14 +163,12 @@ void WorldManager::AddObjectToQList()
 			obj->Start();
 			if (IsGameObject(obj->name))
 			{
-				assert(!"중복되는 오브젝트 이름입니다.");
-				delete obj;
-			}
-			else
-			{				
-				currentWorld->gameObjectList.push_back(obj);
-				currentWorld->gameObjectMap[obj->name] = std::prev(currentWorld->gameObjectList.end());
-			}		
+				char lastChar = obj->objName[obj->objName.size() - 1];
+				assert(!"이름이 중복됩니다.");
+				obj->SetName((obj->objName + L"_1").c_str());
+			}			
+			currentWorld->gameObjectList.push_back(obj);
+			currentWorld->gameObjectMap[obj->name] = std::prev(currentWorld->gameObjectList.end());		
 			addQueueList.pop();
 		}
 	}
