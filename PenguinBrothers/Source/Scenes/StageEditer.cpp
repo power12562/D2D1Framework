@@ -58,8 +58,23 @@ void StageEditer::LoadStageToJson()
 	std::string jsonStr = LoadFile::ordered_jsonLoadToFile(stagePath.c_str());
 	if (jsonStr != "")
 	{
+		std::vector<float> points;
 		ordered_json stageJson = ordered_json::parse(jsonStr);
-		bgPath = stageJson["bgPath"].get<std::wstring>();
+
+		bgPath = stageJson["bgPath"].get<std::wstring>(); //배경 경로
+
+		points = stageJson["playerSpawnPos"].get<std::vector<float>>();
+		playerSpawnPos = Vector2{ points[0], points[1] };  //플레이어 시작 위치
+
+		EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; //EnemyDino0 오브젝트 소환 개수
+		EnemyDino0_SpawnPos.resize(EnemyDino0_SpawnCount);
+		for (unsigned int i = 0; i < EnemyDino0_SpawnCount; i++)
+		{
+			std::string key("EnemyDino0_SpawnPos");
+			key += std::to_string(i);
+			points = stageJson[key].get<std::vector<float>>();
+			EnemyDino0_SpawnPos[i] = Vector2(points[0], points[1]);
+		};
 	}
 }
 
@@ -70,7 +85,7 @@ void StageEditer::SaveStageToJson()
 	mapJson["bgPath"] = bgPath;
 	mapJson["playerSpawnPos"] = { playerSpawnPos.x, playerSpawnPos.y };
 	mapJson["EnemyDino0_SpawnCount"] = EnemyDino0_SpawnCount;
-	for (int i = 0; i < EnemyDino0_SpawnCount; i++)
+	for (unsigned int i = 0; i < EnemyDino0_SpawnCount; i++)
 	{
 		std::string key("EnemyDino0_SpawnPos");
 		key += std::to_string(i);
