@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Scene/WorldBase.h"
-
 #include <vector>
 #include <string>
 
@@ -17,7 +16,12 @@ public:
 	unsigned int EnemyDino0_SpawnCount; //EnemyDino0 오브젝트 소환 개수
 	std::vector<Vector2> EnemyDino0_SpawnPos; //EnemyDino0 오브젝트 소환 위치
 
+	
+
 private:
 	static std::wstring stagePath;
+
+	void LoadStageToJson();
+	void SaveStageToJson();
 
 };

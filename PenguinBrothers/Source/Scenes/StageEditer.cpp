@@ -15,21 +15,7 @@ std::wstring StageEditer::stagePath;
 
 StageEditer::StageEditer()
 {
-	if (stagePath == L"")
-	{
-		stagePath = WinUtility::GetSaveAsFilePath(L"json");
-	}
-
-	//나중에 JSON으로 초기화할 값들
-	bgPath = L"Resource/Stage/1.png";
-	playerSpawnPos = Vector2(-500.f, -195.f);
-	EnemyDino0_SpawnCount = 3;
-	EnemyDino0_SpawnPos.reserve(EnemyDino0_SpawnCount);
-	EnemyDino0_SpawnPos = {
-		Vector2{0.f, -195.f},
-		Vector2{500.f, -195.f},
-		Vector2{250.f, -195.f},
-	};
+	LoadStageToJson();
 
 	//JSON 파일 기반으로 물체들 생성
 	WorldManager::AddGameObject<StageObjectListDebug>(L"StageObjectListDebug");
@@ -54,6 +40,31 @@ StageEditer::StageEditer()
 	}
 
 
+	//SaveStageToJson();
+}
+
+StageEditer::~StageEditer()
+{
+
+}
+
+void StageEditer::LoadStageToJson()
+{
+	if (stagePath == L"")
+	{
+		stagePath = WinUtility::GetOpenFilePath(L"json");
+	}
+
+	std::string jsonStr = LoadFile::ordered_jsonLoadToFile(stagePath.c_str());
+	if (jsonStr != "")
+	{
+		ordered_json stageJson = ordered_json::parse(jsonStr);
+		bgPath = stageJson["bgPath"].get<std::wstring>();
+	}
+}
+
+void StageEditer::SaveStageToJson()
+{
 	//저장 테스트
 	ordered_json mapJson;
 	mapJson["bgPath"] = bgPath;
@@ -63,14 +74,10 @@ StageEditer::StageEditer()
 	{
 		std::string key("EnemyDino0_SpawnPos");
 		key += std::to_string(i);
-		mapJson[key] ={ EnemyDino0_SpawnPos[i].x, EnemyDino0_SpawnPos[i].y};
-	}	
+		mapJson[key] = { EnemyDino0_SpawnPos[i].x, EnemyDino0_SpawnPos[i].y };
+	}
 
-	if(stagePath != L"")
-		SaveFlie::ordered_jsonSaveToFile(mapJson, stagePath.c_str());
-}
-
-StageEditer::~StageEditer()
-{
-
+	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
+	if (savePath != L"")
+		SaveFlie::ordered_jsonSaveToFile(mapJson, savePath.c_str());
 }

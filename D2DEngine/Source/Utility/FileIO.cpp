@@ -32,3 +32,16 @@ void SaveFlie::ordered_jsonSaveToFile(const nlohmann::ordered_json& obj, const w
     ofs.close();
 }
 
+
+std::string LoadFile::ordered_jsonLoadToFile(const wchar_t* path)
+{
+    std::ifstream ifs(path, std::ios::in);
+    if (!ifs.is_open())
+    {
+        printf("jsonLoad, File not found %ws", path);
+        return std::string("");
+    }
+    std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+    ifs.close();
+    return str;
+}
