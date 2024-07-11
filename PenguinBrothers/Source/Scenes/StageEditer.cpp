@@ -8,9 +8,14 @@
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 #include "Source/GameObject/StageObjectListDebug.h"
 
+std::wstring StageEditer::stagePath;
+
 StageEditer::StageEditer()
 {
-	std::wstring stagePath = WinUtility::GetOpenFilePath(L"json");
+	if (stagePath == L"")
+	{
+		stagePath = WinUtility::GetOpenFilePath(L"json");
+	}
 
 	WorldManager::AddGameObject<StageObjectListDebug>(L"StageObjectListDebug");
 
@@ -38,7 +43,6 @@ StageEditer::StageEditer()
 		GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
 		dino->transform.position = EnemyDino0_SpawnPos[i];
 	}
-
 
 }
 
