@@ -38,6 +38,12 @@ public:
 	/** 오브젝트의 정렬이 필요할때 활성화 합니다. 정렬 후 false로 초기화됩니다.*/
 	static bool ObjListSortFlag;
 
+	/** 읽기전용 오브젝트 리스트를 반환합니다.*/
+	static const std::list<GameObjectBase*>& GetCurrentObjList() { return currentWorld->gameObjectList; }
+
+	/** 중복된 이름이면 번호를 붙여 이름을 재생성 해줍니다.*/
+	static std::wstring GenerateUniqueName(const wchar_t* name);
+
 private:
 	WorldManager();
 	~WorldManager();
@@ -103,7 +109,7 @@ inline void WorldManager::UnloadWorld()
 inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 {
 	GameObjectBase* gameObject = new GameObjectBase;
-	gameObject->name = objectName;
+	gameObject->objName = objectName;
 	addQueueList.push(gameObject);
 
 	ObjListSortFlag = true;
@@ -117,7 +123,7 @@ inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 	static_assert(std::is_base_of<GameObjectBase, T>::value, "Is not Object");
 
 	GameObjectBase* gameObject = new T;
-	gameObject->name = objectName;
+	gameObject->objName = objectName;
 	addQueueList.push(gameObject);
 
 	ObjListSortFlag = true;

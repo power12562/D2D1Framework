@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cassert>
+#include <cwctype>
 
 WorldBase* WorldManager::currentWorld = nullptr;
 std::queue<GameObjectBase*> WorldManager::addQueueList;
@@ -160,18 +161,14 @@ void WorldManager::AddObjectToQList()
 		while (!addQueueList.empty())
 		{		
 			auto& obj = addQueueList.front();
-			obj->Start();
-			if (IsGameObject(obj->name))
-			{
-				char lastChar = obj->objName[obj->objName.size() - 1];
-				assert(!"이름이 중복됩니다.");
-				obj->SetName((obj->objName + L"_1").c_str());
-			}			
+			obj->Start();	
+			obj->objName = WorldManager::GenerateUniqueName(obj->name);
 			currentWorld->gameObjectList.push_back(obj);
 			currentWorld->gameObjectMap[obj->name] = std::prev(currentWorld->gameObjectList.end());		
 			addQueueList.pop();
 		}
 	}
+	return;
 }
 
 void WorldManager::DelObjectToSetList()
@@ -198,3 +195,36 @@ void WorldManager::DelObjectToSetList()
 		}
 	}
 }
+
+std::wstring WorldManager::GenerateUniqueName(const wchar_t* name)
+{
+	std::wstring tempName{name};
+	while (WorldManager::IsGameObject(tempName.c_str())) {
+		size_t lastIndex = tempName.size() - 1;
+		bool hasDigitSuffix = false;
+
+		// Check if the name ends with a numeric suffix
+		while (lastIndex > 0 && std::iswdigit(tempName[lastIndex]))
+		{
+			hasDigitSuffix = true;
+			lastIndex--;
+		}
+
+		if (hasDigitSuffix)
+		{
+			// Increment the numeric suffix
+			size_t digitStartIndex = lastIndex + 1;
+			int number = std::stoi(tempName.substr(digitStartIndex)) + 1;
+			tempName = tempName.substr(0, digitStartIndex) + std::to_wstring(number);
+		}
+		else
+		{
+			// Add the initial numeric suffix
+			tempName += L"_0";
+		}
+	}
+	return tempName;
+}
+
+
+

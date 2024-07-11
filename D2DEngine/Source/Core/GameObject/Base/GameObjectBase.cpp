@@ -71,20 +71,20 @@ GameObjectBase* GameObjectBase::Find(const wchar_t* name)
 
 void GameObjectBase::SetName(const wchar_t* name)
 {
-	if (WorldManager::IsGameObject(name))
-	{
-		return; //이미 있는 이름
-	}
+	std::wstring wsName = WorldManager::GenerateUniqueName(name);
 	if (WorldManager::currentWorld)
 	{
 		auto myIter = WorldManager::currentWorld->gameObjectMap.find(objName);
 		if (myIter != WorldManager::currentWorld->gameObjectMap.end())
 		{
-			WorldManager::currentWorld->gameObjectMap[name] = myIter->second;
-			WorldManager::currentWorld->gameObjectMap.erase(myIter);
+			if (*myIter->second == this)
+			{
+				WorldManager::currentWorld->gameObjectMap[name] = myIter->second;
+				WorldManager::currentWorld->gameObjectMap.erase(myIter);
+			}	
 		}
 	}
-	objName = name;
+	objName = wsName;
 }
 
 void GameObjectBase::SetOderLayer(int val)
@@ -111,6 +111,4 @@ void GameObjectBase::UpdateBounds()
 
 	Bounds::GetRotationBounds(bounds, transform.rotation);
 }
-
-
 

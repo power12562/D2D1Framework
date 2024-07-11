@@ -2,6 +2,7 @@
 #include "Framework/WorldManager.h"
 
 #include "Source/Scenes/StageBase.h"
+#include "Source/Scenes/StageEditer.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -10,7 +11,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    WorldManager::LoadWorld<StageBase>();
+    WorldManager::LoadWorld<StageEditer>();
     app.Run();
     app.Uninitialize();
 }

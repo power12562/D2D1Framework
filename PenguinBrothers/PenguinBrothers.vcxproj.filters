@@ -13,10 +13,13 @@
     <ClCompile Include="Source\Component\PlayerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\PlayerBomb.cpp" />
     <ClCompile Include="Source\Component\PlayerBombCtrl.cpp" />
-    <ClCompile Include="Source\GameObject\EnemyDino0.cpp" />
-    <ClCompile Include="Source\Component\EnemyDino0Ctrl.cpp" />
-    <ClCompile Include="Source\GameObject\EnemyDino0Attack.cpp" />
-    <ClCompile Include="Source\Component\EnemyDino0AttackCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\Enemy\EnemyDino0.cpp" />
+    <ClCompile Include="Source\Component\Enemy\EnemyDino0Ctrl.cpp" />
+    <ClCompile Include="Source\GameObject\Enemy\EnemyDino0Attack.cpp" />
+    <ClCompile Include="Source\Component\Enemy\EnemyDino0AttackCtrl.cpp" />
+    <ClCompile Include="Source\Scenes\StageEditer.cpp" />
+    <ClCompile Include="Source\GameObject\StageObjectListDebug.cpp" />
+    <ClCompile Include="Source\Component\StageObjectListDebug_Ctrl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
@@ -25,9 +28,12 @@
     <ClInclude Include="Source\Component\PlayerCtrl.h" />
     <ClInclude Include="Source\GameObject\PlayerBomb.h" />
     <ClInclude Include="Source\Component\PlayerBombCtrl.h" />
-    <ClInclude Include="Source\GameObject\EnemyDino0.h" />
-    <ClInclude Include="Source\Component\EnemyDino0Ctrl.h" />
-    <ClInclude Include="Source\GameObject\EnemyDino0Attack.h" />
-    <ClInclude Include="Source\Component\EnemyDino0AttackCtrl.h" />
+    <ClInclude Include="Source\GameObject\Enemy\EnemyDino0.h" />
+    <ClInclude Include="Source\Component\Enemy\EnemyDino0Ctrl.h" />
+    <ClInclude Include="Source\GameObject\Enemy\EnemyDino0Attack.h" />
+    <ClInclude Include="Source\Component\Enemy\EnemyDino0AttackCtrl.h" />
+    <ClInclude Include="Source\Scenes\StageEditer.h" />
+    <ClInclude Include="Source\GameObject\StageObjectListDebug.h" />
+    <ClInclude Include="Source\Component\StageObjectListDebug_Ctrl.h" />
   </ItemGroup>
 </Project>

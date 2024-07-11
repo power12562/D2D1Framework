@@ -1,22 +1,29 @@
-#include "StageBase.h"
+#include "StageEditer.h"
 #include "Framework/WorldManager.h"
+#include <Utility/WinUtility.h>
+
 #include "Core/Component/Renderer/SpriteRenderer.h"
 
 #include "Source/GameObject/Player.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
+#include "Source/GameObject/StageObjectListDebug.h"
 
-StageBase::StageBase()
+StageEditer::StageEditer()
 {
+	std::wstring stagePath = WinUtility::GetOpenFilePath(L"json");
+
+	WorldManager::AddGameObject<StageObjectListDebug>(L"StageObjectListDebug");
+
 	//나중에 JSON으로 초기화할 값들
 	bgPath = L"Resource/Stage/1.png";
 	playerSpawnPos = Vector2(-500.f, -195.f);
-	EnemyDino0_SpawnCount = 2;
-	EnemyDino0_SpawnPos.resize(EnemyDino0_SpawnCount);
-	EnemyDino0_SpawnPos = { 
+	EnemyDino0_SpawnCount = 3;
+	EnemyDino0_SpawnPos.reserve(EnemyDino0_SpawnCount);
+	EnemyDino0_SpawnPos = {
 		Vector2{0.f, -195.f},
-		Vector2{500.f, -195.f} 
+		Vector2{500.f, -195.f},
+		Vector2{250.f, -195.f},
 	};
-
 
 	//JSON 파일 기반으로 물체들 생성
 	GameObjectBase* backGround = WorldManager::AddGameObject(L"Background");
@@ -31,11 +38,11 @@ StageBase::StageBase()
 		GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
 		dino->transform.position = EnemyDino0_SpawnPos[i];
 	}
-	
+
 
 }
 
-StageBase::~StageBase()
+StageEditer::~StageEditer()
 {
 
 }

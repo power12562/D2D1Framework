@@ -3,7 +3,7 @@
 #include <Core/Component/Renderer/SpriteAnimationRenderer.h>
 #include <Core/Component/Collider/BoxCollider2D.h>
 
-#include "Source/Component/EnemyDino0AttackCtrl.h"
+#include "Source/Component/Enemy/EnemyDino0AttackCtrl.h"
 
 EnemyDino0Attack::EnemyDino0Attack()
 {

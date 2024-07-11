@@ -9,7 +9,7 @@
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/FSM/FSMState.h>
 
-#include <Source/GameObject/EnemyDino0Attack.h>
+#include <Source/GameObject/Enemy/EnemyDino0Attack.h>
 
 
 EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameObject)

@@ -5,7 +5,7 @@
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Movement.h"
 
-#include "Source/Component/EnemyDino0Ctrl.h"
+#include "Source/Component/Enemy/EnemyDino0Ctrl.h"
 
 
 EnemyDino0::EnemyDino0()
@@ -36,6 +36,7 @@ EnemyDino0::~EnemyDino0()
 
 
 GameObjectBase* EnemyState::player = nullptr;
+
 EnemyState::EnemyState(FiniteStateMachine& _owner, const wchar_t* _name) : FSMState(_owner, _name)
 {
 	this->movement = &owner.gameObject.GetComponent<Movement>();

@@ -17,6 +17,12 @@ enum class OBJECT_TYPE
 class GameObjectBase
 {
 	friend class WorldManager;
+private:
+	Transform* pTransform; //트렌스폼
+	std::list<ComponentBase*> componentsList; //컴포넌트 리스트
+	std::wstring objName; //이름
+	int oderLayer = 0; //같은 오브젝트끼리의 정렬 기준
+
 protected: 
 	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;
 
@@ -28,6 +34,12 @@ public:
 	void Update();
 	void LateUpdate();
 	void Render();
+
+	/** Object Enable*/
+	bool enable = true;
+
+	/** Tag*/
+	std::wstring tag;
 
 	/** Transform*/
 	Transform& GetTransform() { return *pTransform; }
@@ -50,14 +62,8 @@ public:
 	/** 오브젝트의 바운딩 박스 영역.*/
 	Bounds bounds;
 
-	/** Object Enable*/
-	bool enable = true;
-
 	/** Object Type*/
 	OBJECT_TYPE GetType() const { return objType; }
-
-	/** Tag*/
-	std::wstring tag;
 
 	void SetOderLayer(int val);
 	int GetOderLayer() const { return oderLayer; }
@@ -69,12 +75,6 @@ protected:
 	/** componet들의 Update() 이전에 호출되는 함수*/
 	virtual void UpdateBounds();
 
-private:
-	Transform* pTransform;
-	std::list<ComponentBase*> componentsList;
-	std::wstring objName;
-
-	int oderLayer = 0; //같은 오브젝트끼리의 정렬 기준
 };
 
 
