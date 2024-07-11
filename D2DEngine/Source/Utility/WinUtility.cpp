@@ -93,7 +93,7 @@ std::wstring WinUtility::GetSaveAsFilePath(const wchar_t* fileType)
 		ofn.nMaxFileTitle = 0;
 		ofn.lpstrInitialDir = NULL;
 		ofn.lpstrTitle = L"다른 이름으로 저장";
-		ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR;
 
 		// 파일 경로 선택 창 띄우기
 		if (GetOpenFileName(&ofn) == TRUE)

@@ -1,4 +1,8 @@
 #include "FileIO.h"
+#include <fstream>
+#include <iostream>
+#include <iosfwd>
+#include <string>
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 
 void SaveFlie::AnimationClipSaveToFile(const AnimationClip& clip, const wchar_t* path)
@@ -20,3 +24,11 @@ void SaveFlie::AnimationClipSaveToFile(const AnimationClip& clip, const wchar_t*
         std::cerr << "Unable to open file";
     }
 }
+
+void SaveFlie::ordered_jsonSaveToFile(const nlohmann::ordered_json& obj, const wchar_t* path)
+{
+    std::ofstream ofs(path);
+    ofs << obj.dump(2);
+    ofs.close();
+}
+

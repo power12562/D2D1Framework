@@ -1,11 +1,12 @@
 #pragma once
-
-#include "Core/Component/Transform.h"
-
 #include "Bounds/Bounds.h"
 
 #include <list>
 #include <string>
+
+
+class Transform;
+class ComponentBase;
 
 enum class OBJECT_TYPE
 {
@@ -20,7 +21,7 @@ class GameObjectBase
 private:
 	Transform* pTransform; //트렌스폼
 	std::list<ComponentBase*> componentsList; //컴포넌트 리스트
-	std::wstring objName; //이름
+	std::wstring objName; //오브젝트 이름
 	int oderLayer = 0; //같은 오브젝트끼리의 정렬 기준
 
 protected: 
@@ -106,3 +107,5 @@ template<typename T> inline T& GameObjectBase::GetComponent()
 	return *component;
 }
 
+
+#include <Core/Component/Transform.h>
