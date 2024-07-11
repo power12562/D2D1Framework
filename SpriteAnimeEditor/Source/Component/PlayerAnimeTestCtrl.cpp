@@ -1,7 +1,5 @@
 #include "PlayerAnimeTestCtrl.h"
 #include "Utility/WinUtility.h"
-#include "Utility/FileIO.h"
-
 #include "Framework/InputSystem.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/D2DRenderer.h"
@@ -173,7 +171,7 @@ void PlayerAnimeTestCtrl::SaveAsCurrentAniToFile()
 	{
 		std::wstring savePath = WinUtility::GetSaveAsFilePath(L"txt");
 		if (savePath != L"")
-			SaveFlie::AnimationClipSaveToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
+			SpriteAnimationRenderer::AnimationClipSaveToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
 	}
 }
 

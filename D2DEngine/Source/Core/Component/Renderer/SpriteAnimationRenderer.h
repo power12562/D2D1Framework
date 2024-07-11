@@ -125,6 +125,8 @@ public:
 	void SetCurrentFrameIndex(int frame);
 
 
+	/** 애니메이션 클립을 전달받은 경로에 txt 형식으로 저장합니다.*/
+	static void AnimationClipSaveToFile(const AnimationClip& clip, const wchar_t* path);
 
 protected:
 	//virtual void Start() override;
@@ -133,3 +135,4 @@ protected:
 	virtual void Render() override;
 
 };
+

@@ -1,0 +1,69 @@
+{
+  "bgPath": [
+    82,
+    101,
+    115,
+    111,
+    117,
+    114,
+    99,
+    101,
+    47,
+    83,
+    116,
+    97,
+    103,
+    101,
+    47,
+    49,
+    46,
+    112,
+    110,
+    103
+  ],
+  "playerSpawnPos": [
+    -500.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnCount": 10,
+  "EnemyDino0_SpawnPos0": [
+    0.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos1": [
+    500.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos2": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos3": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos4": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos5": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos6": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos7": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos8": [
+    250.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnPos9": [
+    250.0,
+    -195.0
+  ]
+}

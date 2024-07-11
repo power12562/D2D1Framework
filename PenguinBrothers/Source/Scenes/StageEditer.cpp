@@ -2,7 +2,7 @@
 #include "Framework/WorldManager.h"
 #include <Framework/WinGameApp.h>
 #include <Utility/WinUtility.h>
-#include <Utility/FileIO.h>
+#include <Utility/JsonUtility.h>
 
 #include "Core/Component/Renderer/SpriteRenderer.h"
 #include <Core/Component/Renderer/TextRenderer.h>
@@ -39,8 +39,6 @@ StageEditer::StageEditer()
 		dino->transform.position = EnemyDino0_SpawnPos[i];
 	}
 
-
-	//SaveStageToJson();
 }
 
 StageEditer::~StageEditer()
@@ -55,7 +53,7 @@ void StageEditer::LoadStageToJson()
 		stagePath = WinUtility::GetOpenFilePath(L"json");
 	}
 
-	std::string jsonStr = LoadFile::ordered_jsonLoadToFile(stagePath.c_str());
+	std::string jsonStr = JsonUtiliy::ordered_jsonLoadToFile(stagePath.c_str());
 	if (jsonStr != "")
 	{
 		std::vector<float> points;
@@ -63,8 +61,7 @@ void StageEditer::LoadStageToJson()
 
 		bgPath = stageJson["bgPath"].get<std::wstring>(); //배경 경로
 
-		points = stageJson["playerSpawnPos"].get<std::vector<float>>();
-		playerSpawnPos = Vector2{ points[0], points[1] };  //플레이어 시작 위치
+		playerSpawnPos = JsonUtiliy::JsonGetVector2(stageJson["playerSpawnPos"]);
 
 		EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; //EnemyDino0 오브젝트 소환 개수
 		EnemyDino0_SpawnPos.resize(EnemyDino0_SpawnCount);
@@ -72,8 +69,7 @@ void StageEditer::LoadStageToJson()
 		{
 			std::string key("EnemyDino0_SpawnPos");
 			key += std::to_string(i);
-			points = stageJson[key].get<std::vector<float>>();
-			EnemyDino0_SpawnPos[i] = Vector2(points[0], points[1]);
+			EnemyDino0_SpawnPos[i] = JsonUtiliy::JsonGetVector2(stageJson[key]);
 		};
 	}
 }
@@ -94,5 +90,5 @@ void StageEditer::SaveStageToJson()
 
 	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
 	if (savePath != L"")
-		SaveFlie::ordered_jsonSaveToFile(mapJson, savePath.c_str());
+		JsonUtiliy::ordered_jsonSaveToFile(mapJson, savePath.c_str());
 }
