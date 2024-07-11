@@ -65,7 +65,9 @@ StageEditer::StageEditer()
 		key += std::to_string(i);
 		mapJson[key] ={ EnemyDino0_SpawnPos[i].x, EnemyDino0_SpawnPos[i].y};
 	}	
-	SaveFlie::ordered_jsonSaveToFile(mapJson, stagePath.c_str());
+
+	if(stagePath != L"")
+		SaveFlie::ordered_jsonSaveToFile(mapJson, stagePath.c_str());
 }
 
 StageEditer::~StageEditer()
