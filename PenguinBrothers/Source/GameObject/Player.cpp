@@ -96,7 +96,7 @@ void Idle::Update()
 		owner.gameObject.transform.FlipX(false);
 	}
 
-	if (Input.IsKeyDown(KeyCode::Z) && PlayerBomb::GetObjectCount() == 0)
+	if (Input.IsKeyDown(KeyCode::LeftCtrl) && PlayerBomb::GetObjectCount() == 0)
 	{
 		owner.SetState(L"Attack");
 	}
@@ -132,7 +132,7 @@ void Walk::Update()
 		owner.gameObject.transform.FlipX(false);
 	}
 
-	if (Input.IsKeyDown(KeyCode::Z) && PlayerBomb::GetObjectCount() == 0)
+	if (Input.IsKeyDown(KeyCode::LeftCtrl) && PlayerBomb::GetObjectCount() == 0)
 	{
 		owner.SetState(L"Attack");
 	}
@@ -163,7 +163,7 @@ void Duck::Update()
 		owner.SetState(L"Idle");
 	}
 
-	if (Input.IsKeyDown(KeyCode::X))
+	if (Input.IsKeyDown(KeyCode::LeftAlt))
 	{
 		owner.SetState(L"Slide");
 	}
