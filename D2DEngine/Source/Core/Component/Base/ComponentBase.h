@@ -2,6 +2,23 @@
 
 class GameObjectBase;
 
+
+/* Derived default
+
+class Derived : public ComponentBase
+{
+public:
+	Derived(GameObjectBase& gameObject) : ComponentBase(gameObject) {}
+	virtual ~Derived() override;
+
+protected:
+	virtual void Start();
+	virtual void Update();
+	virtual void LateUpdate();
+	virtual void Render();
+};
+
+*/
 class ComponentBase
 {
 	friend class GameObjectBase;

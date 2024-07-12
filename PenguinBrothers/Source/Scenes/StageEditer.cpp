@@ -9,36 +9,20 @@
 
 #include "Source/GameObject/Player.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
-#include "Source/GameObject/StageObjectListDebug.h"
+#include "Source/GameObject/StageObjectListDebug.h"	   
+#include "Source/GameObject/Editer.h"
 
 std::wstring StageEditer::stagePath;
 
-StageEditer::StageEditer()
+StageEditer::StageEditer(bool editer)
 {
 	LoadStageToJson();
 
-	//JSON 파일 기반으로 물체들 생성
-	WorldManager::AddGameObject<StageObjectListDebug>(L"StageObjectListDebug");
-	GameObjectBase* stagePathText = WorldManager::AddGameObject<GameObjectUI>(L"stagePath");
-	stagePathText->transform.localPosition += Vector2(150.f, 0.f);
-	TextRenderer& textRender = stagePathText->AddComponent<TextRenderer>();
-	textRender.SetFont(L"Consolas");
-	textRender.Text = stagePath;
-	textRender.Size = 20;
-
-	GameObjectBase* backGround = WorldManager::AddGameObject(L"Background");
-	backGround->AddComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
-	backGround->OderLayer = -1;
-
-	GameObjectBase* player = WorldManager::AddGameObject<Player>(L"Player");
-	player->transform.position = playerSpawnPos;
-
-	for (unsigned int i = 0; i < EnemyDino0_SpawnCount; i++)
+	if (editer)
 	{
-		GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
-		dino->transform.position = EnemyDino0_SpawnPos[i];
+		SpawnEditerObj();
 	}
-
+	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
 }
 
 StageEditer::~StageEditer()
@@ -74,6 +58,22 @@ void StageEditer::LoadStageToJson()
 	}
 }
 
+void StageEditer::SpawnSceneObjects()
+{
+	GameObjectBase* backGround = WorldManager::AddGameObject(L"Background");
+	backGround->AddComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
+	backGround->OderLayer = -1;
+
+	GameObjectBase* player = WorldManager::AddGameObject<Player>(L"Player");
+	player->transform.position = playerSpawnPos;
+
+	for (unsigned int i = 0; i < EnemyDino0_SpawnCount; i++)
+	{
+		GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
+		dino->transform.position = EnemyDino0_SpawnPos[i];
+	}
+}
+
 void StageEditer::SaveStageToJson()
 {
 	//저장 테스트
@@ -88,7 +88,24 @@ void StageEditer::SaveStageToJson()
 		mapJson[key] = { EnemyDino0_SpawnPos[i].x, EnemyDino0_SpawnPos[i].y };
 	}
 
+
+
+
+
 	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
 	if (savePath != L"")
 		JsonUtiliy::ordered_jsonSaveToFile(mapJson, savePath.c_str());
+}
+
+void StageEditer::SpawnEditerObj()
+{
+	WorldManager::AddGameObject<StageObjectListDebug>(L"StageObjectListDebug");
+	GameObjectBase* stagePathText = WorldManager::AddGameObject<GameObjectUI>(L"stagePath");
+	stagePathText->transform.localPosition += Vector2(150.f, 0.f);
+	TextRenderer& textRender = stagePathText->AddComponent<TextRenderer>();
+	textRender.SetFont(L"Consolas");
+	textRender.Text = stagePath;
+	textRender.Size = 20;
+
+	WorldManager::AddGameObject<Editer>(L"editer");
 }

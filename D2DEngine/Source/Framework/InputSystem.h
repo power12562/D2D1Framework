@@ -27,8 +27,8 @@ namespace InputSystem
 		//0x0E - 0x0F : unassigned
 
 		Shift = 0x10, //Shift key
-		Control = 0x11, //Ctrl key
-		Alt = 0x12, //Alt key
+		LeftCtrl = 0x11, //Ctrl key
+		LeftAlt = 0x12, //Alt key
 		Pause = 0x13, //Pause key
 		CapsLock = 0x14, //Caps lock key
 
@@ -184,7 +184,7 @@ namespace InputSystem
 
 		LeftShift = 0xA0, //Left shift key
 		RightShift = 0xA1, //Right shift key
-		LeftCtrl = 0xA2, //Left control key
+		//LeftCtrl = 0xA2, //Left control key ??????
 		RightCtrl = 0xA3, //Right control key
 		LeftMenu = 0xA4, //Left menu key
 		RightMenu = 0xA5, //Right menu

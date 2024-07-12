@@ -1,7 +1,7 @@
 ﻿#include "PenguinBrothers.h"
 #include "Framework/WorldManager.h"
 
-#include "Source/Scenes/StageBase.h"
+#include "Source/Scenes/StageScene.h"
 #include "Source/Scenes/StageEditer.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,

@@ -1,14 +1,14 @@
 #pragma once
-#include "Core/Scene/WorldBase.h"
+#include <Source/Scenes/StageEditer.h>
 
 #include <vector>
 #include <string>
 
-class StageBase : public WorldBase	   
+class StageScene : public StageEditer
 {
 public:
-	StageBase();
-	virtual ~StageBase() override;
+	StageScene();
+	virtual ~StageScene() override;
 
 	//Json으로 초기화할 값들
 

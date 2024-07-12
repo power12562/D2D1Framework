@@ -15,6 +15,16 @@ enum class OBJECT_TYPE
 	UI,
 };
 
+/* Derived default 
+
+class Derived : public GameObjectBase 
+{
+ public:
+	Derived();
+	virtual ~Derived() override;
+}; 
+
+*/
 class GameObjectBase
 {
 	friend class WorldManager;

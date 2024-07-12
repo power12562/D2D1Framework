@@ -65,7 +65,15 @@ void WinGameApp::Run()
 			{
 				Input.SetKeyDown(static_cast<KeyCode>(msg.wParam));
 			}
+			else if (msg.message == WM_SYSKEYDOWN && !Input.IsKey(static_cast<KeyCode>(msg.wParam)))
+			{
+				Input.SetKeyDown(static_cast<KeyCode>(msg.wParam));
+			}
 			else if (msg.message == WM_KEYUP && Input.IsKey(static_cast<KeyCode>(msg.wParam)))
+			{
+				Input.SetKeyUp(static_cast<KeyCode>(msg.wParam));
+			}
+			else if (msg.message == WM_SYSKEYUP && Input.IsKey(static_cast<KeyCode>(msg.wParam)))
 			{
 				Input.SetKeyUp(static_cast<KeyCode>(msg.wParam));
 			}

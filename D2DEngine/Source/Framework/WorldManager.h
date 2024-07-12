@@ -44,6 +44,9 @@ public:
 	/** 중복된 이름이면 번호를 붙여 이름을 재생성 해줍니다.*/
 	static std::wstring GenerateUniqueName(const wchar_t* name);
 
+	/** 현재 월드를 가져옵니다.*/
+	static WorldBase* GetCurrentWorld() { return currentWorld; }
+
 private:
 	WorldManager();
 	~WorldManager();
