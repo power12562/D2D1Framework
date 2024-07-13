@@ -16,9 +16,9 @@ EnemyDino0::EnemyDino0()
 	AddComponent<Movement>();
 	auto& animationRenderer = AddComponent<SpriteAnimationRenderer>();
 	const wchar_t* dinoPngPath = L"Resource/Enemy/Dino0/EnemyDino0.png";
-	animationRenderer.LoadAnimation(L"Resource/Enemy/Dino0/Idle.txt", dinoPngPath, L"Idle");
-	animationRenderer.LoadAnimation(L"Resource/Enemy/Dino0/Walk.txt", dinoPngPath, L"Walk");
-	animationRenderer.LoadAnimation(L"Resource/Enemy/Dino0/Attack.txt", dinoPngPath, L"Attack");
+	animationRenderer.LoadAnimationClip(L"Resource/Enemy/Dino0/Idle.txt", dinoPngPath, L"Idle");
+	animationRenderer.LoadAnimationClip(L"Resource/Enemy/Dino0/Walk.txt", dinoPngPath, L"Walk");
+	animationRenderer.LoadAnimationClip(L"Resource/Enemy/Dino0/Attack.txt", dinoPngPath, L"Attack");
 
 	auto& fsm = AddComponent<FiniteStateMachine>();
 	fsm.CreateState<EnemySpawn>(L"Spawn");

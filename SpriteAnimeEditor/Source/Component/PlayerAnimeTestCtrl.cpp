@@ -54,6 +54,10 @@ void PlayerAnimeTestCtrl::Update()
 	{
 		SaveAsCurrentAniToFile();
 	}
+	if (Input.IsKeyDown(KeyCode::F5))
+	{
+		 rectMode = !rectMode;
+	}
 
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
@@ -96,7 +100,7 @@ void PlayerAnimeTestCtrl::Update()
 		gameObject.transform.FlipY();
 	}
 
-	debugUI->Line[0] = L"F1 : OpenImage, F2 : OpenAni, F4 : Save As";
+	debugUI->Line[0] = L"F1 : OpenImage, F2 : OpenAni, F3 : Save Asset, F4 : Save clip, F5 : RectMode on/off";
 	debugUI->Line[1] = std::wstring(L"Image : ") + currentImagePath + L" (F1)";
 	debugUI->Line[2] = std::wstring(L"AniClip : ") + currentAniPath + L" (F2)";
 	debugUI->Line[3] = std::wstring(L"CurrentFrame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);
@@ -142,8 +146,8 @@ void PlayerAnimeTestCtrl::SelCurrentImage()
 		if (!currentAniPath.empty())
 		{
 			if (spriteAnimation->GetCurrentAnimation())
-				spriteAnimation->UnloadAnimation(L"set");
-			spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
+				spriteAnimation->UnloadAnimationClip(L"set");
+			spriteAnimation->LoadAnimationClip(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
 			spriteAnimation->SetAnimation(L"set", true);
 		}
 	}
@@ -158,8 +162,8 @@ void PlayerAnimeTestCtrl::SelCurrentAni()
 		if (!currentImagePath.empty())
 		{
 			if (spriteAnimation->GetCurrentAnimation())
-				spriteAnimation->UnloadAnimation(L"set");
-			spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
+				spriteAnimation->UnloadAnimationClip(L"set");
+			spriteAnimation->LoadAnimationClip(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
 			spriteAnimation->SetAnimation(L"set", true);
 		}
 	}
@@ -171,7 +175,7 @@ void PlayerAnimeTestCtrl::SaveAsCurrentAniToFile()
 	{
 		std::wstring savePath = WinUtility::GetSaveAsFilePath(L"txt");
 		if (savePath != L"")
-			SpriteAnimationRenderer::AnimationClipSaveToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
+			SpriteAnimationRenderer::SaveAnimationClipToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
 	}
 }
 
@@ -187,8 +191,8 @@ void PlayerAnimeTestCtrl::ReloadAnimation()
 	{
 		int currentIndex = spriteAnimation->CurrentFrameIndex;
 		if (spriteAnimation->GetCurrentAnimation())
-			spriteAnimation->UnloadAnimation(L"set");
-		spriteAnimation->LoadAnimation(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
+			spriteAnimation->UnloadAnimationClip(L"set");
+		spriteAnimation->LoadAnimationClip(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
 		spriteAnimation->SetAnimation(L"set", true);
 		spriteAnimation->CurrentFrameIndex = currentIndex;
 	}

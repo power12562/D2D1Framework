@@ -88,10 +88,13 @@ public:
 	virtual ~SpriteAnimationRenderer() override;
 
 	/** 해당 경로의 애니메이션 클립 파일 로드*/
-	void LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
+	void LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
 
 	/** 해당 이름의 애니메이션 클립 해제*/
-	void UnloadAnimation(const wchar_t* clipName);
+	void UnloadAnimationClip(const wchar_t* clipName);
+
+	/** 로드된 모든 애니메이션 클립 해제*/
+	void UnloadAllAnimationClip();
 
 	/** 로드된 애니메이션 재생*/
 	void SetAnimation(const wchar_t* clipName, bool isLoop = false);
@@ -124,9 +127,14 @@ public:
 	/** 재생할 프레임 선택*/
 	void SetCurrentFrameIndex(int frame);
 
+	/** 현재 Animations 정보를 전달받은 경로에 json으로 저장합니다*/
+	void SaveAnimationAssetToJson(const wchar_t* path);
+
+	/** json으로 AnimationAsset을 로드합니다.*/
+	void LoadAnimationAssetToJson(const wchar_t* path);
 
 	/** 애니메이션 클립을 전달받은 경로에 txt 형식으로 저장합니다.*/
-	static void AnimationClipSaveToFile(const AnimationClip& clip, const wchar_t* path);
+	static void SaveAnimationClipToFile(const AnimationClip& clip, const wchar_t* path);
 
 protected:
 	//virtual void Start() override;

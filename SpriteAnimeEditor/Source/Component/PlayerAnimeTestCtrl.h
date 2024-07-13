@@ -25,8 +25,10 @@ private:
 
 	void SelCurrentImage();
 	void SelCurrentAni();
-
+	
 	void SaveAsCurrentAniToFile();
 	void PauseAndPlayAni();
 	void ReloadAnimation();
+
+	bool rectMode = false;
 };

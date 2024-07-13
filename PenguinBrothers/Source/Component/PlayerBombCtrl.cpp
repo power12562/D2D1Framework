@@ -18,7 +18,7 @@ PlayerBombCtrl::~PlayerBombCtrl()
 void PlayerBombCtrl::Start()
 {
 	spriteAnimation = &gameObject.AddComponent<SpriteAnimationRenderer>();
-	spriteAnimation->LoadAnimation(L"Resource/bomb/bomb.txt", L"Resource/bomb/blue/bomb.png", L"bomb");
+	spriteAnimation->LoadAnimationClip(L"Resource/bomb/bomb.txt", L"Resource/bomb/blue/bomb.png", L"bomb");
 	spriteAnimation->SetAnimation(L"bomb");
 }
 

@@ -12,7 +12,7 @@ EnemyDino0Attack::EnemyDino0Attack()
 	AddComponent<EnemyDino0AttackCtrl>();
 
 	SpriteAnimationRenderer& animationRenderer = AddComponent<SpriteAnimationRenderer>();
-	animationRenderer.LoadAnimation(L"Resource/Enemy/Dino0/Fire.txt", L"Resource/Enemy/Dino0/EnemyDino0.png", L"Fire");
+	animationRenderer.LoadAnimationClip(L"Resource/Enemy/Dino0/Fire.txt", L"Resource/Enemy/Dino0/EnemyDino0.png", L"Fire");
 	animationRenderer.SetAnimation(L"Fire");
 
 	AddComponent<BoxCollider2D>().isDrawCollider = true;

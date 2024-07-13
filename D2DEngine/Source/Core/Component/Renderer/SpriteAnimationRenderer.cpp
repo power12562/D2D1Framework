@@ -2,9 +2,11 @@
 #include "Framework/WinGameApp.h"
 #include "Framework/TimeSystem.h"
 #include "Framework/D2DRenderer.h"
+#include <Utility/JsonUtility.h>
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 
+#include <cassert>
 #include <iostream>
 #include <ios>
 #include <istream>
@@ -32,27 +34,7 @@ SpriteAnimationRenderer::~SpriteAnimationRenderer()
 	instanceList.erase(myIter);
 }
 
-void SpriteAnimationRenderer::AnimationClipSaveToFile(const AnimationClip& clip, const wchar_t* path)
-{
-	std::ofstream outFile(path, std::ios::app); // append mode
-	if (outFile.is_open())
-	{
-		for (int i = 0; i < clip.frames.size(); i++)
-		{
-			outFile << clip.frames[i].source.left << "," << clip.frames[i].source.top << ","
-				<< clip.frames[i].source.right << "," << clip.frames[i].source.bottom << ","
-				<< clip.frames[i].center.x << "," << clip.frames[i].center.y << ","
-				<< clip.frames[i].frameIntervalTime << "\n";
-		}
-		outFile.close();
-	}
-	else
-	{
-		std::cerr << "Unable to open file";
-	}
-}
-
-void SpriteAnimationRenderer::LoadAnimation(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
+void SpriteAnimationRenderer::LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter == Animations.end())
@@ -75,7 +57,7 @@ void SpriteAnimationRenderer::LoadAnimation(const wchar_t* clipPath, const wchar
 	}
 }
 
-void SpriteAnimationRenderer::UnloadAnimation(const wchar_t* clipName)
+void SpriteAnimationRenderer::UnloadAnimationClip(const wchar_t* clipName)
 {
 	auto iter = Animations.find(clipName);
 	if (iter != Animations.end())
@@ -92,6 +74,16 @@ void SpriteAnimationRenderer::UnloadAnimation(const wchar_t* clipName)
 	{
 		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::UnloadAnimation", MB_OK);
 	}
+}
+
+void SpriteAnimationRenderer::UnloadAllAnimationClip()
+{
+	for (auto& item : Animations)
+	{
+		ReleaseAnimationClip(item.second.clipPath.c_str());
+		D2DRenderer::ReleaseD2D1Bitmap(item.second.imagePath.c_str());
+	}
+	Animations.clear();
 }
 
 void SpriteAnimationRenderer::SetAnimation(const wchar_t* clipName, bool isLoop)
@@ -210,6 +202,43 @@ void SpriteAnimationRenderer::SetCurrentFrameIndex(int frame)
 	}
 }
 
+void SpriteAnimationRenderer::SaveAnimationAssetToJson(const wchar_t* path)
+{
+	ordered_json objJson;
+	for (auto& item : Animations)
+	{
+		ordered_json assetJson;
+		assetJson["clipName"] = item.first;
+		assetJson["clipPath"] = item.second.clipPath;
+		assetJson["imagePath"] = item.second.imagePath;
+		objJson["Ainmations"].push_back(assetJson);
+	}
+
+	std::ofstream ofs(path);
+	ofs << objJson.dump(2);
+	ofs.close();
+}
+
+void SpriteAnimationRenderer::LoadAnimationAssetToJson(const wchar_t* path)
+{
+	std::string strJson = JsonUtiliy::ordered_jsonLoadToFile(path);
+	if (strJson != "")
+	{
+		ordered_json objJson = ordered_json::parse(strJson);
+		for (auto& item : objJson["Ainmations"])
+		{
+			std::wstring clipName = item["clipName"].get<std::wstring>();
+			std::wstring clipPath = item["clipPath"].get<std::wstring>();
+			std::wstring imagePath = item["imagePath"].get<std::wstring>();
+			LoadAnimationClip(clipPath.c_str(), imagePath.c_str(), clipName.c_str());
+		}
+	}
+	else
+	{
+		assert(!"LoadAnimationAssetToJson : 애니메이션 파일이 아닙니다.");
+	}
+}
+
 void SpriteAnimationRenderer::SetRenderPos()
 {
 	originPos = gameObject.transform.position;
@@ -286,6 +315,26 @@ AnimationClip* SpriteAnimationRenderer::CreateAnimationClipFromFile(const wchar_
 	return newClip;
 }
 
+void SpriteAnimationRenderer::SaveAnimationClipToFile(const AnimationClip& clip, const wchar_t* path)
+{
+	std::ofstream outFile(path, std::ios::app); // append mode
+	if (outFile.is_open())
+	{
+		for (int i = 0; i < clip.frames.size(); i++)
+		{
+			outFile << clip.frames[i].source.left << "," << clip.frames[i].source.top << ","
+				<< clip.frames[i].source.right << "," << clip.frames[i].source.bottom << ","
+				<< clip.frames[i].center.x << "," << clip.frames[i].center.y << ","
+				<< clip.frames[i].frameIntervalTime << "\n";
+		}
+		outFile.close();
+	}
+	else
+	{
+		std::cerr << "Unable to open file";
+	}
+}
+
 void SpriteAnimationRenderer::ReleaseAnimationClip(const wchar_t* filePath)
 {
 	auto iter = clipResourceMap.find(filePath);
@@ -303,7 +352,8 @@ void SpriteAnimationRenderer::BegineRender()
 {
 	for (auto& componet : instanceList)
 	{
-		componet->SetRenderPos();
+		if(componet->enabled)
+			componet->SetRenderPos();
 	}
 }
 
@@ -311,7 +361,8 @@ void SpriteAnimationRenderer::EndRender()
 {
 	for (auto& componet : instanceList)
 	{
-		componet->SetOriginPos();
+		if (componet->enabled)
+			componet->SetOriginPos();
 	}
 }
 
