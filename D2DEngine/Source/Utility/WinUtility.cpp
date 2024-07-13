@@ -109,3 +109,25 @@ std::wstring WinUtility::GetSaveAsFilePath(const wchar_t* fileType)
 	assert(!"hWnd가 존재하지 않습니다.");
 	return L"";
 }
+
+bool WinUtility::ShowConfirmationDialog(const wchar_t* title, const wchar_t* text)
+{
+	// MessageBox 함수 호출
+	int result = MessageBox
+	(
+		NULL,                // 부모 창 핸들 (NULL은 부모 창이 없음을 의미)
+		text,    // 메시지 박스에 표시할 텍스트
+		title,     // 메시지 박스의 제목
+		MB_OKCANCEL | MB_ICONQUESTION // 확인 및 취소 버튼을 포함한 메시지 박스 스타일
+	);
+
+	// 사용자가 누른 버튼에 따라 true 또는 false 반환
+	if (result == IDOK) 
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}

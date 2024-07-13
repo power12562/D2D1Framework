@@ -102,6 +102,9 @@ public:
 	/** 설정 애니메이션 정보*/
 	const AnimationAsset* GetCurrentAnimation();
 
+	/** 현재 선택된 클립 정보*/
+	AnimationClip* GetCurrentClip();
+
 	/** 재생중인 애니메이션의 프레임 정보*/
 	FrameInfo* GetCurrentFrame();
 
@@ -121,9 +124,10 @@ public:
 	/**현재 프레임의 피봇 위치를 transform에 적용해준다.*/
 	void UpdateCurrentPivot();
 
-	/** 재생할 프레임 선택*/
+	/** 현제 프레임 인덱스*/
 	int GetCurrentFrameIndex() const { return currentFrame; }
 	__declspec(property(get = GetCurrentFrameIndex, put = SetCurrentFrameIndex)) int CurrentFrameIndex;
+
 	/** 재생할 프레임 선택*/
 	void SetCurrentFrameIndex(int frame);
 

@@ -25,7 +25,7 @@ private:
 
 	void SelCurrentImage();
 	void SelCurrentAni();
-	
+	void MakeNewClip();
 	void SaveAsCurrentAniToFile();
 	void PauseAndPlayAni();
 	void ReloadAnimation();

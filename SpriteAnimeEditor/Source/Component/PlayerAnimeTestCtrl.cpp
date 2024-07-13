@@ -50,6 +50,10 @@ void PlayerAnimeTestCtrl::Update()
 	{
 		SelCurrentAni();
 	}
+	if (Input.IsKeyDown(KeyCode::F3))
+	{
+		MakeNewClip();
+	}
 	if (Input.IsKeyDown(KeyCode::F4))
 	{
 		SaveAsCurrentAniToFile();
@@ -100,7 +104,7 @@ void PlayerAnimeTestCtrl::Update()
 		gameObject.transform.FlipY();
 	}
 
-	debugUI->Line[0] = L"F1 : OpenImage, F2 : OpenAni, F4 : Save clip, F5 : RectMode on/off";
+	debugUI->Line[0] = L"F1 : Open Image, F2 : Open Ani, F3 : New Clip, F4 : Save clip, F5 : RectMode on/off";
 	debugUI->Line[1] = std::wstring(L"Image : ") + currentImagePath + L" (F1)";
 	debugUI->Line[2] = std::wstring(L"AniClip : ") + currentAniPath + L" (F2)";
 	debugUI->Line[3] = std::wstring(L"CurrentFrame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);
@@ -128,7 +132,6 @@ void PlayerAnimeTestCtrl::Update()
 	swprintf_s(mousePosWString, _ARRAYSIZE(mousePosWString), L"MousePos : %01.f, %01.f", mousePos.x, mousePos.y);
 	debugUI->Line[7] = mousePosWString;
 
-	
 }
 
 void PlayerAnimeTestCtrl::Render()
@@ -165,6 +168,26 @@ void PlayerAnimeTestCtrl::SelCurrentAni()
 				spriteAnimation->UnloadAnimationClip(L"set");
 			spriteAnimation->LoadAnimationClip(currentAniPath.c_str(), currentImagePath.c_str(), L"set");
 			spriteAnimation->SetAnimation(L"set", true);
+		}
+	}
+}
+
+void PlayerAnimeTestCtrl::MakeNewClip()
+{
+	if (!currentImagePath.empty())
+	{
+		bool result = WinUtility::ShowConfirmationDialog(L"경고!", L"저장하지 않은 내용은 삭제됩니다.");
+		if (result)
+		{
+			if (spriteAnimation->GetCurrentAnimation())
+			{
+				spriteAnimation->UnloadAnimationClip(L"set");
+			}
+			spriteAnimation->LoadAnimationClip(L"newClip.txt", currentImagePath.c_str(), L"set");
+			spriteAnimation->SetAnimation(L"set", true);
+			FrameInfo& frame = spriteAnimation->GetCurrentClip()->frames[0];
+			frame.source.right = (*spriteAnimation->GetCurrentImage())->GetSize().width;
+			frame.source.bottom = (*spriteAnimation->GetCurrentImage())->GetSize().height;
 		}
 	}
 }

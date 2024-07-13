@@ -13,6 +13,7 @@
 #include <fstream>
 #include <sstream>
 #include <iosfwd>
+#include <filesystem>
 
 std::map<std::wstring, AnimationClip*> SpriteAnimationRenderer::clipResourceMap;
 std::list<SpriteAnimationRenderer*> SpriteAnimationRenderer::instanceList;
@@ -112,6 +113,14 @@ const AnimationAsset* SpriteAnimationRenderer::GetCurrentAnimation()
 
 	else
 		return nullptr;
+}
+
+AnimationClip* SpriteAnimationRenderer::GetCurrentClip()
+{
+	if (currentAnimation)
+		return currentAnimation->clip;
+
+	return nullptr;
 }
 
 FrameInfo* SpriteAnimationRenderer::GetCurrentFrame()
