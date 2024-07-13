@@ -100,7 +100,7 @@ void PlayerAnimeTestCtrl::Update()
 		gameObject.transform.FlipY();
 	}
 
-	debugUI->Line[0] = L"F1 : OpenImage, F2 : OpenAni, F3 : Save Asset, F4 : Save clip, F5 : RectMode on/off";
+	debugUI->Line[0] = L"F1 : OpenImage, F2 : OpenAni, F4 : Save clip, F5 : RectMode on/off";
 	debugUI->Line[1] = std::wstring(L"Image : ") + currentImagePath + L" (F1)";
 	debugUI->Line[2] = std::wstring(L"AniClip : ") + currentAniPath + L" (F2)";
 	debugUI->Line[3] = std::wstring(L"CurrentFrame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);

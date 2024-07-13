@@ -103,7 +103,7 @@ public:
 	const AnimationAsset* GetCurrentAnimation();
 
 	/** 재생중인 애니메이션의 프레임 정보*/
-	FrameInfo* const GetCurrentFrame();
+	FrameInfo* GetCurrentFrame();
 
 	/** 재생중인 애니메이션의 이미지 포인터*/
 	ID2D1Bitmap* const* GetCurrentImage();

@@ -114,7 +114,7 @@ const AnimationAsset* SpriteAnimationRenderer::GetCurrentAnimation()
 		return nullptr;
 }
 
-FrameInfo* const SpriteAnimationRenderer::GetCurrentFrame()
+FrameInfo* SpriteAnimationRenderer::GetCurrentFrame()
 {
 	if (currentAnimation)
 	{
