@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Core\Component\FSM\FiniteStateMachine.cpp" />
     <ClCompile Include="Source\Core\Component\FSM\FSMState.cpp" />
     <ClCompile Include="Source\Utility\JsonUtility.cpp" />
+    <ClCompile Include="Source\Core\Component\InputBinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -59,5 +60,6 @@
     <ClInclude Include="Source\Utility\JsonUtility.h" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\json.hpp" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="Source\Core\Component\InputBinding.h" />
   </ItemGroup>
 </Project>

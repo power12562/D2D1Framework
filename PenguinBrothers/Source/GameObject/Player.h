@@ -3,12 +3,17 @@
 
 #include "Core/Component/FSM/FSMState.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
+#include <Core/Component/InputBinding.h>
 
 class Player : public GameObjectBase
 {
 public:
 	Player();
 	virtual ~Player() override;
+
+private:
+	class InputBinding* Input;
+
 };
 	
 
@@ -21,6 +26,7 @@ public:
 	virtual ~PlayerState() override {};
 
 protected:
+	class InputBinding* Input;
 	class Movement* movement;
 	class SpriteAnimationRenderer* spriteAnimation;
 	class PlayerCtrl* playerCtrl;
