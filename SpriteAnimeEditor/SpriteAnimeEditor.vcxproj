@@ -150,8 +150,10 @@
     <ClInclude Include="Source\Component\AnimeEditCameraCtrl.h" />
     <ClInclude Include="Source\Component\DebugUICtrl.h" />
     <ClInclude Include="Source\Component\PlayerAnimeTestCtrl.h" />
+    <ClInclude Include="Source\Component\RectModeCtrl.h" />
     <ClInclude Include="Source\GameObject\DebugUI.h" />
     <ClInclude Include="Source\GameObject\PlayerAnimeTest.h" />
+    <ClInclude Include="Source\GameObject\RectMode.h" />
     <ClInclude Include="Source\Scenes\AnimeEditScene.h" />
     <ClInclude Include="Source\WinMain\AnimeEditor.h" />
   </ItemGroup>
@@ -159,8 +161,10 @@
     <ClCompile Include="Source\Component\AnimeEditCameraCtrl.cpp" />
     <ClCompile Include="Source\Component\DebugUICtrl.cpp" />
     <ClCompile Include="Source\Component\PlayerAnimeTestCtrl.cpp" />
+    <ClCompile Include="Source\Component\RectModeCtrl.cpp" />
     <ClCompile Include="Source\GameObject\DebugUI.cpp" />
     <ClCompile Include="Source\GameObject\PlayerAnimeTest.cpp" />
+    <ClCompile Include="Source\GameObject\RectMode.cpp" />
     <ClCompile Include="Source\Scenes\AnimeEditScene.cpp" />
     <ClCompile Include="Source\WinMain\AnimeEditor.cpp" />
   </ItemGroup>

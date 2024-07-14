@@ -13,6 +13,7 @@
 #include "Core/Component/Camera.h"
 
 #include "Source/Component/DebugUICtrl.h"
+#include "Source/Component/RectModeCtrl.h"
 
 PlayerAnimeTestCtrl::PlayerAnimeTestCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -29,12 +30,12 @@ void PlayerAnimeTestCtrl::Start()
 	gameObject.AddComponent<SpriteAnimationRenderer>();
 	spriteAnimation = &gameObject.GetComponent<SpriteAnimationRenderer>();
 
-	BoxCollider2D& boxCollider2D = gameObject.AddComponent<BoxCollider2D>();
-	boxCollider2D.isDrawCollider = true;
+	boxCollider = &gameObject.AddComponent<BoxCollider2D>();
+	boxCollider->isDrawCollider = true;
 
 	debugUI = &WorldManager::FindGameObject(L"DebugUI")->GetComponent<DebugUICtrl>();
 
-	debugUI->Line.resize(8);
+	debugUI->Line.resize(12);
 }
 
 void PlayerAnimeTestCtrl::Update()
@@ -61,6 +62,7 @@ void PlayerAnimeTestCtrl::Update()
 	if (Input.IsKeyDown(KeyCode::F5))
 	{
 		 rectMode = !rectMode;
+		 EnableRectMode();
 	}
 
 	if (Input.IsKeyDown(KeyCode::Space))
@@ -104,34 +106,7 @@ void PlayerAnimeTestCtrl::Update()
 		gameObject.transform.FlipY();
 	}
 
-	debugUI->Line[0] = L"F1 : Open Image, F2 : Open Ani, F3 : New Clip, F4 : Save clip, F5 : RectMode on/off";
-	debugUI->Line[1] = std::wstring(L"Image : ") + currentImagePath + L" (F1)";
-	debugUI->Line[2] = std::wstring(L"AniClip : ") + currentAniPath + L" (F2)";
-	debugUI->Line[3] = std::wstring(L"CurrentFrame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);
-
-	wchar_t aniCenterWString[30]{L"center :"};
-	if (FrameInfo* frame = spriteAnimation->GetCurrentFrame())
-	{
-		const D2D1_VECTOR_2F& aniCenter = frame->center;
-		swprintf_s(aniCenterWString, _ARRAYSIZE(aniCenterWString), L"center : %01.f, %01.f", aniCenter.x, aniCenter.y);
-	}
-	debugUI->Line[4] = aniCenterWString;
-	
-	wchar_t camPosWString[30]{};
-	const Vector2& camPos = Camera::GetMainCamera()->gameObject.transform.position;
-	swprintf_s(camPosWString, _ARRAYSIZE(camPosWString), L"CameraPos : %01.f, %01.f", camPos.x, camPos.y);
-	debugUI->Line[5] = camPosWString;
-
-	wchar_t imagePosWString[30]{};
-	const Bounds& imageBounds = gameObject.bounds;
-	swprintf_s(imagePosWString, _ARRAYSIZE(imagePosWString), L"ImagePos : %01.f, %01.f", camPos.x - imageBounds.leftTop.x, imageBounds.leftTop.y - camPos.y);
-	debugUI->Line[6] = imagePosWString;
-
-	wchar_t mousePosWString[35]{};
-	const Vector2& mousePos = Input.GetMouseState().GetWorldPos();
-	swprintf_s(mousePosWString, _ARRAYSIZE(mousePosWString), L"MousePos : %01.f, %01.f", mousePos.x, mousePos.y);
-	debugUI->Line[7] = mousePosWString;
-
+	UpdateDebugText();
 }
 
 void PlayerAnimeTestCtrl::Render()
@@ -188,6 +163,7 @@ void PlayerAnimeTestCtrl::MakeNewClip()
 			FrameInfo& frame = spriteAnimation->GetCurrentClip()->frames[0];
 			frame.source.right = (*spriteAnimation->GetCurrentImage())->GetSize().width;
 			frame.source.bottom = (*spriteAnimation->GetCurrentImage())->GetSize().height;
+			currentAniPath = L"new";
 		}
 	}
 }
@@ -199,6 +175,26 @@ void PlayerAnimeTestCtrl::SaveAsCurrentAniToFile()
 		std::wstring savePath = WinUtility::GetSaveAsFilePath(L"txt");
 		if (savePath != L"")
 			SpriteAnimationRenderer::SaveAnimationClipToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
+	}
+}
+
+void PlayerAnimeTestCtrl::EnableRectMode()
+{
+	if (rectMode)
+	{
+		RectModeCtrl* rectMode = &WorldManager::FindGameObject(L"RectMode")->GetComponent<RectModeCtrl>();
+		rectMode->gameObject.enable = true;
+		rectMode->spriteRenderer->LoadImage(currentImagePath.c_str());
+		rectMode->spriteAnimation = spriteAnimation;
+		spriteAnimation->isDraw = false;
+		boxCollider->enabled = false;
+	}
+	else
+	{
+		RectModeCtrl* rectMode = &WorldManager::FindGameObject(L"RectMode")->GetComponent<RectModeCtrl>();
+		rectMode->gameObject.enable = false;
+		spriteAnimation->isDraw = true;
+		boxCollider->enabled = true;
 	}
 }
 
@@ -219,4 +215,66 @@ void PlayerAnimeTestCtrl::ReloadAnimation()
 		spriteAnimation->SetAnimation(L"set", true);
 		spriteAnimation->CurrentFrameIndex = currentIndex;
 	}
+}
+
+void PlayerAnimeTestCtrl::UpdateDebugText()
+{
+	using namespace InputSystem;
+	int currentLine = 0;
+
+	debugUI->Line[currentLine++] = L"Open Image : F1, Open Ani : F2, New Clip : F3, Save clip : F4, RectMode on/off : F5";
+	debugUI->Line[currentLine++] = L"Add frame : Insert, Delete frame : delete";
+	debugUI->Line[currentLine++] = L"set left top : 1, set right bottom : 2, camera zoom : +, -";
+	debugUI->Line[currentLine++] = std::wstring(L"Image : ") + currentImagePath;
+	debugUI->Line[currentLine++] = std::wstring(L"AniClip : ") + currentAniPath;
+
+	wchar_t framesSizeWString[30]{ L"frames count :" };
+	if (AnimationClip* clip = spriteAnimation->GetCurrentClip())
+	{
+		int size = clip->frames.size();
+		swprintf_s(framesSizeWString, _ARRAYSIZE(framesSizeWString), L"frames count : %d", size);
+	}
+	debugUI->Line[currentLine++] = framesSizeWString;
+
+	debugUI->Line[currentLine++] = std::wstring(L"current frame : ") + std::to_wstring(spriteAnimation->CurrentFrameIndex);
+
+	wchar_t aniCenterWString[30]{ L"center :" };
+	FrameInfo* frame = spriteAnimation->GetCurrentFrame();
+	if (frame)
+	{
+		const D2D1_VECTOR_2F& aniCenter = frame->center;
+		swprintf_s(aniCenterWString, _ARRAYSIZE(aniCenterWString), L"center : %01.f, %01.f", aniCenter.x, aniCenter.y);
+	}
+	debugUI->Line[currentLine++] = aniCenterWString;
+
+	wchar_t sourceWString[35]{ L"source : " };
+	if (frame)
+	{
+		const D2D1_RECT_F& source = frame->source;
+		swprintf_s(sourceWString, _ARRAYSIZE(sourceWString), L"source : { %.0f, %.0f, %.0f, %.0f }", source.left, source.top, source.right, source.bottom);
+	}
+	debugUI->Line[currentLine++] = sourceWString;
+
+	wchar_t camPosWString[30]{};
+	const Vector2& camPos = Camera::GetMainCamera()->gameObject.transform.position;
+	swprintf_s(camPosWString, _ARRAYSIZE(camPosWString), L"CameraPos : %01.f, %01.f", camPos.x, camPos.y);
+	debugUI->Line[currentLine++] = camPosWString;
+
+	wchar_t imagePosWString[30]{};
+	if (rectMode)
+	{
+		const D2D1_SIZE_F imageSize = (*spriteAnimation->GetCurrentImage())->GetSize();
+		swprintf_s(imagePosWString, _ARRAYSIZE(imagePosWString), L"ImagePos : %01.f, %01.f", camPos.x + imageSize.width * 0.5f, imageSize.height * 0.5f - camPos.y);
+	}
+	else
+	{
+		const Bounds& imageBounds = gameObject.bounds;
+		swprintf_s(imagePosWString, _ARRAYSIZE(imagePosWString), L"ImagePos : %01.f, %01.f", camPos.x - imageBounds.leftTop.x, imageBounds.leftTop.y - camPos.y);
+	}
+	debugUI->Line[currentLine++] = imagePosWString;
+
+	wchar_t mousePosWString[35]{};
+	const Vector2& mousePos = Input.GetMouseState().GetWorldPos();
+	swprintf_s(mousePosWString, _ARRAYSIZE(mousePosWString), L"MousePos : %01.f, %01.f", mousePos.x, mousePos.y);
+	debugUI->Line[currentLine++] = mousePosWString;
 }

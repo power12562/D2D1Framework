@@ -183,12 +183,15 @@ void SpriteAnimationRenderer::Update()
 
 void SpriteAnimationRenderer::Render()
 {
-	if (ID2D1Bitmap* const* image = this->GetCurrentImage())
+	if (isDraw)
 	{
-		FrameInfo* const frame = this->GetCurrentFrame();
+		if (ID2D1Bitmap* const* image = this->GetCurrentImage())
+		{
+			FrameInfo* const frame = this->GetCurrentFrame();
 
-		D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
-		D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
+			D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
+			D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
+		}
 	}
 }
 
@@ -291,7 +294,7 @@ AnimationClip* SpriteAnimationRenderer::CreateAnimationClipFromFile(const wchar_
 	int FrameCount = 0;			// 프레임의 개수
 	while (std::getline(file, line)) 
 	{
-			++FrameCount;
+		++FrameCount;
 	}
 	newClip->frames.resize(FrameCount);
 	// 파일 스트림 재설정
@@ -326,7 +329,7 @@ AnimationClip* SpriteAnimationRenderer::CreateAnimationClipFromFile(const wchar_
 
 void SpriteAnimationRenderer::SaveAnimationClipToFile(const AnimationClip& clip, const wchar_t* path)
 {
-	std::ofstream outFile(path, std::ios::app); // append mode
+	std::ofstream outFile(path, std::ios::trunc); // append mode
 	if (outFile.is_open())
 	{
 		for (int i = 0; i < clip.frames.size(); i++)

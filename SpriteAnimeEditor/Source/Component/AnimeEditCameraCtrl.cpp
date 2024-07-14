@@ -27,17 +27,20 @@ void AnimeEditCameraCtrl::Update()
 
 	if (Input.IsKeyDown(KeyCode::Minus))
 	{
-		gameObject.transform.scale = Vector2{ gameObject.transform.scale.x + 0.1f,  gameObject.transform.scale.y + 0.1f };
+		gameObject.transform.scale = Vector2{ gameObject.transform.scale.x + 0.1f,  gameObject.transform.scale.y + 0.1f };	
 	}
 	if (Input.IsKeyDown(KeyCode::Plus))
 	{
-		gameObject.transform.scale = Vector2{ gameObject.transform.scale.x - 0.1f,  gameObject.transform.scale.y - 0.1f };
+		if (gameObject.transform.scale.x > 0.1f)
+		{
+			gameObject.transform.scale = Vector2{ gameObject.transform.scale.x - 0.1f,  gameObject.transform.scale.y - 0.1f };
+		}	
 	}
 
 	float speedScale = 1.0f;
 	if (Input.IsKey(KeyCode::Shift))
 	{
-		speedScale = 0.25f;
+		speedScale = 0.1f;
 	}
 	if (Input.IsKey(KeyCode::W))
 	{

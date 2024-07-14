@@ -87,6 +87,9 @@ public:
 	SpriteAnimationRenderer(GameObjectBase& gameObject);
 	virtual ~SpriteAnimationRenderer() override;
 
+	/** 그리기 유무 (Render 실행 유무)*/
+	bool isDraw = true;
+
 	/** 해당 경로의 애니메이션 클립 파일 로드*/
 	void LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName);
 
