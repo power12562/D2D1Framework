@@ -12,10 +12,10 @@ public:
 	virtual ~Derived() override;
 
 protected:
-	virtual void Start();
-	virtual void Update();
-	virtual void LateUpdate();
-	virtual void Render();
+	virtual void Start() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Render() override;
 };
 
 */

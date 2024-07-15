@@ -29,6 +29,9 @@ private:
 	void SaveAsCurrentAniToFile();
 	void EnableRectMode();
 
+	void InsertFrame();
+	void DeleteFrame();
+
 	void PauseAndPlayAni();
 	void ReloadAnimation();
 

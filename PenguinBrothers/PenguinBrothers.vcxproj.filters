@@ -8,10 +8,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\WinMain\PenguinBrothers.cpp" />
-    <ClCompile Include="Source\GameObject\Player.cpp" />
-    <ClCompile Include="Source\Component\PlayerCtrl.cpp" />
-    <ClCompile Include="Source\GameObject\PlayerBomb.cpp" />
-    <ClCompile Include="Source\Component\PlayerBombCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\Player\Player.cpp" />
+    <ClCompile Include="Source\Component\Player\PlayerCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\Player\PlayerBomb.cpp" />
+    <ClCompile Include="Source\Component\Player\PlayerBombCtrl.cpp" />
     <ClCompile Include="Source\GameObject\Enemy\EnemyDino0.cpp" />
     <ClCompile Include="Source\Component\Enemy\EnemyDino0Ctrl.cpp" />
     <ClCompile Include="Source\GameObject\Enemy\EnemyDino0Attack.cpp" />
@@ -22,13 +22,15 @@
     <ClCompile Include="Source\Scenes\StageScene.cpp" />
     <ClCompile Include="Source\GameObject\Editer.cpp" />
     <ClCompile Include="Source\Component\EditerCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
+    <ClCompile Include="Source\Component\Player\BombEffectCtrl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
-    <ClInclude Include="Source\GameObject\Player.h" />
-    <ClInclude Include="Source\Component\PlayerCtrl.h" />
-    <ClInclude Include="Source\GameObject\PlayerBomb.h" />
-    <ClInclude Include="Source\Component\PlayerBombCtrl.h" />
+    <ClInclude Include="Source\GameObject\Player\Player.h" />
+    <ClInclude Include="Source\Component\Player\PlayerCtrl.h" />
+    <ClInclude Include="Source\GameObject\Player\PlayerBomb.h" />
+    <ClInclude Include="Source\Component\Player\PlayerBombCtrl.h" />
     <ClInclude Include="Source\GameObject\Enemy\EnemyDino0.h" />
     <ClInclude Include="Source\Component\Enemy\EnemyDino0Ctrl.h" />
     <ClInclude Include="Source\GameObject\Enemy\EnemyDino0Attack.h" />
@@ -39,5 +41,7 @@
     <ClInclude Include="Source\Scenes\StageScene.h" />
     <ClInclude Include="Source\GameObject\Editer.h" />
     <ClInclude Include="Source\Component\EditerCtrl.h" />
+    <ClInclude Include="Source\GameObject\Player\BombEffect.h" />
+    <ClInclude Include="Source\Component\Player\BombEffectCtrl.h" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 #include "Core/Component/Renderer/SpriteRenderer.h"
 #include <Core/Component/Renderer/TextRenderer.h>
 
-#include "Source/GameObject/Player.h"
+#include "Source/GameObject/Player/Player.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 #include "Source/GameObject/StageObjectListDebug.h"	   
 #include "Source/GameObject/Editer.h"

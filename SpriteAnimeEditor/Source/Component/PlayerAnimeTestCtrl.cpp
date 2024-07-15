@@ -65,6 +65,15 @@ void PlayerAnimeTestCtrl::Update()
 		 EnableRectMode();
 	}
 
+	if (Input.IsKeyDown(KeyCode::Inser))
+	{
+		InsertFrame();
+	}
+	if (Input.IsKeyDown(KeyCode::Delete))
+	{
+		DeleteFrame();
+	}
+
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
 		PauseAndPlayAni();
@@ -195,6 +204,28 @@ void PlayerAnimeTestCtrl::EnableRectMode()
 		rectMode->gameObject.enable = false;
 		spriteAnimation->isDraw = true;
 		boxCollider->enabled = true;
+	}
+}
+
+void PlayerAnimeTestCtrl::InsertFrame()
+{
+	if (AnimationClip* clip = spriteAnimation->GetCurrentClip())
+	{
+		const D2D1_SIZE_F& imageSize = (*spriteAnimation->GetCurrentImage())->GetSize();
+		clip->frames.push_back({ { 0,0, imageSize.width,imageSize.height }, {0, 0}, 0.2f });
+		spriteAnimation->SetAnimation(L"set", true);
+	}
+}
+
+void PlayerAnimeTestCtrl::DeleteFrame()
+{
+	if (AnimationClip* clip = spriteAnimation->GetCurrentClip())
+	{
+		if (clip->frames.size() > 1)
+		{
+			clip->frames.pop_back();
+			spriteAnimation->SetAnimation(L"set", true);
+		}
 	}
 }
 
