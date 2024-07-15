@@ -4,6 +4,7 @@
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
+#include "Core/Component/Collider/BoxCollider2D.h"
 
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/Component/Player/PlayerCtrl.h"
@@ -22,6 +23,11 @@ PlayerBombCtrl::~PlayerBombCtrl()
 
 void PlayerBombCtrl::Start()
 {
+#ifdef _DEBUG
+	GetComponent<BoxCollider2D>().isDrawCollider = true;
+#endif // _DEBUG
+
+
 	spriteAnimation = &gameObject.AddComponent<SpriteAnimationRenderer>();
 	switch (((PlayerBomb&)gameObject).playerCtrl->bombType)
 	{
