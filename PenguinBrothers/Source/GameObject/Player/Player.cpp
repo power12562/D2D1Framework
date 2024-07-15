@@ -11,6 +11,7 @@
 
 Player::Player()
 {
+	tag = L"Player";
 	transform.scale = Vector2(4.0f, 4.0f);
 
 	Input = &AddComponent<InputBinding>();
@@ -22,7 +23,10 @@ Player::Player()
 	//Input->BindKey("Duck", KeyCode::S);
 
 	Input->BindKey("Attack", KeyCode::LeftCtrl);
+	Input->BindKey("Attack", KeyCode::Z);
+	
 	Input->BindKey("Jump", KeyCode::LeftAlt);
+	Input->BindKey("Jump", KeyCode::X);
 
 
 	AddComponent<Movement>();

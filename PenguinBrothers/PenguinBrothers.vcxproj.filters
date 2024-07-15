@@ -24,6 +24,8 @@
     <ClCompile Include="Source\Component\EditerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
     <ClCompile Include="Source\Component\Player\BombEffectCtrl.cpp" />
+    <ClCompile Include="Source\Component\Player\FireEffectCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\Player\FireEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
@@ -43,5 +45,7 @@
     <ClInclude Include="Source\Component\EditerCtrl.h" />
     <ClInclude Include="Source\GameObject\Player\BombEffect.h" />
     <ClInclude Include="Source\Component\Player\BombEffectCtrl.h" />
+    <ClInclude Include="Source\Component\Player\FireEffectCtrl.h" />
+    <ClInclude Include="Source\GameObject\Player\FireEffect.h" />
   </ItemGroup>
 </Project>

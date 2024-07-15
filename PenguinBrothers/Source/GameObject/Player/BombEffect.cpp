@@ -5,11 +5,9 @@
 
 BombEffect::BombEffect()
 {
+	tag = L"Attack";
 	transform.scale = Vector2{ 4.0f, 4.0f };
-
-	SpriteAnimationRenderer& animationRenderer = AddComponent<SpriteAnimationRenderer>();
-	animationRenderer.LoadAnimationClip(L"Resource/bomb/bombeffect.txt", L"Resource/bomb/bombeffect.png", L"effect");
-	animationRenderer.SetAnimation(L"effect");
+	OderLayer = 1;
 
 	AddComponent<BombEffectCtrl>();
 }

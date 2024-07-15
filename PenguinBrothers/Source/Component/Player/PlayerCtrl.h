@@ -19,7 +19,7 @@ public:
 	PlayerCtrl(GameObjectBase& gameObject);
 	virtual ~PlayerCtrl();
 
-	BombType bombType = BombType::blue;
+	BombType bombType = BombType::red;
 
 	float moveSpeed;
 	float slideSpeed;

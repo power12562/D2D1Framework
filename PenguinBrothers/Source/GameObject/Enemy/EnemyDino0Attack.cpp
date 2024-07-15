@@ -7,6 +7,7 @@
 
 EnemyDino0Attack::EnemyDino0Attack()
 {
+	tag = L"Attack";
 	transform.scale = Vector2(2.0f, 2.0f);
 
 	AddComponent<EnemyDino0AttackCtrl>();

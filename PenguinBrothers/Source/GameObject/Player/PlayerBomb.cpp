@@ -7,6 +7,8 @@ int PlayerBomb::objectCount = 0;
 
 PlayerBomb::PlayerBomb()
 {
+	tag = L"Bomb";
+
 	objectCount++;
 	AddComponent<PlayerBombCtrl>();
 	transform.scale = Vector2{ 4.0f, 4.0f };

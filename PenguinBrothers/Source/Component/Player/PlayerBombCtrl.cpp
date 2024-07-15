@@ -8,6 +8,7 @@
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/BombEffect.h"
+#include "Source/GameObject/Player/FireEffect.h"
 
 PlayerBombCtrl::PlayerBombCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -46,8 +47,11 @@ void PlayerBombCtrl::Update()
 	if (spriteAnimation->CurrentClipEnd)
 	{
 		WorldManager::DelGameObject(gameObject);
-		GameObjectBase* effect = WorldManager::AddGameObject<BombEffect>(L"effect");
-		effect->transform.position = gameObject.transform.position;
-		effect->transform.position += Vector2(0.0f, 15.0f);
+		GameObjectBase* bombEffect = WorldManager::AddGameObject<BombEffect>(L"bombEffect");
+		bombEffect->transform.position = gameObject.transform.position;
+
+		FireEffect* fireEffect = (FireEffect*)WorldManager::AddGameObject<FireEffect>(L"fireEffect");
+		fireEffect->transform.position = gameObject.transform.position;
+		fireEffect->playerCtrl = ((PlayerBomb&)gameObject).playerCtrl;
 	}
 }

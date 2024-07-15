@@ -13,7 +13,9 @@ BombEffectCtrl::~BombEffectCtrl()
 
 void BombEffectCtrl::Start()
 {
-	animationRenderer = &GetComponent<SpriteAnimationRenderer>();
+	animationRenderer = &AddComponent<SpriteAnimationRenderer>();
+	animationRenderer->LoadAnimationClip(L"Resource/bomb/bombeffect.txt", L"Resource/bomb/bombeffect.png", L"effect");
+	animationRenderer->SetAnimation(L"effect");
 }
 
 void BombEffectCtrl::Update()
