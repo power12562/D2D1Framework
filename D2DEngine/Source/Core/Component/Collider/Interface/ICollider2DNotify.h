@@ -1,8 +1,10 @@
 #pragma once	 
+class ComponentBase;
 
-/** 콜라이더 이벤트를 사용할 컴포넌트용 인터페이스. 생성자에 this를 넘겨주어야 합니다.*/
+/** 콜라이더 이벤트를 사용할 컴포넌트용 인터페이스. 생성자에 this를 넘겨서 컴포넌트 유무를 체크 합니다.*/
 class ICollider2DNotify
 {
+	friend class WorldManager;
 	friend class ColliderManager;
 public:
 	/*this를 넘겨 타입을 체크하세요. */

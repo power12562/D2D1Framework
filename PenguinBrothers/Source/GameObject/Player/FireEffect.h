@@ -7,4 +7,5 @@ public:
 	FireEffect();
 	virtual ~FireEffect() override;
 	class PlayerCtrl* playerCtrl = nullptr;
+
 };

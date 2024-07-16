@@ -116,7 +116,7 @@ void GameObjectBase::UpdateCullingBounds()
 
 void GameObjectBase::PushColliderNotipyTable(ComponentBase* component)
 {
-	collider2DNotifyTable[component] = ((ICollider2DNotify*)component);
+	collider2DNotifyTable[component] = dynamic_cast<ICollider2DNotify*>(component);
 }
 
 void GameObjectBase::EraseColliderNotipyTable(ComponentBase* component)

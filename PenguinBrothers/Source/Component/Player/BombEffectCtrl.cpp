@@ -3,7 +3,7 @@
 
 #include <Core/Component/Renderer/SpriteAnimationRenderer.h>
 
-BombEffectCtrl::BombEffectCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
+BombEffectCtrl::BombEffectCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
 }
 
@@ -25,3 +25,4 @@ void BombEffectCtrl::Update()
 		WorldManager::DelGameObject(gameObject);
 	}
 }
+

@@ -1,9 +1,12 @@
 #include "WorldManager.h"
+
 #include "Core/Scene/WorldBase.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include "Core/Component/Camera.h"
+#include <Core/Component/Collider/Base/ColliderBase.h>
+#include <Core/Component/Collider/Interface/ICollider2DNotify.h>
 
 #include <vector>
 #include <cassert>
@@ -188,6 +191,11 @@ void WorldManager::DelObjectToSetList()
 			auto findIter = currentWorld->gameObjectMap.find(delVectorList[0]);
 			if (findIter != currentWorld->gameObjectMap.end())
 			{
+				for (auto& i : (*findIter->second)->collider2DNotifyTable)
+				{
+
+					//i.second->OnCollisionExit2D(); //삭제 전에 Collider Exit호출을 어케하노ㅗㅇ너ㅏ미;라ㅣㄴㅇㅁ로ㅓㅣㄴㅁㅇ롸
+				} 
 				delete *(findIter->second);
 				currentWorld->gameObjectList.erase(findIter->second);
 				currentWorld->gameObjectMap.erase(findIter);

@@ -8,6 +8,7 @@
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Camera.h"
 #include <Core/Component/InputBinding.h>
+#include <Core/Component/Collider/Base/ColliderBase.h>
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
@@ -96,6 +97,7 @@ void WinGameApp::Run()
 			SpriteAnimationRenderer::BegineRender();
 			WorldManager::UpdateMatrix();
 			WorldManager::UpdateCullingBouds();	
+			ColliderManager::CheckCollision();
 			D2DRenderer::BeginDraw();
 			D2DRenderer::Clear(bgColor);
 			WorldManager::Render();
@@ -238,6 +240,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			break;
 		case SIZE_MAXIMIZED:
 			WinGameApp::isMaxsize = true;
+			[[fallthrough]];
 		case SIZE_MAXSHOW:
 			SendMessage(hwnd, WM_EXITSIZEMOVE, 0, 0);
 			break;

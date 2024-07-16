@@ -8,7 +8,7 @@
 #include "Source/GameObject/Player/FireEffect.h"
 
 FireEffectCtrl::FireEffectCtrl(GameObjectBase& gameObject)
-	: ComponentBase(gameObject) 
+	: ComponentBase(gameObject), ICollider2DNotify(this)
 {
 	
 }
@@ -48,3 +48,20 @@ void FireEffectCtrl::Update()
 		WorldManager::DelGameObject(gameObject);
 	}
 }
+
+void FireEffectCtrl::OnCollisionEnter2D(GameObjectBase* collision)
+{
+	wprintf(L"Enter!!! %s\n", collision->name);
+}
+
+void FireEffectCtrl::OnCollisionStay2D(GameObjectBase* collision)
+{
+	wprintf(L"Stay!!! %s\n", collision->name);
+}
+
+void FireEffectCtrl::OnCollisionExit2D(GameObjectBase* collision)
+{
+	wprintf(L"Exit!!! %s\n", collision->name);
+}
+
+

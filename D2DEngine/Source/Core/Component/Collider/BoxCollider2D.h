@@ -19,7 +19,7 @@ protected:
 	//virtual void Update() override;
 	virtual void Render() override;
 
-	bool isCollide(ColliderBase* other) { return false; }
+	bool isCollide(ColliderBase* other) override;
 
 private:
 	Bounds* bounds;

@@ -48,3 +48,22 @@ void BoxCollider2D::Render()
 		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green));
 	}
 }
+
+bool BoxCollider2D::isCollide(ColliderBase* other)
+{
+	if (other->GetType() == Type::box)
+	{
+		if (Bounds* otherBD = ((BoxCollider2D*)other)->bounds)
+		{
+			return bounds->AABB(*otherBD);
+		}
+		else
+		{
+			return false;
+		}			
+	}
+	else
+	{
+		return false;
+	}
+}
