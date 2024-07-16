@@ -12,6 +12,7 @@
 EnemyDino0::EnemyDino0()
 {
 	transform.scale = Vector2(4.0f, 4.0f);
+	tag = L"Enemy";
 
 	AddComponent<BoxCollider2D>();
 	AddComponent<EnemyDino0Ctrl>();

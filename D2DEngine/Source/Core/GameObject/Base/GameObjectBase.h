@@ -1,12 +1,14 @@
 #pragma once
 #include "Bounds/Bounds.h"
 
+#include <typeinfo>
 #include <list>
+#include <unordered_map>
 #include <string>
-
 
 class Transform;
 class ComponentBase;
+class ICollider2DNotify;
 
 enum class OBJECT_TYPE
 {
@@ -28,9 +30,11 @@ class Derived : public GameObjectBase
 class GameObjectBase
 {
 	friend class WorldManager;
+	friend class ColliderManager;
 private:
 	Transform* pTransform; //트렌스폼
 	std::list<ComponentBase*> componentsList; //컴포넌트 리스트
+	std::unordered_map<ComponentBase*, ICollider2DNotify*> collider2DNotifyTable;
 	std::wstring objName; //오브젝트 이름
 	int oderLayer = 0; //같은 오브젝트끼리의 정렬 기준
 
@@ -71,7 +75,7 @@ public:
 	__declspec(property(get = GetName, put = SetName)) const wchar_t* name; //프로퍼티
 
 	/** 오브젝트의 바운딩 박스 영역.*/
-	Bounds bounds;
+	Bounds cullingBounds;
 
 	/** Object Type*/
 	OBJECT_TYPE GetType() const { return objType; }
@@ -83,9 +87,12 @@ public:
 	__declspec(property(get = GetOderLayer, put = SetOderLayer)) int OderLayer;
 
 protected:
-	/** componet들의 Update() 이전에 호출되는 함수*/
-	virtual void UpdateBounds();
+	/** 컬링용 바운딩 박스의 정보를 갱신한다.*/
+	virtual void UpdateCullingBounds();
 
+private:
+	void PushColliderNotipyTable(ComponentBase* component);
+	void EraseColliderNotipyTable(ComponentBase* component);
 };
 
 
@@ -97,12 +104,16 @@ template<typename T> inline T& GameObjectBase::AddComponent()
 	T* component = new T(*this);
 	if (component)
 	{
-		componentsList.push_back(component);		
+		componentsList.push_back(component);
+		if constexpr (std::is_base_of<ICollider2DNotify, T>::value)
+		{
+			PushColliderNotipyTable(component);
+		}
 	}
 	return *component;
 }
 
-template<typename T> inline T& GameObjectBase::GetComponent()
+template<typename T>inline T& GameObjectBase::GetComponent()
 {
 	// T가 ComponentBase로부터 상속받는지 확인
 	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
@@ -110,12 +121,13 @@ template<typename T> inline T& GameObjectBase::GetComponent()
 	T* component = nullptr;
 	for (auto& parentComponent : componentsList)
 	{
-		component = dynamic_cast<T*>(parentComponent);
-		if (component)
+		if (typeid(*parentComponent) == typeid(T))
+		{
+			component = static_cast<T*>(parentComponent);
 			break;
+		}
 	}
 	return *component;
 }
-
 
 #include <Core/Component/Transform.h>

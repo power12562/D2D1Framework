@@ -3,6 +3,7 @@
 #include "Framework/WorldManager.h"
 
 #include "Core/Component/Camera.h"
+#include "Core/Component/Collider/Interface/ICollider2DNotify.h"
 
 #include "Bounds/Bounds.h"
 #include <cstdlib>
@@ -19,6 +20,7 @@ GameObjectBase::~GameObjectBase()
 	{
 		if (component)
 		{
+			EraseColliderNotipyTable(component);
 			delete component;
 		}
 	}
@@ -93,22 +95,36 @@ void GameObjectBase::SetOderLayer(int val)
 	WorldManager::ObjListSortFlag = true;
 }
 
-void GameObjectBase::UpdateBounds()
+void GameObjectBase::UpdateCullingBounds()
 {
-	bounds.center = transform.position;
+	cullingBounds.center = transform.position;
 
-	bounds.extents = transform.pivot;
-	bounds.extents.x *= abs(transform.scale.x);
-	bounds.extents.y *= abs(transform.scale.y);
+	cullingBounds.extents = transform.pivot;
+	cullingBounds.extents.x *= abs(transform.scale.x);
+	cullingBounds.extents.y *= abs(transform.scale.y);
 
-	bounds.size = bounds.extents * 2.f;
+	cullingBounds.size = cullingBounds.extents * 2.f;
 
-	bounds.leftTop.x = transform.position.x - bounds.extents.x;
-	bounds.leftTop.y = transform.position.y + bounds.extents.y;
+	cullingBounds.leftTop.x = transform.position.x - cullingBounds.extents.x;
+	cullingBounds.leftTop.y = transform.position.y + cullingBounds.extents.y;
 
-	bounds.rightBottom.x = transform.position.x + bounds.extents.x;	
-	bounds.rightBottom.y = transform.position.y - bounds.extents.y;
+	cullingBounds.rightBottom.x = transform.position.x + cullingBounds.extents.x;	
+	cullingBounds.rightBottom.y = transform.position.y - cullingBounds.extents.y;
 
-	Bounds::GetRotationBounds(bounds, transform.rotation);
+	Bounds::GetRotationBounds(cullingBounds, transform.rotation);
+}
+
+void GameObjectBase::PushColliderNotipyTable(ComponentBase* component)
+{
+	collider2DNotifyTable[component] = ((ICollider2DNotify*)component);
+}
+
+void GameObjectBase::EraseColliderNotipyTable(ComponentBase* component)
+{
+	auto findIter = collider2DNotifyTable.find(component);
+	if (findIter != collider2DNotifyTable.end())
+	{
+		collider2DNotifyTable.erase(findIter);
+	}
 }
 

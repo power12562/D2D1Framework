@@ -119,11 +119,11 @@ void WorldManager::UpdateMatrix()
 	}
 }
 
-void WorldManager::UpdateBouds()
+void WorldManager::UpdateCullingBouds()
 {
 	for (auto& item : currentWorld->gameObjectList)
 	{
-		item->UpdateBounds();
+		item->UpdateCullingBounds();
 	}
 }
 
@@ -133,14 +133,14 @@ void WorldManager::Render()
 	{		
 		if (Camera* mainCam = Camera::GetMainCamera())
 		{
-			const Bounds& mainCamBounds = mainCam->gameObject.bounds;
+			const Bounds& mainCamBounds = mainCam->gameObject.cullingBounds;
 			renderCount = 0;		
 			for (auto& item : currentWorld->gameObjectList)
 			{
-				if (&mainCamBounds == &item->bounds) //카메라는 제외
+				if (&mainCamBounds == &item->cullingBounds) //카메라는 제외
 					continue;
 
-				if (mainCamBounds.AABB(item->bounds)) //AABB coulling
+				if (mainCamBounds.AABB(item->cullingBounds)) //AABB coulling
 				{
 					renderCount++;
 					item->Render();

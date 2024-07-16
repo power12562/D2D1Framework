@@ -1,11 +1,11 @@
 #pragma once
-#include "Core/Component/Base/ComponentBase.h"
+#include "Core/Component/Collider/Base/ColliderBase.h"
 
 #include "Bounds/Bounds.h"
 
 #include <d2d1.h>
 
-class BoxCollider2D : public ComponentBase
+class BoxCollider2D : public ColliderBase
 {
 public:
 	BoxCollider2D(GameObjectBase& gameObject);
@@ -19,9 +19,10 @@ protected:
 	//virtual void Update() override;
 	virtual void Render() override;
 
+	bool isCollide(ColliderBase* other) { return false; }
+
 private:
 	Bounds* bounds;
-	D2D1_MATRIX_3X2_F trMatrix;
 
 };
 

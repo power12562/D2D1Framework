@@ -29,6 +29,7 @@
     <ClCompile Include="Source\Core\Component\FSM\FSMState.cpp" />
     <ClCompile Include="Source\Utility\JsonUtility.cpp" />
     <ClCompile Include="Source\Core\Component\InputBinding.cpp" />
+    <ClCompile Include="Source\Framework\ColliderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -61,5 +62,8 @@
     <ClInclude Include="ThirdParty\single_include\nlohmann\json.hpp" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\json_fwd.hpp" />
     <ClInclude Include="Source\Core\Component\InputBinding.h" />
+    <ClInclude Include="Source\Core\Component\Collider\Base\ColliderBase.h" />
+    <ClInclude Include="Source\Framework\ColliderManager.h" />
+    <ClInclude Include="Source\Core\Component\Collider\Interface\ICollider2DNotify.h" />
   </ItemGroup>
 </Project>

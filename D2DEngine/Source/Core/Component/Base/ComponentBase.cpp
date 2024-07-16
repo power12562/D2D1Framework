@@ -8,7 +8,7 @@ ComponentBase::ComponentBase(GameObjectBase& gameObject) :
 
 ComponentBase::~ComponentBase()
 {
-	
+
 }
 
 void ComponentBase::Start()

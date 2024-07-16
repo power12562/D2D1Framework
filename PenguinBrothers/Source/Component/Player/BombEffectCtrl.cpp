@@ -3,7 +3,7 @@
 
 #include <Core/Component/Renderer/SpriteAnimationRenderer.h>
 
-BombEffectCtrl::BombEffectCtrl(GameObjectBase& gameObject): ComponentBase(gameObject) 
+BombEffectCtrl::BombEffectCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
 }
 

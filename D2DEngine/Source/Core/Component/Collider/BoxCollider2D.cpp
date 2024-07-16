@@ -7,10 +7,10 @@
 
 #include "Core/Component/Camera.h"
 
-BoxCollider2D::BoxCollider2D(GameObjectBase& gameObject) : ComponentBase(gameObject)
+BoxCollider2D::BoxCollider2D(GameObjectBase& gameObject) : ColliderBase(gameObject)
 {
 	bounds = nullptr;	
-	trMatrix = D2D1::Matrix3x2F::Identity();
+	type = Type::box;
 }
 
 BoxCollider2D::~BoxCollider2D()
@@ -20,7 +20,7 @@ BoxCollider2D::~BoxCollider2D()
 
 void BoxCollider2D::Start()
 {
-	bounds = &gameObject.bounds;
+	bounds = &gameObject.cullingBounds;
 }
 
 

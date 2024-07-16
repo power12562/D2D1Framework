@@ -2,7 +2,6 @@
 
 class GameObjectBase;
 
-
 /* Derived default
 
 class Derived : public ComponentBase

@@ -299,7 +299,7 @@ void PlayerAnimeTestCtrl::UpdateDebugText()
 	}
 	else
 	{
-		const Bounds& imageBounds = gameObject.bounds;
+		const Bounds& imageBounds = gameObject.cullingBounds;
 		swprintf_s(imagePosWString, _ARRAYSIZE(imagePosWString), L"ImagePos : %01.f, %01.f", camPos.x - imageBounds.leftTop.x, imageBounds.leftTop.y - camPos.y);
 	}
 	debugUI->Line[currentLine++] = imagePosWString;

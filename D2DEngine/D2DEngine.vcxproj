@@ -37,6 +37,7 @@
     <ClCompile Include="Source\Core\GameObject\Base\GameObjectUI.cpp" />
     <ClCompile Include="Source\Core\GameObject\MainCamera.cpp" />
     <ClCompile Include="Source\Core\Scene\WorldBase.cpp" />
+    <ClCompile Include="Source\Framework\ColliderManager.cpp" />
     <ClCompile Include="Source\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Source\Framework\InputSystem.cpp" />
     <ClCompile Include="Source\Framework\ReferenceCounter.cpp" />
@@ -51,8 +52,10 @@
   <ItemGroup>
     <ClInclude Include="Source\Bounds\Bounds.h" />
     <ClInclude Include="Source\Core\Component\Base\ComponentBase.h" />
+    <ClInclude Include="Source\Core\Component\Collider\Base\ColliderBase.h" />
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
     <ClInclude Include="Source\Core\Component\Camera.h" />
+    <ClInclude Include="Source\Core\Component\Collider\Interface\ICollider2DNotify.h" />
     <ClInclude Include="Source\Core\Component\FSM\FiniteStateMachine.h" />
     <ClInclude Include="Source\Core\Component\FSM\FSMState.h" />
     <ClInclude Include="Source\Core\Component\InputBinding.h" />
@@ -67,6 +70,7 @@
     <ClInclude Include="Source\Core\GameObject\Base\GameObjectUI.h" />
     <ClInclude Include="Source\Core\GameObject\MainCamera.h" />
     <ClInclude Include="Source\Core\Scene\WorldBase.h" />
+    <ClInclude Include="Source\Framework\ColliderManager.h" />
     <ClInclude Include="Source\Framework\D2DRenderer.h" />
     <ClInclude Include="Source\Framework\InputSystem.h" />
     <ClInclude Include="Source\Framework\ReferenceCounter.h" />

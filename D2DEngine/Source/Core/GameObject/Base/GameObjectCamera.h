@@ -17,5 +17,5 @@ public:
 	GameObjectCamera();
 	//virtual ~MainCamera() override;
 
-	virtual void UpdateBounds() override;
+	virtual void UpdateCullingBounds() override;
 };

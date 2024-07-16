@@ -95,7 +95,7 @@ void WinGameApp::Run()
 
 			SpriteAnimationRenderer::BegineRender();
 			WorldManager::UpdateMatrix();
-			WorldManager::UpdateBouds();	
+			WorldManager::UpdateCullingBouds();	
 			D2DRenderer::BeginDraw();
 			D2DRenderer::Clear(bgColor);
 			WorldManager::Render();
@@ -240,6 +240,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			WinGameApp::isMaxsize = true;
 		case SIZE_MAXSHOW:
 			SendMessage(hwnd, WM_EXITSIZEMOVE, 0, 0);
+			break;
 		}
 		break;
 

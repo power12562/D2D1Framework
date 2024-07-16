@@ -10,21 +10,21 @@ GameObjectCamera::GameObjectCamera()
 	AddComponent<Camera>();
 }
 
-void GameObjectCamera::UpdateBounds()
+void GameObjectCamera::UpdateCullingBounds()
 {
 	const SIZE& clientSize = WinGameApp::GetClientSize();
-	bounds.size.x = (float)clientSize.cx * transform.scale.x;
-	bounds.size.y = (float)clientSize.cy * transform.scale.y;
+	cullingBounds.size.x = (float)clientSize.cx * transform.scale.x;
+	cullingBounds.size.y = (float)clientSize.cy * transform.scale.y;
 
-	bounds.extents = bounds.size * 0.5f;
+	cullingBounds.extents = cullingBounds.size * 0.5f;
 
-	bounds.center = transform.position;
+	cullingBounds.center = transform.position;
 
-	bounds.leftTop.x = bounds.center.x - bounds.extents.x;
-	bounds.leftTop.y = bounds.center.y + bounds.extents.y;
+	cullingBounds.leftTop.x = cullingBounds.center.x - cullingBounds.extents.x;
+	cullingBounds.leftTop.y = cullingBounds.center.y + cullingBounds.extents.y;
 
-	bounds.rightBottom.x = bounds.center.x + bounds.extents.x;
-	bounds.rightBottom.y = bounds.center.y - bounds.extents.y;
+	cullingBounds.rightBottom.x = cullingBounds.center.x + cullingBounds.extents.x;
+	cullingBounds.rightBottom.y = cullingBounds.center.y - cullingBounds.extents.y;
 
-	Bounds::GetRotationBounds(bounds, transform.rotation);
+	Bounds::GetRotationBounds(cullingBounds, transform.rotation);
 }

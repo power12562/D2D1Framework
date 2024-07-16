@@ -2,7 +2,7 @@
 #include "Core/Scene/WorldBase.h"
 #include "Core/GameObject/Base/GameObjectBase.h"
 
-#include <iostream>
+#include <typeinfo>
 #include <queue>
 #include <set>
 
@@ -73,8 +73,8 @@ private:
 	/** 현재 씬 오브젝트들의 Matrix를 계산합니다.*/
 	static void UpdateMatrix();
 
-	/** 현재 씬 오브젝트들의 Bounds 영역을 계산합니다.*/
-	static void UpdateBouds();
+	/** 현재 씬 오브젝트들의 CullingBounds 영역을 계산합니다.*/
+	static void UpdateCullingBouds();
 
 	/** 현재 씬 오브젝트들의 Render() 함수를 호출해줍니다.*/
 	static void Render();
