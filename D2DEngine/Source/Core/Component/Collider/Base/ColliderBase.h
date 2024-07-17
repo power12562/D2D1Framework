@@ -26,6 +26,7 @@ protected:
 class ColliderBase : public ComponentBase
 {
 	friend class ColliderManager;
+	friend class GameObjectBase;
 protected:	
 	enum class Type
 	{
@@ -33,14 +34,15 @@ protected:
 		box,
 	};
 public:
-	ColliderBase(GameObjectBase& gameObject) : ComponentBase(gameObject) 
+	ColliderBase(GameObjectBase& gameObject) : ComponentBase(gameObject)
 	{
-		ColliderManager::colliderInstanceList.push_back(this);			//객체화시 추가
-		myIter = std::prev(ColliderManager::colliderInstanceList.end()); //자신의 노드 저장
+		ColliderManager::colliderInstanceList.push_back(this);
+		this->myIter = std::prev(ColliderManager::colliderInstanceList.end());
 	}
 	virtual ~ColliderBase() override
 	{
 		ColliderManager::colliderInstanceList.erase(myIter);	//객체 리스트에서 삭제
+		ColliderManager::DeleteCollider(this); //콜라이더 삭제시 Exit Event 호출요청
 	}
 	bool isTrigger = false; //오버랩 여부 (true = 오버랩)
 	inline Type GetType() const { return type; }

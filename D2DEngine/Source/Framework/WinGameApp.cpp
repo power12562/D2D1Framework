@@ -3,6 +3,7 @@
 #include "Framework/TimeSystem.h"
 #include "Framework/InputSystem.h"
 #include "Framework/WorldManager.h"
+#include "Framework/ColliderManager.h"
 
 #include "Core/Component/Transform.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
@@ -95,17 +96,22 @@ void WinGameApp::Run()
 			WorldManager::LateUpdate();
 
 			SpriteAnimationRenderer::BegineRender();
+
 			WorldManager::UpdateMatrix();
-			WorldManager::UpdateCullingBouds();	
+			WorldManager::UpdateCullingBouds();
 			ColliderManager::CheckCollision();
+			
 			D2DRenderer::BeginDraw();
 			D2DRenderer::Clear(bgColor);
+
 			WorldManager::Render();
+
 			D2DRenderer::EndDraw();
+
 			SpriteAnimationRenderer::EndRender();
-			
+								
 			WorldManager::AddObjectToQList();
-			WorldManager::DelObjectToSetList();
+			WorldManager::DelObjectToSetList();		
 
 			Input.ResetInput();
 		}

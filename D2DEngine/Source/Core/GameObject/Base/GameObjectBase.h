@@ -8,6 +8,7 @@
 
 class Transform;
 class ComponentBase;
+class ColliderBase;
 class ICollider2DNotify;
 
 enum class OBJECT_TYPE
@@ -34,6 +35,7 @@ class GameObjectBase
 private:
 	Transform* pTransform; //트렌스폼
 	std::list<ComponentBase*> componentsList; //컴포넌트 리스트
+	std::list<ColliderBase*> colliderList; //콜라이더 리스트
 	std::unordered_map<ComponentBase*, ICollider2DNotify*> collider2DNotifyTable;
 	std::wstring objName; //오브젝트 이름
 	int oderLayer = 0; //같은 오브젝트끼리의 정렬 기준
@@ -104,7 +106,15 @@ template<typename T> inline T& GameObjectBase::AddComponent()
 	T* component = new T(*this);
 	if (component)
 	{
-		componentsList.push_back(component);
+		if constexpr (std::is_base_of<ColliderBase, T>::value)
+		{
+			colliderList.push_back(component);
+		}
+		else
+		{
+			componentsList.push_back(component);
+		}
+
 		if constexpr (std::is_base_of<ICollider2DNotify, T>::value)
 		{
 			PushColliderNotipyTable(component);
@@ -119,12 +129,26 @@ template<typename T>inline T& GameObjectBase::GetComponent()
 	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
 
 	T* component = nullptr;
-	for (auto& parentComponent : componentsList)
+	if constexpr (std::is_base_of<ColliderBase, T>::value)
 	{
-		if (typeid(*parentComponent) == typeid(T))
+		for (auto& parentCollider : colliderList)
 		{
-			component = static_cast<T*>(parentComponent);
-			break;
+			if (typeid(*parentCollider) == typeid(T))
+			{
+				component = static_cast<T*>(parentCollider);
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (auto& parentComponent : componentsList)
+		{
+			if (typeid(*parentComponent) == typeid(T))
+			{
+				component = static_cast<T*>(parentComponent);
+				break;
+			}
 		}
 	}
 	return *component;

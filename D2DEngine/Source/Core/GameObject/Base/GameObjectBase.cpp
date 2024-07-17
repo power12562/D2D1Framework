@@ -1,7 +1,10 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 
 #include "Framework/WorldManager.h"
+#include "Framework/ColliderManager.h"
 
+#include <Core/Component/Base/ComponentBase.h>
+#include "Core/Component/Collider/Base/ColliderBase.h"
 #include "Core/Component/Camera.h"
 #include "Core/Component/Collider/Interface/ICollider2DNotify.h"
 
@@ -16,6 +19,14 @@ GameObjectBase::GameObjectBase()
 GameObjectBase::~GameObjectBase()
 {
 	delete pTransform;
+	for (auto& collider : colliderList)
+	{
+		if (collider)
+		{
+			EraseColliderNotipyTable(collider);
+			delete collider;
+		}
+	}
 	for (auto& component : componentsList)
 	{
 		if (component)
@@ -25,10 +36,15 @@ GameObjectBase::~GameObjectBase()
 		}
 	}
 	componentsList.clear();
+	colliderList.clear();
 }
 
 void GameObjectBase::Start()
 {
+	for (auto& collider : colliderList)
+	{
+		collider->Start();
+	}
 	for (auto& component : componentsList)
 	{
 		component->Start();
@@ -38,31 +54,52 @@ void GameObjectBase::Start()
 void GameObjectBase::Update()
 {
 	if (enable)
+	{
+		for (auto& collider : colliderList)
+		{
+			if (collider->enabled)
+				collider->Update();
+		}
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->Update();
 		}
+	}
 }
 
 void GameObjectBase::LateUpdate()
 {
 	if (enable)
+	{
+		for (auto& collider : colliderList)
+		{
+			if (collider->enabled)
+				collider->LateUpdate();
+		}
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->LateUpdate();
 		}
+	}
 }
 
 void GameObjectBase::Render()
 {	
 	if (enable)
+	{
+		for (auto& collider : colliderList)
+		{
+			if (collider->enabled)
+				collider->Render();
+		}
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->Render();
 		}
+	}
 }
 
 
@@ -127,4 +164,6 @@ void GameObjectBase::EraseColliderNotipyTable(ComponentBase* component)
 		collider2DNotifyTable.erase(findIter);
 	}
 }
+
+
 

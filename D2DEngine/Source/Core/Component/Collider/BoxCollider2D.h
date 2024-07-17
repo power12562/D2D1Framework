@@ -15,14 +15,14 @@ public:
 	bool isDrawCollider = false;
 
 protected:
-	virtual void Start() override;
-	//virtual void Update() override;
+	//virtual void Start() override;
+	virtual void Update() override;
 	virtual void Render() override;
 
 	bool isCollide(ColliderBase* other) override;
 
 private:
-	Bounds* bounds;
+	Bounds& bounds;
 
 };
 

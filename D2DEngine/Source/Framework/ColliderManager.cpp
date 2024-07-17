@@ -8,16 +8,26 @@
 
 std::list<ColliderBase*> ColliderManager::colliderInstanceList;
 
+void ColliderManager::DeleteCollider(ColliderBase* collider)
+{
+	for (auto& j : collider->collideStateCurr)
+	{
+		CallExitEvent(collider, j);
+		j->collideStateCurr.erase(collider);
+	}
+	collider->collideStateCurr.clear();
+}
+
 void ColliderManager::CheckCollision()
 {
-	for (auto i = colliderInstanceList.begin(); i != colliderInstanceList.end(); ++i)
+	for (auto i = colliderInstanceList.begin(); i != std::prev(colliderInstanceList.end()); ++i)
 	{
 		auto j = i;
-		j++;
-		for (; j != colliderInstanceList.end(); j++)
-		{
+		++j;
+		for (; j != colliderInstanceList.end(); ++j)
+		{		
 			if ((*i)->isCollide(*j))
-			{	  
+			{
 				size_t StateSize = (*i)->collideStateCurr.size();
 				(*i)->collideStateCurr.insert(*j);
 				(*j)->collideStateCurr.insert(*i);
@@ -28,19 +38,30 @@ void ColliderManager::CheckCollision()
 				else
 				{
 					CallStayEvent(*i, *j);
-				}			
+				}
 			}
 			else
 			{
 				auto findJ = (*i)->collideStateCurr.find(*j);
 				auto findI = (*j)->collideStateCurr.find(*i);
-				if (findJ != (*i)->collideStateCurr.end() || findI != (*j)->collideStateCurr.end())
+				bool find = false;
+				if (findJ != (*i)->collideStateCurr.end())
+				{
+					(*i)->collideStateCurr.erase(*j);
+					find = true;
+				}
+				if (findI != (*j)->collideStateCurr.end())
+				{
+					(*j)->collideStateCurr.erase(*i);
+					find = true;
+				}
+				if (find)
 				{
 					CallExitEvent(*i, *j);
 				}
 			}
 		}
-	}
+	}	
 }
 
 void ColliderManager::CallEnterEvent(ColliderBase* i, ColliderBase* j)
@@ -128,7 +149,4 @@ void ColliderManager::CallExitEvent(ColliderBase* i, ColliderBase* j)
 			event.second->OnCollisionExit2D(&i->gameObject);
 		}
 	}	
-
-	i->collideStateCurr.erase(j);
-	j->collideStateCurr.erase(i);
 }
