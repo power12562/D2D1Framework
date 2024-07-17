@@ -18,7 +18,7 @@
     <ClCompile Include="Source\Core\Component\Camera.cpp" />
     <ClCompile Include="Source\Core\GameObject\MainCamera.cpp" />
     <ClCompile Include="Source\Bounds\Bounds.cpp" />
-    <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
+    <ClCompile Include="Source\Core\Component\Collider\SpriteCollider2D.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\TextRenderer.cpp" />
     <ClCompile Include="Source\Core\GameObject\Base\GameObjectUI.cpp" />
     <ClCompile Include="Source\Core\GameObject\Base\GameObjectCamera.cpp" />
@@ -49,7 +49,7 @@
     <ClInclude Include="Source\Core\Component\Camera.h" />
     <ClInclude Include="Source\Core\GameObject\MainCamera.h" />
     <ClInclude Include="Source\Bounds\Bounds.h" />
-    <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
+    <ClInclude Include="Source\Core\Component\Collider\SpriteCollider2D.h" />
     <ClInclude Include="Source\Core\Component\Renderer\TextRenderer.h" />
     <ClInclude Include="Source\Core\GameObject\Base\GameObjectUI.h" />
     <ClInclude Include="Source\Core\GameObject\Base\GameObjectCamera.h" />

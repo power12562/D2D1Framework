@@ -9,7 +9,7 @@ class PlayerAnimeTestCtrl : public ComponentBase
 {
 	class SpriteAnimationRenderer* spriteAnimation;
 	class DebugUICtrl* debugUI;
-	class BoxCollider2D* boxCollider = nullptr;
+	class SpriteCollider2D* boxCollider = nullptr;
 public:
 	PlayerAnimeTestCtrl(GameObjectBase& gameObject);
 	virtual ~PlayerAnimeTestCtrl() override;

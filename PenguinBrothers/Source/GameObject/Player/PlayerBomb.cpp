@@ -1,7 +1,7 @@
 #include "PlayerBomb.h"
 #include "Source/Component/Player/PlayerBombCtrl.h"
 
-#include "Core/Component/Collider/BoxCollider2D.h"
+#include "Core/Component/Collider/SpriteCollider2D.h"
 
 #include <string>
 
@@ -13,7 +13,7 @@ PlayerBomb::PlayerBomb()
 
 	objectCount++;
 	AddComponent<PlayerBombCtrl>();
-	AddComponent<BoxCollider2D>();
+	AddComponent<SpriteCollider2D>();
 
 	transform.scale = Vector2{ 4.0f, 4.0f };
 	OderLayer = 1;

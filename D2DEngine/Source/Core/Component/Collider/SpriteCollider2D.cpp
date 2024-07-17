@@ -1,4 +1,4 @@
-#include "BoxCollider2D.h"
+#include "SpriteCollider2D.h"
 
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
@@ -7,24 +7,24 @@
 
 #include "Core/Component/Camera.h"
 
-BoxCollider2D::BoxCollider2D(GameObjectBase& gameObject) : 
+SpriteCollider2D::SpriteCollider2D(GameObjectBase& gameObject) : 
 	ColliderBase(gameObject), 
 	bounds(gameObject.cullingBounds)
 {	
 	type = Type::box;
 }
 
-BoxCollider2D::~BoxCollider2D()
+SpriteCollider2D::~SpriteCollider2D()
 {
 
 }
 
-void BoxCollider2D::Update()
+void SpriteCollider2D::Update()
 {
 	
 }
 
-void BoxCollider2D::Render()
+void SpriteCollider2D::Render()
 {
 	if (isDrawCollider)
 	{
@@ -49,11 +49,11 @@ void BoxCollider2D::Render()
 	}
 }
 
-bool BoxCollider2D::isCollide(ColliderBase* other)
+bool SpriteCollider2D::isCollide(ColliderBase* other)
 {
 	if (other->GetType() == Type::box)
 	{
-		const Bounds& otherBD = ((BoxCollider2D*)other)->bounds;
+		const Bounds& otherBD = ((SpriteCollider2D*)other)->bounds;
 			return bounds.AABB(otherBD);
 	}
 	else

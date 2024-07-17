@@ -1,7 +1,8 @@
 #include "Player.h"
+#include <Framework/WorldManager.h>
 
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
-#include "Core/Component/Collider/BoxCollider2D.h"
+#include "Core/Component/Collider/SpriteCollider2D.h"
 #include "Core/Component/Movement.h"
 #include "Core/Component/FSM/FiniteStateMachine.h"
 
@@ -11,6 +12,7 @@
 
 Player::Player()
 {
+	OderLayer = 1;
 	tag = L"Player";
 	transform.scale = Vector2(4.0f, 4.0f);
 
@@ -42,9 +44,9 @@ Player::Player()
 	spriteAnimation.LoadAnimationClip(L"Resource/Player/Dead/Dead.txt", L"Resource/Player/Dead/Dead.png", L"Dead");*/
 	spriteAnimation.LoadAnimationAssetToJson(L"Resource/Player/AnimeAsset.json");
 
-	BoxCollider2D& boxCollider2D = AddComponent<BoxCollider2D>();
+	SpriteCollider2D& spriteCollider2D = AddComponent<SpriteCollider2D>();
 #ifdef _DEBUG
-	boxCollider2D.isDrawCollider = true;
+	spriteCollider2D.isDrawCollider = true;
 #endif // DEBUG
 
 	AddComponent<PlayerCtrl>();
@@ -55,6 +57,7 @@ Player::Player()
 	fsm.CreateState<Duck>(L"Duck");
 	fsm.CreateState<Slide>(L"Slide");
 	fsm.CreateState<Attack>(L"Attack");
+	fsm.CreateState<Dead>(L"Dead");
 
 	fsm.SetState(L"Spawn");
 }
@@ -216,5 +219,20 @@ void Attack::Update()
 	{
 		owner.SetState(L"Idle");
 		playerCtrl->SpawnBomb();
+	}
+}
+
+void Dead::Enter()
+{
+	movement->SetSpeed(0.f);
+	spriteAnimation->SetAnimation(L"Dead");
+	owner.Transition = false;
+}
+												
+void Dead::Update()
+{
+	if (spriteAnimation->CurrentClipEnd)
+	{
+		WorldManager::DelGameObject(owner.gameObject);
 	}
 }

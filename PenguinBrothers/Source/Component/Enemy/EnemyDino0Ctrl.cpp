@@ -8,7 +8,7 @@
 #include <Core/Component/Renderer/TextRenderer.h>
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/FSM/FSMState.h>
-#include <Core/Component/Collider/BoxCollider2D.h>
+#include <Core/Component/Collider/SpriteCollider2D.h>
 
 #include <Source/GameObject/Enemy/EnemyDino0Attack.h>
 
@@ -43,7 +43,7 @@ void EnemyDino0Ctrl::Start()
 //	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
 //
 //	fsm = &gameObject.GetComponent<FiniteStateMachine>();
-	GetComponent<BoxCollider2D>().isDrawCollider = true;
+	GetComponent<SpriteCollider2D>().isDrawCollider = true;
 #endif 
 
 	gameObject.transform.position += Vector2(0.f, -9.f);

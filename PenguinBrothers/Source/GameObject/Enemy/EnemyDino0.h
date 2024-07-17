@@ -16,10 +16,10 @@ class EnemyState : public FSMState
 {
 public:
 	EnemyState(FiniteStateMachine& _owner, const wchar_t* _name);
+	static GameObjectBase* player;
 protected:
 	float trackingDis;
 	float attackDis;
-	static GameObjectBase* player;
 	class Movement* movement;
 	class SpriteAnimationRenderer* animationRenderer;
 };

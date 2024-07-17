@@ -1,7 +1,23 @@
 #pragma once
 #include <string>
-
 class FiniteStateMachine;
+
+
+/* Derived default
+
+class Derived : public FSMState
+{
+public:
+	Derived(FiniteStateMachine& _owner, const wchar_t* _name) : FSMState(_owner, _name) {}
+	virtual ~Derived() override;
+
+  public:
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override;
+};
+
+*/
 
 /** FiniteStateMachine에서 사용될 state 추상 클래스*/
 class FSMState

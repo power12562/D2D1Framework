@@ -16,6 +16,9 @@ public:
 
 	/** 현재 상태*/
 	const FSMState* GetCurrState() { return currState; }
+
+	/** 전이 가능 여부*/
+	bool Transition = true;
 protected:
 	FSMState* currState = nullptr;  // 현재 상태	
 

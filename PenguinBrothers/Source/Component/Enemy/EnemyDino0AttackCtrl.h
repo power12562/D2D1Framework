@@ -1,7 +1,8 @@
 #pragma once
 #include <Core/Component/Base/ComponentBase.h>
+#include <Core/Component/Collider/Interface/ICollider2DNotify.h>
 
-class EnemyDino0AttackCtrl : public ComponentBase
+class EnemyDino0AttackCtrl : public ComponentBase, public ICollider2DNotify
 {
 	class SpriteAnimationRenderer* animation;
 public:
@@ -15,6 +16,12 @@ protected:
 	//virtual void Render() override;
 
 private:
+	virtual void OnCollisionEnter2D(GameObjectBase* collision) override;
+	virtual void OnCollisionStay2D(GameObjectBase* collision) override {};
+	virtual void OnCollisionExit2D(GameObjectBase* collision) override {};
 
+	virtual void OnTriggerEnter2D(GameObjectBase* collision) override {};
+	virtual void OnTriggerStay2D(GameObjectBase* collision) override {};
+	virtual void OnTriggerExit2D(GameObjectBase* collision) override {};
 };
 

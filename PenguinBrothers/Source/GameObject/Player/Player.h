@@ -86,3 +86,15 @@ public:
 	virtual void Update() override;
 	virtual void Exit() override {}
 };
+
+class Dead : public PlayerState
+{
+public:
+	Dead(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
+	//virtual ~Dead() override;
+
+public:
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
+};

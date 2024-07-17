@@ -1,7 +1,7 @@
 #include "EnemyDino0.h"
 #include "Framework/WorldManager.h"
 
-#include "Core/Component/Collider/BoxCollider2D.h"
+#include "Core/Component/Collider/SpriteCollider2D.h"
 #include "Core/Component/FSM/FiniteStateMachine.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Movement.h"
@@ -14,7 +14,7 @@ EnemyDino0::EnemyDino0()
 	transform.scale = Vector2(4.0f, 4.0f);
 	tag = L"Enemy";
 
-	AddComponent<BoxCollider2D>();
+	AddComponent<SpriteCollider2D>();
 	AddComponent<EnemyDino0Ctrl>();
 	AddComponent<Movement>();
 	auto& animationRenderer = AddComponent<SpriteAnimationRenderer>();
@@ -39,7 +39,6 @@ EnemyDino0::~EnemyDino0()
 
 
 GameObjectBase* EnemyState::player = nullptr;
-
 EnemyState::EnemyState(FiniteStateMachine& _owner, const wchar_t* _name) : FSMState(_owner, _name)
 {
 	this->movement = &owner.gameObject.GetComponent<Movement>();
@@ -69,50 +68,66 @@ void EnemyIdle::Enter()
 
 void EnemyIdle::Update()
 {
-	float toPlayerDis = (player->transform.position - owner.gameObject.transform.position).Magnitude();
-	if (toPlayerDis <= trackingDis)
+	player = owner.gameObject.Find(L"Player");
+	if (player)
 	{
-		//추적 모드로 변환
-		owner.SetState(L"Tracking");
-	}
+		float toPlayerDis = (player->transform.position - owner.gameObject.transform.position).Magnitude();
+		if (toPlayerDis <= trackingDis)
+		{
+			//추적 모드로 변환
+			owner.SetState(L"Tracking");
+		}
+	}	
 }
 
 
 
 void EnemyTracking::Enter()
 {
-	animationRenderer->SetAnimation(L"Walk", true);
-	movement->SetSpeed(150.f);
-	dir = player->transform.position - owner.gameObject.transform.position;
-	dir.y = 0.f;
-	dir = dir.Normalized();
-	movement->SetDirection(dir);
+	player = owner.gameObject.Find(L"Player");
+	if (player)
+	{
+		animationRenderer->SetAnimation(L"Walk", true);
+		movement->SetSpeed(150.f);
+		dir = player->transform.position - owner.gameObject.transform.position;
+		dir.y = 0.f;
+		dir = dir.Normalized();
+		movement->SetDirection(dir);
+	}
 }
 
 void EnemyTracking::Update()
 {
-	dir = player->transform.position - owner.gameObject.transform.position;
-	float toPlayerDis = dir.Magnitude();
-	dir.y = 0.f;
-	dir = dir.Normalized();
-	movement->SetDirection(dir);
+	player = owner.gameObject.Find(L"Player");
+	if (player)
+	{
+		dir = player->transform.position - owner.gameObject.transform.position;
+		float toPlayerDis = dir.Magnitude();
+		dir.y = 0.f;
+		dir = dir.Normalized();
+		movement->SetDirection(dir);
 
-	if (toPlayerDis > trackingDis)
+		if (toPlayerDis > trackingDis)
+		{
+			owner.SetState(L"Idle");
+		}
+		else if (attackDis > toPlayerDis)
+		{
+			owner.SetState(L"Attack");
+		}
+
+		if (dir.x > 0)
+		{
+			owner.gameObject.transform.FlipX(true);
+		}
+		else if (dir.x < 0)
+		{
+			owner.gameObject.transform.FlipX(false);
+		}
+	}	
+	else
 	{
 		owner.SetState(L"Idle");
-	}
-	else if (attackDis > toPlayerDis)
-	{
-		owner.SetState(L"Attack");
-	}
-
-	if (dir.x > 0)
-	{
-		owner.gameObject.transform.FlipX(true);
-	}
-	else if (dir.x < 0)
-	{
-		owner.gameObject.transform.FlipX(false);
 	}
 }
 

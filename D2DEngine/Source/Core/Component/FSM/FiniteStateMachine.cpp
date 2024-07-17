@@ -27,18 +27,21 @@ void FiniteStateMachine::Update()
 
 void FiniteStateMachine::SetState(const wchar_t* name)
 {
-	auto find = stateMap.find(name);
-	if (find != stateMap.end())
+	if (enabled && Transition)
 	{
-		if (currState != nullptr)
+		auto find = stateMap.find(name);
+		if (find != stateMap.end())
 		{
-			currState->Exit();
+			if (currState != nullptr)
+			{
+				currState->Exit();
+			}
+			currState = find->second;
+			currState->Enter();
 		}
-		currState = find->second;
-		currState->Enter();
-	}
-	else
-	{
-		assert(!"존재하지 않는 상태 입니다.");
+		else
+		{
+			assert(!"존재하지 않는 상태 입니다.");
+		}
 	}
 }
