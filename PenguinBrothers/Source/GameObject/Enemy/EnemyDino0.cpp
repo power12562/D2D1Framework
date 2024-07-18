@@ -73,28 +73,35 @@ void EnemyIdle::Update()
 	player = owner.gameObject.Find(L"Player");
 	if (player)
 	{
-		float toPlayerDis = (player->transform.position - owner.gameObject.transform.position).Magnitude();
-		if (toPlayerDis <= trackingDis)
+		Vector2 dir = player->transform.position - owner.gameObject.transform.position;
+		float xDis = abs(dir.x);
+		float yDis = abs(dir.y);
+		if (xDis <= trackingDis && yDis <= 100.f)
 		{
 			//추적 모드로 변환
 			owner.SetState(L"Tracking");
 		}
-	}	
+	}
 }
-
 
 
 void EnemyTracking::Enter()
 {
 	player = owner.gameObject.Find(L"Player");
-	if (player)
+	dir = player->transform.position - owner.gameObject.transform.position;
+	float xDis = abs(dir.x);
+	float yDis = abs(dir.y);
+	dir.y = 0.f;
+	dir = dir.Normalized();
+	if (yDis <= 100.f)
 	{
-		animationRenderer->SetAnimation(L"Walk", true);
-		movement->SetSpeed(150.f);
-		dir = player->transform.position - owner.gameObject.transform.position;
-		dir.y = 0.f;
-		dir = dir.Normalized();
 		movement->SetDirection(dir);
+		movement->SetSpeed(150.f);
+		animationRenderer->SetAnimation(L"Walk", true);
+	}
+	else
+	{
+		owner.SetState(L"Idle");
 	}
 }
 
@@ -104,22 +111,18 @@ void EnemyTracking::Update()
 	if (player)
 	{
 		dir = player->transform.position - owner.gameObject.transform.position;
-		float toPlayerDis = dir.Magnitude();
+		float xDis = abs(dir.x);
+		float yDis = abs(dir.y);
 		dir.y = 0.f;
 		dir = dir.Normalized();
-		movement->SetDirection(dir);
 
-		if (abs(dir.x) >= 1.f)
+		if (yDis <= 100.f)
 		{
-			if (toPlayerDis > trackingDis)
-			{
-				owner.SetState(L"Idle");
-			}
-			else if (attackDis > toPlayerDis)
+			if (attackDis > xDis)
 			{
 				owner.SetState(L"Attack");
 			}
-
+			movement->SetDirection(dir);
 			if (dir.x > 0)
 			{
 				owner.gameObject.transform.FlipX(true);
@@ -129,7 +132,11 @@ void EnemyTracking::Update()
 				owner.gameObject.transform.FlipX(false);
 			}
 		}
-	}	
+		else
+		{
+			owner.SetState(L"Idle");
+		}
+	}
 	else
 	{
 		owner.SetState(L"Idle");
