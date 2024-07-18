@@ -3,6 +3,7 @@
 
 #include <Core/Component/Collider/Interface/ICollider2DNotify.h>
 #include <Core/Component/Collider/Base/ColliderBase.h>
+#include <Core/Component/Rigidbody2D.h>
 
 #include <cassert>
 
@@ -20,44 +21,49 @@ void ColliderManager::DeleteCollider(ColliderBase* collider)
 
 void ColliderManager::CheckCollision()
 {
-	for (auto i = colliderInstanceList.begin(); i != std::prev(colliderInstanceList.end()); ++i)
+	auto& rigidbodyList = Rigidbody2D::rigidbodyList;
+	for (auto& r : rigidbodyList)
 	{
-		auto j = i;
-		++j;
-		for (; j != colliderInstanceList.end(); ++j)
-		{		
-			if ((*i)->isCollide(*j))
+		for (auto& i : r->gameObject.colliderList)
+		{
+			for (auto& j : colliderInstanceList)
 			{
-				size_t StateSize = (*i)->collideStateCurr.size();
-				(*i)->collideStateCurr.insert(*j);
-				(*j)->collideStateCurr.insert(*i);
-				if (StateSize != (*i)->collideStateCurr.size())
+				if (i == j)
+					continue;
+
+				if (i->isCollide(j))
 				{
-					CallEnterEvent(*i, *j);
+					size_t StateSize = i->collideStateCurr.size();
+					i->collideStateCurr.insert(j);
+					j->collideStateCurr.insert(i);
+					if (StateSize != i->collideStateCurr.size())
+					{
+						CallEnterEvent(i, j);
+					}
+					else
+					{
+						CallStayEvent(i, j);
+					}
 				}
 				else
 				{
-					CallStayEvent(*i, *j);
-				}
-			}
-			else
-			{
-				auto findJ = (*i)->collideStateCurr.find(*j);
-				auto findI = (*j)->collideStateCurr.find(*i);
-				bool find = false;
-				if (findJ != (*i)->collideStateCurr.end())
-				{
-					(*i)->collideStateCurr.erase(*j);
-					find = true;
-				}
-				if (findI != (*j)->collideStateCurr.end())
-				{
-					(*j)->collideStateCurr.erase(*i);
-					find = true;
-				}
-				if (find)
-				{
-					CallExitEvent(*i, *j);
+					auto findJ = i->collideStateCurr.find(j);
+					auto findI = j->collideStateCurr.find(i);
+					bool find = false;
+					if (findJ != i->collideStateCurr.end())
+					{
+						i->collideStateCurr.erase(j);
+						find = true;
+					}
+					if (findI != j->collideStateCurr.end())
+					{
+						j->collideStateCurr.erase(i);
+						find = true;
+					}
+					if (find)
+					{
+						CallExitEvent(i, j);
+					}
 				}
 			}
 		}

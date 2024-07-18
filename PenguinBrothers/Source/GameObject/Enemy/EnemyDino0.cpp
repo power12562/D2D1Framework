@@ -1,6 +1,7 @@
 #include "EnemyDino0.h"
 #include "Framework/WorldManager.h"
 
+#include <Core/Component/Rigidbody2D.h>
 #include "Core/Component/Collider/SpriteCollider2D.h"
 #include "Core/Component/FSM/FiniteStateMachine.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
@@ -14,6 +15,7 @@ EnemyDino0::EnemyDino0()
 	transform.scale = Vector2(4.0f, 4.0f);
 	tag = L"Enemy";
 
+	AddComponent<Rigidbody2D>();
 	AddComponent<SpriteCollider2D>();
 	AddComponent<EnemyDino0Ctrl>();
 	AddComponent<Movement>();

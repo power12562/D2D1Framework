@@ -18,7 +18,7 @@ protected:
 	//virtual void Update() override;
 	//virtual void LateUpdate() override;
 	//virtual void Render() override;
-	virtual bool isCollide(ColliderBase* other) = 0; //각자 콜라이더에서 구현
+	virtual bool isCollide(ColliderBase* other); //각자 콜라이더에서 구현
 };
 
 */

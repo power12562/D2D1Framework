@@ -94,20 +94,19 @@ void WinGameApp::Run()
 			WorldManager::SortObjectList();
 			WorldManager::Update();
 			WorldManager::LateUpdate();
+			ColliderManager::CheckCollision();
 
 			SpriteAnimationRenderer::BegineRender();
-
-			WorldManager::UpdateMatrix();
-			WorldManager::UpdateCullingBouds();
-			ColliderManager::CheckCollision();
-			
-			D2DRenderer::BeginDraw();
-			D2DRenderer::Clear(bgColor);
-
-			WorldManager::Render();
-
-			D2DRenderer::EndDraw();
-
+			{
+				WorldManager::UpdateMatrix();
+				WorldManager::UpdateCullingBouds();
+				D2DRenderer::BeginDraw();
+				{
+					D2DRenderer::Clear(bgColor);
+					WorldManager::Render();
+				}
+				D2DRenderer::EndDraw();
+			}	
 			SpriteAnimationRenderer::EndRender();
 								
 			WorldManager::AddObjectToQList();

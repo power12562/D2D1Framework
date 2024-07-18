@@ -34,6 +34,7 @@ class GameObjectBase
 	friend class ColliderManager;
 private:
 	Transform* pTransform; //트렌스폼
+	class Rigidbody2D* pRigidbody; //리지드바디
 	std::list<ComponentBase*> componentsList; //컴포넌트 리스트
 	std::list<ColliderBase*> colliderList; //콜라이더 리스트
 	std::unordered_map<ComponentBase*, ICollider2DNotify*> collider2DNotifyTable;
@@ -64,10 +65,13 @@ public:
 
 	/** 컴포넌트를 오브젝트에 추가합니다.*/
 	template <typename T> T& AddComponent();
+	template<> Rigidbody2D& AddComponent();
 
 	/** 컴포넌트를 가져옵니다.*/
 	template <typename T> T& GetComponent();
-
+	template<> Transform& GetComponent();
+	template<> Rigidbody2D& GetComponent();
+	
 	/**현재 씬에서 게임 오브젝트를 찾습니다.*/
 	static GameObjectBase* Find(const wchar_t* name);
 
@@ -97,7 +101,6 @@ private:
 	void EraseColliderNotipyTable(ComponentBase* component);
 };
 
-
 template<typename T> inline T& GameObjectBase::AddComponent()
 {
 	// T가 ComponentBase로부터 상속받는지 확인
@@ -115,7 +118,7 @@ template<typename T> inline T& GameObjectBase::AddComponent()
 			componentsList.push_back(component);
 		}
 
-		if constexpr (std::is_base_of<ICollider2DNotify, T>::value)
+		if constexpr (std::is_base_of<ICollider2DNotify, T>::value) //콜라이더 이벤트 사용하는 컴포넌트인지 확인
 		{
 			PushColliderNotipyTable(component);
 		}
@@ -155,3 +158,4 @@ template<typename T>inline T& GameObjectBase::GetComponent()
 }
 
 #include <Core/Component/Transform.h>
+

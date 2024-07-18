@@ -12,6 +12,8 @@
 #include "Source/GameObject/StageObjectListDebug.h"	   
 #include "Source/GameObject/Editer.h"
 
+#include <Core/Component/Collider/BoxCollider2D.h>
+
 std::wstring StageEditer::stagePath;
 
 StageEditer::StageEditer(bool editer)

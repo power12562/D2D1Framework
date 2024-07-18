@@ -13,6 +13,7 @@
 #include <cwctype>
 
 WorldBase* WorldManager::currentWorld = nullptr;
+
 std::queue<GameObjectBase*> WorldManager::addQueueList;
 std::set<std::wstring> WorldManager::delNameSetList;
 

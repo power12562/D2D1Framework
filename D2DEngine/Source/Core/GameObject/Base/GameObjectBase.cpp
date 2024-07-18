@@ -3,6 +3,7 @@
 #include "Framework/WorldManager.h"
 #include "Framework/ColliderManager.h"
 
+#include <Core/Component/Rigidbody2D.h>
 #include <Core/Component/Base/ComponentBase.h>
 #include "Core/Component/Collider/Base/ColliderBase.h"
 #include "Core/Component/Camera.h"
@@ -14,11 +15,13 @@
 GameObjectBase::GameObjectBase()
 {
 	pTransform = new Transform(*this);
+	pRigidbody = nullptr;
 }
 
 GameObjectBase::~GameObjectBase()
 {
 	delete pTransform;
+	delete pRigidbody;
 	for (auto& collider : colliderList)
 	{
 		if (collider)
@@ -53,6 +56,10 @@ void GameObjectBase::Start()
 
 void GameObjectBase::Update()
 {
+	if (pRigidbody && pRigidbody->enabled)
+	{
+		pRigidbody->Update();
+	}
 	if (enable)
 	{
 		for (auto& collider : colliderList)
@@ -70,6 +77,10 @@ void GameObjectBase::Update()
 
 void GameObjectBase::LateUpdate()
 {
+	if (pRigidbody && pRigidbody->enabled)
+	{
+		pRigidbody->LateUpdate();
+	}	
 	if (enable)
 	{
 		for (auto& collider : colliderList)
@@ -165,5 +176,24 @@ void GameObjectBase::EraseColliderNotipyTable(ComponentBase* component)
 	}
 }
 
+template<>
+Transform& GameObjectBase::GetComponent()
+{
+	return *pTransform;
+}
 
+template<>
+Rigidbody2D& GameObjectBase::AddComponent()
+{
+	if (pRigidbody == nullptr)
+	{
+		pRigidbody = new Rigidbody2D(*this);
+	}
+	return *pRigidbody;
+}
 
+template<>
+Rigidbody2D& GameObjectBase::GetComponent()
+{
+	return *pRigidbody;
+}

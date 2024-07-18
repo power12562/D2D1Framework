@@ -5,6 +5,7 @@
 #include "Framework/WinGameApp.h"
 #include "Framework/WorldManager.h"
 
+#include <Core/Component/Rigidbody2D.h>
 #include "Core/Component/FSM/FiniteStateMachine.h"
 #include "Core/GameObject/Base/GameObjectUI.h"
 #include "Core/GameObject/Base/GameObjectBase.h"
@@ -55,6 +56,11 @@ void PlayerCtrl::Update()
 //		stateDebugText->Text += state->GetName();
 //	}
 //#endif 
+
+	if (Input.IsKeyDown(KeyCode::Space))
+	{
+		GetComponent<Rigidbody2D>().AddForce(Vector2::Right * 100.0f);
+	}
 }
 
 void PlayerCtrl::SpawnBomb()

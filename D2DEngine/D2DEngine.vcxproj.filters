@@ -30,6 +30,8 @@
     <ClCompile Include="Source\Utility\JsonUtility.cpp" />
     <ClCompile Include="Source\Core\Component\InputBinding.cpp" />
     <ClCompile Include="Source\Framework\ColliderManager.cpp" />
+    <ClCompile Include="Source\Core\Component\Rigidbody2D.cpp" />
+    <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -65,5 +67,7 @@
     <ClInclude Include="Source\Core\Component\Collider\Base\ColliderBase.h" />
     <ClInclude Include="Source\Framework\ColliderManager.h" />
     <ClInclude Include="Source\Core\Component\Collider\Interface\ICollider2DNotify.h" />
+    <ClInclude Include="Source\Core\Component\Rigidbody2D.h" />
+    <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
   </ItemGroup>
 </Project>

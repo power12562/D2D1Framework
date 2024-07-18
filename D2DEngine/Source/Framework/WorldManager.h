@@ -51,7 +51,7 @@ private:
 	WorldManager();
 	~WorldManager();
 
-	static class WorldBase* currentWorld;
+	static WorldBase* currentWorld;
 	static std::queue<GameObjectBase*> addQueueList;
 	static std::set<std::wstring> delNameSetList;
 

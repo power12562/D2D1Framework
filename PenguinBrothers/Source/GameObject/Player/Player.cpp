@@ -5,6 +5,7 @@
 #include "Core/Component/Collider/SpriteCollider2D.h"
 #include "Core/Component/Movement.h"
 #include "Core/Component/FSM/FiniteStateMachine.h"
+#include "Core/Component/Rigidbody2D.h"
 
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/PlayerBomb.h"
@@ -48,6 +49,8 @@ Player::Player()
 #ifdef _DEBUG
 	spriteCollider2D.isDrawCollider = true;
 #endif // DEBUG
+
+	AddComponent<Rigidbody2D>();
 
 	AddComponent<PlayerCtrl>();
 	FiniteStateMachine& fsm = AddComponent<FiniteStateMachine>();

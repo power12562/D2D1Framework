@@ -5,13 +5,12 @@
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 
-#include "Core/Component/Camera.h"
+#include "Core/Component/Camera.h"		 
 
 SpriteCollider2D::SpriteCollider2D(GameObjectBase& gameObject) : 
-	ColliderBase(gameObject), 
-	bounds(gameObject.cullingBounds)
-{	
-	type = Type::box;
+	BoxCollider2D(gameObject)
+{
+
 }
 
 SpriteCollider2D::~SpriteCollider2D()
@@ -21,7 +20,7 @@ SpriteCollider2D::~SpriteCollider2D()
 
 void SpriteCollider2D::Update()
 {
-	
+	bounds = gameObject.cullingBounds;
 }
 
 void SpriteCollider2D::Render()
@@ -36,8 +35,8 @@ void SpriteCollider2D::Render()
 		const D2D1_MATRIX_3X2_F& objMatrix = gameObject.transform.GetWorldMatrix();
 		const Vector2& objScale = Vector2::GetScaleFromMatrix(objMatrix);
 		const D2D1_MATRIX_3X2_F& drawMatrix =
-			(		
-				D2D1::Matrix3x2F::Scale(objScale.x, objScale.y) * 		
+			(
+				D2D1::Matrix3x2F::Scale(objScale.x, objScale.y) *
 				D2D1::Matrix3x2F::Translation(bounds.center.x, screenSize.cy - bounds.center.y) *
 				Camera::GetMainCamera()->GetInvertMatrix()
 				); //회전 매트릭스는 제외한 월드 매트릭스 * 카메라 역행렬 매트릭스 (카메라 기준 좌표로)
@@ -49,15 +48,4 @@ void SpriteCollider2D::Render()
 	}
 }
 
-bool SpriteCollider2D::isCollide(ColliderBase* other)
-{
-	if (other->GetType() == Type::box)
-	{
-		const Bounds& otherBD = ((SpriteCollider2D*)other)->bounds;
-			return bounds.AABB(otherBD);
-	}
-	else
-	{
-		return false;
-	}
-}
+
