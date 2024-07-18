@@ -109,8 +109,8 @@ void WinGameApp::Run()
 			}	
 			SpriteAnimationRenderer::EndRender();
 								
+			WorldManager::DelObjectToSetList();	
 			WorldManager::AddObjectToQList();
-			WorldManager::DelObjectToSetList();		
 
 			Input.ResetInput();
 		}

@@ -18,7 +18,8 @@ protected:
 	virtual void Update() override;
 	//virtual void LateUpdate() override;
 	virtual void Render() override;
-	virtual bool isCollide(ColliderBase* other); //각자 콜라이더에서 구현
+	virtual bool isCollide(ColliderBase* other) override;
+	virtual bool isCollide(const Vector2& point) override;
 
 	Bounds bounds;
 private:

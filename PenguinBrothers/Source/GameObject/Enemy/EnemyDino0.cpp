@@ -109,22 +109,25 @@ void EnemyTracking::Update()
 		dir = dir.Normalized();
 		movement->SetDirection(dir);
 
-		if (toPlayerDis > trackingDis)
+		if (abs(dir.x) >= 1.f)
 		{
-			owner.SetState(L"Idle");
-		}
-		else if (attackDis > toPlayerDis)
-		{
-			owner.SetState(L"Attack");
-		}
+			if (toPlayerDis > trackingDis)
+			{
+				owner.SetState(L"Idle");
+			}
+			else if (attackDis > toPlayerDis)
+			{
+				owner.SetState(L"Attack");
+			}
 
-		if (dir.x > 0)
-		{
-			owner.gameObject.transform.FlipX(true);
-		}
-		else if (dir.x < 0)
-		{
-			owner.gameObject.transform.FlipX(false);
+			if (dir.x > 0)
+			{
+				owner.gameObject.transform.FlipX(true);
+			}
+			else if (dir.x < 0)
+			{
+				owner.gameObject.transform.FlipX(false);
+			}
 		}
 	}	
 	else

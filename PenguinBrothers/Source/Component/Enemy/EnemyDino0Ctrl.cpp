@@ -47,6 +47,7 @@ void EnemyDino0Ctrl::Start()
 #endif 
 
 	gameObject.transform.position += Vector2(0.f, -9.f);
+	GetComponent<FiniteStateMachine>().SetState(L"Idle");
 }
 
 void EnemyDino0Ctrl::Update()

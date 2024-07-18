@@ -32,6 +32,8 @@ public:
 	template<typename T> T& AddComponent();
 	template<typename T> T& GetComponent();
 
+	class Transform& GetTransform();
+	__declspec(property(get = GetTransform)) Transform& transform;
 protected:
 	virtual void Start();
 	virtual void Update();

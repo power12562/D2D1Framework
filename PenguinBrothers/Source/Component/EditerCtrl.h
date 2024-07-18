@@ -16,4 +16,8 @@ protected:
 
 private:
 	class StageEditer* world = nullptr;
+	GameObjectBase* grabObject = nullptr;
+	bool editMode = true;
+
+	void SetObjectPos(GameObjectBase* object);
 };

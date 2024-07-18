@@ -37,6 +37,9 @@ void FireEffectCtrl::Start()
 		break;
 	case BombType::skyblue:
 		break;
+	default:
+		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.txt", L"Resource/bomb/redeffect.png", L"fire");
+		break;
 	}
 	animationRenderer->SetAnimation(L"fire");	
 }

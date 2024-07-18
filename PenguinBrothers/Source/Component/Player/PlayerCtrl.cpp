@@ -56,11 +56,6 @@ void PlayerCtrl::Update()
 //		stateDebugText->Text += state->GetName();
 //	}
 //#endif 
-
-	if (Input.IsKeyDown(KeyCode::Space))
-	{
-		GetComponent<Rigidbody2D>().AddForce(Vector2::Right * 100.0f);
-	}
 }
 
 void PlayerCtrl::SpawnBomb()

@@ -47,6 +47,11 @@ bool Bounds::AABB(const Bounds& A, const Bounds& B)
 	return A.AABB(B);
 }
 
+bool Bounds::PointCollision(const Bounds& a, const Vector2& p)
+{
+	return a.PointCollision(p);
+}
+
 bool Bounds::AABB(const Bounds& other) const
 {
 	// Check for no overlap conditions
@@ -54,6 +59,19 @@ bool Bounds::AABB(const Bounds& other) const
 		this->leftTop.x > other.rightBottom.x ||  // 왼쪽에 있으면 겹칠수가 없음
 		this->leftTop.y < other.rightBottom.y ||  // 아래에 있으면 겹칠수가 없음
 		this->rightBottom.y > other.leftTop.y)	  // 위에 있으면 겹칠수가 없음
+	{
+		return false;
+	}
+	return true;
+}
+
+bool Bounds::PointCollision(const Vector2& p) const
+{
+	// Check for no overlap conditions
+	if (this->rightBottom.x < p.x ||  // 오른쪽에 있으면 겹칠수가 없음
+		this->leftTop.x > p.x ||  // 왼쪽에 있으면 겹칠수가 없음
+		this->leftTop.y < p.y ||  // 아래에 있으면 겹칠수가 없음
+		this->rightBottom.y > p.y)	  // 위에 있으면 겹칠수가 없음
 	{
 		return false;
 	}

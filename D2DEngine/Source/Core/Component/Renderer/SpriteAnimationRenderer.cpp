@@ -55,6 +55,7 @@ void SpriteAnimationRenderer::LoadAnimationClip(const wchar_t* clipPath, const w
 	else
 	{
 		MessageBox(WinGameApp::GetHwnd(), L"clipName이 중복됩니다.", L"SpriteAnimationRenderer::LoadAnimation", MB_OK);
+		assert(false);
 	}
 }
 
@@ -74,6 +75,7 @@ void SpriteAnimationRenderer::UnloadAnimationClip(const wchar_t* clipName)
 	else
 	{
 		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::UnloadAnimation", MB_OK);
+		assert(false);
 	}
 }
 
@@ -103,6 +105,7 @@ void SpriteAnimationRenderer::SetAnimation(const wchar_t* clipName, bool isLoop)
 	else
 	{
 		MessageBox(WinGameApp::GetHwnd(), L"클립을 찾을 수 없습니다.", L"SpriteAnimationRenderer::SetAnimation", MB_OK);
+		assert(false);
 	}
 }
 
@@ -282,6 +285,7 @@ AnimationClip* SpriteAnimationRenderer::CreateAnimationClipFromFile(const wchar_
 		wchar_t message[100];
 		swprintf_s(message, _ARRAYSIZE(message), L"%s 경로를 찾을수 없습니다.", filePath);
 		MessageBox(WinGameApp::GetHwnd(), message, L"SpriteAnimationRenderer Load Error", MB_OK);
+		assert(false);
 		return nullptr;
 	}
 	AnimationClip* newClip = new AnimationClip;

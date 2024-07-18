@@ -1,4 +1,5 @@
 #pragma once
+#include <Utility/Ray.h>
 #include <list>
 
 class ColliderBase;

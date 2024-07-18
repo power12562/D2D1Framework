@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/Component/Base/ComponentBase.h>
 #include <Framework/ColliderManager.h>
+#include <Utility/Ray.h>
 
 #include <list>
 #include <unordered_set>
@@ -18,7 +19,8 @@ protected:
 	//virtual void Update() override;
 	//virtual void LateUpdate() override;
 	//virtual void Render() override;
-	virtual bool isCollide(ColliderBase* other); //각자 콜라이더에서 구현
+	virtual bool isCollide(ColliderBase* other) override; //각자 콜라이더에서 구현
+    virtual bool isCollide(const Vector2& point) override;
 };
 
 */
@@ -27,6 +29,7 @@ class ColliderBase : public ComponentBase
 {
 	friend class ColliderManager;
 	friend class GameObjectBase;
+	friend ColliderBase* Ray::ShootRayFromPosition(const Vector2& position);
 protected:	
 	enum class Type
 	{
@@ -51,6 +54,7 @@ protected:
 	std::unordered_set<ColliderBase*> collideStateCurr;	//다른 콜라이더와 현재 충돌 상태
 
 	virtual bool isCollide(ColliderBase* other) = 0; //각자 콜라이더에서 구현
+	virtual bool isCollide(const Vector2& point) = 0; //점과 충돌 구현
 	
 private:
 	std::list<ColliderBase*>::iterator myIter;		//콜라이더 리스트에 대한 자신의 노드(이터)

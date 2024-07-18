@@ -1,5 +1,6 @@
 #pragma once
-#include "Bounds/Bounds.h"
+#include <Bounds/Bounds.h>
+#include <Utility/Ray.h>
 
 #include <typeinfo>
 #include <list>
@@ -32,6 +33,7 @@ class GameObjectBase
 {
 	friend class WorldManager;
 	friend class ColliderManager;
+	friend ColliderBase* Ray::ShootRayFromPosition(const Vector2& position);
 private:
 	Transform* pTransform; //Æ®·»½ºÆû
 	class Rigidbody2D* pRigidbody; //¸®Áöµå¹Ùµð

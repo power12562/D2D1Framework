@@ -32,6 +32,7 @@
     <ClCompile Include="Source\Framework\ColliderManager.cpp" />
     <ClCompile Include="Source\Core\Component\Rigidbody2D.cpp" />
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
+    <ClCompile Include="Source\Utility\Ray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -69,5 +70,6 @@
     <ClInclude Include="Source\Core\Component\Collider\Interface\ICollider2DNotify.h" />
     <ClInclude Include="Source\Core\Component\Rigidbody2D.h" />
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
+    <ClInclude Include="Source\Utility\Ray.h" />
   </ItemGroup>
 </Project>
