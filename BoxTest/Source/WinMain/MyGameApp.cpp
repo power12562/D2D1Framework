@@ -9,7 +9,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ int       nCmdShow)
 {
     MyGameApp app;
-    app.Initialize(hInstance);
+    app.Initialize(hInstance); 
     WorldManager::LoadWorld<World1>();
     app.Run();
     app.Uninitialize();
@@ -20,6 +20,7 @@ MyGameApp::MyGameApp()
 #ifdef _DEBUG
     isDebug = true;
 #endif // _DEBUG
+    SetClientSize({ 1920, 1080 });
     windowName = L"GameApp";
     winClassName = L"GAME_APP";
     bgColor = D2D1::ColorF(D2D1::ColorF::Black);
