@@ -11,7 +11,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    WorldManager::LoadWorld<StageEditer>();
+    WorldManager::LoadWorld<StageScene>();
     app.Run();
     app.Uninitialize();
 }

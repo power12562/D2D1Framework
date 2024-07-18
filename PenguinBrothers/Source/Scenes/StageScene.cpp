@@ -5,10 +5,12 @@
 #include "Source/GameObject/Player/Player.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 
-StageScene::StageScene() : StageEditer(false)
+
+StageScene::StageScene() : StageEditer([](StageScene* asd)->bool { 
+	asd->stagePath = L"Resource/Stage/Stage1.json"; 
+	return false; }(this))
 {
-	LoadStageToJson();
-	SpawnSceneObjects();
+
 }
 
 StageScene::~StageScene()
