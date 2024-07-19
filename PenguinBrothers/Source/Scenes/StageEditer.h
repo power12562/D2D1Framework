@@ -11,7 +11,7 @@ public:
 	virtual ~StageEditer() override;
 
 	//Json으로 초기화할 값들
-	static std::wstring stagePath;
+	std::wstring stagePath;
 	std::wstring bgPath;	//배경 이미지 경로 
 	Vector2 playerSpawnPos; //플레이어 시작 위치
 	GameObjectBase* playerObj;

@@ -15,8 +15,6 @@
 
 #include <Core/Component/Collider/BoxCollider2D.h>
 
-std::wstring StageEditer::stagePath;
-
 StageEditer::StageEditer(bool editer)
 {
 	LoadStageToJson();

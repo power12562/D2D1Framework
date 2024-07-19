@@ -13,6 +13,7 @@
 #include <cwctype>
 
 WorldBase* WorldManager::currentWorld = nullptr;
+WorldBase* WorldManager::nextWorld = nullptr;
 
 std::queue<GameObjectBase*> WorldManager::addQueueList;
 std::set<std::wstring> WorldManager::delNameSetList;
@@ -231,4 +232,12 @@ std::wstring WorldManager::GenerateUniqueName(const wchar_t* name)
 }
 
 
-
+void WorldManager::LoadNextWorld()
+{
+	if (nextWorld)
+	{
+		UnloadWorld();
+		currentWorld = nextWorld;
+		nextWorld = nullptr;
+	}
+}					  

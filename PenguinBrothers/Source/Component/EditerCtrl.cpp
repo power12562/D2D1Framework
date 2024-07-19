@@ -57,6 +57,7 @@ void EditerCtrl::Update()
 			if (ColliderBase* collision = Ray::ShootRayFromPosition(mouse.GetWorldPos()))
 			{
 				grabObject = &collision->gameObject;
+				selObject = grabObject;
 			}
 		}
 		if (grabObject)
@@ -69,13 +70,43 @@ void EditerCtrl::Update()
 			}
 		}
 
+		if (Input.IsKeyDown(KeyCode::F3))
+		{
+			WorldManager::LoadWorld<StageEditer>();
+		}
+
 		if (Input.IsKeyDown(KeyCode::F4))
 		{
 			world->SaveStageToJson();
 		}
+
+		if (selObject && Input.IsKeyDown(KeyCode::Delete))
+		{
+			deleteSelObject();
+		}
 	}
 
 
+}
+
+void EditerCtrl::deleteSelObject()
+{
+	if (selObject->tag == L"Enemy")
+	{
+		auto posIter = world->EnemyDino0_SpawnPos.begin();
+		for (int i = 0; i < world->EnemyDino0_SpawnCount; i++)
+		{
+			if (world->EnemyDino0Objs[i] == selObject)
+			{
+				world->EnemyDino0_SpawnPos.erase(posIter);
+				world->EnemyDino0_SpawnCount--;
+				WorldManager::DelGameObject(*selObject);
+				break;
+			}
+			++posIter;
+		}
+	}
+	selObject = nullptr;
 }
 
 void EditerCtrl::SetObjectPos(GameObjectBase* object)

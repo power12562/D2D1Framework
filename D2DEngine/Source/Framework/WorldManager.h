@@ -52,6 +52,7 @@ private:
 	~WorldManager();
 
 	static WorldBase* currentWorld;
+	static WorldBase* nextWorld;
 	static std::queue<GameObjectBase*> addQueueList;
 	static std::set<std::wstring> delNameSetList;
 
@@ -84,6 +85,9 @@ private:
 
 	/** 예약된 게임 오브젝트들을 현재 씬에서 삭제합니다.*/
 	static void DelObjectToSetList();
+
+	/** 다음 월드를 로드합니다.*/
+	static void LoadNextWorld();
 #pragma endregion
 
 };
@@ -94,11 +98,12 @@ inline void WorldManager::LoadWorld()
 	// T가 SceneBase로부터 상속받는지 확인
 	static_assert(std::is_base_of<WorldBase, T>::value, "Is not Scene");
 
-	if (currentWorld)
+	if (nextWorld)
 	{
-		delete currentWorld;
+		delete nextWorld;
+		nextWorld = nullptr;
 	}
-	currentWorld = new T;
+	nextWorld = new T;
 }
 
 inline void WorldManager::UnloadWorld()
@@ -106,6 +111,7 @@ inline void WorldManager::UnloadWorld()
 	if (currentWorld)
 	{
 		delete currentWorld;
+		currentWorld = nullptr;
 	}
 }
 

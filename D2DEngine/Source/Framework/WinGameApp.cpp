@@ -57,6 +57,7 @@ void WinGameApp::Run()
 	//게임용 루프	
 	MSG msg;
 	Time.UpdateTime();
+	WorldManager::LoadNextWorld();
 	WorldManager::AddObjectToQList();
 	while (!isEnd)
 	{
@@ -109,9 +110,10 @@ void WinGameApp::Run()
 			}	
 			SpriteAnimationRenderer::EndRender();
 								
+			WorldManager::LoadNextWorld();
 			WorldManager::DelObjectToSetList();	
 			WorldManager::AddObjectToQList();
-
+		
 			Input.ResetInput();
 		}
 	}

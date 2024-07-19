@@ -15,9 +15,11 @@ protected:
 	//virtual void Render();
 
 private:
+	bool editMode = true;
 	class StageEditer* world = nullptr;
 	GameObjectBase* grabObject = nullptr;
-	bool editMode = true;
-
+	GameObjectBase* selObject = nullptr;
+	
+	void deleteSelObject();
 	void SetObjectPos(GameObjectBase* object);
 };
