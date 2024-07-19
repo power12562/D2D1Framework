@@ -1,4 +1,8 @@
 #include "EditerCtrl.h"
+
+#include <Utility/WinUtility.h>
+
+#include <Framework/WinGameApp.h>
 #include <Framework/WorldManager.h>
 #include <Framework/TimeSystem.h>
 #include <Framework/InputSystem.h>
@@ -9,6 +13,7 @@
 #include <Utility/Ray.h>
 
 #include "Source/Scenes/StageEditer.h"
+#include "Source/GameObject/Enemy/EnemyDino0.h"
 
 using namespace InputSystem;
 using namespace TimeSystem;
@@ -80,6 +85,11 @@ void EditerCtrl::Update()
 			world->SaveStageToJson();
 		}
 
+		if (Input.IsKeyDown(KeyCode::Num1))
+		{
+			SetDino0();
+		}
+
 		if (selObject && Input.IsKeyDown(KeyCode::Delete))
 		{
 			deleteSelObject();
@@ -126,5 +136,29 @@ void EditerCtrl::SetObjectPos(GameObjectBase* object)
 			}
 		}
 
+	}
+}
+
+void EditerCtrl::SetDino0()
+{
+	int result = WinUtility::GetIntFromUser(WinGameApp::GetHwnd(), L"Dino0 Count", L"Count : ");
+	if (result >= 0)
+	{
+		while (result != world->EnemyDino0Objs.size())
+		{
+			if (result > world->EnemyDino0Objs.size())
+			{
+				GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
+				world->EnemyDino0Objs.push_back(dino);
+				world->EnemyDino0_SpawnPos.push_back(Vector2(0, 0));
+			}
+			else
+			{
+				WorldManager::DelGameObject(*world->EnemyDino0Objs.back());
+				world->EnemyDino0Objs.pop_back();
+				world->EnemyDino0_SpawnPos.pop_back();
+			}
+		}
+		world->EnemyDino0_SpawnCount = result;
 	}
 }

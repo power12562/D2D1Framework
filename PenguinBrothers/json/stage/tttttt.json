@@ -22,13 +22,13 @@
     103
   ],
   "playerSpawnPos": [
-    -492.0,
-    -185.0
+    -500.0,
+    -195.0
   ],
   "EnemyDino0_SpawnCount": 1,
   "EnemyDino0_SpawnPos0": [
-    500.0,
-    184.0
+    448.0,
+    -197.0
   ],
   "GroundBox_SpawnCount": 0
 }

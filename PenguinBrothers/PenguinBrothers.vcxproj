@@ -186,6 +186,9 @@
     <ClInclude Include="Source\Scenes\StageEditer.h" />
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\D2DEngine\D2DEngine.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -48,4 +48,9 @@
     <ClInclude Include="Source\Component\Player\FireEffectCtrl.h" />
     <ClInclude Include="Source\GameObject\Player\FireEffect.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\D2DEngine\D2DEngine.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
