@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Component\Player\BombEffectCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\FireEffectCtrl.cpp" />
     <ClCompile Include="Source\GameObject\Player\FireEffect.cpp" />
+    <ClCompile Include="Source\GameObject\Ground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="Source\Component\Player\BombEffectCtrl.h" />
     <ClInclude Include="Source\Component\Player\FireEffectCtrl.h" />
     <ClInclude Include="Source\GameObject\Player\FireEffect.h" />
+    <ClInclude Include="Source\GameObject\Ground.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\D2DEngine\D2DEngine.rc">

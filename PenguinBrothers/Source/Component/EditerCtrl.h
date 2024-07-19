@@ -23,4 +23,5 @@ private:
 	void deleteSelObject();
 	void SetObjectPos(GameObjectBase* object);
 	void SetDino0();
+	void AddGround();
 };

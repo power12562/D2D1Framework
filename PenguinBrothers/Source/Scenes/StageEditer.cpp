@@ -12,6 +12,7 @@
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 #include "Source/GameObject/StageObjectListDebug.h"	   
 #include "Source/GameObject/Editer.h"
+#include "Source/GameObject/Ground.h"
 
 #include <Core/Component/Collider/BoxCollider2D.h>
 
@@ -65,6 +66,7 @@ void StageEditer::LoadStageToJson()
 				key += std::to_string(i);
 				GroundBox_SpawnPos[i] = JsonUtiliy::JsonGetVector2(stageJson[key]);
 			};
+			GroundBox_Size.resize(GroundBox_SpawnCount);
 			for (int i = 0; i < GroundBox_SpawnCount; i++)
 			{
 				std::string key("GroundBox_Size");
@@ -96,9 +98,10 @@ void StageEditer::SpawnSceneObjects()
 
 	for (int i = 0; i < GroundBox_SpawnCount; i++)
 	{
-		GroundObjs.push_back(WorldManager::AddGameObject(L"Ground"));
+		GroundObjs.push_back(WorldManager::AddGameObject<Ground>(L"Ground"));
 		GroundObjs[i]->transform.position = GroundBox_SpawnPos[i];
 		GroundObjs[i]->GetComponent<BoxCollider2D>().ColliderSize = GroundBox_Size[i];
+		GroundObjs[i]->GetComponent<BoxCollider2D>().isDrawCollider = true;
 	}
 }
 

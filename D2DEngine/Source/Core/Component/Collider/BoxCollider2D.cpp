@@ -23,10 +23,10 @@ void BoxCollider2D::Update()
 	bounds.center = gameObject.transform.position;
 	bounds.size = ColliderSize;
 	bounds.extents = bounds.size / 2.f;
-	bounds.leftTop.x = bounds.center.x -= bounds.extents.x;
-	bounds.leftTop.y = bounds.center.y += bounds.extents.y;
-	bounds.rightBottom.x = bounds.center.x += bounds.extents.x;
-	bounds.rightBottom.y = bounds.center.y -= bounds.extents.y;
+	bounds.leftTop.x = bounds.center.x - bounds.extents.x;
+	bounds.leftTop.y = bounds.center.y + bounds.extents.y;
+	bounds.rightBottom.x = bounds.center.x + bounds.extents.x;
+	bounds.rightBottom.y = bounds.center.y - bounds.extents.y;
 }
 
 void BoxCollider2D::Render()

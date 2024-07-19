@@ -1,4 +1,6 @@
 #pragma once
+#include <Vector/Vector2.h>
+
 #include <string>
 #include <Windows.h>
 
@@ -32,4 +34,12 @@ namespace WinUtility
       * text : 설명
     */
     int GetIntFromUser(HWND hWnd, LPCWSTR title, LPCWSTR text);
+
+    /*
+    * 사용할려면 프로젝트에 D2DEngine.rc 파일을 추가 해야 합니다.
+      Vector2를 입력받는 창을 띄웁니다.
+      잘못된 값을 입력하면 {0,0}을 반환합니다.
+      * title : 박스의 제목
+    */
+    Vector2 GetVector2FromUser(HWND hWnd, LPCWSTR title);
 };

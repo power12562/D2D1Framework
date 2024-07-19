@@ -153,6 +153,7 @@
     <ClCompile Include="Source\Component\Player\PlayerBombCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\PlayerCtrl.cpp" />
     <ClCompile Include="Source\Component\StageObjectListDebug_Ctrl.cpp" />
+    <ClCompile Include="Source\GameObject\Ground.cpp" />
     <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
     <ClCompile Include="Source\GameObject\Editer.cpp" />
     <ClCompile Include="Source\GameObject\Enemy\EnemyDino0.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Source\Component\Player\PlayerBombCtrl.h" />
     <ClInclude Include="Source\Component\Player\PlayerCtrl.h" />
     <ClInclude Include="Source\Component\StageObjectListDebug_Ctrl.h" />
+    <ClInclude Include="Source\GameObject\Ground.h" />
     <ClInclude Include="Source\GameObject\Player\BombEffect.h" />
     <ClInclude Include="Source\GameObject\Editer.h" />
     <ClInclude Include="Source\GameObject\Enemy\EnemyDino0.h" />

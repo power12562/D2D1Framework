@@ -134,18 +134,18 @@ bool WinUtility::ShowConfirmationDialog(const wchar_t* title, const wchar_t* tex
 	}
 }
 
-struct DialogData 
+struct DialogDataInt 
 {
 	LPCWSTR title;
 	LPCWSTR message;
 };
 
-INT_PTR CALLBACK DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK DialogProcInt(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	DialogData* data;
+	DialogDataInt* data;
 	if (message == WM_INITDIALOG)
 	{
-		data = (DialogData*)lParam;
+		data = (DialogDataInt*)lParam;
 		SetWindowText(hDlg, data->title); // 다이얼로그 제목 설정
 		SetDlgItemText(hDlg, IDC_STATIC_TEXT, data->message); // 메시지 설정
 		WinGameApp::WinToScrrenCenter(hDlg);
@@ -174,11 +174,76 @@ INT_PTR CALLBACK DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 
 int WinUtility::GetIntFromUser(HWND hWnd, LPCWSTR title, LPCWSTR text)
 {
-	DialogData data = { title, text };
-	int reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_DIALOG), hWnd, DialogProc, (LPARAM)&data);
+	DialogDataInt data = { title, text };
+	int reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_INT_DIALOG), hWnd, DialogProcInt, (LPARAM)&data);
 	if (auto error = GetLastError())
 	{
 		assert(false);
 	}
 	return reslut;
+}
+
+
+struct DialogDataVector
+{
+	LPCWSTR title;
+	Vector2* vector2;
+};
+
+INT_PTR CALLBACK DialogProcVector(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	static Vector2* temp = nullptr;
+	DialogDataVector* data;	
+	if (message == WM_INITDIALOG)
+	{		
+		data = (DialogDataVector*)lParam;
+		temp = data->vector2;
+		SetWindowText(hDlg, data->title); // 다이얼로그 제목 설정
+		SetDlgItemText(hDlg, IDC_EDIT1, L"Width");
+		SetDlgItemText(hDlg, IDC_EDIT2, L"Height");
+		WinGameApp::WinToScrrenCenter(hDlg);
+		return (INT_PTR)TRUE;
+	}
+	switch (message)
+	{
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+		{
+			if (LOWORD(wParam) == IDOK) {
+				TCHAR buffer1[30];
+				TCHAR buffer2[30];
+				GetDlgItemText(hDlg, IDC_EDIT1, buffer1, 10);
+				GetDlgItemText(hDlg, IDC_EDIT2, buffer2, 10);
+				float x = static_cast<float>(_ttof(buffer1));
+				float y = static_cast<float>(_ttof(buffer2));
+				if (temp)
+				{
+					temp->x = x;
+					temp->y = y;
+					EndDialog(hDlg, 1);
+				}
+				else
+					EndDialog(hDlg, -1);		
+			}
+			else {
+				EndDialog(hDlg, -1);
+			}
+			return (INT_PTR)TRUE;
+		}
+		break;
+	}
+	return (INT_PTR)FALSE;
+}
+
+
+Vector2 WinUtility::GetVector2FromUser(HWND hWnd, LPCWSTR title)
+{
+	Vector2 temp;
+	DialogDataVector  data = { title ,&temp };
+	bool reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_VECTOR2_DIALOG), hWnd, DialogProcVector, (LPARAM)&data);
+	if (!reslut)
+	{
+		assert(false);
+	}
+	return temp;
 }
