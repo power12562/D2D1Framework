@@ -1,5 +1,7 @@
 #include "WinUtility.h"
 #include "Framework/WinGameApp.h"
+#include "../resource.h"
+#include <tchar.h>
 #include <cassert>
 #include <cstring>
 
@@ -130,4 +132,53 @@ bool WinUtility::ShowConfirmationDialog(const wchar_t* title, const wchar_t* tex
 	{
 		return false;
 	}
+}
+
+struct DialogData 
+{
+	LPCWSTR title;
+	LPCWSTR message;
+};
+
+INT_PTR CALLBACK DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	DialogData* data;
+	if (message == WM_INITDIALOG)
+	{
+		data = (DialogData*)lParam;
+		SetWindowText(hDlg, data->title); // 다이얼로그 제목 설정
+		SetDlgItemText(hDlg, IDC_STATIC_TEXT, data->message); // 메시지 설정
+		WinGameApp::WinToScrrenCenter(hDlg);
+		return (INT_PTR)TRUE;
+	}
+	switch (message)
+	{
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+		{
+			if (LOWORD(wParam) == IDOK) {
+				TCHAR buffer[10];
+				GetDlgItemText(hDlg, IDC_EDIT1, buffer, 10);
+				int value = _ttoi(buffer);
+				EndDialog(hDlg, value);
+			}
+			else {
+				EndDialog(hDlg, -1);
+			}
+			return (INT_PTR)TRUE;
+		}
+		break;
+	}
+	return (INT_PTR)FALSE;
+}
+
+int WinUtility::GetIntFromUser(HWND hWnd, LPCWSTR title, LPCWSTR text)
+{
+	DialogData data = { title, text };
+	int reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_DIALOG), hWnd, DialogProc, (LPARAM)&data);
+	if (auto error = GetLastError())
+	{
+		assert(false);
+	}
+	return reslut;
 }

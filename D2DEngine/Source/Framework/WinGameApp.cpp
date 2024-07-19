@@ -132,7 +132,7 @@ void WinGameApp::WinToScrrenCenter(HWND hwnd)
 	GetWindowRect(GetDesktopWindow(), &rtDesk);
 	GetWindowRect(hwnd, &rtWindow);
 	width = rtWindow.right - rtWindow.left;
-	height = rtWindow.bottom - rtWindow.left;
+	height = rtWindow.bottom - rtWindow.top;
 	x = (rtDesk.right - width) / 2;
 	y = (rtDesk.bottom - height) / 2;
 	MoveWindow(hwnd, x, y, width, height, TRUE);

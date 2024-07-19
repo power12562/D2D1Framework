@@ -190,7 +190,7 @@ void WorldManager::DelObjectToSetList()
 
 		for (int i = 0; i < delVectorList.size(); i++)
 		{
-			auto findIter = currentWorld->gameObjectMap.find(delVectorList[0]);
+			auto findIter = currentWorld->gameObjectMap.find(delVectorList[i]);
 			if (findIter != currentWorld->gameObjectMap.end())
 			{
 				delete *(findIter->second);

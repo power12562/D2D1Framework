@@ -71,5 +71,9 @@
     <ClInclude Include="Source\Core\Component\Rigidbody2D.h" />
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
     <ClInclude Include="Source\Utility\Ray.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D2DEngine.rc" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <Windows.h>
 
 namespace WinUtility
 {
@@ -23,4 +24,12 @@ namespace WinUtility
     */
     bool ShowConfirmationDialog(const wchar_t* title, const wchar_t* text);
 
+    /*
+    * 사용할려면 프로젝트에 D2DEngine.rc 파일을 추가 해야 합니다.
+      int를 입력받는 창을 띄웁니다.
+      잘못된 값을 입력하면 -1을 반환합니다.
+      * title : 박스의 제목
+      * text : 설명
+    */
+    int GetIntFromUser(HWND hWnd, LPCWSTR title, LPCWSTR text);
 };
