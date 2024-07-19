@@ -44,7 +44,7 @@ void SpriteCollider2D::Render()
 			-gameObject.transform.pivot.x, -gameObject.transform.pivot.y,
 			gameObject.transform.pivot.x, gameObject.transform.pivot.y
 		};
-		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green));
+		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green), DrawFill, DrawAlpha);
 	}
 }
 

@@ -51,6 +51,13 @@ public:
 		const D2D1_COLOR_F& color = D2D1::ColorF(D2D1::ColorF::Black),
 		bool rectFill = false
 	);
+	static void DrawRect(
+		const D2D1_MATRIX_3X2_F& matrix,
+		const D2D1_RECT_F& rectPoint,
+		const D2D1_COLOR_F& color,
+		bool rectFill, 
+		float alpha
+	);
 
 	/** 중복 검사 후 비트맵 포인터 생성*/
 	static ID2D1Bitmap* const* CreateD2DBitmapFromFile(const wchar_t* filePath);

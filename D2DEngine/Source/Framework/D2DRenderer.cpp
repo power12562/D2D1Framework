@@ -300,6 +300,26 @@ void D2DRenderer::DrawRect(const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& r
 
 }
 
+void D2DRenderer::DrawRect(const D2D1_MATRIX_3X2_F& matrix, const D2D1_RECT_F& rectPoint, const D2D1_COLOR_F& color, bool rectFill, float alpha)
+{
+	if (pColorBrush == nullptr)
+		return;
+
+	pColorBrush->SetColor(color);
+	pColorBrush->SetOpacity(alpha);
+	pRenderTarget->SetTransform(matrix);
+
+	if (rectFill)
+	{
+		pRenderTarget->FillRectangle(rectPoint, pColorBrush);
+	}
+	else
+	{
+		pRenderTarget->DrawRectangle(rectPoint, pColorBrush);
+	}
+	pColorBrush->SetOpacity(1.0f);
+}
+
 ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmapFromFile(const wchar_t* filePath)
 {
 	auto iter = ID2D1BitmapResourceMap.find(filePath);

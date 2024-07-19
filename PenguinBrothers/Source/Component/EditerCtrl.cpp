@@ -79,7 +79,7 @@ void EditerCtrl::Update()
 
 		if (Input.IsKeyDown(KeyCode::F3))
 		{
-			if(WinUtility::ShowConfirmationDialog(L"경고", L"저장하지 않는 내용은 삭제됩니다."));
+			if(WinUtility::ShowConfirmationDialog(L"경고", L"저장하지 않는 내용은 삭제됩니다."))
 			{
 				WorldManager::LoadWorld<StageEditer>();
 			}	

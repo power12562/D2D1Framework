@@ -43,7 +43,7 @@ void BoxCollider2D::Render()
 			-bounds.extents.x, -bounds.extents.y,
 			bounds.extents.x, bounds.extents.y
 		};
-		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green));
+		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green), DrawFill, DrawAlpha);
 	}
 }
 

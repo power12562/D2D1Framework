@@ -11,6 +11,8 @@ public:
 	virtual ~BoxCollider2D() override;
 
 	bool isDrawCollider = false;
+	bool DrawFill = false;	
+	float DrawAlpha = 1.0f;
 	Vector2 ColliderSize{0, 0};
 
 protected:
