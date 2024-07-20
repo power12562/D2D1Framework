@@ -20,6 +20,7 @@ private:
 	GameObjectBase* grabObject = nullptr;
 	GameObjectBase* selObject = nullptr;
 	
+	void EnableEditMode(bool enable);
 	void deleteSelObject();
 	void SetObjectPos(GameObjectBase* object);
 	void SetDino0();

@@ -2,6 +2,7 @@
 #include <Bounds/Bounds.h>
 #include <Utility/Ray.h>
 
+#include <type_traits>
 #include <typeinfo>
 #include <list>
 #include <unordered_map>
@@ -69,11 +70,14 @@ public:
 	template <typename T> T& AddComponent();
 	template<> Rigidbody2D& AddComponent();
 
-	/** 컴포넌트를 가져옵니다.*/
+	/** 컴포넌트를 가져옵니다. *존재 유무를 알고싶으면 IsComponent를 통해 null 체크를 해야합니다.*/
 	template <typename T> T& GetComponent();
-	template<> Transform& GetComponent();
 	template<> Rigidbody2D& GetComponent();
 	
+	/** 컴포넌트를 포인터로 반환합니다. 존재하지 않는 컴포넌트면 nullptr을 반환합니다.*/
+	template <typename T> T* IsComponent();
+	template<> Rigidbody2D* IsComponent<Rigidbody2D>();
+
 	/**현재 씬에서 게임 오브젝트를 찾습니다.*/
 	static GameObjectBase* Find(const wchar_t* name);
 
@@ -107,6 +111,7 @@ template<typename T> inline T& GameObjectBase::AddComponent()
 {
 	// T가 ComponentBase로부터 상속받는지 확인
 	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
+	static_assert(!std::is_base_of<Transform, T>::value, "Transform is always exist. Please use the GameObjectBase.transform");
 
 	T* component = new T(*this);
 	if (component)
@@ -132,6 +137,7 @@ template<typename T>inline T& GameObjectBase::GetComponent()
 {
 	// T가 ComponentBase로부터 상속받는지 확인
 	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
+	static_assert(!std::is_base_of<Transform, T>::value, "Transform is always exist. Please use the GameObjectBase.transform");
 
 	T* component = nullptr;
 	if constexpr (std::is_base_of<ColliderBase, T>::value)
@@ -157,6 +163,45 @@ template<typename T>inline T& GameObjectBase::GetComponent()
 		}
 	}
 	return *component;
+}
+
+template<typename T>
+inline T* GameObjectBase::IsComponent()
+{
+	// T가 ComponentBase로부터 상속받는지 확인
+	static_assert(std::is_base_of<ComponentBase, T>::value, "Is not component");
+	static_assert(!std::is_base_of<Transform, T>::value, "Transform is always exist. Please use the GameObjectBase.transform");
+	
+	T* component = nullptr;
+	if constexpr (std::is_base_of<ColliderBase, T>::value)
+	{
+		for (auto& parentCollider : colliderList)
+		{
+			if (typeid(*parentCollider) == typeid(T))
+			{
+				component = static_cast<T*>(parentCollider);
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (auto& parentComponent : componentsList)
+		{
+			if (typeid(*parentComponent) == typeid(T))
+			{
+				component = static_cast<T*>(parentComponent);
+				break;
+			}
+		}
+	}
+	return component;
+}
+
+template<> 
+inline Rigidbody2D* GameObjectBase::IsComponent<Rigidbody2D>()
+{
+	return pRigidbody;
 }
 
 #include <Core/Component/Transform.h>

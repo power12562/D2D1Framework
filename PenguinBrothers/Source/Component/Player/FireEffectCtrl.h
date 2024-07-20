@@ -21,7 +21,7 @@ private:
 	virtual void OnCollisionStay2D(GameObjectBase* collision) override;
 	virtual void OnCollisionExit2D(GameObjectBase* collision) override;
 
-	virtual void OnTriggerEnter2D(GameObjectBase* collision) override {};
+	virtual void OnTriggerEnter2D(GameObjectBase* collision) override;
 	virtual void OnTriggerStay2D(GameObjectBase* collision) override {};
 	virtual void OnTriggerExit2D(GameObjectBase* collision) override {};
 };

@@ -10,6 +10,7 @@
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/Collider/Base/ColliderBase.h>
 #include <Core/Component/Collider/BoxCollider2D.h>
+#include <Core/Component/Rigidbody2D.h>
 
 #include <Utility/Ray.h>
 
@@ -32,9 +33,8 @@ EditerCtrl::~EditerCtrl()
 
 void EditerCtrl::Start()
 {
-	TimeSystem::Time.timeScale = 0.f;
 	world = (StageEditer*)WorldManager::GetCurrentWorld();
-	gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Idle");
+	EnableEditMode(true);
 }
 
 
@@ -42,18 +42,7 @@ void EditerCtrl::Update()
 {
 	if (Input.IsKeyDown(KeyCode::Space))
 	{
-		if (Time.timeScale == 0.f)
-		{
-			Time.timeScale = 1.0f;
-			gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Spawn");
-			editMode = false;
-		}
-		else
-		{
-			world->PosToSpawnPos();
-			Time.timeScale = 0.f;
-			editMode = true;
-		}
+		EnableEditMode(!editMode);
 	}
 
 	if (editMode)
@@ -71,7 +60,7 @@ void EditerCtrl::Update()
 		{
 			grabObject->transform.position = mouse.GetWorldPos();
 			if (mouse.isLeftClickUp)
-			{
+			{	
 				SetObjectPos(grabObject);
 				grabObject = nullptr;
 			}
@@ -107,6 +96,39 @@ void EditerCtrl::Update()
 	}
 
 
+}
+
+void EditerCtrl::EnableEditMode(bool _enable)
+{
+	if (grabObject != nullptr)
+		return;
+
+	if (_enable)
+	{
+		world->PosToSpawnPos();
+		Time.timeScale = 0.f;
+		editMode = true;
+		for (auto& i : WorldManager::GetCurrentObjList())
+		{
+			if (Rigidbody2D* rb = i->IsComponent<Rigidbody2D>())
+			{
+				rb->isKinematic = true;
+			}
+		}
+	}
+	else
+	{
+		Time.timeScale = 1.0f;
+		gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Spawn");
+		editMode = false;
+		for (auto& i : WorldManager::GetCurrentObjList())
+		{
+			if (Rigidbody2D* rb = i->IsComponent<Rigidbody2D>())
+			{
+				rb->isKinematic = false;
+			}
+		}
+	}
 }
 
 void EditerCtrl::deleteSelObject()

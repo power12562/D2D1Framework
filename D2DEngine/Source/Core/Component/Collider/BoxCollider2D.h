@@ -23,6 +23,11 @@ protected:
 	virtual bool isCollide(ColliderBase* other) override;
 	virtual bool isCollide(const Vector2& point) override;
 
+	virtual float GetTop() override { return bounds.leftTop.y; }
+	virtual float GetBottom() override { return bounds.rightBottom.y; }
+	virtual float GetLeft() override { return bounds.leftTop.x; }
+	virtual float GetRight() override { return bounds.rightBottom.x; }
+
 	Bounds bounds;
 private:
 

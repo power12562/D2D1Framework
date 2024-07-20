@@ -55,10 +55,7 @@ void FireEffectCtrl::Update()
 void FireEffectCtrl::OnCollisionEnter2D(GameObjectBase* collision)
 {
 	wprintf(L"Enter!!! %s\n", collision->name);
-	if (collision->tag == L"Player")
-	{
-		collision->GetComponent<FiniteStateMachine>().SetState(L"Dead");
-	}
+
 }
 
 void FireEffectCtrl::OnCollisionStay2D(GameObjectBase* collision)
@@ -69,6 +66,14 @@ void FireEffectCtrl::OnCollisionStay2D(GameObjectBase* collision)
 void FireEffectCtrl::OnCollisionExit2D(GameObjectBase* collision)
 {
 	wprintf(L"Exit!!! %s\n", collision->name);
+}
+
+void FireEffectCtrl::OnTriggerEnter2D(GameObjectBase* collision)
+{
+	if (collision->tag == L"Player")
+	{
+		collision->GetComponent<FiniteStateMachine>().SetState(L"Dead");
+	}
 }
 
 

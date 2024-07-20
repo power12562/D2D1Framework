@@ -56,10 +56,6 @@ void GameObjectBase::Start()
 
 void GameObjectBase::Update()
 {
-	if (pRigidbody && pRigidbody->enabled)
-	{
-		pRigidbody->Update();
-	}
 	if (enable)
 	{
 		for (auto& collider : colliderList)
@@ -72,6 +68,10 @@ void GameObjectBase::Update()
 			if (component->enabled)
 				component->Update();
 		}
+	}
+	if (pRigidbody && pRigidbody->enabled)
+	{
+		pRigidbody->Update();
 	}
 }
 

@@ -38,7 +38,7 @@ public:
 	Spawn(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
 	virtual void Enter() override;
 	virtual void Update() override;
-	virtual void Exit() override {}
+	virtual void Exit() override;
 };
 
 

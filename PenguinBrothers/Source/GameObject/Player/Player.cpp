@@ -85,6 +85,7 @@ PlayerState::PlayerState(FiniteStateMachine& _owner, const wchar_t* _name) : FSM
 void Spawn::Enter()
 {
 	spriteAnimation->SetAnimation(L"Spawn");
+	owner.IsComponent<Rigidbody2D>()->enabled = false;	
 }
 
 void Spawn::Update()
@@ -93,6 +94,11 @@ void Spawn::Update()
 	{
 		owner.SetState(L"Idle");
 	}
+}
+
+void Spawn::Exit()
+{
+	owner.IsComponent<Rigidbody2D>()->enabled = true;
 }
 
 

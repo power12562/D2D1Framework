@@ -13,10 +13,10 @@ public:
 	virtual ~Rigidbody2D() override;
 
 	bool isKinematic = false;
-	bool useGravity = false;
+	bool useGravity = true;
 
-	/** 중력 값. 기본 : { 0.f, -9.81f }*/
-	Vector2 Gravity{ 0.f, -9.81f };
+	/** 중력 값.*/
+	Vector2 Gravity;
 
 	/** 물체가 이동하는 속도.*/
 	Vector2 Velocity;
@@ -33,9 +33,10 @@ private:
 	Vector2 force{ 0, 0 }; //힘
 	Vector2 acceleration{0, 0}; //현재 가속도
 	float mass = 1.0f;	//질량	
+	Vector2 currGravity; 
+	bool currIsGravity; //이번 프레임 중력 적용 여부
 
-	float angularVelocity; //회전 속도 (아직 사용 안함)
+	//float angularVelocity; //회전 속도 (아직 사용 안함)
 
-	std::list<Rigidbody2D*>::iterator myIter;
-	static std::list<Rigidbody2D*> rigidbodyList;
+	void AddGravity();
 };

@@ -7,6 +7,7 @@ class ColliderBase;
 class ColliderManager
 {
 	friend class ColliderBase;
+	friend class Rigidbody2D;
 	friend class WinGameApp;
 	friend class GameObjectBase;
 
@@ -14,10 +15,14 @@ class ColliderManager
 
 	static void DeleteCollider(ColliderBase* collider); //콜라이더 컴포넌트 삭제시 이벤트 요청용
 
+	/** 콜라이더들의 PrevPos 값을 기록합니다.*/
+	static void SetPrevPos();
 	/** 콜라이더들의 충돌 여부를 검사합니다. WinGameApp 에서만 호출합니다. */
 	static void CheckCollision();
 
 	static void CallEnterEvent(ColliderBase* i, ColliderBase* j);
 	static void CallStayEvent(ColliderBase* i, ColliderBase* j);
 	static void CallExitEvent(ColliderBase* i, ColliderBase* j);
+
+	static void MoveSimulation(ColliderBase* i, ColliderBase* j);
 };

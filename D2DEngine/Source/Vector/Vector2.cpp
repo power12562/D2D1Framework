@@ -47,8 +47,13 @@ float Vector2::Magnitude() const
 
 Vector2 Vector2::Normalized()
 {
-	Vector2 normal = Vector2{ float(x / Magnitude()) , float(y / Magnitude()) };
-	return normal;
+	float magnitude = Magnitude();
+	if (magnitude != 0)
+	{
+		Vector2 normal = Vector2{ float(x / magnitude) , float(y / magnitude) };
+		return normal;
+	}
+	return Vector2{ 0,0 };
 }
 
 Vector2& Vector2::operator=(const Vector2& other)

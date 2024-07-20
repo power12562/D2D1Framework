@@ -163,13 +163,15 @@ void WorldManager::AddObjectToQList()
 {
 	if (currentWorld && !addQueueList.empty())
 	{
-		while (!addQueueList.empty())
+		std::queue<GameObjectBase*> addList = addQueueList;
+		while (!addList.empty())
 		{		
-			auto& obj = addQueueList.front();
+			auto& obj = addList.front();
 			obj->Start();	
 			obj->objName = WorldManager::GenerateUniqueName(obj->name);
 			currentWorld->gameObjectList.push_back(obj);
 			currentWorld->gameObjectMap[obj->name] = std::prev(currentWorld->gameObjectList.end());		
+			addList.pop();
 			addQueueList.pop();
 		}
 	}

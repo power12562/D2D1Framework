@@ -13,7 +13,7 @@ PlayerBomb::PlayerBomb()
 
 	objectCount++;
 	AddComponent<PlayerBombCtrl>();
-	AddComponent<SpriteCollider2D>();
+	AddComponent<SpriteCollider2D>().isTrigger = true;
 
 	transform.scale = Vector2{ 4.0f, 4.0f };
 	OderLayer = 1;

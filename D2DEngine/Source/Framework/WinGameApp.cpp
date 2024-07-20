@@ -93,6 +93,7 @@ void WinGameApp::Run()
 			InputBinding::UpdateAllInputBinding();
 
 			WorldManager::SortObjectList();
+			ColliderManager::SetPrevPos();
 			WorldManager::Update();
 			WorldManager::LateUpdate();
 			ColliderManager::CheckCollision();

@@ -11,7 +11,7 @@ FireEffect::FireEffect()
 
 	AddComponent<SpriteAnimationRenderer>();
 	AddComponent<FireEffectCtrl>();
-	AddComponent<SpriteCollider2D>();
+	AddComponent<SpriteCollider2D>().isTrigger = true;
 }
 
 FireEffect::~FireEffect()

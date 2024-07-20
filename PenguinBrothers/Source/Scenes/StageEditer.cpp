@@ -7,6 +7,7 @@
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include "Core/Component/Renderer/SpriteRenderer.h"
 #include <Core/Component/Renderer/TextRenderer.h>
+#include <Core/Component/Rigidbody2D.h>
 
 #include "Source/GameObject/Player/Player.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
@@ -110,6 +111,7 @@ void StageEditer::PosToSpawnPos()
 	WorldManager::DelGameObject(L"Player");
 	playerObj = WorldManager::AddGameObject<Player>(L"Player");
 	playerObj->transform.position = playerSpawnPos;
+	playerObj->GetComponent<Rigidbody2D>().isKinematic = true;
 	playerObj->GetComponent<FiniteStateMachine>().SetState(L"Idle");
 	for (int i = 0; i < EnemyDino0Objs.size(); i++)
 	{

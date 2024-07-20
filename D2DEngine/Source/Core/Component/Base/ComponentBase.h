@@ -31,6 +31,7 @@ public:
 
 	template<typename T> T& AddComponent();
 	template<typename T> T& GetComponent();
+	template<typename T> T* IsComponent();
 
 	class Transform& GetTransform();
 	__declspec(property(get = GetTransform)) Transform& transform;
@@ -53,5 +54,9 @@ template<typename T> inline T& ComponentBase::GetComponent()
 	return gameObject.GetComponent<T>();
 }
 
+template<typename T> inline T* ComponentBase::IsComponent()
+{
+	return gameObject.IsComponent<T>();
+}
 
 
