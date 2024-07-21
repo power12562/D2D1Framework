@@ -4,16 +4,18 @@
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/GameObject/Base/GameObjectUI.h"
+
 #include <Core/Component/Camera.h>
 #include <Core/Component/Renderer/TextRenderer.h>
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/FSM/FSMState.h>
 #include <Core/Component/Collider/SpriteCollider2D.h>
+#include <Core/Component/Rigidbody2D.h>
 
 #include <Source/GameObject/Enemy/EnemyDino0Attack.h>
 
 
-EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
+EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
 }
 
@@ -34,21 +36,23 @@ void EnemyDino0Ctrl::SpawnFire()
 void EnemyDino0Ctrl::Start()
 {
 #ifdef _DEBUG
-//	GameObjectBase* playerStateDebug = WorldManager::AddGameObject<GameObjectUI>(L"EnemyState");
-//	playerStateDebug->transform.SetParent(Camera::GetMainCamera()->gameObject);
-//	playerStateDebug->transform.localPosition += Vector2(0.f, -30.f);
-//
-//	stateDebugText = &playerStateDebug->AddComponent<TextRenderer>();
-//	stateDebugText->SetFont(L"Consolas");
-//	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
-//
-//	fsm = &gameObject.GetComponent<FiniteStateMachine>();
+	//	GameObjectBase* playerStateDebug = WorldManager::AddGameObject<GameObjectUI>(L"EnemyState");
+	//	playerStateDebug->transform.SetParent(Camera::GetMainCamera()->gameObject);
+	//	playerStateDebug->transform.localPosition += Vector2(0.f, -30.f);
+	//
+	//	stateDebugText = &playerStateDebug->AddComponent<TextRenderer>();
+	//	stateDebugText->SetFont(L"Consolas");
+	//	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
+	//
+	//	fsm = &gameObject.GetComponent<FiniteStateMachine>();
 	GetComponent<SpriteCollider2D>().isDrawCollider = true;
 #endif 
 
 	gameObject.transform.position += Vector2(0.f, -9.f);
-	GetComponent<FiniteStateMachine>().SetState(L"Idle");
+	fsm = &GetComponent<FiniteStateMachine>();
+	fsm->SetState(L"Idle");
 }
+
 
 void EnemyDino0Ctrl::Update()
 {
@@ -70,4 +74,15 @@ void EnemyDino0Ctrl::LateUpdate()
 
 void EnemyDino0Ctrl::Render()
 {
+}
+
+void EnemyDino0Ctrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
+{
+	if (otherCollider->gameObject.tag == L"Player")
+	{
+		//fsm->SetState(L"Idle");
+ 		//GetComponent<Rigidbody2D>().AddForce((myCollider->transform.position - otherCollider->transform.position).Normalized() * 100.f);
+
+	}
+
 }

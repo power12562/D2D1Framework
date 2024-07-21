@@ -32,6 +32,8 @@ public:
 
 	//static:
 
+	/** Zero Vector2(0, 0) */
+	static const Vector2 Zero;
 	/** Right Vector2(1, 0) */
 	static const Vector2 Right; 
 	/** Left Vector2(-1, 0) */

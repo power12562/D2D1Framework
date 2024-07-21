@@ -117,6 +117,7 @@ void StageEditer::PosToSpawnPos()
 	{
 		EnemyDino0Objs[i]->transform.position = EnemyDino0_SpawnPos[i];
 		EnemyDino0Objs[i]->Start();
+		EnemyDino0Objs[i]->enable = true;
 	}
 }
 

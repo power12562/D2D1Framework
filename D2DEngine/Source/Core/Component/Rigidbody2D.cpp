@@ -2,6 +2,8 @@
 #include <Framework/ColliderManager.h>
 #include <Framework/TimeSystem.h>
 
+#include <Math/Mathf.h>
+
 using namespace TimeSystem;
 
 Rigidbody2D::Rigidbody2D(GameObjectBase& gameObject)
@@ -10,7 +12,7 @@ Rigidbody2D::Rigidbody2D(GameObjectBase& gameObject)
 {
     Velocity = Vector2();
     Gravity = Vector2{ 0.f, -2000.f };
-    currIsGravity = true;
+    currIsGravity = false;
 }
 
 Rigidbody2D::~Rigidbody2D()
@@ -32,6 +34,7 @@ void Rigidbody2D::Update()
         Velocity += acceleration;
         gameObject.transform.position += Velocity * Time.GetDeltatime();
         force = Vector2(0, 0); 
+        currIsGravity = true;
     }
     //gameObject.transform.rotation += angularVelocity * Time.DeltaTime;
 }
@@ -44,20 +47,76 @@ void Rigidbody2D::AddGravity()
     }
 }
 
-void Rigidbody2D::OnCollisionEnter2D(GameObjectBase* collision)
+void Rigidbody2D::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-    currIsGravity = false;
-    Velocity = Vector2(0, 0);
+    if (!enabled || isKinematic)
+        return;
+
+    disRL = abs(myCollider->GetRight() - otherCollider->GetLeft());
+    disLR = abs(myCollider->GetLeft() - otherCollider->GetRight());
+    disTB = abs(myCollider->GetTop() - otherCollider->GetBottom());
+    disBT = abs(myCollider->GetBottom() - otherCollider->GetTop());
+
+    float min = Mathf::FindMin(disRL, disLR, disTB, disBT);
+    if (min == disBT)
+    {
+        Velocity = Vector2(0, 0);
+        transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f);
+        currIsGravity = false;
+    }
+    else if (min == disTB)
+    {
+        Velocity = Vector2(0, 0);
+        transform.position = Vector2(transform.position.x, otherCollider->GetBottom() - (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f);
+    }
+    else if (min == disRL)
+    {
+        Velocity = Vector2(0, 0);
+        transform.position = Vector2(otherCollider->GetLeft() - (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
+    }
+    else if (min == disLR)
+    {
+        Velocity = Vector2(0, 0);
+        transform.position = Vector2(otherCollider->GetRight() + (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
+    }
 }
 
-void Rigidbody2D::OnCollisionExit2D(GameObjectBase* collision)
+void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-    currIsGravity = true;
+    if (!enabled || isKinematic)
+        return;
+
+    disRL = abs(myCollider->GetRight() - otherCollider->GetLeft());
+    disLR = abs(myCollider->GetLeft() - otherCollider->GetRight());
+    disTB = abs(myCollider->GetTop() - otherCollider->GetBottom());
+    disBT = abs(myCollider->GetBottom() - otherCollider->GetTop());
+
+    float min = Mathf::FindMin(disRL, disLR, disTB, disBT);
+    if (min == disBT)
+    {
+        currIsGravity = false;     
+        if (Velocity == Vector2::Zero)
+        {
+            transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f);
+        } 
+    }
+    else if (min == disTB)
+    {
+       
+    }
+    else if (min == disRL)
+    {
+        transform.position = Vector2(otherCollider->GetLeft() - (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
+    }
+    else if (min == disLR)
+    {
+        transform.position = Vector2(otherCollider->GetRight() + (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
+    }
 
 }
 
-void Rigidbody2D::OnCollisionStay2D(GameObjectBase* collision)
+void Rigidbody2D::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-   
+    
 
 }

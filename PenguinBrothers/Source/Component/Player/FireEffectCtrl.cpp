@@ -52,27 +52,31 @@ void FireEffectCtrl::Update()
 	}
 }
 
-void FireEffectCtrl::OnCollisionEnter2D(GameObjectBase* collision)
+void FireEffectCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	wprintf(L"Enter!!! %s\n", collision->name);
+	wprintf(L"Enter!!! %s\n", otherCollider->gameObject.name);
 
 }
 
-void FireEffectCtrl::OnCollisionStay2D(GameObjectBase* collision)
+void FireEffectCtrl::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	wprintf(L"Stay!!! %s\n", collision->name);
+	wprintf(L"Stay!!! %s\n", otherCollider->gameObject.name);
 }
 
-void FireEffectCtrl::OnCollisionExit2D(GameObjectBase* collision)
+void FireEffectCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	wprintf(L"Exit!!! %s\n", collision->name);
+	wprintf(L"Exit!!! %s\n", otherCollider->gameObject.name);
 }
 
-void FireEffectCtrl::OnTriggerEnter2D(GameObjectBase* collision)
+void FireEffectCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (collision->tag == L"Player")
+	if (otherCollider->gameObject.tag == L"Player")
 	{
-		collision->GetComponent<FiniteStateMachine>().SetState(L"Dead");
+		otherCollider->GetComponent<FiniteStateMachine>().SetState(L"Dead");
+	}
+	if (otherCollider->gameObject.tag == L"Enemy")
+	{
+		otherCollider->gameObject.enable = false;
 	}
 }
 

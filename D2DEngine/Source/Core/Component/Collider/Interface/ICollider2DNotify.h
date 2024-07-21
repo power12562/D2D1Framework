@@ -16,23 +16,24 @@ public:
 	}
 	virtual ~ICollider2DNotify() = default;
 protected:
-	virtual void OnCollisionEnter2D(GameObjectBase* collision) = 0;
-	virtual void OnCollisionStay2D(GameObjectBase* collision) = 0;
-	virtual void OnCollisionExit2D(GameObjectBase* collision) = 0;
+	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) = 0;
+	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) = 0;
+	virtual void OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) = 0;
 
-	virtual void OnTriggerEnter2D(GameObjectBase* collision) = 0;
-	virtual void OnTriggerStay2D(GameObjectBase* collision) = 0;
-	virtual void OnTriggerExit2D(GameObjectBase* collision) = 0;
+	virtual void OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) = 0;
+	virtual void OnTriggerStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) = 0;
+	virtual void OnTriggerExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) = 0;
 };									   
 
 
 /*
-	virtual void OnCollisionEnter2D(GameObjectBase* collision) override {};
-	virtual void OnCollisionStay2D(GameObjectBase* collision) override {};
-	virtual void OnCollisionExit2D(GameObjectBase* collision) override {};
+	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 
-	virtual void OnTriggerEnter2D(GameObjectBase* collision) override {};
-	virtual void OnTriggerStay2D(GameObjectBase* collision) override {};
-	virtual void OnTriggerExit2D(GameObjectBase* collision) override {};
+	virtual void OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnTriggerStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnTriggerExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 */
 
+#include <Core/Component/Collider/Base/ColliderBase.h>

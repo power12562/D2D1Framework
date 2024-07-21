@@ -42,11 +42,16 @@ private:
 
 	void AddGravity();
 
-	virtual void OnCollisionEnter2D(GameObjectBase* collision) override;
-	virtual void OnCollisionStay2D(GameObjectBase* collision) override;
-	virtual void OnCollisionExit2D(GameObjectBase* collision) override;
+	float disRL = 0;
+	float disLR = 0;
+	float disTB = 0;
+	float disBT = 0;
 
-	virtual void OnTriggerEnter2D(GameObjectBase* collision) override {};
-	virtual void OnTriggerStay2D(GameObjectBase* collision) override {};
-	virtual void OnTriggerExit2D(GameObjectBase* collision) override {};
+	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
+	virtual void OnCollisionStay2D (ColliderBase* myCollider, ColliderBase* otherCollider) override;
+	virtual void OnCollisionExit2D (ColliderBase* myCollider, ColliderBase* otherCollider) override;
+								
+	virtual void OnTriggerEnter2D  (ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnTriggerStay2D   (ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnTriggerExit2D   (ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 };

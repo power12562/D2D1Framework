@@ -59,11 +59,19 @@ void PlayerCtrl::Update()
 //#endif 
 }
 
-void PlayerCtrl::OnCollisionEnter2D(GameObjectBase* collision)
+void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (collision->tag == L"Ground")
+	if (otherCollider->gameObject.tag == L"Ground")
 	{
 		isJump = false;
+	}
+}
+
+void PlayerCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
+{
+	if (otherCollider->gameObject.tag == L"Ground")
+	{
+		isJump = true;
 	}
 }
 

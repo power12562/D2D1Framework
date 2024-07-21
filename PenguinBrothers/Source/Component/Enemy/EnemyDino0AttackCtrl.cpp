@@ -28,10 +28,10 @@ void EnemyDino0AttackCtrl::Update()
 	}
 }
 
-void EnemyDino0AttackCtrl::OnCollisionEnter2D(GameObjectBase* collision)
+void EnemyDino0AttackCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (collision->tag == L"Player")
+	if (otherCollider->gameObject.tag == L"Player")
 	{
-		collision->GetComponent<FiniteStateMachine>().SetState(L"Dead");
+		otherCollider->GetComponent<FiniteStateMachine>().SetState(L"Dead");
 	}
 }

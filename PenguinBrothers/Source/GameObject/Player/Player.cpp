@@ -45,9 +45,10 @@ Player::Player()
 	spriteAnimation.LoadAnimationClip(L"Resource/Player/Dead/Dead.txt", L"Resource/Player/Dead/Dead.png", L"Dead");*/
 	spriteAnimation.LoadAnimationAssetToJson(L"Resource/Player/AnimeAsset.json");
 
-	SpriteCollider2D& spriteCollider2D = AddComponent<SpriteCollider2D>();
+	BoxCollider2D& collider = AddComponent<BoxCollider2D>();
+	collider.ColliderSize = Vector2{ 80.f, 80.f };
 #ifdef _DEBUG
-	spriteCollider2D.isDrawCollider = true;
+	collider.isDrawCollider = true;
 #endif // DEBUG
 
 	AddComponent<Rigidbody2D>();
@@ -127,7 +128,7 @@ void Idle::Update()
 	{
 		owner.SetState(L"Attack");
 	}
-	else if (Input->IsKeyDown("Jump"))
+	else if (Input->IsKeyDown("Jump") && !playerCtrl->isJump)
 	{
 		owner.SetState(L"Jump");
 	}
@@ -166,7 +167,7 @@ void Walk::Update()
 	{
 		owner.SetState(L"Attack");
 	}
-	else if (Input->IsKeyDown("Jump"))
+	else if (Input->IsKeyDown("Jump") && !playerCtrl->isJump)
 	{
 		owner.SetState(L"Jump");
 	}
@@ -245,6 +246,7 @@ void Dead::Enter()
 	movement->SetSpeed(0.f);
 	spriteAnimation->SetAnimation(L"Dead");
 	owner.Transition = false;
+	owner.GetComponent<Rigidbody2D>().enabled = false;
 }
 												
 void Dead::Update()

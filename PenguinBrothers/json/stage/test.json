@@ -1,0 +1,177 @@
+{
+  "bgPath": [
+    69,
+    58,
+    92,
+    44172,
+    51076,
+    32,
+    51064,
+    51116,
+    50896,
+    92,
+    71,
+    105,
+    116,
+    92,
+    68,
+    50,
+    68,
+    49,
+    70,
+    114,
+    97,
+    109,
+    101,
+    119,
+    111,
+    114,
+    107,
+    92,
+    80,
+    101,
+    110,
+    103,
+    117,
+    105,
+    110,
+    66,
+    114,
+    111,
+    116,
+    104,
+    101,
+    114,
+    115,
+    92,
+    98,
+    105,
+    110,
+    92,
+    82,
+    101,
+    115,
+    111,
+    117,
+    114,
+    99,
+    101,
+    92,
+    83,
+    116,
+    97,
+    103,
+    101,
+    92,
+    116,
+    101,
+    115,
+    116,
+    46,
+    112,
+    110,
+    103
+  ],
+  "playerSpawnPos": [
+    -500.0,
+    -195.0
+  ],
+  "EnemyDino0_SpawnCount": 2,
+  "EnemyDino0_SpawnPos0": [
+    33.0,
+    -206.0
+  ],
+  "EnemyDino0_SpawnPos1": [
+    -400.0,
+    125.0
+  ],
+  "GroundBox_SpawnCount": 11,
+  "GroundBox_SpawnPos0": [
+    -247.0,
+    -304.0
+  ],
+  "GroundBox_SpawnPos1": [
+    -580.0,
+    -29.0
+  ],
+  "GroundBox_SpawnPos2": [
+    128.0,
+    -278.0
+  ],
+  "GroundBox_SpawnPos3": [
+    526.0,
+    -171.0
+  ],
+  "GroundBox_SpawnPos4": [
+    -308.0,
+    30.0
+  ],
+  "GroundBox_SpawnPos5": [
+    246.0,
+    -199.0
+  ],
+  "GroundBox_SpawnPos6": [
+    378.0,
+    -180.0
+  ],
+  "GroundBox_SpawnPos7": [
+    581.0,
+    -45.0
+  ],
+  "GroundBox_SpawnPos8": [
+    4.0,
+    9.0
+  ],
+  "GroundBox_SpawnPos9": [
+    129.0,
+    5.0
+  ],
+  "GroundBox_SpawnPos10": [
+    280.0,
+    -11.0
+  ],
+  "GroundBox_Size0": [
+    700.0,
+    50.0
+  ],
+  "GroundBox_Size1": [
+    50.0,
+    500.0
+  ],
+  "GroundBox_Size2": [
+    50.0,
+    100.0
+  ],
+  "GroundBox_Size3": [
+    50.0,
+    200.0
+  ],
+  "GroundBox_Size4": [
+    500.0,
+    100.0
+  ],
+  "GroundBox_Size5": [
+    100.0,
+    50.0
+  ],
+  "GroundBox_Size6": [
+    50.0,
+    100.0
+  ],
+  "GroundBox_Size7": [
+    100.0,
+    50.0
+  ],
+  "GroundBox_Size8": [
+    50.0,
+    100.0
+  ],
+  "GroundBox_Size9": [
+    100.0,
+    50.0
+  ],
+  "GroundBox_Size10": [
+    100.0,
+    50.0
+  ]
+}

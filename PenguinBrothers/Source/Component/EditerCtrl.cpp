@@ -7,6 +7,7 @@
 #include <Framework/TimeSystem.h>
 #include <Framework/InputSystem.h>
 
+#include <Core/Component/Renderer/SpriteRenderer.h>
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/Collider/Base/ColliderBase.h>
 #include <Core/Component/Collider/BoxCollider2D.h>
@@ -92,6 +93,11 @@ void EditerCtrl::Update()
 		if (Input.IsKeyDown(KeyCode::G))
 		{
 			AddGround();
+		}
+
+		if (Input.IsKeyDown(KeyCode::B))
+		{
+			SelectBackgroundPath();
 		}
 	}
 
@@ -253,4 +259,19 @@ void EditerCtrl::AddGround()
 	{
 		printf("바닥 크기는 양수여야 합니다.\n");
 	}
+}
+
+void EditerCtrl::SelectBackgroundPath()
+{
+	std::wstring bgPath =  WinUtility::GetOpenFilePath(L"png");
+	if (L"" != bgPath)
+	{
+		GameObjectBase* bg = gameObject.Find(L"Background");
+		if (bg)
+		{
+			bg->GetComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
+			world->bgPath = bgPath.c_str();
+		}
+	}
+
 }
