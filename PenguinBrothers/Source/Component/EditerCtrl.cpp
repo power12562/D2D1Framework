@@ -269,6 +269,13 @@ void EditerCtrl::SelectBackgroundPath()
 		GameObjectBase* bg = gameObject.Find(L"Background");
 		if (bg)
 		{
+			std::wstring::size_type f = bgPath.find(L"Resource");
+			if (f == std::wstring::npos)
+			{
+				WinUtility::ShowConfirmationDialog(L"오류", L"올바른 리소스 경로가 아닙니다.");
+				return;
+			}
+			bgPath = bgPath.substr(f, bgPath.size());
 			bg->GetComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
 			world->bgPath = bgPath.c_str();
 		}
