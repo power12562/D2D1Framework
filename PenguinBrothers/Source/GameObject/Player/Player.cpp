@@ -61,6 +61,7 @@ Player::Player()
 	fsm.CreateState<Slide>(L"Slide");
 	fsm.CreateState<Attack>(L"Attack");
 	fsm.CreateState<Dead>(L"Dead");
+	fsm.CreateState<Jump>(L"Jump");
 
 	fsm.SetState(L"Spawn");
 }
@@ -126,6 +127,10 @@ void Idle::Update()
 	{
 		owner.SetState(L"Attack");
 	}
+	else if (Input->IsKeyDown("Jump"))
+	{
+		owner.SetState(L"Jump");
+	}
 
 	if (Input->IsKey("Duck"))
 	{
@@ -160,6 +165,10 @@ void Walk::Update()
 	if (Input->IsKeyDown("Attack") && PlayerBomb::GetObjectCount() == 0)
 	{
 		owner.SetState(L"Attack");
+	}
+	else if (Input->IsKeyDown("Jump"))
+	{
+		owner.SetState(L"Jump");
 	}
 
 	if (Input->IsKey("Duck"))
@@ -243,5 +252,38 @@ void Dead::Update()
 	if (spriteAnimation->CurrentClipEnd)
 	{
 		WorldManager::DelGameObject(owner.gameObject);
+	}
+}
+
+void Jump::Enter()
+{
+	static constexpr float jumpPower = 1000.f;
+	static constexpr float jumpPowerHalf = jumpPower / 2;
+
+	Rigidbody2D& rb = owner.GetComponent<Rigidbody2D>();
+	if (Input->IsKey("Left"))
+	{
+		rb.AddForce(Vector2::Up * jumpPowerHalf);
+		rb.AddForce(Vector2::Left * jumpPowerHalf);
+	}
+	else if (Input->IsKey("Right"))
+	{
+		rb.AddForce(Vector2::Up * jumpPowerHalf);
+		rb.AddForce(Vector2::Right * jumpPowerHalf);
+	}
+	else
+	{
+		rb.AddForce(Vector2::Up * jumpPower);
+	}
+
+	spriteAnimation->SetAnimation(L"Jump");
+	playerCtrl->isJump = true;
+}
+
+void Jump::Update()
+{
+	if (!playerCtrl->isJump)
+	{
+		owner.SetState(L"Idle");
 	}
 }

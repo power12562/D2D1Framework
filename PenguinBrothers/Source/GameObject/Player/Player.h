@@ -98,3 +98,15 @@ public:
 	virtual void Update() override;
 	virtual void Exit() override {}
 };
+
+class Jump : public PlayerState
+{
+public:
+	Jump(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
+
+public:
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
+
+};

@@ -5,12 +5,12 @@
 using namespace TimeSystem;
 
 Rigidbody2D::Rigidbody2D(GameObjectBase& gameObject)
-	: ComponentBase(gameObject) 
+	: ComponentBase(gameObject) ,
+    ICollider2DNotify(this)
 {
     Velocity = Vector2();
-    Gravity = Vector2{ 0.f, -300.f };
-    currGravity = Vector2();
-    currIsGravity = false;
+    Gravity = Vector2{ 0.f, -2000.f };
+    currIsGravity = true;
 }
 
 Rigidbody2D::~Rigidbody2D()
@@ -40,16 +40,24 @@ void Rigidbody2D::AddGravity()
 {
     if (useGravity && !isKinematic && currIsGravity)
     {
-        currGravity += Gravity * Time.GetDeltatime();
         force += Gravity * Time.GetDeltatime();
     }
-    else
-    {
-        force -= currGravity;
-        currGravity = Vector2();
-    }
-    currIsGravity = true;
 }
 
+void Rigidbody2D::OnCollisionEnter2D(GameObjectBase* collision)
+{
+    currIsGravity = false;
+    Velocity = Vector2(0, 0);
+}
 
+void Rigidbody2D::OnCollisionExit2D(GameObjectBase* collision)
+{
+    currIsGravity = true;
 
+}
+
+void Rigidbody2D::OnCollisionStay2D(GameObjectBase* collision)
+{
+   
+
+}

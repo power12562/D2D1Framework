@@ -22,7 +22,8 @@ GameObjectBase::~GameObjectBase()
 {
 	delete pTransform;
 	delete pRigidbody;
-	for (auto& collider : colliderList)
+	EraseColliderNotipyTable(pRigidbody);
+;	for (auto& collider : colliderList)
 	{
 		if (collider)
 		{
@@ -188,6 +189,7 @@ Rigidbody2D& GameObjectBase::AddComponent()
 	if (pRigidbody == nullptr)
 	{
 		pRigidbody = new Rigidbody2D(*this);
+		PushColliderNotipyTable(pRigidbody);
 	}
 	return *pRigidbody;
 }

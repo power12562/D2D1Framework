@@ -23,6 +23,4 @@ class ColliderManager
 	static void CallEnterEvent(ColliderBase* i, ColliderBase* j);
 	static void CallStayEvent(ColliderBase* i, ColliderBase* j);
 	static void CallExitEvent(ColliderBase* i, ColliderBase* j);
-
-	static void MoveSimulation(ColliderBase* i, ColliderBase* j);
 };

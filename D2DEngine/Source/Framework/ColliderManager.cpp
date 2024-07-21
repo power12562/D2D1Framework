@@ -92,14 +92,6 @@ void ColliderManager::CallEnterEvent(ColliderBase* i, ColliderBase* j)
 	}
 	else
 	{
-		if (Rigidbody2D* irb = i->IsComponent<Rigidbody2D>())
-		{
- 			irb->currIsGravity = false;
-		}
-		if (Rigidbody2D* jrb = j->IsComponent<Rigidbody2D>())
-		{
-			jrb->currIsGravity = false;
-		}
 		for (auto& event : i->gameObject.collider2DNotifyTable)
 		{
 			event.second->OnCollisionEnter2D(&j->gameObject);
@@ -127,7 +119,6 @@ void ColliderManager::CallStayEvent(ColliderBase* i, ColliderBase* j)
 	}
 	else
 	{
-		MoveSimulation(i, j);
 		for (auto& event : i->gameObject.collider2DNotifyTable)
 		{
 			event.second->OnCollisionStay2D(&j->gameObject);
@@ -167,18 +158,4 @@ void ColliderManager::CallExitEvent(ColliderBase* i, ColliderBase* j)
 			event.second->OnCollisionExit2D(&i->gameObject);
 		}
 	}	
-}
-
-void ColliderManager::MoveSimulation(ColliderBase* i, ColliderBase* j)
-{
-	if (Rigidbody2D* irb = i->IsComponent<Rigidbody2D>())
-	{
-		irb->currIsGravity = false;
-	}
-
-	if (Rigidbody2D* jrb = j->IsComponent<Rigidbody2D>())
-	{
-		jrb->currIsGravity = false;
-	}
-
 }

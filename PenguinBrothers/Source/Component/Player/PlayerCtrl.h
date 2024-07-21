@@ -2,6 +2,7 @@
 #include "Vector/Vector2.h"
 
 #include "Core/Component/Base/ComponentBase.h"
+#include <Core/Component/Collider/Interface/ICollider2DNotify.h>
 
 enum class BombType
 {
@@ -11,7 +12,7 @@ enum class BombType
 	skyblue
 };
 
-class PlayerCtrl : public ComponentBase
+class PlayerCtrl : public ComponentBase, public ICollider2DNotify
 {
 	class TextRenderer* stateDebugText = nullptr;
 	class FiniteStateMachine* fsm;
@@ -21,6 +22,7 @@ public:
 
 	BombType bombType = BombType::red;
 
+	bool isJump;
 	float moveSpeed;
 	float slideSpeed;
 	void SpawnBomb();
@@ -31,5 +33,13 @@ protected:
 
 private:
 	Vector2 dir = Vector2::Right;
+
+	virtual void OnCollisionEnter2D(GameObjectBase* collision) override;
+	virtual void OnCollisionStay2D(GameObjectBase* collision) override {};
+	virtual void OnCollisionExit2D(GameObjectBase* collision) override {};
+
+	virtual void OnTriggerEnter2D(GameObjectBase* collision) override {};
+	virtual void OnTriggerStay2D(GameObjectBase* collision) override {};
+	virtual void OnTriggerExit2D(GameObjectBase* collision) override {};
 };
 

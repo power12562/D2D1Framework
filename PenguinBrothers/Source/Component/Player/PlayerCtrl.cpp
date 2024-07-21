@@ -12,10 +12,11 @@
 #include "Core/Component/Renderer/TextRenderer.h"
 #include "Core/Component/Camera.h"
 
+
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/GameObject/Player/Player.h"
 
-PlayerCtrl::PlayerCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
+PlayerCtrl::PlayerCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
 
 }
@@ -56,6 +57,14 @@ void PlayerCtrl::Update()
 //		stateDebugText->Text += state->GetName();
 //	}
 //#endif 
+}
+
+void PlayerCtrl::OnCollisionEnter2D(GameObjectBase* collision)
+{
+	if (collision->tag == L"Ground")
+	{
+		isJump = false;
+	}
 }
 
 void PlayerCtrl::SpawnBomb()
