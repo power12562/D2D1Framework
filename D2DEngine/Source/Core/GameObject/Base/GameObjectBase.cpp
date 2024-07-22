@@ -53,6 +53,10 @@ void GameObjectBase::Start()
 	{
 		collider->Start();
 	}
+	if (pRigidbody)
+	{
+		pRigidbody->Start();
+	}
 }
 
 void GameObjectBase::Update()
@@ -70,7 +74,7 @@ void GameObjectBase::Update()
 				collider->Update();
 		}
 	}
-	if (pRigidbody && pRigidbody->enabled)
+	if (enable && pRigidbody && pRigidbody->enabled)
 	{
 		pRigidbody->Update();
 	}
@@ -78,10 +82,6 @@ void GameObjectBase::Update()
 
 void GameObjectBase::LateUpdate()
 {
-	if (pRigidbody && pRigidbody->enabled)
-	{
-		pRigidbody->LateUpdate();
-	}	
 	if (enable)
 	{
 		for (auto& component : componentsList)
@@ -94,6 +94,10 @@ void GameObjectBase::LateUpdate()
 			if (collider->enabled)
 				collider->LateUpdate();
 		}
+	}
+	if (enable && pRigidbody && pRigidbody->enabled)
+	{
+		pRigidbody->LateUpdate();
 	}
 }
 

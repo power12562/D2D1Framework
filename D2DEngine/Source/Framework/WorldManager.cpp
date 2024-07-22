@@ -241,5 +241,7 @@ void WorldManager::LoadNextWorld()
 		UnloadWorld();
 		currentWorld = nextWorld;
 		nextWorld = nullptr;
+		WorldManager::AddObjectToQList();
+		WorldManager::UpdateCullingBouds();
 	}
 }					  

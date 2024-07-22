@@ -50,8 +50,8 @@ public:
 	}
 	virtual ~ColliderBase() override
 	{
-		ColliderManager::colliderInstanceList.erase(myIter);	//객체 리스트에서 삭제
 		ColliderManager::DeleteCollider(this); //콜라이더 삭제시 Exit Event 호출요청
+		ColliderManager::colliderInstanceList.erase(myIter);	//객체 리스트에서 삭제		
 	}
 	bool isTrigger = false; //오버랩 여부 (true = 오버랩)
 	inline Type GetType() const { return type; }

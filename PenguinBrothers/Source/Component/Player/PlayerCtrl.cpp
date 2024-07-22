@@ -40,7 +40,7 @@ void PlayerCtrl::Start()
 
 void PlayerCtrl::Update()
 {
-	printf("isJump = %s\n", (isJump) ? "true" : "false");
+	//printf("isJump = %s\n", (isJump) ? "true" : "false");
 
 
 }

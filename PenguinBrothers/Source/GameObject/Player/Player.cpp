@@ -47,6 +47,7 @@ Player::Player()
 
 	BoxCollider2D& collider = AddComponent<BoxCollider2D>();
 	collider.ColliderSize = Vector2{ 80.f, 80.f };
+
 #ifdef _DEBUG
 	collider.isDrawCollider = true;
 #endif // DEBUG

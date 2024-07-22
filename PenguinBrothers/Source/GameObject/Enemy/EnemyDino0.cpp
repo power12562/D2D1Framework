@@ -15,7 +15,7 @@ EnemyDino0::EnemyDino0()
 	transform.scale = Vector2(4.0f, 4.0f);
 	tag = L"Enemy";
 
-	AddComponent<Rigidbody2D>();
+	AddComponent<Rigidbody2D>().enabled = false;
 	AddComponent<SpriteCollider2D>();
 	AddComponent<EnemyDino0Ctrl>();
 	AddComponent<Movement>();
@@ -49,6 +49,11 @@ EnemyState::EnemyState(FiniteStateMachine& _owner, const wchar_t* _name) : FSMSt
 	this->attackDis = 200.f;
 }
 
+void EnemySpawn::Enter()
+{
+	animationRenderer->SetAnimation(L"Idle", true);
+}
+
 void EnemySpawn::Update()
 {
 	if (player == nullptr)
@@ -57,7 +62,7 @@ void EnemySpawn::Update()
 	}
 	else
 	{
-		owner.SetState(L"Idle");
+		owner.SetState(L"Idle");	
 	}
 }
 
@@ -65,7 +70,7 @@ void EnemySpawn::Update()
 void EnemyIdle::Enter()
 {
 	movement->SetSpeed(0);
-	animationRenderer->SetAnimation(L"Idle", true);
+ 	animationRenderer->SetAnimation(L"Idle", true);	
 }
 
 void EnemyIdle::Update()

@@ -17,7 +17,11 @@ EnemyDino0Attack::EnemyDino0Attack()
 	animationRenderer.SetAnimation(L"Fire");
 
 	SpriteCollider2D& coll = AddComponent<SpriteCollider2D>();
+
+#if _DEBUG
 	coll.isDrawCollider = true;
+#endif // _DEBUG
+
 	coll.isTrigger = true;
 }
 

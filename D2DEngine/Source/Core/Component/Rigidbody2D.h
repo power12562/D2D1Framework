@@ -26,7 +26,7 @@ public:
 	/** 물체에 힘을 적용시킵니다.*/
 	void AddForce(const Vector2& force);
 protected:
-	//virtual void Start() override;
+	virtual void Start() override;
 	virtual void Update() override;
 	//virtual void LateUpdate() override;
 	//virtual void Render() override;

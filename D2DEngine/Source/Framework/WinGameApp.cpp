@@ -55,10 +55,10 @@ void WinGameApp::Run()
 	using namespace InputSystem;
 
 	//게임용 루프	
-	MSG msg;
-	Time.UpdateTime();
+	MSG msg;	
 	WorldManager::LoadNextWorld();
 	WorldManager::AddObjectToQList();
+	Time.UpdateTime();
 	while (!isEnd)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))

@@ -14,9 +14,13 @@ void ColliderManager::DeleteCollider(ColliderBase* collider)
 {
 	for (auto& j : collider->collideStateCurr)
 	{
-		CallExitEvent(collider, j);
-		j->collideStateCurr.erase(collider);
-	}
+		if (j == collider)
+		{
+			CallExitEvent(collider, j);
+			j->collideStateCurr.erase(collider);
+			break;
+		}	
+	}	
 	collider->collideStateCurr.clear();
 }
 

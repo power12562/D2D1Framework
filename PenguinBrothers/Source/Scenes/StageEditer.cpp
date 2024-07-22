@@ -17,14 +17,22 @@
 
 #include <Core/Component/Collider/BoxCollider2D.h>
 
-StageEditer::StageEditer(bool editer)
+StageEditer::StageEditer()
 {
 	LoadStageToJson();
 	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
-	if (editer)
-	{
-		SpawnEditerObj();
-	}
+	SpawnEditerObj();
+
+
+}
+
+StageEditer::StageEditer(const wchar_t* _stagePath)
+{
+	stagePath = _stagePath;
+	LoadStageToJson();
+	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
+	//SpawnEditerObj();
+
 }
 
 StageEditer::~StageEditer()
@@ -91,18 +99,20 @@ void StageEditer::SpawnSceneObjects()
 	playerObj = WorldManager::AddGameObject<Player>(L"Player");
 	playerObj->transform.position = playerSpawnPos;
 
-	for (int i = 0; i < EnemyDino0_SpawnCount; i++)
-	{
-		EnemyDino0Objs.push_back(WorldManager::AddGameObject<EnemyDino0>(L"dino0"));
-		EnemyDino0Objs[i]->transform.position = EnemyDino0_SpawnPos[i];
-	}
-
 	for (int i = 0; i < GroundBox_SpawnCount; i++)
 	{
 		GroundObjs.push_back(WorldManager::AddGameObject<Ground>(L"Ground"));
 		GroundObjs[i]->transform.position = GroundBox_SpawnPos[i];
 		GroundObjs[i]->GetComponent<BoxCollider2D>().ColliderSize = GroundBox_Size[i];
+
 		GroundObjs[i]->GetComponent<BoxCollider2D>().isDrawCollider = true;
+	}
+
+	for (int i = 0; i < EnemyDino0_SpawnCount; i++)
+	{
+		EnemyDino0Objs.push_back(WorldManager::AddGameObject<EnemyDino0>(L"dino0"));
+		EnemyDino0Objs[i]->transform.position = EnemyDino0_SpawnPos[i];
+		
 	}
 }
 

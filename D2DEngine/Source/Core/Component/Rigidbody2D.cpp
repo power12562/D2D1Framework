@@ -12,7 +12,6 @@ Rigidbody2D::Rigidbody2D(GameObjectBase& gameObject)
 {
     Velocity = Vector2();
     Gravity = Vector2{ 0.f, -2000.f };
-    currIsGravity = false;
 }
 
 Rigidbody2D::~Rigidbody2D()
@@ -23,6 +22,11 @@ Rigidbody2D::~Rigidbody2D()
 void Rigidbody2D::AddForce(const Vector2& _force)
 {
     force += _force;
+}
+
+void Rigidbody2D::Start()
+{
+    currIsGravity = false;
 }
 
 void Rigidbody2D::Update()

@@ -6,15 +6,7 @@
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 
 
-StageScene::StageScene() :
-	StageEditer
-	(
-		[](StageScene* scene)->bool
-		{
-			scene->stagePath = L"Resource/Stage/Stage1.json";
-			return false;
-		}(this)
-	)
+StageScene::StageScene() : StageEditer(L"Resource/Stage/test.json")
 {
 
 
