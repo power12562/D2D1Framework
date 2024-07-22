@@ -6,7 +6,7 @@
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 
 
-StageScene::StageScene() : StageEditer(L"Resource/Stage/test.json")
+StageScene::StageScene() : StageEditer(L"Resource/Stage/Stage1.json")
 {
 
 

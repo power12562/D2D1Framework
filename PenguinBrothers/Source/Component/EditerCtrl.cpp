@@ -231,6 +231,7 @@ void EditerCtrl::SetDino0()
 				GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
 				world->EnemyDino0Objs.push_back(dino);
 				world->EnemyDino0_SpawnPos.push_back(Vector2(0, 0));
+				world->EnemyDino0Objs.back()->GetComponent<Rigidbody2D>().isKinematic = true;
 			}
 			else
 			{
