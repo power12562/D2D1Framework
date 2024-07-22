@@ -101,7 +101,6 @@ void Spawn::Exit()
 void Idle::Enter()
 {
 	spriteAnimation->SetAnimation(L"Idle", true);
-	playerCtrl->isJump = false;
 }
 
 void Idle::Update()
