@@ -20,8 +20,9 @@ private:
 	static int lefttCount;
 
 	class SpriteAnimationRenderer* animationRenderer = nullptr;
-	void SpawnFire(const Vector2& nextPos, int dir);
 	bool spawnNext = false;	
+	void SpawnNext();
+	void SpawnFire(const Vector2& nextPos, int dir);
 	int bombDir = 0;
 
 	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;

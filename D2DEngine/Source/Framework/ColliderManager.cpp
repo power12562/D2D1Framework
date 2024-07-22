@@ -24,14 +24,6 @@ void ColliderManager::DeleteCollider(ColliderBase* collider)
 	collider->collideStateCurr.clear();
 }
 
-void ColliderManager::SetPrevPos()
-{
-	for (auto& collider : colliderInstanceList)
-	{
-		collider->prevPos = collider->transform.position;
-	}
-}
-
 void ColliderManager::CheckCollision()
 {
 	for (auto i = colliderInstanceList.begin(); i != colliderInstanceList.end(); ++i)

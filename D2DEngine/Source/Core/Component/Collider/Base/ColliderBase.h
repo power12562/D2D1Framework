@@ -69,5 +69,4 @@ protected:
 
 private:
 	std::list<ColliderBase*>::iterator myIter;		//콜라이더 리스트에 대한 자신의 노드(이터)
-	Vector2 prevPos;
 };

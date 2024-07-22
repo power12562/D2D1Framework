@@ -55,36 +55,41 @@ void FireEffectCtrl::Update()
 	}
 	if(!spawnNext && animationRenderer->CurrentFrameIndex == animationRenderer->LastFrameIndex / 3)
 	{
-		constexpr float interval = 30.0f;
-		if(bombDir > 0 && rightCount > 0)
+		SpawnNext();
+	}
+}
+
+void FireEffectCtrl::SpawnNext()
+{
+	constexpr float interval = 30.0f;
+	if (bombDir > 0 && rightCount > 0)
+	{
+		SpawnFire(transform.position + Vector2::Right * interval, 1);
+		--rightCount;
+		//printf("rightCount : %d\n", rightCount);
+	}
+	else if (bombDir < 0 && lefttCount > 0)
+	{
+		SpawnFire(transform.position + Vector2::Left * interval, -1);
+		--lefttCount;
+		//printf("leftCount : %d\n", lefttCount);
+	}
+	if (bombDir == 0)
+	{
+		if (rightCount > 0)
 		{
 			SpawnFire(transform.position + Vector2::Right * interval, 1);
 			--rightCount;
-			printf("rightCount : %d\n", rightCount);
+			//printf("rightCount : %d\n", rightCount);
 		}
-		else if (bombDir < 0 && lefttCount > 0)
+		if (lefttCount > 0)
 		{
 			SpawnFire(transform.position + Vector2::Left * interval, -1);
 			--lefttCount;
-			printf("leftCount : %d\n", lefttCount);
+			//printf("leftCount : %d\n", lefttCount);
 		}
-		if (bombDir == 0)
-		{
-			if (rightCount > 0)
-			{
-				SpawnFire(transform.position + Vector2::Right * interval, 1);
-				--rightCount;
-				printf("leftCount : %d\n", lefttCount);
-			}
-			if (lefttCount > 0)
-			{
-				SpawnFire(transform.position + Vector2::Left * interval, -1);
-				--lefttCount;
-				printf("leftCount : %d\n", lefttCount);
-			}
-		}
-		spawnNext = true;
 	}
+	spawnNext = true;
 }
 
 void FireEffectCtrl::SpawnFire(const Vector2& nextPos, int dir)

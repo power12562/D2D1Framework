@@ -8,8 +8,6 @@ public:
 	float y;
 
 	explicit Vector2(float x = 0, float y = 0);
-	explicit Vector2(double x, double y);
-	explicit Vector2(int x, int y);
 	virtual ~Vector2() = default;
 
 	Vector2(const Vector2& other);

@@ -223,9 +223,10 @@ void SpriteAnimationRenderer::SaveAnimationAssetToJson(const wchar_t* path)
 	for (auto& item : Animations)
 	{
 		ordered_json assetJson;
-		assetJson["clipName"] = item.first;
-		assetJson["clipPath"] = item.second.clipPath;
-		assetJson["imagePath"] = item.second.imagePath;
+		std::string pathStr;
+		assetJson["clipName"] = pathStr.assign(item.first.begin(), item.first.end());
+		assetJson["clipPath"] = pathStr.assign(item.second.clipPath.begin(), item.second.clipPath.end());
+		assetJson["imagePath"] = pathStr.assign(item.second.imagePath.begin(), item.second.imagePath.end());
 		objJson["Ainmations"].push_back(assetJson);
 	}
 
@@ -242,9 +243,21 @@ void SpriteAnimationRenderer::LoadAnimationAssetToJson(const wchar_t* path)
 		ordered_json objJson = ordered_json::parse(strJson);
 		for (auto& item : objJson["Ainmations"])
 		{
-			std::wstring clipName = item["clipName"].get<std::wstring>();
-			std::wstring clipPath = item["clipPath"].get<std::wstring>();
-			std::wstring imagePath = item["imagePath"].get<std::wstring>();
+			std::wstring pathWstr;
+			std::string pathStr;
+
+			pathStr = item["clipName"].get<std::string>();
+			std::wstring clipName = pathWstr.assign(pathStr.begin(), pathStr.end());
+			//std::wstring clipName = item["clipName"].get<std::wstring>();
+
+			pathStr = item["clipPath"].get<std::string>();
+			std::wstring clipPath = pathWstr.assign(pathStr.begin(), pathStr.end());
+			//std::wstring clipPath = item["clipPath"].get<std::wstring>();
+
+			pathStr = item["imagePath"].get<std::string>();
+			std::wstring imagePath = pathWstr.assign(pathStr.begin(), pathStr.end());
+			//std::wstring imagePath = item["imagePath"].get<std::wstring>();
+
 			LoadAnimationClip(clipPath.c_str(), imagePath.c_str(), clipName.c_str());
 		}
 	}

@@ -55,7 +55,8 @@ void StageEditer::LoadStageToJson()
 			std::vector<float> points;
 			ordered_json stageJson = ordered_json::parse(jsonStr);
 
-			bgPath = stageJson["bgPath"].get<std::wstring>(); //배경 경로
+			std::string bgPathstr = stageJson["bgPath"].get<std::string>();
+			bgPath.assign(bgPathstr.begin(), bgPathstr.end()); //배경 경로
 
 			playerSpawnPos = JsonUtiliy::JsonGetVector2(stageJson["playerSpawnPos"]);
 
@@ -140,7 +141,11 @@ void StageEditer::SaveStageToJson()
 {
 	//저장 테스트
 	ordered_json mapJson;
-	mapJson["bgPath"] = bgPath;
+
+	std::string bgPathstr;
+	bgPathstr.assign(bgPath.begin(), bgPath.end());
+	mapJson["bgPath"] = bgPathstr;
+
 	mapJson["playerSpawnPos"] = { playerSpawnPos.x, playerSpawnPos.y };
 	mapJson["EnemyDino0_SpawnCount"] = EnemyDino0_SpawnCount;
 	for (int i = 0; i < EnemyDino0_SpawnCount; i++)

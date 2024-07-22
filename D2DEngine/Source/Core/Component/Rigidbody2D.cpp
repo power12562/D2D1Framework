@@ -70,7 +70,7 @@ void Rigidbody2D::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* oth
     }
     else if (min == disTB)
     {
-        Velocity = Vector2(0, 0);
+        Velocity = Vector2(Velocity.x, 0);
         transform.position = Vector2(transform.position.x, otherCollider->GetBottom() - (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f);
        
     }
@@ -102,7 +102,7 @@ void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* othe
     if (min == disBT)
     {
         currIsGravity = false;     
-        if (Velocity.y == 0)
+        if (Velocity.y <= 0)
         {
             transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f);
             //wprintf(L"T, other : %s\n", otherCollider->gameObject.name);
