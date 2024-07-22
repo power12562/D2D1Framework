@@ -57,7 +57,6 @@ void WinGameApp::Run()
 	//게임용 루프	
 	MSG msg;	
 	WorldManager::LoadNextWorld();
-	WorldManager::AddObjectToQList();
 	Time.UpdateTime();
 	while (!isEnd)
 	{
