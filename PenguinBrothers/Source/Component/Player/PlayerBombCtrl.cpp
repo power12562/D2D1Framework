@@ -11,7 +11,7 @@
 #include "Source/GameObject/Player/BombEffect.h"
 #include "Source/GameObject/Player/FireEffect.h"
 
-PlayerBombCtrl::PlayerBombCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject)
+PlayerBombCtrl::PlayerBombCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
 
 }
@@ -61,3 +61,13 @@ void PlayerBombCtrl::Update()
 		fireEffect->playerCtrl = ((PlayerBomb&)gameObject).playerCtrl;
 	}
 }
+
+void PlayerBombCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
+{
+	if (otherCollider->gameObject.tag == L"Attack")
+	{
+		spriteAnimation->SetCurrentFrameIndex(spriteAnimation->LastFrameIndex);
+	}
+}
+
+

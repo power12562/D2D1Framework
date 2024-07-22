@@ -278,7 +278,7 @@ void Jump::Enter()
 	}
 	else
 	{
-		rb.AddForce(Vector2::Up * jumpPower);
+		rb.AddForce(Vector2::Up * jumpPower * 0.7f);
 	}
 
 	spriteAnimation->SetAnimation(L"Jump");

@@ -50,6 +50,7 @@ void EnemyDino0Ctrl::Start()
 	GetComponent<Rigidbody2D>().enabled = true;
 	gameObject.transform.position += Vector2(0.f, -9.f);
 	fsm = gameObject.IsComponent<FiniteStateMachine>();
+	fsm->SetState(L"Spawn");
 }
 
 

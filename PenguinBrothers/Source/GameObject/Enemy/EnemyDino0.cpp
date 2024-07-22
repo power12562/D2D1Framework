@@ -30,8 +30,6 @@ EnemyDino0::EnemyDino0()
 	fsm.CreateState<EnemyIdle>(L"Idle");
 	fsm.CreateState<EnemyTracking>(L"Tracking");
 	fsm.CreateState<EnemyAttack>(L"Attack");
-
-	fsm.SetState(L"Spawn");
 }
 
 EnemyDino0::~EnemyDino0()

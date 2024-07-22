@@ -6,7 +6,7 @@
 BombEffect::BombEffect()
 {
 	tag = L"Attack";
-	transform.scale = Vector2{ 4.0f, 4.0f };
+	transform.scale = Vector2{ 2.5f, 2.5f };
 	OderLayer = 1;
 
 	AddComponent<BombEffectCtrl>();
