@@ -101,21 +101,6 @@ void FireEffectCtrl::SpawnFire(const Vector2& nextPos, int dir)
 
 }
 
-void FireEffectCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
-{
-	wprintf(L"Enter!!! %s\n", otherCollider->gameObject.name);
-
-}
-
-void FireEffectCtrl::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider)
-{
-	wprintf(L"Stay!!! %s\n", otherCollider->gameObject.name);
-}
-
-void FireEffectCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
-{
-	wprintf(L"Exit!!! %s\n", otherCollider->gameObject.name);
-}
 
 void FireEffectCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {

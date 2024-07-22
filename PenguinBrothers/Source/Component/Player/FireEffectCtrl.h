@@ -25,9 +25,9 @@ private:
 	void SpawnFire(const Vector2& nextPos, int dir);
 	int bombDir = 0;
 
-	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
-	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
-	virtual void OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
+	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override{};
+	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
+	virtual void OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 
 	virtual void OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
 	virtual void OnTriggerStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
