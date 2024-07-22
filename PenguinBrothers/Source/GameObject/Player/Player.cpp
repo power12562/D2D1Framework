@@ -35,14 +35,6 @@ Player::Player()
 	AddComponent<Movement>();
 	AddComponent<SpriteAnimationRenderer>();
 	SpriteAnimationRenderer& spriteAnimation = GetComponent<SpriteAnimationRenderer>();
-	/*spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Idle.txt", L"Resource/Player/Normal/Normal.png", L"Idle");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Walk.txt", L"Resource/Player/Normal/Normal.png", L"Walk");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Attack.txt", L"Resource/Player/Normal/Normal.png", L"Attack");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Duck.txt", L"Resource/Player/Normal/Normal.png", L"Duck");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Jump.txt", L"Resource/Player/Normal/Normal.png", L"Jump");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Normal/Ani/Slide.txt", L"Resource/Player/Normal/Normal.png", L"Slide");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Spawn/Spawn.txt", L"Resource/Player/Spawn/Spawn.png", L"Spawn");
-	spriteAnimation.LoadAnimationClip(L"Resource/Player/Dead/Dead.txt", L"Resource/Player/Dead/Dead.png", L"Dead");*/
 	spriteAnimation.LoadAnimationAssetToJson(L"Resource/Player/AnimeAsset.json");
 
 	BoxCollider2D& collider = AddComponent<BoxCollider2D>();

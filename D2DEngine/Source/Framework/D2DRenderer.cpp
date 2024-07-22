@@ -512,7 +512,7 @@ ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmap(const wchar_t* filePath)
 		message += L"\n\"";
 		message += filePath;
 		message += L"\"";
-		::MessageBox(GetActiveWindow(), message.c_str(), L"ERROR", MB_OK);
+		::MessageBox(GetActiveWindow(), message.c_str(), L"D2DRenderer::CreateBitmap Error", MB_OK);
 		delete ID2D1BitmapResourceMap[filePath]; //생성 실패시 삭제
 		ID2D1BitmapResourceMap.erase(filePath); 
 		return nullptr;
