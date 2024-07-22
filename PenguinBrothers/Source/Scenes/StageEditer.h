@@ -31,6 +31,7 @@ public:
 
 	void PosToSpawnPos();
 private:
+	bool isEditer;
 	void SaveStageToJson();
 	void SpawnEditerObj();
 };

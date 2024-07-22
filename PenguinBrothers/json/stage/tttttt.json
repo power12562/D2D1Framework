@@ -22,21 +22,45 @@
     103
   ],
   "playerSpawnPos": [
-    -500.0,
-    -195.0
+    -495.0,
+    -189.0
   ],
   "EnemyDino0_SpawnCount": 1,
   "EnemyDino0_SpawnPos0": [
-    510.0,
-    181.0
+    221.0,
+    27.0
   ],
-  "GroundBox_SpawnCount": 1,
+  "GroundBox_SpawnCount": 4,
   "GroundBox_SpawnPos0": [
     2.0,
     -91.0
   ],
+  "GroundBox_SpawnPos1": [
+    0.0,
+    -295.0
+  ],
+  "GroundBox_SpawnPos2": [
+    -568.0,
+    144.0
+  ],
+  "GroundBox_SpawnPos3": [
+    563.0,
+    142.0
+  ],
   "GroundBox_Size0": [
     700.0,
     50.0
+  ],
+  "GroundBox_Size1": [
+    1150.0,
+    70.0
+  ],
+  "GroundBox_Size2": [
+    50.0,
+    800.0
+  ],
+  "GroundBox_Size3": [
+    50.0,
+    800.0
   ]
 }

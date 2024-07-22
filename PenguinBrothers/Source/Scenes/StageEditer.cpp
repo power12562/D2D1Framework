@@ -8,6 +8,7 @@
 #include "Core/Component/Renderer/SpriteRenderer.h"
 #include <Core/Component/Renderer/TextRenderer.h>
 #include <Core/Component/Rigidbody2D.h>
+#include <Core/Component/Renderer/BoxRenderer.h>
 
 #include "Source/GameObject/Player/Player.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
@@ -19,19 +20,18 @@
 
 StageEditer::StageEditer()
 {
+	isEditer = true;
 	LoadStageToJson();
 	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
 	SpawnEditerObj();
-
-
 }
 
 StageEditer::StageEditer(const wchar_t* _stagePath)
 {
+	isEditer = false;
 	stagePath = _stagePath;
 	LoadStageToJson();
 	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
-	//SpawnEditerObj();
 
 }
 
@@ -105,7 +105,12 @@ void StageEditer::SpawnSceneObjects()
 		GroundObjs[i]->transform.position = GroundBox_SpawnPos[i];
 		GroundObjs[i]->GetComponent<BoxCollider2D>().ColliderSize = GroundBox_Size[i];
 
-		GroundObjs[i]->GetComponent<BoxCollider2D>().isDrawCollider = true;
+		if (isEditer)
+		{
+			GroundObjs[i]->GetComponent<BoxCollider2D>().isDrawCollider = true;
+			BoxRenderer& boxDraw = GroundObjs[i]->GetComponent<BoxRenderer>();
+			boxDraw.size = GroundObjs[i]->GetComponent<BoxCollider2D>().ColliderSize;
+		}
 	}
 
 	for (int i = 0; i < EnemyDino0_SpawnCount; i++)

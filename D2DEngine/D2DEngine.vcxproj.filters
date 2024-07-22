@@ -33,6 +33,7 @@
     <ClCompile Include="Source\Core\Component\Rigidbody2D.cpp" />
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
     <ClCompile Include="Source\Utility\Ray.cpp" />
+    <ClCompile Include="Source\Core\Component\Renderer\BoxRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />
     <ClInclude Include="Source\Utility\Ray.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\Core\Component\Renderer\BoxRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />

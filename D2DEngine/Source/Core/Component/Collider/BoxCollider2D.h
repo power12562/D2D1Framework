@@ -4,6 +4,8 @@
 #include <Bounds/Bounds.h>
 #include <Vector/Vector2.h>
 
+#include <d2d1.h>
+
 class BoxCollider2D : public ColliderBase
 {
 public:
@@ -11,10 +13,10 @@ public:
 	virtual ~BoxCollider2D() override;
 
 	bool isDrawCollider = false;
-	bool DrawFill = false;	
-	float DrawAlpha = 1.0f;
+	//bool DrawFill = false;	
+	//float DrawAlpha = 1.0f;
 	Vector2 ColliderSize{0, 0};
-
+	
 protected:
 	//virtual void Start() override;
 	virtual void Update() override;

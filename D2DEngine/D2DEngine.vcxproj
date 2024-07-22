@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Core\Component\FSM\FSMState.cpp" />
     <ClCompile Include="Source\Core\Component\InputBinding.cpp" />
     <ClCompile Include="Source\Core\Component\Movement.cpp" />
+    <ClCompile Include="Source\Core\Component\Renderer\BoxRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\LineRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\SpriteRenderer.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="Source\Core\Component\FSM\FSMState.h" />
     <ClInclude Include="Source\Core\Component\InputBinding.h" />
     <ClInclude Include="Source\Core\Component\Movement.h" />
+    <ClInclude Include="Source\Core\Component\Renderer\BoxRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\LineRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\SpriteAnimationRenderer.h" />
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -200,6 +202,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -219,6 +222,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>

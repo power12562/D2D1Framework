@@ -12,6 +12,7 @@
 #include <Core/Component/Collider/Base/ColliderBase.h>
 #include <Core/Component/Collider/BoxCollider2D.h>
 #include <Core/Component/Rigidbody2D.h>
+#include <Core/Component/Renderer/BoxRenderer.h>
 
 #include <Utility/Ray.h>
 
@@ -94,6 +95,7 @@ void EditerCtrl::Update()
 		{
 			AddGround();
 		}
+
 
 		if (Input.IsKeyDown(KeyCode::B))
 		{
@@ -250,16 +252,21 @@ void EditerCtrl::AddGround()
 
 		world->GroundObjs.push_back(WorldManager::AddGameObject<Ground>(L"Ground"));
 		world->GroundObjs.back()->GetComponent<BoxCollider2D>().ColliderSize = size;
-		world->GroundObjs.back()->GetComponent<BoxCollider2D>().isDrawCollider = true;
 		world->GroundBox_Size.push_back(size);
 		world->GroundBox_SpawnCount++;
 		world->GroundBox_SpawnPos.push_back(Vector2());	
+
+		world->GroundObjs.back()->GetComponent<BoxCollider2D>().isDrawCollider = true;
+		world->GroundObjs.back()->GetComponent<BoxCollider2D>().isDrawCollider = true;
+		BoxRenderer& boxDraw = world->GroundObjs.back()->GetComponent<BoxRenderer>();
+		boxDraw.size = world->GroundObjs.back()->GetComponent<BoxCollider2D>().ColliderSize;
 	}
 	else
 	{
 		printf("바닥 크기는 양수여야 합니다.\n");
 	}
 }
+
 
 void EditerCtrl::SelectBackgroundPath()
 {
