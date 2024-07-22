@@ -3,6 +3,9 @@
 
 #include "Source/Component/Player/BombEffectCtrl.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(BombEffect)
+
 BombEffect::BombEffect()
 {
 	tag = L"Attack";

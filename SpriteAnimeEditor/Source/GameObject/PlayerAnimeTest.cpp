@@ -5,6 +5,8 @@
 
 #include "Source/Component/PlayerAnimeTestCtrl.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(PlayerAnimeTest)
 
 PlayerAnimeTest::PlayerAnimeTest()
 {

@@ -80,6 +80,7 @@
     <ClInclude Include="Source\Core\Scene\WorldBase.h" />
     <ClInclude Include="Source\Framework\ColliderManager.h" />
     <ClInclude Include="Source\Framework\D2DRenderer.h" />
+    <ClInclude Include="Source\Framework\GameObjectFactory.h" />
     <ClInclude Include="Source\Framework\InputSystem.h" />
     <ClInclude Include="Source\Framework\ReferenceCounter.h" />
     <ClInclude Include="Source\Framework\WorldManager.h" />

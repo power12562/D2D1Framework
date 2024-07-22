@@ -4,6 +4,9 @@
 
 #include "Source/Component/RectModeCtrl.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(RectMode)
+
 RectMode::RectMode()
 {
 	AddComponent<SpriteRenderer>();

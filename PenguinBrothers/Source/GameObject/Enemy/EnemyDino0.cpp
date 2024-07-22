@@ -9,6 +9,9 @@
 
 #include "Source/Component/Enemy/EnemyDino0Ctrl.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(EnemyDino0)
+
 
 EnemyDino0::EnemyDino0()
 {

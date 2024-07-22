@@ -10,6 +10,8 @@
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/PlayerBomb.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(Player)
 
 Player::Player()
 {

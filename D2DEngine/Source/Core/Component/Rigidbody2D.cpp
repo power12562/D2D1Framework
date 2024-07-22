@@ -10,6 +10,7 @@ Rigidbody2D::Rigidbody2D(GameObjectBase& gameObject)
 	: ComponentBase(gameObject) ,
     ICollider2DNotify(this)
 {
+    currIsGravity = false;
     Velocity = Vector2();
     Gravity = Vector2{ 0.f, -2000.f };
 }

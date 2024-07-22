@@ -4,6 +4,8 @@
 #include "Source/Scenes/StageScene.h"
 #include "Source/Scenes/StageEditer.h"
 
+#include <Framework/GameObjectFactory.h>
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR    lpCmdLine,

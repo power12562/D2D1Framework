@@ -6,6 +6,10 @@
 
 #include <string>
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(PlayerBomb)
+
+
 int PlayerBomb::objectCount = 0;
 
 PlayerBomb::PlayerBomb()

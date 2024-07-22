@@ -6,6 +6,8 @@
 #include "Source/Component/Player/FireEffectCtrl.h"
 #include "Source/Component/Player/PlayerCtrl.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(FireEffect)
 
 FireEffect::FireEffect()
 {

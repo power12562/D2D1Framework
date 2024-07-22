@@ -74,6 +74,7 @@
     <ClInclude Include="Source\Utility\Ray.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Core\Component\Renderer\BoxRenderer.h" />
+    <ClInclude Include="Source\Framework\GameObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />

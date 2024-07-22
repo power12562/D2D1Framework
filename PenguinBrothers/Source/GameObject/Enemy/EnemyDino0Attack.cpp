@@ -5,6 +5,9 @@
 
 #include "Source/Component/Enemy/EnemyDino0AttackCtrl.h"
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(EnemyDino0Attack)
+
 EnemyDino0Attack::EnemyDino0Attack()
 {
 	tag = L"Attack";

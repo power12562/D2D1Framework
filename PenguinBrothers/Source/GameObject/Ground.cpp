@@ -3,6 +3,9 @@
 #include <Core/Component/Collider/BoxCollider2D.h>
 #include <Core/Component/Renderer/BoxRenderer.h>
 
+#include <Framework/GameObjectFactory.h>
+REGISTER_GAMEOBJECFT(Ground)
+
 Ground::Ground()
 {
 	tag = L"Ground";
