@@ -8,6 +8,9 @@
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/FireEffect.h"
 
+int FireEffectCtrl::rightCount = 0;
+int FireEffectCtrl::lefttCount = 0;
+
 FireEffectCtrl::FireEffectCtrl(GameObjectBase& gameObject)
 	: ComponentBase(gameObject), ICollider2DNotify(this)
 {
@@ -25,7 +28,7 @@ void FireEffectCtrl::Start()
 #endif 
 
 	animationRenderer = &GetComponent<SpriteAnimationRenderer>();
-	switch (((FireEffect&)gameObject).playerCtrl->bombType)
+	switch (((FireEffect&)gameObject).bombType)
 	{
 	case BombType::blue:
 
@@ -50,6 +53,47 @@ void FireEffectCtrl::Update()
 	{
 		WorldManager::DelGameObject(gameObject);
 	}
+	if(!spawnNext && animationRenderer->CurrentFrameIndex == animationRenderer->LastFrameIndex / 3)
+	{
+		constexpr float interval = 30.0f;
+		if(bombDir > 0 && rightCount > 0)
+		{
+			SpawnFire(transform.position + Vector2::Right * interval, 1);
+			--rightCount;
+			printf("rightCount : %d\n", rightCount);
+		}
+		else if (bombDir < 0 && lefttCount > 0)
+		{
+			SpawnFire(transform.position + Vector2::Left * interval, -1);
+			--lefttCount;
+			printf("leftCount : %d\n", lefttCount);
+		}
+		if (bombDir == 0)
+		{
+			if (rightCount > 0)
+			{
+				SpawnFire(transform.position + Vector2::Right * interval, 1);
+				--rightCount;
+				printf("leftCount : %d\n", lefttCount);
+			}
+			if (lefttCount > 0)
+			{
+				SpawnFire(transform.position + Vector2::Left * interval, -1);
+				--lefttCount;
+				printf("leftCount : %d\n", lefttCount);
+			}
+		}
+		spawnNext = true;
+	}
+}
+
+void FireEffectCtrl::SpawnFire(const Vector2& nextPos, int dir)
+{
+	FireEffect* fireEffect = (FireEffect*)WorldManager::AddGameObject<FireEffect>(L"fireEffect");
+	fireEffect->transform.position = nextPos;
+	fireEffect->bombType = ((FireEffect&)gameObject).bombType;
+	fireEffect->GetComponent<FireEffectCtrl>().bombDir = dir;
+
 }
 
 void FireEffectCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)

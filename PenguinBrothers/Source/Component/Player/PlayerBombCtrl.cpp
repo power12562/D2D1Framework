@@ -10,6 +10,7 @@
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/BombEffect.h"
 #include "Source/GameObject/Player/FireEffect.h"
+#include "Source/Component/Player/FireEffectCtrl.h"
 
 PlayerBombCtrl::PlayerBombCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
@@ -58,7 +59,26 @@ void PlayerBombCtrl::Update()
 
 		FireEffect* fireEffect = (FireEffect*)WorldManager::AddGameObject<FireEffect>(L"fireEffect");
 		fireEffect->transform.position = gameObject.transform.position;
-		fireEffect->playerCtrl = ((PlayerBomb&)gameObject).playerCtrl;
+		fireEffect->bombType = ((PlayerBomb&)gameObject).playerCtrl->bombType;
+
+		FireEffectCtrl& fireEffectCtrl = fireEffect->GetComponent<FireEffectCtrl>();
+		switch (((PlayerBomb&)gameObject).playerCtrl->bombType)
+		{
+		case BombType::blue:
+			
+			break;
+		case BombType::red:
+			fireEffectCtrl.lefttCount = 3;
+			fireEffectCtrl.rightCount = 3;
+			break;
+		case BombType::green:
+			
+			break;
+		case BombType::skyblue:
+			
+			break;
+		}
+
 	}
 }
 

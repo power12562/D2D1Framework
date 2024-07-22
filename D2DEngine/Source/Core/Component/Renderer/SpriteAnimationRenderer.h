@@ -129,6 +129,7 @@ public:
 
 	/** 현제 프레임 인덱스*/
 	int GetCurrentFrameIndex() const { return currentFrame; }
+	/** 현제 프레임 인덱스. 읽기 전용 프로퍼티*/
 	__declspec(property(get = GetCurrentFrameIndex, put = SetCurrentFrameIndex)) int CurrentFrameIndex;
 
 	/** 재생할 프레임 선택*/

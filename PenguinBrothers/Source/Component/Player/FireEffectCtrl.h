@@ -4,6 +4,7 @@
 
 class FireEffectCtrl : public ComponentBase	, public ICollider2DNotify
 {
+	friend class PlayerBombCtrl;
 public:
 	FireEffectCtrl(GameObjectBase& gameObject);
 	virtual ~FireEffectCtrl() override;
@@ -15,7 +16,13 @@ protected:
 	//virtual void Render() override;
 
 private:
+	static int rightCount;
+	static int lefttCount;
+
 	class SpriteAnimationRenderer* animationRenderer = nullptr;
+	void SpawnFire(const Vector2& nextPos, int dir);
+	bool spawnNext = false;	
+	int bombDir = 0;
 
 	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
 	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
