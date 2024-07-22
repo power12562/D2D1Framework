@@ -7,6 +7,8 @@ class EnemyDino0 : public GameObjectBase
 public:
 	EnemyDino0();
 	virtual ~EnemyDino0() override;
+
+	GameObjectBase* myAttack = nullptr;
 };
 
 

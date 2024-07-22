@@ -72,13 +72,13 @@ void Rigidbody2D::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* oth
     }
     else if (min == disRL)
     {
-        Velocity = Vector2(0, 0);
+        //Velocity = Vector2(0, 0);
         transform.position = Vector2(otherCollider->GetLeft() - (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
      
     }
     else if (min == disLR)
     {
-        Velocity = Vector2(0, 0);
+        //Velocity = Vector2(0, 0);
         transform.position = Vector2(otherCollider->GetRight() + (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
        
     }
@@ -101,22 +101,22 @@ void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* othe
         if (Velocity.y == 0)
         {
             transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f);
-            wprintf(L"T, other : %s\n", otherCollider->gameObject.name);
+            //wprintf(L"T, other : %s\n", otherCollider->gameObject.name);
         } 
     }
     else if (min == disTB)
     {
-        wprintf(L"B, other : %s\n", otherCollider->gameObject.name);
+        //wprintf(L"B, other : %s\n", otherCollider->gameObject.name);
     }
     else if (min == disRL)
     {
         transform.position = Vector2(otherCollider->GetLeft() - (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
-        wprintf(L"L, other : %s\n", otherCollider->gameObject.name);
+        //wprintf(L"L, other : %s\n", otherCollider->gameObject.name);
     }
     else if (min == disLR)
     {
         transform.position = Vector2(otherCollider->GetRight() + (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f, transform.position.y);
-        wprintf(L"R, other : %s\n", otherCollider->gameObject.name);
+        //wprintf(L"R, other : %s\n", otherCollider->gameObject.name);
     }
 
 }

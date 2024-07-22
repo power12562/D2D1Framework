@@ -87,25 +87,31 @@ void ColliderManager::CallEnterEvent(ColliderBase* i, ColliderBase* j)
 {
 	if (i->isTrigger || j->isTrigger)
 	{
-		for (auto& event : i->gameObject.collider2DNotifyTable)
+		if(i->gameObject.enable == true)
 		{
-			event.second->OnTriggerEnter2D(i, j);
+			for (auto& event : i->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnTriggerEnter2D(i, j);
 
-		}
-		for (auto& event : j->gameObject.collider2DNotifyTable)
-		{
-			event.second->OnTriggerEnter2D(j, i);
+			}
+			for (auto& event : j->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnTriggerEnter2D(j, i);
+			}
 		}
 	}
 	else
 	{
-		for (auto& event : i->gameObject.collider2DNotifyTable)
+		if(j->gameObject.enable == true)
 		{
-			event.second->OnCollisionEnter2D(i, j);
-		}
-		for (auto& event : j->gameObject.collider2DNotifyTable)
-		{
-			event.second->OnCollisionEnter2D(j, i);
+			for (auto& event : i->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnCollisionEnter2D(i, j);
+			}
+			for (auto& event : j->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnCollisionEnter2D(j, i);
+			}
 		}
 	}
 }
@@ -114,26 +120,37 @@ void ColliderManager::CallStayEvent(ColliderBase* i, ColliderBase* j)
 {
 	if (i->isTrigger || j->isTrigger)
 	{
-		for (auto& event : i->gameObject.collider2DNotifyTable)
+		if(i->gameObject.enable == true)
 		{
-			event.second->OnTriggerStay2D(i, j);
+			for (auto& event : i->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnTriggerStay2D(i, j);
 
+			}
 		}
-		for (auto& event : j->gameObject.collider2DNotifyTable)
+		if(j->gameObject.enable == true)
 		{
-			event.second->OnTriggerStay2D(j, i);
+			for (auto& event : j->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnTriggerStay2D(j, i);
+			}
 		}
 	}
 	else
 	{
-		for (auto& event : i->gameObject.collider2DNotifyTable)
+		if (i->gameObject.enable == true)
 		{
-			event.second->OnCollisionStay2D(i, j);
+			for (auto& event : i->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnCollisionStay2D(i, j);
+			}
 		}
-
-		for (auto& event : j->gameObject.collider2DNotifyTable)
+		if (j->gameObject.enable == true)
 		{
-			event.second->OnCollisionStay2D(j, i);
+			for (auto& event : j->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnCollisionStay2D(j, i);
+			}
 		}
 	}
 }
@@ -142,27 +159,37 @@ void ColliderManager::CallExitEvent(ColliderBase* i, ColliderBase* j)
 {
 	if (i->isTrigger || j->isTrigger)
 	{
-		for (auto& event : i->gameObject.collider2DNotifyTable)
+		if (i->gameObject.enable == true)
 		{
-			event.second->OnTriggerExit2D(i, j);
+			for (auto& event : i->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnTriggerExit2D(i, j);
 
+			}
 		}
-		for (auto& event : j->gameObject.collider2DNotifyTable)
+		if (j->gameObject.enable == true)
 		{
-			event.second->OnTriggerExit2D(j, i);
-		}
+			for (auto& event : j->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnTriggerExit2D(j, i);
+			}
+		}	
 	}
 	else
 	{
-
-		for (auto& event : i->gameObject.collider2DNotifyTable)
+		if (i->gameObject.enable == true)
 		{
-			event.second->OnCollisionExit2D(i, j);
+			for (auto& event : i->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnCollisionExit2D(i, j);
+			}
 		}
-
-		for (auto& event : j->gameObject.collider2DNotifyTable)
+		if (j->gameObject.enable == true)
 		{
-			event.second->OnCollisionExit2D(j, i);
+			for (auto& event : j->gameObject.collider2DNotifyTable)
+			{
+				event.second->OnCollisionExit2D(j, i);
+			}
 		}
 	}	
 }

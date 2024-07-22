@@ -45,13 +45,13 @@ GameObjectBase::~GameObjectBase()
 
 void GameObjectBase::Start()
 {
-	for (auto& collider : colliderList)
-	{
-		collider->Start();
-	}
 	for (auto& component : componentsList)
 	{
 		component->Start();
+	}
+	for (auto& collider : colliderList)
+	{
+		collider->Start();
 	}
 }
 
@@ -59,15 +59,15 @@ void GameObjectBase::Update()
 {
 	if (enable)
 	{
-		for (auto& collider : colliderList)
-		{
-			if (collider->enabled)
-				collider->Update();
-		}
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->Update();
+		}
+		for (auto& collider : colliderList)
+		{
+			if (collider->enabled)
+				collider->Update();
 		}
 	}
 	if (pRigidbody && pRigidbody->enabled)
@@ -84,15 +84,15 @@ void GameObjectBase::LateUpdate()
 	}	
 	if (enable)
 	{
-		for (auto& collider : colliderList)
-		{
-			if (collider->enabled)
-				collider->LateUpdate();
-		}
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->LateUpdate();
+		}
+		for (auto& collider : colliderList)
+		{
+			if (collider->enabled)
+				collider->LateUpdate();
 		}
 	}
 }
@@ -101,15 +101,15 @@ void GameObjectBase::Render()
 {	
 	if (enable)
 	{
-		for (auto& collider : colliderList)
-		{
-			if (collider->enabled)
-				collider->Render();
-		}
 		for (auto& component : componentsList)
 		{
 			if (component->enabled)
 				component->Render();
+		}
+		for (auto& collider : colliderList)
+		{
+			if (collider->enabled)
+				collider->Render();
 		}
 	}
 }

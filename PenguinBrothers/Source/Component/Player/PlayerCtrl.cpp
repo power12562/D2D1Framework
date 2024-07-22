@@ -16,6 +16,9 @@
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/GameObject/Player/Player.h"
 
+
+using namespace TimeSystem;
+using namespace InputSystem;
 PlayerCtrl::PlayerCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
 
@@ -32,38 +35,24 @@ void PlayerCtrl::Start()
 	slideSpeed = 525.f;
 	gameObject.transform.position += Vector2(0.f, -25.f);
 
-//#ifdef _DEBUG
-//	GameObjectBase* playerStateDebug = WorldManager::AddGameObject<GameObjectUI>(L"PlayerState");
-//	playerStateDebug->transform.SetParent(Camera::GetMainCamera()->gameObject);
-//
-//	stateDebugText = &playerStateDebug->AddComponent<TextRenderer>();
-//	stateDebugText->SetFont(L"Consolas");
-//	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
-//
-//	fsm = &gameObject.GetComponent<FiniteStateMachine>();
-//#endif
+	fsm = IsComponent<FiniteStateMachine>();
 }
 
 void PlayerCtrl::Update()
 {
-	using namespace TimeSystem;
-	using namespace InputSystem;
+	printf("isJump = %s\n", (isJump) ? "true" : "false");
 
-//#ifdef _DEBUG
-//	stateDebugText->Text = L"Player State : ";
-//	const FSMState* state = fsm->GetCurrState();
-//	if (state)
-//	{
-//		stateDebugText->Text += state->GetName();
-//	}
-//#endif 
+
 }
 
 void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
 	if (otherCollider->gameObject.tag == L"Ground")
 	{
-		isJump = false;
+		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
+		{
+			isJump = false;
+		}
 	}
 }
 
@@ -71,7 +60,10 @@ void PlayerCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* other
 {
 	if (otherCollider->gameObject.tag == L"Ground")
 	{
-		isJump = true;
+		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
+		{
+			isJump = true;
+		}
 	}
 }
 

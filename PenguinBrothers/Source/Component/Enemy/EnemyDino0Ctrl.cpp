@@ -13,6 +13,7 @@
 #include <Core/Component/Rigidbody2D.h>
 
 #include <Source/GameObject/Enemy/EnemyDino0Attack.h>
+#include <Source/GameObject/Enemy/EnemyDino0.h>
 
 
 EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
@@ -25,46 +26,32 @@ EnemyDino0Ctrl::~EnemyDino0Ctrl()
 
 void EnemyDino0Ctrl::SpawnFire()
 {
-	GameObjectBase* fire = WorldManager::AddGameObject<EnemyDino0Attack>(L"DinoAttack");
-	fire->transform.FlipX(gameObject.transform.flipX);
-	fire->transform.position = gameObject.transform.position;
-	
-	float dir = gameObject.transform.flipX ? 1.f : -1.f;
-	fire->transform.position += Vector2(dir * 110.f, 33.f);
+	EnemyDino0& obj = (EnemyDino0&)gameObject;
+	if (obj.myAttack == nullptr)
+	{
+		EnemyDino0Attack* fire = (EnemyDino0Attack*)WorldManager::AddGameObject<EnemyDino0Attack>(L"DinoAttack");
+		fire->transform.FlipX(gameObject.transform.flipX);
+		fire->transform.position = gameObject.transform.position;
+		fire->myOwner = (EnemyDino0*)&gameObject;
+
+		obj.myAttack = fire;
+
+		float dir = gameObject.transform.flipX ? 1.f : -1.f;
+		fire->transform.position += Vector2(dir * 110.f, 33.f);
+	}
 }
 
 void EnemyDino0Ctrl::Start()
-{
-#ifdef _DEBUG
-	//	GameObjectBase* playerStateDebug = WorldManager::AddGameObject<GameObjectUI>(L"EnemyState");
-	//	playerStateDebug->transform.SetParent(Camera::GetMainCamera()->gameObject);
-	//	playerStateDebug->transform.localPosition += Vector2(0.f, -30.f);
-	//
-	//	stateDebugText = &playerStateDebug->AddComponent<TextRenderer>();
-	//	stateDebugText->SetFont(L"Consolas");
-	//	stateDebugText->TextColor = D2D1::ColorF(D2D1::ColorF::Violet);
-	//
-	//	fsm = &gameObject.GetComponent<FiniteStateMachine>();
+{	
 	GetComponent<SpriteCollider2D>().isDrawCollider = true;
-#endif 
-
 	gameObject.transform.position += Vector2(0.f, -9.f);
-	fsm = &GetComponent<FiniteStateMachine>();
+	fsm = gameObject.IsComponent<FiniteStateMachine>();
 	fsm->SetState(L"Idle");
 }
 
 
 void EnemyDino0Ctrl::Update()
 {
-//#ifdef _DEBUG
-//	stateDebugText->Text = L"Enemy State : ";
-//	const FSMState* state = fsm->GetCurrState();
-//	if (state)
-//	{
-//		stateDebugText->Text += state->GetName();
-//	}								   
-//#endif 
-
 
 }
 

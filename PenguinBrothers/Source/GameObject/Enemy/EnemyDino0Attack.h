@@ -7,4 +7,5 @@ public:
 	EnemyDino0Attack();
 	virtual ~EnemyDino0Attack() override;
 
+	class EnemyDino0* myOwner;
 };

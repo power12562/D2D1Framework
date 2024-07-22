@@ -5,6 +5,9 @@
 #include <Core/Component/Renderer/SpriteAnimationRenderer.h>
 #include <Core/Component/FSM/FiniteStateMachine.h>
 
+#include <Source/GameObject/Enemy/EnemyDino0Attack.h>
+#include <Source/GameObject/Enemy/EnemyDino0.h>
+
 
 EnemyDino0AttackCtrl::EnemyDino0AttackCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
@@ -25,6 +28,13 @@ void EnemyDino0AttackCtrl::Update()
 	if (animation->CurrentClipEnd)
 	{
 		WorldManager::DelGameObject(gameObject);
+		((EnemyDino0Attack&)gameObject).myOwner->myAttack = nullptr;
+	}
+
+	if(((EnemyDino0Attack&)gameObject).myOwner->enable == false)
+	{
+		WorldManager::DelGameObject(gameObject);
+		((EnemyDino0Attack&)gameObject).myOwner->myAttack = nullptr;
 	}
 }
 
