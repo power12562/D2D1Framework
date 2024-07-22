@@ -136,7 +136,7 @@ void Idle::Update()
 		owner.SetState(L"Jump");
 	}
 
-	if (Input->IsKey("Duck"))
+	if (Input->IsKey("Duck") && !playerCtrl->isJump)
 	{
 		owner.SetState(L"Duck");
 	}
@@ -175,7 +175,7 @@ void Walk::Update()
 		owner.SetState(L"Jump");
 	}
 
-	if (Input->IsKey("Duck"))
+	if (Input->IsKey("Duck") && !playerCtrl->isJump)
 	{
 		owner.SetState(L"Duck");
 	}
