@@ -9,6 +9,7 @@
 class WorldManager
 {
 	friend class WinGameApp;
+	friend class GameObjectFactory;
 	friend void GameObjectBase::SetName(const wchar_t* name);
 public:
 	/** 씬을 불러옵니다*/
@@ -51,6 +52,9 @@ public:
 	static void SaveCurrentWorldToJson(const wchar_t* path);
 
 	static void LoadWorldToJson(const wchar_t* path);
+
+	/*현재 씬의 모든 오브젝트 삭제*/
+	static void ClearObjectList();
 
 private:
 	WorldManager();

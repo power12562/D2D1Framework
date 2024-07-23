@@ -81,6 +81,11 @@ void EditerCtrl::Update()
 			world->SaveStageToJson();
 		}
 
+		if (Input.IsKeyDown(KeyCode::F9))
+		{
+			world->LoadWorld();
+		}
+
 		if (Input.IsKeyDown(KeyCode::F10))
 		{
 			world->SaveWorld();

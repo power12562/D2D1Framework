@@ -77,6 +77,7 @@
     <ClInclude Include="Source\Core\Component\Renderer\BoxRenderer.h" />
     <ClInclude Include="Source\Framework\GameObjectFactory.h" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\JsonConvert.h" />
+    <ClInclude Include="Source\Utility\Debug.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />

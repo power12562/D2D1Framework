@@ -197,3 +197,13 @@ void StageEditer::SaveWorld()
 		WorldManager::SaveCurrentWorldToJson(savePath.c_str());
 	}
 }
+
+void StageEditer::LoadWorld()
+{
+	std::wstring loadPath = WinUtility::GetOpenFilePath(L"json");
+	if (loadPath != L"")
+	{
+		WorldManager::LoadWorldToJson(loadPath.c_str());
+	}
+
+}

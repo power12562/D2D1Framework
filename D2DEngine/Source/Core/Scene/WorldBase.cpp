@@ -3,10 +3,15 @@
 
 #include "Core/GameObject/MainCamera.h"
 
+#include "Core/Component/Camera.h"
+
 
 WorldBase::WorldBase()
 {
-	WorldManager::AddGameObject<MainCamera>(L"MainCamera");
+	if (Camera::GetMainCamera() == nullptr)
+	{
+		WorldManager::AddGameObject<MainCamera>(L"MainCamera");
+	}
 }
 
 WorldBase::~WorldBase()

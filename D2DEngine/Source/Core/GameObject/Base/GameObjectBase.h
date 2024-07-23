@@ -37,6 +37,7 @@ REGISTER_GAMEOBJECFT(Derived)
 
 class GameObjectBase
 {
+	friend class GameObjectFactory;
 	friend class WorldManager;
 	friend class ColliderManager;
 	friend ColliderBase* Ray::ShootRayFromPosition(const Vector2& position);

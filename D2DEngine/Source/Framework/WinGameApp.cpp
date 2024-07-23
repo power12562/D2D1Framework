@@ -5,6 +5,8 @@
 #include "Framework/WorldManager.h"
 #include "Framework/ColliderManager.h"
 
+#include <Core/Scene/WorldBase.h>
+
 #include "Core/Component/Transform.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Camera.h"
@@ -59,6 +61,10 @@ void WinGameApp::Run()
 
 	//게임용 루프	
 	MSG msg;	
+	if (WorldManager::nextWorld == nullptr)
+	{
+		WorldManager::LoadWorld<WorldBase>();
+	}
 	WorldManager::LoadNextWorld();
 	Time.UpdateTime();
 	while (!isEnd)

@@ -6,6 +6,7 @@
 
 #include "Core/Component/Camera.h"
 
+#include <Utility/Debug.h>
 #include <stack>
 #include <cassert>
 
@@ -306,7 +307,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 		}
 		else
 		{
-			assert(!"부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.");
+			DEBUG_PRINT("부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.\n");
 			return thisTransform->localPosition;
 		}
 	}
@@ -314,7 +315,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			assert(!"부모가 있는 오브젝트는 월드 변경이 불가능 합니다.");
+			DEBUG_PRINT("부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.\n");
 			return *this;
 		}
 		else
@@ -332,7 +333,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 		}
 		else
 		{
-			assert(!"부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.");
+			DEBUG_PRINT("부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.\n");
 			return thisTransform->localScale;
 		}
 	}
@@ -340,7 +341,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			assert(!"부모가 있는 오브젝트는 월드 변경이 불가능 합니다.");
+			DEBUG_PRINT("부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.\n");
 			return *this;
 		}
 		else
@@ -403,7 +404,7 @@ void Transform::TFloat::SetAngle(const float& rotation)
 		}
 		else
 		{
-			assert(!"부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.");
+			DEBUG_PRINT("부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.\n");
 			return;
 		}
 	}
@@ -411,7 +412,7 @@ void Transform::TFloat::SetAngle(const float& rotation)
 	{
 		if (thisTransform->parent)
 		{
-			assert(!"부모가 있는 오브젝트는 월드 변경이 불가능 합니다.");
+			DEBUG_PRINT("부모가 없는 오브젝트는 로컬 변경이 불가능 합니다.\n");
 			return;
 		}
 		else

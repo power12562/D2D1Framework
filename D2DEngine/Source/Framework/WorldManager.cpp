@@ -2,6 +2,7 @@
 
 #include <Vector/Vector2.h>
 #include <Utility/JsonUtility.h>
+#include <Framework/GameObjectFactory.h>
 
 #include "Core/Scene/WorldBase.h"
 
@@ -264,6 +265,7 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 	}
 
 	ordered_json outputJson;
+	std::unordered_set<std::string> typeDamp;
 	for (auto obj : currentWorld->gameObjectList)
 	{
 		ordered_json objJson;
@@ -271,7 +273,7 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 		//객체 타입
 		std::string objType = typeid(*obj).name();
 		objType = objType.substr(6, objType.size());
-		objJson["Type"] = objType;
+		typeDamp.insert(objType);
 
 		//이름
 		objJson["name"] = obj->name; 
@@ -279,44 +281,25 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 		//Transform 컴포넌트 정보
 		ordered_json transformJson;
 		transformJson["position"] = obj->transform.position;
+		transformJson["localPosition"] = obj->transform.localPosition;
+
 		transformJson["scale"] = obj->transform.scale;
+		transformJson["localScale"] = obj->transform.localScale;
+
 		transformJson["rotation"] = float(obj->transform.rotation);
+		transformJson["localRotation"] = float(obj->transform.localRotation);
+
 		objJson["Transform"].push_back(transformJson);
 
 
 		//최종 저장
 		outputJson[objType].push_back(objJson);
-
-
-		//읽기 테스트
-		for (auto& objData : outputJson[objType])
-		{
-			try
-			{
-				std::cout << "type : " << objData["Type"].get<std::string>() << std::endl;
-				std::wcout << L"name : " << objData["name"].get<std::wstring>() << std::endl;
-				for (auto& transform : objData["Transform"])
-				{
-					std::vector<float> vec = transform["position"].get<JsonUtiliy::Vector2>();
-					Vector2 pos = Vector2{ vec[0], vec[1] };
-					printf("position { %f, %f }\n", pos.x, pos.y);
-
-					vec = transform["scale"].get<JsonUtiliy::Vector2>();
-					Vector2 scale = Vector2{ vec[0], vec[1] };
-					printf("scale { %f, %f }\n", scale.x, scale.y);
-
-					float rot = transform["rotation"].get<float>();
-					printf("rotation { %f }\n", rot);
-				}
-			}
-			catch (const std::exception& ex)
-			{
-				std::cout << ex.what() << std::endl;
-			}
-		}
 	}
 
-
+	for (auto& type : typeDamp)
+	{
+		outputJson["GameObjectTypeList"].push_back(type);
+	}
 	std::ofstream ofs(savePath);
 	ofs << outputJson.dump(2);
 	ofs.close();
@@ -324,7 +307,56 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 
 void WorldManager::LoadWorldToJson(const wchar_t* path)
 {
+	ordered_json worldJson;
 
-	
+	if (JsonUtiliy::ordered_jsonLoadToFile(path, worldJson))
+	{
+		WorldManager::LoadWorld<WorldBase>();
+		try
+		{
+			for (auto& objType : worldJson["GameObjectTypeList"])
+			{
 
+				std::string type = objType.get<std::string>();
+				for (auto& objData : worldJson[type])
+				{
+					GameObjectBase* object = GameObjectFactory::CreateGameObject(type, objData["name"].get<std::wstring>());
+
+					if (object)
+					{
+						for (auto& transform : objData["Transform"])
+						{
+							std::vector vec = transform["position"].get<JsonUtiliy::Vector2>();
+							object->transform.position = Vector2{ vec[0], vec[1] };
+							vec = transform["localPosition"].get<JsonUtiliy::Vector2>();
+							object->transform.localPosition = Vector2{ vec[0], vec[1] };
+
+							vec = transform["scale"].get<JsonUtiliy::Vector2>();
+							object->transform.scale = Vector2{ vec[0], vec[1] };
+							vec = transform["localScale"].get<JsonUtiliy::Vector2>();
+							object->transform.localScale = Vector2{ vec[0], vec[1] };
+
+							object->transform.rotation = transform["rotation"].get<float>();
+							object->transform.localRotation = transform["localRotation"].get<float>();
+						}
+					}
+				}
+
+			}
+		}
+		catch (const std::exception& ex)
+		{
+			std::cout << ex.what() << std::endl;
+		}
+	}
+}
+
+void WorldManager::ClearObjectList()
+{
+	for (auto& obj : currentWorld->gameObjectList)
+	{
+		delete obj;
+	} 
+	currentWorld->gameObjectList.clear();
+	currentWorld->gameObjectMap.clear();
 }
