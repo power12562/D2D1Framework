@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
     <ClCompile Include="Source\Utility\Ray.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\BoxRenderer.cpp" />
+    <ClCompile Include="ThirdParty\single_include\nlohmann\jsonConvert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Core\Component\Renderer\BoxRenderer.h" />
     <ClInclude Include="Source\Framework\GameObjectFactory.h" />
+    <ClInclude Include="ThirdParty\single_include\nlohmann\JsonConvert.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />

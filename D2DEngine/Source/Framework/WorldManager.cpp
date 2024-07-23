@@ -233,7 +233,6 @@ std::wstring WorldManager::GenerateUniqueName(const wchar_t* name)
 	return tempName;
 }
 
-
 void WorldManager::LoadNextWorld()
 {
 	if (nextWorld)
@@ -244,4 +243,9 @@ void WorldManager::LoadNextWorld()
 		WorldManager::AddObjectToQList();
 		WorldManager::UpdateCullingBouds();
 	}
-}					  
+}			
+
+void WorldManager::SaveWorldToJson(const wchar_t* path)
+{
+
+}

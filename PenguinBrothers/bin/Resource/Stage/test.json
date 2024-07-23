@@ -1,5 +1,5 @@
 {
-  "bgPath": "Resource/Stage/test.png",
+  "bgPath": "Resource\\Stage\\test.png",
   "playerSpawnPos": [
     -500.0,
     -195.0

@@ -1,3 +1,5 @@
+#include "JsonConvert.h"
+
 //     __ _____ _____ _____
 //  __|  |   __|     |   | |  JSON for Modern C++
 // |  |  |__   |  |  | | | |  version 3.11.3
@@ -20552,6 +20554,11 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         return *this;
     }
 
+    basic_json& operator=(std::wstring& wstr) noexcept
+    {
+        return operator=(JsonConvert::wstring_to_utf8(wstr));
+    }
+
     /// @brief destructor
     /// @sa https://json.nlohmann.me/api/basic_json/~basic_json/
     ~basic_json() noexcept
@@ -21053,6 +21060,11 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         // still need the uncvref
         static_assert(!std::is_reference<ValueTypeCV>::value,
                       "get() cannot be used with reference types, you might want to use get_ref()");
+        if constexpr (std::is_same_v<ValueType, std::wstring>)
+        {
+            return JsonConvert::utf8_to_wstring(get_impl<std::string>(detail::priority_tag<4> {}));
+        }
+
         return get_impl<ValueType>(detail::priority_tag<4> {});
     }
 

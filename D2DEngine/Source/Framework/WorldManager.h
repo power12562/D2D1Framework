@@ -47,6 +47,9 @@ public:
 	/** 현재 월드를 가져옵니다.*/
 	static WorldBase* GetCurrentWorld() { return currentWorld; }
 
+	/**현재 오브젝트의 정보를 저장 합니다.*/
+	static void SaveWorldToJson(const wchar_t* path);
+
 private:
 	WorldManager();
 	~WorldManager();

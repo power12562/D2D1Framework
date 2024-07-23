@@ -49,15 +49,13 @@ void StageEditer::LoadStageToJson()
 			stagePath = WinUtility::GetOpenFilePath(L"json");
 		}
 
-		std::string jsonStr = JsonUtiliy::ordered_jsonLoadToFile(stagePath.c_str());
-		if (jsonStr != "")
+		ordered_json stageJson;
+		if (JsonUtiliy::ordered_jsonLoadToFile(stagePath.c_str(), stageJson))
 		{
 			std::vector<float> points;
-			ordered_json stageJson = ordered_json::parse(jsonStr);
 
-			std::string bgPathstr = stageJson["bgPath"].get<std::string>();
-			bgPath.assign(bgPathstr.begin(), bgPathstr.end()); //배경 경로
-
+			bgPath = stageJson["bgPath"].get<std::wstring>();
+				   
 			playerSpawnPos = JsonUtiliy::JsonGetVector2(stageJson["playerSpawnPos"]);
 
 			EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; //EnemyDino0 오브젝트 소환 개수
@@ -142,9 +140,7 @@ void StageEditer::SaveStageToJson()
 	//저장 테스트
 	ordered_json mapJson;
 
-	std::string bgPathstr;
-	bgPathstr.assign(bgPath.begin(), bgPath.end());
-	mapJson["bgPath"] = bgPathstr;
+	mapJson["bgPath"] = bgPath;
 
 	mapJson["playerSpawnPos"] = { playerSpawnPos.x, playerSpawnPos.y };
 	mapJson["EnemyDino0_SpawnCount"] = EnemyDino0_SpawnCount;

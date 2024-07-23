@@ -237,10 +237,9 @@ void SpriteAnimationRenderer::SaveAnimationAssetToJson(const wchar_t* path)
 
 void SpriteAnimationRenderer::LoadAnimationAssetToJson(const wchar_t* path)
 {
-	std::string strJson = JsonUtiliy::ordered_jsonLoadToFile(path);
-	if (strJson != "")
+	ordered_json objJson;
+	if (JsonUtiliy::ordered_jsonLoadToFile(path, objJson))
 	{
-		ordered_json objJson = ordered_json::parse(strJson);
 		for (auto& item : objJson["Ainmations"])
 		{
 			std::wstring pathWstr;

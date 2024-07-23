@@ -11,10 +11,10 @@ namespace JsonUtiliy
 	void ordered_jsonSaveToFile(const ordered_json& obj, const wchar_t* path);
 
 	/*
-		전달받은 경로에서 json을 문자열로 불러옵니다. 실패시 "" 담아줍니다.
-		odered_json으로 파싱해 사용해야 합니다.
+		전달받은 경로에서 json을 불러옵니다.
+		ouput 매개변수에 파싱해 줍니다. 실패시 함수는 false를 리턴합니다.
 	*/
-	std::string ordered_jsonLoadToFile(const wchar_t* path);
+	bool ordered_jsonLoadToFile(const wchar_t* path, ordered_json& output);
 
 	/*
 		json 객체의 값을 Vector2 값으로 반환합니다.

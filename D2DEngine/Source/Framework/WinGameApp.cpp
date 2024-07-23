@@ -11,6 +11,8 @@
 #include <Core/Component/InputBinding.h>
 #include <Core/Component/Collider/Base/ColliderBase.h>
 
+#include <clocale>
+
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -25,18 +27,19 @@ bool WinGameApp::isMaxsize = false;
 
 void WinGameApp::Initialize(HINSTANCE hinstance)
 {
+	setlocale(LC_ALL, "");
 	if (isDebug)
 	{
 		AllocConsole();
 		FILE* _tempFile;
 		freopen_s(&_tempFile, "CONOUT$", "w", stdout);
 	}
-
 	WinInitialize(hinstance);
 	if (!D2DRenderer::InitDirect2D())
 	{
 		isEnd = true;
 	}
+
 }
 
 void WinGameApp::Uninitialize()
