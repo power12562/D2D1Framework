@@ -8,7 +8,7 @@ class StageEditer : public WorldBase
 	friend class EditerCtrl;
 public:
 	StageEditer();
-	StageEditer(const wchar_t* stagePath);
+	StageEditer(const wchar_t* stagePath, bool isEditer = false);
 	virtual ~StageEditer() override;
 
 	//Json으로 초기화할 값들

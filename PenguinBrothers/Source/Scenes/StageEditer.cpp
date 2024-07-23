@@ -26,9 +26,9 @@ StageEditer::StageEditer()
 	SpawnEditerObj();
 }
 
-StageEditer::StageEditer(const wchar_t* _stagePath)
+StageEditer::StageEditer(const wchar_t* _stagePath, bool _isEditer)
 {
-	isEditer = false;
+	isEditer = _isEditer;
 	stagePath = _stagePath;
 	LoadStageToJson();
 	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
