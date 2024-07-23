@@ -1,5 +1,6 @@
 #include "JsonConvert.h"
 #include "json.hpp"
+#pragma warning(disable : 4333)
 
 using namespace nlohmann;
 

@@ -81,6 +81,11 @@ void EditerCtrl::Update()
 			world->SaveStageToJson();
 		}
 
+		if (Input.IsKeyDown(KeyCode::F10))
+		{
+			world->SaveWorld();
+		}
+
 		if (Input.IsKeyDown(KeyCode::Num1))
 		{
 			SetDino0();

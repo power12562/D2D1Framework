@@ -188,3 +188,12 @@ void StageEditer::SpawnEditerObj()
 
 	WorldManager::AddGameObject<Editer>(L"editer");
 }
+
+void StageEditer::SaveWorld()
+{
+	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
+	if (savePath != L"")
+	{
+		WorldManager::SaveCurrentWorldToJson(savePath.c_str());
+	}
+}

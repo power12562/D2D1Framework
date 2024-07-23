@@ -1,3 +1,5 @@
+
+
 #include "JsonConvert.h"
 
 //     __ _____ _____ _____
@@ -18887,6 +18889,7 @@ class serializer
         }
     }
 
+#pragma warning(disable : 28020)
     /*!
     @brief check whether a string is UTF-8 encoded
 
@@ -20559,9 +20562,14 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         return operator=(JsonConvert::wstring_to_utf8(wstr));
     }
 
-    basic_json& operator=(Vector2& vec) noexcept
+    basic_json& operator=(const wchar_t* wstr) noexcept
     {
-        return operator=({ vec.x, vec.y });
+        return operator=(JsonConvert::wstring_to_utf8(wstr));
+    }
+
+    basic_json& operator=(const Vector2& Vector2) noexcept
+    {
+        return operator=(std::vector{ Vector2.x, Vector2.y });
     }
 
     /// @brief destructor

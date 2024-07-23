@@ -17,6 +17,16 @@ Vector2::Vector2(float x, float y)
 	this->y = (float)y;
 }
 
+Vector2::Vector2(std::vector<float>&& vec)
+{
+	if (vec.size() != 2)
+	{
+		assert(!"요소가 2개인 vector만 Vector2 타입으로 대입 가능 합니다.");
+	}
+	this->x = vec[0];
+	this->y = vec[1];
+}
+
 Vector2::Vector2(const Vector2& other)
 {
 	this->x = other.x;
@@ -54,6 +64,18 @@ Vector2& Vector2::operator=(const Vector2& other)
 }
 
 Vector2& Vector2::operator=(const std::vector<float>& vec)
+{
+	if (vec.size() != 2)
+	{
+		assert(!"요소가 2개인 vector만 Vector2 타입으로 대입 가능 합니다.");
+	}
+	this->x = vec[0];
+	this->y = vec[1];
+
+	return *this;
+}
+
+Vector2& Vector2::operator=(std::vector<float>&& vec)
 {
 	if (vec.size() != 2)
 	{

@@ -1,15 +1,17 @@
 #pragma once
 #include <d2d1.h>
 #include <vector>
+#include <memory>
 
 class Vector2
 {
-	friend class std::vector<float>;
 public:
 	float x;
 	float y;
 
 	explicit Vector2(float x = 0, float y = 0);
+	explicit Vector2(std::vector<float>&& vec);
+
 	virtual ~Vector2() = default;
 
 	Vector2(const Vector2& other);
@@ -22,6 +24,7 @@ public:
 	Vector2& operator=(const Vector2& other);
 	/*Json으로 읽은 position 값을 초기화 하기 위한 대입 연산자.*/
 	Vector2& operator=(const std::vector<float>& vec);
+	Vector2& operator=(std::vector<float>&& vec);
 
 	Vector2 operator*(const float scala) const;
 	Vector2 operator/(const float scala) const;

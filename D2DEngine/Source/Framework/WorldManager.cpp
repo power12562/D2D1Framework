@@ -1,5 +1,8 @@
 #include "WorldManager.h"
 
+#include <Vector/Vector2.h>
+#include <Utility/JsonUtility.h>
+
 #include "Core/Scene/WorldBase.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
@@ -11,6 +14,13 @@
 #include <vector>
 #include <cassert>
 #include <cwctype>
+#include <iostream>
+#include <ios>
+#include <istream>
+#include <fstream>
+#include <sstream>
+#include <iosfwd>
+#include <filesystem>
 
 WorldBase* WorldManager::currentWorld = nullptr;
 WorldBase* WorldManager::nextWorld = nullptr;
@@ -245,7 +255,76 @@ void WorldManager::LoadNextWorld()
 	}
 }			
 
-void WorldManager::SaveWorldToJson(const wchar_t* path)
+void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 {
+	std::wstring savePath{path};
+	if (std::wstring::npos == savePath.rfind(L".json"))
+	{
+		savePath += L".json";
+	}
+
+	ordered_json outputJson;
+	for (auto obj : currentWorld->gameObjectList)
+	{
+		ordered_json objJson;
+
+		//객체 타입
+		std::string objType = typeid(*obj).name();
+		objType = objType.substr(6, objType.size());
+		objJson["Type"] = objType;
+
+		//이름
+		objJson["name"] = obj->name; 
+
+		//Transform 컴포넌트 정보
+		ordered_json transformJson;
+		transformJson["position"] = obj->transform.position;
+		transformJson["scale"] = obj->transform.scale;
+		transformJson["rotation"] = float(obj->transform.rotation);
+		objJson["Transform"].push_back(transformJson);
+
+
+		//최종 저장
+		outputJson[objType].push_back(objJson);
+
+
+		//읽기 테스트
+		for (auto& objData : outputJson[objType])
+		{
+			try
+			{
+				std::cout << "type : " << objData["Type"].get<std::string>() << std::endl;
+				std::wcout << L"name : " << objData["name"].get<std::wstring>() << std::endl;
+				for (auto& transform : objData["Transform"])
+				{
+					std::vector<float> vec = transform["position"].get<JsonUtiliy::Vector2>();
+					Vector2 pos = Vector2{ vec[0], vec[1] };
+					printf("position { %f, %f }\n", pos.x, pos.y);
+
+					vec = transform["scale"].get<JsonUtiliy::Vector2>();
+					Vector2 scale = Vector2{ vec[0], vec[1] };
+					printf("scale { %f, %f }\n", scale.x, scale.y);
+
+					float rot = transform["rotation"].get<float>();
+					printf("rotation { %f }\n", rot);
+				}
+			}
+			catch (const std::exception& ex)
+			{
+				std::cout << ex.what() << std::endl;
+			}
+		}
+	}
+
+
+	std::ofstream ofs(savePath);
+	ofs << outputJson.dump(2);
+	ofs.close();
+}
+
+void WorldManager::LoadWorldToJson(const wchar_t* path)
+{
+
+	
 
 }

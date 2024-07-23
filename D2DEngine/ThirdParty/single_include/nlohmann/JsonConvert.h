@@ -2,7 +2,6 @@
 #include <stdexcept>
 #include <string>
 #include <Vector/Vector2.h>
-#pragma warning(disable : 4333)
 	
 namespace JsonConvert
 {
