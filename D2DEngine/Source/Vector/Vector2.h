@@ -1,8 +1,10 @@
 #pragma once
 #include <d2d1.h>
+#include <vector>
 
 class Vector2
 {
+	friend class std::vector<float>;
 public:
 	float x;
 	float y;
@@ -18,6 +20,9 @@ public:
 	Vector2 Normalized();
 
 	Vector2& operator=(const Vector2& other);
+	/*Json으로 읽은 position 값을 초기화 하기 위한 대입 연산자.*/
+	Vector2& operator=(const std::vector<float>& vec);
+
 	Vector2 operator*(const float scala) const;
 	Vector2 operator/(const float scala) const;
 	Vector2& operator*=(const float scala);
@@ -58,4 +63,5 @@ public:
 
 	/** Vertex 회전 위치 리턴*/
 	static Vector2 GetRotatedPoint(const Vector2& point, const float angle, const Vector2& center);
+	
 };

@@ -56,7 +56,7 @@ void StageEditer::LoadStageToJson()
 
 			bgPath = stageJson["bgPath"].get<std::wstring>();
 				   
-			playerSpawnPos = JsonUtiliy::JsonGetVector2(stageJson["playerSpawnPos"]);
+			playerSpawnPos = stageJson["playerSpawnPos"].get<JsonUtiliy::Vector2>();
 
 			EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; //EnemyDino0 오브젝트 소환 개수
 			EnemyDino0_SpawnPos.resize(EnemyDino0_SpawnCount);
@@ -64,7 +64,7 @@ void StageEditer::LoadStageToJson()
 			{
 				std::string key("EnemyDino0_SpawnPos");
 				key += std::to_string(i);
-				EnemyDino0_SpawnPos[i] = JsonUtiliy::JsonGetVector2(stageJson[key]);
+				EnemyDino0_SpawnPos[i] = stageJson[key].get<JsonUtiliy::Vector2>();
 			};
 			GroundBox_SpawnCount = stageJson["GroundBox_SpawnCount"];
 			GroundBox_SpawnPos.resize(GroundBox_SpawnCount);
@@ -72,14 +72,14 @@ void StageEditer::LoadStageToJson()
 			{
 				std::string key("GroundBox_SpawnPos");
 				key += std::to_string(i);
-				GroundBox_SpawnPos[i] = JsonUtiliy::JsonGetVector2(stageJson[key]);
+				GroundBox_SpawnPos[i] = stageJson[key].get<JsonUtiliy::Vector2>();
 			};
 			GroundBox_Size.resize(GroundBox_SpawnCount);
 			for (int i = 0; i < GroundBox_SpawnCount; i++)
 			{
 				std::string key("GroundBox_Size");
 				key += std::to_string(i);
-				GroundBox_Size[i] = JsonUtiliy::JsonGetVector2(stageJson[key]);
+				GroundBox_Size[i] = stageJson[key].get<JsonUtiliy::Vector2>();
 			};
 		}
 	}
@@ -142,13 +142,14 @@ void StageEditer::SaveStageToJson()
 
 	mapJson["bgPath"] = bgPath;
 
-	mapJson["playerSpawnPos"] = { playerSpawnPos.x, playerSpawnPos.y };
+	mapJson["playerSpawnPos"] = playerSpawnPos;
 	mapJson["EnemyDino0_SpawnCount"] = EnemyDino0_SpawnCount;
+
 	for (int i = 0; i < EnemyDino0_SpawnCount; i++)
 	{
 		std::string key("EnemyDino0_SpawnPos");
 		key += std::to_string(i);
-		mapJson[key] = { EnemyDino0_SpawnPos[i].x, EnemyDino0_SpawnPos[i].y };
+		mapJson[key] = EnemyDino0_SpawnPos[i];
 	}
 
 	mapJson["GroundBox_SpawnCount"] = GroundBox_SpawnCount;
@@ -156,13 +157,13 @@ void StageEditer::SaveStageToJson()
 	{
 		std::string key("GroundBox_SpawnPos");
 		key += std::to_string(i);
-		mapJson[key] = { GroundBox_SpawnPos[i].x, GroundBox_SpawnPos[i].y };
+		mapJson[key] = GroundBox_SpawnPos[i];
 	};
 	for (int i = 0; i < GroundBox_SpawnCount; i++)
 	{
 		std::string key("GroundBox_Size");
 		key += std::to_string(i);
-		mapJson[key] = { GroundBox_Size[i].x, GroundBox_Size[i].y };
+		mapJson[key] = GroundBox_Size[i];
 	};
 
 

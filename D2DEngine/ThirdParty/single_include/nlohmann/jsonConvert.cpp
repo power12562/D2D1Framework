@@ -1,4 +1,7 @@
 #include "JsonConvert.h"
+#include "json.hpp"
+
+using namespace nlohmann;
 
 std::string JsonConvert::wstring_to_utf8(const std::wstring& wstr)
 {
@@ -81,3 +84,4 @@ std::wstring JsonConvert::utf8_to_wstring(const std::string& str)
 
     return result;
 }
+

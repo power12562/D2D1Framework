@@ -34,11 +34,5 @@ namespace JsonUtiliy
         ifs.close();
         return true;
     }
-
-    Vector2 JsonGetVector2(const json_abi_v3_11_3::ordered_json& jsonValue)
-    {
-        std::vector<float> points = jsonValue.get<std::vector<float>>();
-        return Vector2{ points[0], points[1] };
-    }
 };
 

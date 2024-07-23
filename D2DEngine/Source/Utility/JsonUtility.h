@@ -7,6 +7,9 @@ class AnimationClip;
 
 namespace JsonUtiliy
 {
+	/*json 으로 Vector2를 저장하면 std::vector<float>로 저장됩니다.*/
+	using Vector2 = std::vector<float>;
+
 	/** 전달받은 ordered_json 객체를 경로에 저장합니다.*/
 	void ordered_jsonSaveToFile(const ordered_json& obj, const wchar_t* path);
 
@@ -16,9 +19,6 @@ namespace JsonUtiliy
 	*/
 	bool ordered_jsonLoadToFile(const wchar_t* path, ordered_json& output);
 
-	/*
-		json 객체의 값을 Vector2 값으로 반환합니다.
-	*/
-	Vector2 JsonGetVector2(const json_abi_v3_11_3::ordered_json& jsonValue);
+
 };
 

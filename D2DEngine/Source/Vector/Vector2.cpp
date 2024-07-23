@@ -3,7 +3,7 @@
 #include "Framework/WinGameApp.h"
 #include "Math/Mathf.h"
 
-#include <math.h>
+#include <assert.h>
 
 const Vector2 Vector2::Zero{ 0,0 };
 const Vector2 Vector2::Right{ 1,0 };
@@ -49,6 +49,18 @@ Vector2& Vector2::operator=(const Vector2& other)
 {
 	this->x = other.x;
 	this->y = other.y;
+
+	return *this;
+}
+
+Vector2& Vector2::operator=(const std::vector<float>& vec)
+{
+	if (vec.size() != 2)
+	{
+		assert(!"요소가 2개인 vector만 Vector2 타입으로 대입 가능 합니다.");
+	}
+	this->x = vec[0];
+	this->y = vec[1];
 
 	return *this;
 }
