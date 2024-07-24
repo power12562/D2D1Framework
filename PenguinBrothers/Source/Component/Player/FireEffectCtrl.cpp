@@ -7,6 +7,7 @@
 
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/FireEffect.h"
+#include "Source/Component/GameManagerCtrl.h"
 
 int FireEffectCtrl::rightCount = 0;
 int FireEffectCtrl::lefttCount = 0;
@@ -111,6 +112,11 @@ void FireEffectCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* ot
 	if (otherCollider->gameObject.tag == L"Enemy")
 	{
 		otherCollider->gameObject.enable = false;
+		GameManagerCtrl::EnemyCount--;
+		if (GameManagerCtrl::EnemyCount == 0)
+		{
+			gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Win");
+		}
 	}
 }
 

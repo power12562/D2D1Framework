@@ -39,6 +39,11 @@
       "clipName": "Spawn",
       "clipPath": "Resource/Player/Spawn/Spawn.txt",
       "imagePath": "Resource/Player/Spawn/Spawn.png"
+    },
+    {
+      "clipName": "Win",
+      "clipPath": "Resource/Player/Win/Win.txt",
+      "imagePath": "Resource/Player/Win/Win.png"
     }
   ]
 }

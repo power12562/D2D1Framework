@@ -15,6 +15,8 @@
 #include <Source/GameObject/Enemy/EnemyDino0Attack.h>
 #include <Source/GameObject/Enemy/EnemyDino0.h>
 
+#include <Source/Component/GameManagerCtrl.h>
+
 
 EnemyDino0Ctrl::EnemyDino0Ctrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
@@ -43,6 +45,15 @@ void EnemyDino0Ctrl::SpawnFire()
 
 void EnemyDino0Ctrl::Start()
 {	
+	if (GameManagerCtrl::EnemyCount == -1)
+	{
+		GameManagerCtrl::EnemyCount = 1;
+	}
+	else
+	{
+		GameManagerCtrl::EnemyCount++;
+	}
+
 #ifdef _DEBUG
 	GetComponent<SpriteCollider2D>().isDrawCollider = true;
 #endif // _DEBUG
@@ -71,8 +82,6 @@ void EnemyDino0Ctrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* 
 {
 	if (otherCollider->gameObject.tag == L"Player")
 	{
-		//fsm->SetState(L"Idle");
- 		//GetComponent<Rigidbody2D>().AddForce((myCollider->transform.position - otherCollider->transform.position).Normalized() * 100.f);
 
 	}
 

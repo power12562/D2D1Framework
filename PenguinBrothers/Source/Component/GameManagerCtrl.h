@@ -8,6 +8,9 @@ public:
 	virtual ~GameManagerCtrl() override;
 
 	static int CurrentStage;
+	static int EnemyCount;
+
+	void LoadNextStage();
 
 protected:
 	virtual void Start() override;

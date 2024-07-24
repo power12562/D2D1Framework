@@ -9,6 +9,7 @@
 
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/PlayerBomb.h"
+#include "Source/Component/GameManagerCtrl.h"
 
 #include <Framework/GameObjectFactory.h>
 REGISTER_GAMEOBJECFT(Player)
@@ -53,6 +54,7 @@ Player::Player()
 	fsm.CreateState<Attack>(L"Attack");
 	fsm.CreateState<Dead>(L"Dead");
 	fsm.CreateState<Jump>(L"Jump");
+	fsm.CreateState<Win>(L"Win");
 
 	fsm.SetState(L"Spawn");
 }
@@ -285,5 +287,20 @@ void Jump::Update()
 	if (!playerCtrl->isJump)
 	{
 		owner.SetState(L"Idle");
+	}
+}
+
+void Win::Enter()
+{
+	owner.Transition = false;
+	owner.GetComponent<Rigidbody2D>().isKinematic = true;
+	spriteAnimation->SetAnimation(L"Win");
+}
+
+void Win::Update()
+{
+	if(spriteAnimation->CurrentClipEnd)
+	{
+		owner.gameObject.Find(L"GameManager")->GetComponent<GameManagerCtrl>().LoadNextStage();
 	}
 }
