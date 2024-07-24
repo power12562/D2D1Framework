@@ -111,6 +111,12 @@ inline void WorldManager::LoadWorld()
 	{
 		delete nextWorld;
 		nextWorld = nullptr;
+		
+		while (!addQueueList.empty())
+		{
+			addQueueList.pop();
+		}
+		delNameSetList.clear();
 	}
 	nextWorld = new T;
 }

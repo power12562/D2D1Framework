@@ -256,57 +256,53 @@ void WorldManager::LoadNextWorld()
 	}
 }			
 
+namespace JSON_KEY
+{
+	constexpr const char* TypeListKey = "GameObjectTypes"; //타입 리스트를 저장하는 키
+};
+
 void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 {
+	using namespace JSON_KEY;
+
 	std::wstring savePath{path};
 	if (std::wstring::npos == savePath.rfind(L".json"))
 	{
 		savePath += L".json";
 	}
 
-	ordered_json outputJson;
-	std::unordered_set<std::string> typeDamp;
+	ordered_json worldJson;
+	std::unordered_set<std::string> typeSet;
+	worldJson[TypeListKey].push_back("");
 	for (auto obj : currentWorld->gameObjectList)
 	{
 		ordered_json objJson;
 
-		//객체 타입
+		//객체 타입 저장
 		std::string objType = typeid(*obj).name();
 		objType = objType.substr(6, objType.size());
-		typeDamp.insert(objType);
+		typeSet.insert(objType);   //중복 없이
 
-		//이름
-		objJson["name"] = obj->name; 
-
-		//Transform 컴포넌트 정보
-		ordered_json transformJson;
-		transformJson["position"] = obj->transform.position;
-		transformJson["localPosition"] = obj->transform.localPosition;
-
-		transformJson["scale"] = obj->transform.scale;
-		transformJson["localScale"] = obj->transform.localScale;
-
-		transformJson["rotation"] = float(obj->transform.rotation);
-		transformJson["localRotation"] = float(obj->transform.localRotation);
-
-		objJson["Transform"].push_back(transformJson);
-
-
-		//최종 저장
-		outputJson[objType].push_back(objJson);
+		//오브젝트 저장
+		obj->SerializedJson(objJson);
+		worldJson[objType].push_back(objJson);
 	}
 
-	for (auto& type : typeDamp)
+	for (auto& type : typeSet)
 	{
-		outputJson["GameObjectTypeList"].push_back(type);
+		worldJson[TypeListKey].push_back(type);
 	}
+	worldJson[TypeListKey].erase(worldJson[TypeListKey].begin());
+
 	std::ofstream ofs(savePath);
-	ofs << outputJson.dump(2);
+	ofs << worldJson.dump(2);
 	ofs.close();
 }
 
 void WorldManager::LoadWorldToJson(const wchar_t* path)
 {
+	using namespace JSON_KEY;
+
 	ordered_json worldJson;
 
 	if (JsonUtiliy::ordered_jsonLoadToFile(path, worldJson))
@@ -314,31 +310,16 @@ void WorldManager::LoadWorldToJson(const wchar_t* path)
 		WorldManager::LoadWorld<WorldBase>();
 		try
 		{
-			for (auto& objType : worldJson["GameObjectTypeList"])
+			for (auto& objType : worldJson[TypeListKey])
 			{
-
-				std::string type = objType.get<std::string>();
-				for (auto& objData : worldJson[type])
+				std::string typeKey = objType.get<std::string>();
+				for (auto& objData : worldJson[typeKey])
 				{
-					GameObjectBase* object = GameObjectFactory::CreateGameObject(type, objData["name"].get<std::wstring>());
+					GameObjectBase* object = GameObjectFactory::CreateGameObject(typeKey, objData["name"].get<std::wstring>());
 
 					if (object)
 					{
-						for (auto& transform : objData["Transform"])
-						{
-							std::vector vec = transform["position"].get<JsonUtiliy::Vector2>();
-							object->transform.position = Vector2{ vec[0], vec[1] };
-							vec = transform["localPosition"].get<JsonUtiliy::Vector2>();
-							object->transform.localPosition = Vector2{ vec[0], vec[1] };
-
-							vec = transform["scale"].get<JsonUtiliy::Vector2>();
-							object->transform.scale = Vector2{ vec[0], vec[1] };
-							vec = transform["localScale"].get<JsonUtiliy::Vector2>();
-							object->transform.localScale = Vector2{ vec[0], vec[1] };
-
-							object->transform.rotation = transform["rotation"].get<float>();
-							object->transform.localRotation = transform["localRotation"].get<float>();
-						}
+						object->DeSerializedJson(objData);
 					}
 				}
 

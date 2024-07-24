@@ -8,7 +8,7 @@
 
 StageScene::StageScene() : StageEditer(L"Resource/Stage/Stage1.json")
 {
-
+	
 
 }
 

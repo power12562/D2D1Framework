@@ -138,6 +138,40 @@ void Transform::UpdateWorldMatrix()
 	}
 }
 
+void Transform::SerializedJson(ordered_json& jsonObj)
+{
+	ordered_json transformJson;
+	transformJson["position"] = gameObject.transform.position;
+	transformJson["localPosition"] = gameObject.transform.localPosition;
+
+	transformJson["scale"] = gameObject.transform.scale;
+	transformJson["localScale"] = gameObject.transform.localScale;
+
+	transformJson["rotation"] = float(gameObject.transform.rotation);
+	transformJson["localRotation"] = float(gameObject.transform.localRotation);
+
+	jsonObj["Transform"].push_back(transformJson);
+}
+
+void Transform::DeSerializedJson(ordered_json& jsonObj)
+{
+	for (auto& transform : jsonObj["Transform"])
+	{
+		std::vector vec = transform["position"].get<JsonUtiliy::Vector2>();
+		gameObject.transform.position = Vector2{ vec[0], vec[1] };
+		vec = transform["localPosition"].get<JsonUtiliy::Vector2>();
+		gameObject.transform.localPosition = Vector2{ vec[0], vec[1] };
+
+		vec = transform["scale"].get<JsonUtiliy::Vector2>();
+		gameObject.transform.scale = Vector2{ vec[0], vec[1] };
+		vec = transform["localScale"].get<JsonUtiliy::Vector2>();
+		gameObject.transform.localScale = Vector2{ vec[0], vec[1] };
+
+		gameObject.transform.rotation = transform["rotation"].get<float>();
+		gameObject.transform.localRotation = transform["localRotation"].get<float>();
+	}
+}
+
 void Transform::SetParent(Transform& parent)
 {
 #pragma warning(disable:6011)

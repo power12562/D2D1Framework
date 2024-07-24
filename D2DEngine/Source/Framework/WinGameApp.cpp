@@ -66,6 +66,7 @@ void WinGameApp::Run()
 		WorldManager::LoadWorld<WorldBase>();
 	}
 	WorldManager::LoadNextWorld();
+	
 	Time.UpdateTime();
 	while (!isEnd)
 	{

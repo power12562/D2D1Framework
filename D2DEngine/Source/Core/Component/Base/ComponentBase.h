@@ -1,5 +1,6 @@
 #pragma once
 #include <Vector/Vector2.h>
+#include <Utility/JsonUtility.h>
 
 class GameObjectBase;
 
@@ -41,6 +42,11 @@ protected:
 	virtual void Update();
 	virtual void LateUpdate();
 	virtual void Render();	
+
+	/** Json 직렬화화가 필요한 내용을 오버라이딩 해서 작성합니다.*/
+	virtual void SerializedJson(ordered_json& jsonObj);
+	/** Json 역직렬화가 필요한 내용을 오버라이딩 해서 작성합니다.*/
+	virtual void DeSerializedJson(ordered_json& jsonObj);
 };
 
 

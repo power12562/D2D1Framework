@@ -1,6 +1,7 @@
 #pragma once
 #include <Bounds/Bounds.h>
 #include <Utility/Ray.h>
+#include <Utility/JsonUtility.h>
 
 #include <type_traits>
 #include <typeinfo>
@@ -111,6 +112,11 @@ protected:
 private:
 	void PushColliderNotipyTable(ComponentBase* component);
 	void EraseColliderNotipyTable(ComponentBase* component);
+
+	/** Json 직렬화 */
+	void SerializedJson(ordered_json& jsonObj);
+	/** Json 역직렬화 */
+	void DeSerializedJson(ordered_json& jsonObj);
 };
 
 template<typename T> inline T& GameObjectBase::AddComponent()

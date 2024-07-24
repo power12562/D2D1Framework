@@ -13,7 +13,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    WorldManager::LoadWorld<StageEditer>();
+    WorldManager::LoadWorld<StageScene>();    
+    WorldManager::LoadWorldToJson(L"D:\\6th_KSW\\GitHubLocal\\D2D1Framework\\PenguinBrothers\\bin\\Resource\\Stage\\111.json");
     app.Run();
     app.Uninitialize();
 }

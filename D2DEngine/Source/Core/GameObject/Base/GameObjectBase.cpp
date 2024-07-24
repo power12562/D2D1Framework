@@ -185,6 +185,44 @@ void GameObjectBase::EraseColliderNotipyTable(ComponentBase* component)
 	}
 }
 
+void GameObjectBase::SerializedJson(ordered_json& jsonObj)
+{
+	jsonObj["name"] = name;
+
+	pTransform->SerializedJson(jsonObj);
+
+	if(pRigidbody)
+		pRigidbody->SerializedJson(jsonObj);
+
+	for (auto& com : componentsList)
+	{
+		com->SerializedJson(jsonObj);
+	}
+	for (auto& coll : colliderList)
+	{
+		coll->SerializedJson(jsonObj);
+	}
+}
+
+void GameObjectBase::DeSerializedJson(ordered_json& jsonObj)
+{
+	objName = jsonObj["name"].get<std::wstring>().c_str();
+
+	pTransform->DeSerializedJson(jsonObj);
+
+	if (pRigidbody)
+		pRigidbody->DeSerializedJson(jsonObj);
+
+	for (auto& com : componentsList)
+	{
+		com->DeSerializedJson(jsonObj);
+	}
+	for (auto& coll : colliderList)
+	{
+		coll->DeSerializedJson(jsonObj);
+	}
+}
+
 template<>
 Transform& GameObjectBase::GetComponent()
 {

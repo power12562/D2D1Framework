@@ -37,5 +37,15 @@ void ComponentBase::Render()
 
 }
 
+void ComponentBase::SerializedJson(ordered_json& jsonObj)
+{
+
+}
+
+void ComponentBase::DeSerializedJson(ordered_json& jsonObj)
+{
+
+}
+
 
 
