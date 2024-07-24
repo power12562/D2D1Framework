@@ -1,41 +1,14 @@
 {
   "GameObjectTypes": [
     "MainCamera",
-    "EnemyDino0",
     "Ground",
     "GameManager",
+    "EnemyDino0",
     "Player"
   ],
   "MainCamera": [
     {
       "name": "MainCamera",
-      "Transform": [
-        {
-          "position": [
-            0.0,
-            0.0
-          ],
-          "localPosition": [
-            0.0,
-            0.0
-          ],
-          "scale": [
-            1.0,
-            1.0
-          ],
-          "localScale": [
-            1.0,
-            1.0
-          ],
-          "rotation": 0.0,
-          "localRotation": 0.0
-        }
-      ]
-    }
-  ],
-  "GameObjectBase": [
-    {
-      "name": "Background",
       "Transform": [
         {
           "position": [
@@ -189,6 +162,10 @@
           "ColliderSize": [
             700.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -242,6 +219,10 @@
           "ColliderSize": [
             50.0,
             500.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -295,6 +276,10 @@
           "ColliderSize": [
             50.0,
             100.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -348,6 +333,10 @@
           "ColliderSize": [
             50.0,
             200.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -401,6 +390,10 @@
           "ColliderSize": [
             500.0,
             100.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -454,6 +447,10 @@
           "ColliderSize": [
             100.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -507,6 +504,10 @@
           "ColliderSize": [
             50.0,
             100.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -560,6 +561,10 @@
           "ColliderSize": [
             100.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -613,6 +618,10 @@
           "ColliderSize": [
             50.0,
             100.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -666,6 +675,10 @@
           "ColliderSize": [
             100.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -719,6 +732,10 @@
           "ColliderSize": [
             100.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -735,33 +752,6 @@
           ],
           "localPosition": [
             0.0,
-            0.0
-          ],
-          "scale": [
-            1.0,
-            1.0
-          ],
-          "localScale": [
-            1.0,
-            1.0
-          ],
-          "rotation": 0.0,
-          "localRotation": 0.0
-        }
-      ]
-    }
-  ],
-  "GameObjectUI": [
-    {
-      "name": "stagePath",
-      "Transform": [
-        {
-          "position": [
-            150.0,
-            0.0
-          ],
-          "localPosition": [
-            150.0,
             0.0
           ],
           "scale": [
@@ -835,6 +825,10 @@
           "ColliderSize": [
             80.0,
             80.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]

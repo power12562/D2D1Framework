@@ -1,42 +1,14 @@
 {
   "GameObjectTypes": [
     "MainCamera",
-    "EnemyDino0",
     "Ground",
     "GameManager",
-    "Editer",
+    "EnemyDino0",
     "Player"
   ],
   "MainCamera": [
     {
       "name": "MainCamera",
-      "Transform": [
-        {
-          "position": [
-            0.0,
-            0.0
-          ],
-          "localPosition": [
-            0.0,
-            0.0
-          ],
-          "scale": [
-            1.0,
-            1.0
-          ],
-          "localScale": [
-            1.0,
-            1.0
-          ],
-          "rotation": 0.0,
-          "localRotation": 0.0
-        }
-      ]
-    }
-  ],
-  "GameObjectBase": [
-    {
-      "name": "Background",
       "Transform": [
         {
           "position": [
@@ -165,6 +137,45 @@
       ]
     }
   ],
+  "Player": [
+    {
+      "name": "Player",
+      "Transform": [
+        {
+          "position": [
+            -498.0,
+            -210.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            4.0,
+            4.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            80.0,
+            80.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
   "Ground": [
     {
       "name": "Ground",
@@ -215,6 +226,10 @@
           "ColliderSize": [
             700.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -268,6 +283,10 @@
           "ColliderSize": [
             450.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -321,6 +340,10 @@
           "ColliderSize": [
             450.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -374,6 +397,10 @@
           "ColliderSize": [
             250.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -427,6 +454,10 @@
           "ColliderSize": [
             250.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -480,6 +511,10 @@
           "ColliderSize": [
             700.0,
             50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -533,6 +568,10 @@
           "ColliderSize": [
             50.0,
             700.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -586,6 +625,10 @@
           "ColliderSize": [
             50.0,
             700.0
+          ],
+          "Center": [
+            0.0,
+            0.0
           ]
         }
       ]
@@ -618,22 +661,22 @@
       ]
     }
   ],
-  "Player": [
+  "Editer": [
     {
-      "name": "Player",
+      "name": "editer",
       "Transform": [
         {
           "position": [
-            -498.0,
-            -210.0
+            0.0,
+            0.0
           ],
           "localPosition": [
             0.0,
             0.0
           ],
           "scale": [
-            4.0,
-            4.0
+            1.0,
+            1.0
           ],
           "localScale": [
             1.0,
@@ -641,14 +684,6 @@
           ],
           "rotation": 0.0,
           "localRotation": 0.0
-        }
-      ],
-      "BoxCollider2D": [
-        {
-          "ColliderSize": [
-            80.0,
-            80.0
-          ]
         }
       ]
     }

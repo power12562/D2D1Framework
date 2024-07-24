@@ -105,6 +105,9 @@ void Spawn::Exit()
 void Idle::Enter()
 {
 	spriteAnimation->SetAnimation(L"Idle", true);
+	BoxCollider2D& coll = owner.GetComponent<BoxCollider2D>();
+	coll.ColliderSize = { 80.0, 80.0 };
+	coll.Center = { 0,0 };
 }
 
 void Idle::Update()
@@ -186,6 +189,9 @@ void Duck::Enter()
 {
 	movement->SetSpeed(0.f);
 	spriteAnimation->SetAnimation(L"Duck");
+	BoxCollider2D& coll = owner.GetComponent<BoxCollider2D>();
+	coll.ColliderSize = { 80, 40 };
+	coll.Center = { 0, -20 };
 }
 
 void Duck::Update()
@@ -212,6 +218,11 @@ void Slide::Update()
 {
 	if (spriteAnimation->CurrentClipEnd)
 	{
+		if (Input->IsKey("Duck") && !playerCtrl->isJump)
+		{
+			owner.SetState(L"Duck");
+			return;
+		}
 		owner.SetState(L"Idle");
 		spriteAnimation->SetAnimation(L"Idle");
 	}

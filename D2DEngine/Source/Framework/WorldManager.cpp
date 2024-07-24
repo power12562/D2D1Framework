@@ -7,6 +7,8 @@
 #include "Core/Scene/WorldBase.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
+#include <Core/GameObject/Base/GameObjectCamera.h>
+#include <Core/GameObject/Base/GameObjectUI.h>
 
 #include "Core/Component/Camera.h"
 #include <Core/Component/Collider/Base/ColliderBase.h>
@@ -278,8 +280,15 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 	{
 		ordered_json objJson;
 
-		//객체 타입 저장
+		
 		std::string objType = typeid(*obj).name();
+		if (objType == typeid(GameObjectBase).name() ||
+			objType == typeid(GameObjectCamera).name() ||
+			objType == typeid(GameObjectUI).name())
+		{
+			continue; //Base클래스는 저장 x
+		}
+		//객체 타입 저장
 		objType = objType.substr(6, objType.size());
 		typeSet.insert(objType);   //중복 없이
 

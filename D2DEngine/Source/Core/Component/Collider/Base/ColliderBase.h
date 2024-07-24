@@ -56,6 +56,8 @@ public:
 	bool isTrigger = false; //¿À¹ö·¦ ¿©ºÎ (true = ¿À¹ö·¦)
 	inline Type GetType() const { return type; }
 
+	Vector2 Center{ 0, 0 };
+
 	virtual float GetTop() = 0;
 	virtual float GetBottom() = 0;
 	virtual float GetLeft() = 0;

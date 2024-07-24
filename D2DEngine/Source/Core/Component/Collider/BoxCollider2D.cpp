@@ -20,7 +20,7 @@ BoxCollider2D::~BoxCollider2D()
 
 void BoxCollider2D::Update()
 {
-	bounds.center = gameObject.transform.position;
+	bounds.center = gameObject.transform.position + Center;
 	bounds.size = ColliderSize;
 	bounds.extents = bounds.size / 2.f;
 	bounds.leftTop.x = bounds.center.x - bounds.extents.x;
@@ -69,6 +69,7 @@ void BoxCollider2D::SerializedJson(ordered_json& jsonObj)
 {
 	ordered_json json;
 	json["ColliderSize"] = ColliderSize;
+	json["Center"] = Center;
 
 
 	jsonObj["BoxCollider2D"].push_back(json);
@@ -80,5 +81,6 @@ void BoxCollider2D::DeSerializedJson(ordered_json& jsonObj)
 	for (auto& dataJson : jsonObj["BoxCollider2D"]) 
 	{
 		ColliderSize = dataJson["ColliderSize"].get<JsonUtility::Vector2>();
+		Center = dataJson["Center"].get<JsonUtility::Vector2>();
 	}
 }
