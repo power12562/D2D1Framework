@@ -4,8 +4,9 @@
 #include <string>
 #include <cassert>
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
+#include <Utility/Debug.h>
 
-namespace JsonUtiliy
+namespace JsonUtility
 {
     void ordered_jsonSaveToFile(const nlohmann::ordered_json& obj, const wchar_t* path)
     {
@@ -25,8 +26,7 @@ namespace JsonUtiliy
         std::ifstream ifs(path, std::ios::in);
         if (!ifs.is_open())
         {
-            printf("jsonLoad, File not found %ws", path);
-            assert(false);
+            DEBUG_PRINT("jsonLoad, File not found %ws\n", path);
             return false;
         }
         std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());

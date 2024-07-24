@@ -299,13 +299,13 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 	ofs.close();
 }
 
-void WorldManager::LoadWorldToJson(const wchar_t* path)
+bool WorldManager::LoadWorldToJson(const wchar_t* path)
 {
 	using namespace JSON_KEY;
 
 	ordered_json worldJson;
 
-	if (JsonUtiliy::ordered_jsonLoadToFile(path, worldJson))
+	if (JsonUtility::ordered_jsonLoadToFile(path, worldJson))
 	{
 		WorldManager::LoadWorld<WorldBase>();
 		try
@@ -321,14 +321,19 @@ void WorldManager::LoadWorldToJson(const wchar_t* path)
 					{
 						object->DeSerializedJson(objData);
 					}
-				}
-
+				}			
 			}
+			return true;
 		}
 		catch (const std::exception& ex)
 		{
 			std::cout << ex.what() << std::endl;
+			return false;
 		}
+	}
+	else
+	{
+		return false;
 	}
 }
 

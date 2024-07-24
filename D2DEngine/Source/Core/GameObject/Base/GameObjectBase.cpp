@@ -206,6 +206,7 @@ void GameObjectBase::SerializedJson(ordered_json& jsonObj)
 
 void GameObjectBase::DeSerializedJson(ordered_json& jsonObj)
 {
+	//오브젝트의 생성자에서 추가 안한 컴포넌트는 로드가 안되는 문제가 있다.
 	objName = jsonObj["name"].get<std::wstring>().c_str();
 
 	pTransform->DeSerializedJson(jsonObj);

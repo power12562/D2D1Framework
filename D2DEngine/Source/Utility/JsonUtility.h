@@ -5,7 +5,7 @@
 using namespace nlohmann;
 class AnimationClip;
 
-namespace JsonUtiliy
+namespace JsonUtility
 {
 	/*json 으로 Vector2를 저장하면 std::vector<float>로 저장됩니다.*/
 	using Vector2 = std::vector<float>;

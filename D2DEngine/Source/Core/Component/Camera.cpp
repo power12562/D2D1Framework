@@ -1,8 +1,11 @@
 #include "Core/Component/Camera.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
+#include <Core/GameObject/MainCamera.h>
 
 #include "Framework/WinGameApp.h"
+#include <Framework/WorldManager.h>
+
 
 
 Camera* Camera::mainCam = nullptr;
@@ -19,6 +22,10 @@ Camera::Camera(GameObjectBase& gameObject) : ComponentBase(gameObject)
 
 Camera::~Camera()
 {
+	if (Camera::mainCam == this)
+	{
+		WorldManager::AddGameObject<MainCamera>(L"MainCamera");
+	}
 	instanceList.erase(instanceIter);
 }
 

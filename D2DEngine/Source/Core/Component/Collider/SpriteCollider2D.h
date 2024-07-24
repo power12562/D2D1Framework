@@ -13,5 +13,7 @@ public:
 
 private:
 	using BoxCollider2D::ColliderSize;
+	virtual void SerializedJson(ordered_json& jsonObj) override {}
+	virtual void DeSerializedJson(ordered_json& jsonObj) override {}
 };
 

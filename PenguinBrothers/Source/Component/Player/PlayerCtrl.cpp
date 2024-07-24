@@ -40,8 +40,10 @@ void PlayerCtrl::Start()
 
 void PlayerCtrl::Update()
 {
-	//printf("isJump = %s\n", (isJump) ? "true" : "false");
-
+	if (transform.position.y < -450)
+	{
+		fsm->SetState(L"Dead");
+	}
 
 }
 

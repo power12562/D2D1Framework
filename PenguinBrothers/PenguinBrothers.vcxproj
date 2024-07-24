@@ -148,11 +148,13 @@
     <ClCompile Include="Source\Component\EditerCtrl.cpp" />
     <ClCompile Include="Source\Component\Enemy\EnemyDino0AttackCtrl.cpp" />
     <ClCompile Include="Source\Component\Enemy\EnemyDino0Ctrl.cpp" />
+    <ClCompile Include="Source\Component\GameManagerCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\BombEffectCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\FireEffectCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\PlayerBombCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\PlayerCtrl.cpp" />
     <ClCompile Include="Source\Component\StageObjectListDebug_Ctrl.cpp" />
+    <ClCompile Include="Source\GameObject\GameManager.cpp" />
     <ClCompile Include="Source\GameObject\Ground.cpp" />
     <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
     <ClCompile Include="Source\GameObject\Editer.cpp" />
@@ -170,11 +172,13 @@
     <ClInclude Include="Source\Component\EditerCtrl.h" />
     <ClInclude Include="Source\Component\Enemy\EnemyDino0AttackCtrl.h" />
     <ClInclude Include="Source\Component\Enemy\EnemyDino0Ctrl.h" />
+    <ClInclude Include="Source\Component\GameManagerCtrl.h" />
     <ClInclude Include="Source\Component\Player\BombEffectCtrl.h" />
     <ClInclude Include="Source\Component\Player\FireEffectCtrl.h" />
     <ClInclude Include="Source\Component\Player\PlayerBombCtrl.h" />
     <ClInclude Include="Source\Component\Player\PlayerCtrl.h" />
     <ClInclude Include="Source\Component\StageObjectListDebug_Ctrl.h" />
+    <ClInclude Include="Source\GameObject\GameManager.h" />
     <ClInclude Include="Source\GameObject\Ground.h" />
     <ClInclude Include="Source\GameObject\Player\BombEffect.h" />
     <ClInclude Include="Source\GameObject\Editer.h" />

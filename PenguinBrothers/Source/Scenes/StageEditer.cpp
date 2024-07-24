@@ -15,6 +15,7 @@
 #include "Source/GameObject/StageObjectListDebug.h"	   
 #include "Source/GameObject/Editer.h"
 #include "Source/GameObject/Ground.h"
+#include "Source/GameObject/GameManager.h"
 
 #include <Core/Component/Collider/BoxCollider2D.h>
 
@@ -50,13 +51,13 @@ void StageEditer::LoadStageToJson()
 		}
 
 		ordered_json stageJson;
-		if (JsonUtiliy::ordered_jsonLoadToFile(stagePath.c_str(), stageJson))
+		if (JsonUtility::ordered_jsonLoadToFile(stagePath.c_str(), stageJson))
 		{
 			std::vector<float> points;
 
 			bgPath = stageJson["bgPath"].get<std::wstring>();
 				   
-			playerSpawnPos = stageJson["playerSpawnPos"].get<JsonUtiliy::Vector2>();
+			playerSpawnPos = stageJson["playerSpawnPos"].get<JsonUtility::Vector2>();
 
 			EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; //EnemyDino0 오브젝트 소환 개수
 			EnemyDino0_SpawnPos.resize(EnemyDino0_SpawnCount);
@@ -64,7 +65,7 @@ void StageEditer::LoadStageToJson()
 			{
 				std::string key("EnemyDino0_SpawnPos");
 				key += std::to_string(i);
-				EnemyDino0_SpawnPos[i] = stageJson[key].get<JsonUtiliy::Vector2>();
+				EnemyDino0_SpawnPos[i] = stageJson[key].get<JsonUtility::Vector2>();
 			};
 			GroundBox_SpawnCount = stageJson["GroundBox_SpawnCount"];
 			GroundBox_SpawnPos.resize(GroundBox_SpawnCount);
@@ -72,14 +73,14 @@ void StageEditer::LoadStageToJson()
 			{
 				std::string key("GroundBox_SpawnPos");
 				key += std::to_string(i);
-				GroundBox_SpawnPos[i] = stageJson[key].get<JsonUtiliy::Vector2>();
+				GroundBox_SpawnPos[i] = stageJson[key].get<JsonUtility::Vector2>();
 			};
 			GroundBox_Size.resize(GroundBox_SpawnCount);
 			for (int i = 0; i < GroundBox_SpawnCount; i++)
 			{
 				std::string key("GroundBox_Size");
 				key += std::to_string(i);
-				GroundBox_Size[i] = stageJson[key].get<JsonUtiliy::Vector2>();
+				GroundBox_Size[i] = stageJson[key].get<JsonUtility::Vector2>();
 			};
 		}
 	}
@@ -91,9 +92,7 @@ void StageEditer::LoadStageToJson()
 
 void StageEditer::SpawnSceneObjects()
 {
-	GameObjectBase* backGround = WorldManager::AddGameObject(L"Background");
-	backGround->AddComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
-	backGround->OderLayer = -1;
+	GameObjectBase* gm = WorldManager::AddGameObject<GameManager>(L"GameManager");
 
 	playerObj = WorldManager::AddGameObject<Player>(L"Player");
 	playerObj->transform.position = playerSpawnPos;
@@ -115,8 +114,7 @@ void StageEditer::SpawnSceneObjects()
 	for (int i = 0; i < EnemyDino0_SpawnCount; i++)
 	{
 		EnemyDino0Objs.push_back(WorldManager::AddGameObject<EnemyDino0>(L"dino0"));
-		EnemyDino0Objs[i]->transform.position = EnemyDino0_SpawnPos[i];
-		
+		EnemyDino0Objs[i]->transform.position = EnemyDino0_SpawnPos[i];		
 	}
 }
 
@@ -173,7 +171,7 @@ void StageEditer::SaveStageToJson()
 
 	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
 	if (savePath != L"")
-		JsonUtiliy::ordered_jsonSaveToFile(mapJson, savePath.c_str());
+		JsonUtility::ordered_jsonSaveToFile(mapJson, savePath.c_str());
 }
 
 void StageEditer::SpawnEditerObj()

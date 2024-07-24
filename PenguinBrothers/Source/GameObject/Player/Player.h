@@ -30,6 +30,7 @@ protected:
 	class Movement* movement;
 	class SpriteAnimationRenderer* spriteAnimation;
 	class PlayerCtrl* playerCtrl;
+	static Vector2 SpawnPos;
 };
 
 class Spawn : public PlayerState

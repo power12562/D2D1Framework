@@ -14,3 +14,34 @@ void BoxRenderer::Render()
 		color, isFill, alpha
 	);
 }
+
+void BoxRenderer::SerializedJson(ordered_json& jsonObj)
+{
+	ordered_json box;
+	box["center"] = center;
+	box["size"] = size;
+	box["color"] = std::vector<float>{ color.r, color.g, color.b, color.a };
+	box["isFill"] = isFill;
+	box["alpha"] = alpha;
+
+	jsonObj["BoxRenderer"].push_back(box);
+}
+
+void BoxRenderer::DeSerializedJson(ordered_json& jsonObj)
+{
+	for (auto& box : jsonObj["BoxRenderer"])
+	{
+		center = box["center"];
+		size = box["size"];
+
+		std::vector<float> rgba = box["color"].get<std::vector<float>>();
+		color.r = rgba[0];
+		color.g = rgba[1];
+		color.b = rgba[2];
+		color.a = rgba[3];
+
+		isFill = box["isFill"];
+		alpha = box["alpha"];
+	}
+}
+

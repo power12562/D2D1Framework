@@ -13,10 +13,14 @@ namespace InputSystem
     {
         const SIZE& clientSize = WinGameApp::GetClientSize();
         Camera* mainCam = Camera::GetMainCamera();
-        const Vector2& camScale = mainCam->gameObject.transform.scale;
-        Vector2 mousePos{x * camScale.x, y * camScale.y};
-        D2D1_MATRIX_3X2_F worldMatrix = mainCam->GetMatrix();
-        return Vector2(worldMatrix.dx + mousePos.x, -(worldMatrix.dy + mousePos.y - clientSize.cy) ); //??? y축 맞추는 코드 아직 이해 못함...
+        if (mainCam)
+        {
+            const Vector2& camScale = mainCam->gameObject.transform.scale;
+            Vector2 mousePos{ x * camScale.x, y * camScale.y };
+            D2D1_MATRIX_3X2_F worldMatrix = mainCam->GetMatrix();
+            return Vector2(worldMatrix.dx + mousePos.x, -(worldMatrix.dy + mousePos.y - clientSize.cy)); //??? y축 맞추는 코드 아직 이해 못함...
+        } 
+        return Vector2(0, 0);
     }
 }
 using namespace InputSystem;

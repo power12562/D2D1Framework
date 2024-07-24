@@ -19,4 +19,8 @@ protected:
 	//virtual void Update() override;
 	//virtual void LateUpdate() override;
 	virtual void Render() override;
+
+private:
+	virtual void SerializedJson(ordered_json& jsonObj) override;
+	virtual void DeSerializedJson(ordered_json& jsonObj) override;
 };

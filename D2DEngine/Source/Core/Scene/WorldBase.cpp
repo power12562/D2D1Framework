@@ -1,5 +1,6 @@
 #include "WorldBase.h"
 #include "Framework/WorldManager.h"
+#include <Framework/TimeSystem.h>
 
 #include "Core/GameObject/MainCamera.h"
 
@@ -8,6 +9,7 @@
 
 WorldBase::WorldBase()
 {
+	TimeSystem::Time.timeScale = 1.0f;
 	if (Camera::GetMainCamera() == nullptr)
 	{
 		WorldManager::AddGameObject<MainCamera>(L"MainCamera");

@@ -157,14 +157,14 @@ void Transform::DeSerializedJson(ordered_json& jsonObj)
 {
 	for (auto& transform : jsonObj["Transform"])
 	{
-		std::vector vec = transform["position"].get<JsonUtiliy::Vector2>();
+		std::vector vec = transform["position"].get<JsonUtility::Vector2>();
 		gameObject.transform.position = Vector2{ vec[0], vec[1] };
-		vec = transform["localPosition"].get<JsonUtiliy::Vector2>();
+		vec = transform["localPosition"].get<JsonUtility::Vector2>();
 		gameObject.transform.localPosition = Vector2{ vec[0], vec[1] };
 
-		vec = transform["scale"].get<JsonUtiliy::Vector2>();
+		vec = transform["scale"].get<JsonUtility::Vector2>();
 		gameObject.transform.scale = Vector2{ vec[0], vec[1] };
-		vec = transform["localScale"].get<JsonUtiliy::Vector2>();
+		vec = transform["localScale"].get<JsonUtility::Vector2>();
 		gameObject.transform.localScale = Vector2{ vec[0], vec[1] };
 
 		gameObject.transform.rotation = transform["rotation"].get<float>();

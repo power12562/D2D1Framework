@@ -21,18 +21,13 @@ Player::Player()
 
 	Input = &AddComponent<InputBinding>();
 	Input->BindKey("Left", KeyCode::LeftArrow);
-	//Input->BindKey("Left", KeyCode::A);
 	Input->BindKey("Right", KeyCode::RightArrow);
-	//Input->BindKey("Right", KeyCode::D);
 	Input->BindKey("Duck", KeyCode::DownArrow);
-	//Input->BindKey("Duck", KeyCode::S);
-
 	Input->BindKey("Attack", KeyCode::LeftCtrl);
 	Input->BindKey("Attack", KeyCode::Z);
 	
 	Input->BindKey("Jump", KeyCode::LeftAlt);
 	Input->BindKey("Jump", KeyCode::X);
-
 
 	AddComponent<Movement>();
 	AddComponent<SpriteAnimationRenderer>();
@@ -70,8 +65,11 @@ Player::~Player()
 
 //state
 
+Vector2 PlayerState::SpawnPos = Vector2{0, 0};
+
 PlayerState::PlayerState(FiniteStateMachine& _owner, const wchar_t* _name) : FSMState(_owner, _name)
 {
+	SpawnPos = owner.gameObject.transform.position;
 	movement = &owner.gameObject.GetComponent<Movement>();
 	spriteAnimation = &owner.gameObject.GetComponent<SpriteAnimationRenderer>();
 	playerCtrl = &owner.gameObject.GetComponent<PlayerCtrl>();
@@ -90,13 +88,15 @@ void Spawn::Update()
 	if (spriteAnimation->CurrentClipEnd)
 	{
 		owner.SetState(L"Idle");
-		playerCtrl->isJump = true;
+		playerCtrl->isJump = false;
 	}
 }
 
 void Spawn::Exit()
 {
 	owner.IsComponent<Rigidbody2D>()->enabled = true;
+	SpawnPos = owner.gameObject.transform.position;
+	playerCtrl->isJump = false;
 }
 
 
@@ -241,15 +241,17 @@ void Dead::Enter()
 {
 	movement->SetSpeed(0.f);
 	spriteAnimation->SetAnimation(L"Dead");
-	owner.Transition = false;
 	owner.GetComponent<Rigidbody2D>().enabled = false;
+	owner.Transition = false;
 }
 												
 void Dead::Update()
 {
 	if (spriteAnimation->CurrentClipEnd)
 	{
-		WorldManager::DelGameObject(owner.gameObject);
+		owner.transform.position = SpawnPos;
+		owner.Transition = true;
+		owner.SetState(L"Spawn");
 	}
 }
 

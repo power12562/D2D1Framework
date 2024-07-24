@@ -64,3 +64,21 @@ bool BoxCollider2D::isCollide(const Vector2& point)
 {
 	return bounds.PointCollision(point);
 }
+
+void BoxCollider2D::SerializedJson(ordered_json& jsonObj)
+{
+	ordered_json json;
+	json["ColliderSize"] = ColliderSize;
+
+
+	jsonObj["BoxCollider2D"].push_back(json);
+}
+
+void BoxCollider2D::DeSerializedJson(ordered_json& jsonObj)
+{
+	//여러개의 중복 컴포넌트가 존재하면 마지막에 push_back한 값으로 초기화 되는 문제가 있다.
+	for (auto& dataJson : jsonObj["BoxCollider2D"]) 
+	{
+		ColliderSize = dataJson["ColliderSize"].get<JsonUtility::Vector2>();
+	}
+}
