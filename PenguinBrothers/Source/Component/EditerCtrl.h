@@ -16,7 +16,7 @@ protected:
 
 private:
 	bool editMode = true;
-	class StageEditer* world = nullptr;
+	//class StageEditer* world = nullptr;
 	GameObjectBase* grabObject = nullptr;
 	GameObjectBase* selObject = nullptr;
 	
@@ -26,4 +26,8 @@ private:
 	void SetDino0();
 	void AddGround();
 	void SelectBackgroundPath();
+
+	void SaveWorld();
+	void LoadWorld();
+
 };

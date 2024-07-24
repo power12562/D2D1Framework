@@ -15,6 +15,7 @@
 #include <Core/Component/Renderer/BoxRenderer.h>
 
 #include <Utility/Ray.h>
+#include <Utility/Debug.h>
 
 #include "Source/Scenes/StageEditer.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
@@ -35,7 +36,7 @@ EditerCtrl::~EditerCtrl()
 
 void EditerCtrl::Start()
 {
-	world = (StageEditer*)WorldManager::GetCurrentWorld();
+	//world = (StageEditer*)WorldManager::GetCurrentWorld();
 	EnableEditMode(true);
 }
 
@@ -63,7 +64,7 @@ void EditerCtrl::Update()
 			grabObject->transform.position = mouse.GetWorldPos();
 			if (mouse.isLeftClickUp)
 			{	
-				SetObjectPos(grabObject);
+				//SetObjectPos(grabObject);
 				grabObject = nullptr;
 			}
 		}
@@ -72,23 +73,15 @@ void EditerCtrl::Update()
 		{
 			if(WinUtility::ShowConfirmationDialog(L"경고", L"저장하지 않는 내용은 삭제됩니다."))
 			{
-				WorldManager::LoadWorld<StageEditer>();
+				LoadWorld();
+				//WorldManager::LoadWorld<StageEditer>(); 구형 로직 사용 x
 			}	
 		}
 
 		if (Input.IsKeyDown(KeyCode::F4))
 		{
-			world->SaveStageToJson();
-		}
-
-		if (Input.IsKeyDown(KeyCode::F9))
-		{
-			world->LoadWorld();
-		}
-
-		if (Input.IsKeyDown(KeyCode::F10))
-		{
-			world->SaveWorld();
+			SaveWorld();
+			//world->SaveStageToJson();	구형 로직 사용 x
 		}
 
 		if (Input.IsKeyDown(KeyCode::Num1))
@@ -123,7 +116,8 @@ void EditerCtrl::EnableEditMode(bool _enable)
 
 	if (_enable)
 	{
-		world->PosToSpawnPos();
+		//world->PosToSpawnPos();
+
 		Time.timeScale = 0.f;
 		editMode = true;
 		for (auto& i : WorldManager::GetCurrentObjList())
@@ -153,7 +147,10 @@ void EditerCtrl::deleteSelObject()
 {
 	if (selObject->tag == L"Enemy")
 	{
-		auto objIter = world->EnemyDino0Objs.begin();
+		WorldManager::DelGameObject(*selObject);
+		return;
+
+		/*auto objIter = world->EnemyDino0Objs.begin();
 		auto posIter = world->EnemyDino0_SpawnPos.begin();
 		for (int i = 0; i < world->EnemyDino0_SpawnCount; i++)
 		{
@@ -167,11 +164,14 @@ void EditerCtrl::deleteSelObject()
 			}
 			++objIter;
 			++posIter;
-		}
+		}*/
 	}
 	else if (selObject->tag == L"Ground")
 	{
-		auto objIter = world->GroundObjs.begin();
+		WorldManager::DelGameObject(*selObject);
+		return;
+
+		/*auto objIter = world->GroundObjs.begin();
 		auto posIter = world->GroundBox_SpawnPos.begin();
 		auto sizeIter = world->GroundBox_Size.begin();
 		for (int i = 0; i < world->GroundBox_SpawnCount; i++)
@@ -188,7 +188,7 @@ void EditerCtrl::deleteSelObject()
 			++objIter;
 			++posIter;
 			++sizeIter;
-		}
+		}*/
 	}
 
 	if (grabObject == selObject)
@@ -198,34 +198,34 @@ void EditerCtrl::deleteSelObject()
 	selObject = nullptr;
 }
 
-void EditerCtrl::SetObjectPos(GameObjectBase* object)
+void EditerCtrl::SetObjectPos(GameObjectBase* object) 
 {
 	if (object->tag == L"Player")
 	{
-		world->playerSpawnPos = object->transform.position + Vector2(0.f, 25.f);
+		//world->playerSpawnPos = object->transform.position + Vector2(0.f, 25.f);
 	}
 
 	if (object->tag == L"Enemy")
 	{
-		for (int i = 0; i < world->EnemyDino0_SpawnCount; i++)
+		/*for (int i = 0; i < world->EnemyDino0_SpawnCount; i++)
 		{
 			if (world->EnemyDino0Objs[i] == object)
 			{
 				world->EnemyDino0_SpawnPos[i] = object->transform.position + Vector2(0.f, 9.f);;
 			}
-		}
+		}*/
 
 	}
 
 	if (object->tag == L"Ground")
 	{
-		for (int i = 0; i < world->GroundBox_SpawnCount; i++)
+		/*for (int i = 0; i < world->GroundBox_SpawnCount; i++)
 		{
 			if (world->GroundObjs[i] == object)
 			{
 				world->GroundBox_SpawnPos[i] = object->transform.position;
 			}
-		}
+		}*/
 	}
 }
 
@@ -234,23 +234,45 @@ void EditerCtrl::SetDino0()
 	int result = WinUtility::GetIntFromUser(WinGameApp::GetHwnd(), L"Dino0 Count", L"Count : ");
 	if (result >= 0)
 	{
-		while (result != world->EnemyDino0Objs.size())
+		int dinoCount = -1;
+		while (true)
 		{
-			if (result > world->EnemyDino0Objs.size())
+			++dinoCount;
+			std::wstring dinoKey = L"dino" + std::to_wstring(dinoCount);
+
+			if (GameObjectBase* dino = GameObjectBase::Find(dinoKey.c_str()))
+			{
+				if(result <= dinoCount)
+					WorldManager::DelGameObject(*dino);
+			}
+			else if(dinoCount < result)
 			{
 				GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
-				world->EnemyDino0Objs.push_back(dino);
-				world->EnemyDino0_SpawnPos.push_back(Vector2(0, 0));
-				world->EnemyDino0Objs.back()->GetComponent<Rigidbody2D>().isKinematic = true;
+				dino->GetComponent<Rigidbody2D>().isKinematic = true;
 			}
 			else
 			{
-				WorldManager::DelGameObject(*world->EnemyDino0Objs.back());
-				world->EnemyDino0Objs.pop_back();
-				world->EnemyDino0_SpawnPos.pop_back();
+				break;
 			}
 		}
-		world->EnemyDino0_SpawnCount = result;
+
+		//while (result != world->EnemyDino0Objs.size())
+		//{
+		//	if (result > world->EnemyDino0Objs.size())
+		//	{
+		//		GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
+		//		world->EnemyDino0Objs.push_back(dino);
+		//		world->EnemyDino0_SpawnPos.push_back(Vector2(0, 0));
+		//		world->EnemyDino0Objs.back()->GetComponent<Rigidbody2D>().isKinematic = true;
+		//	}
+		//	else
+		//	{
+		//		WorldManager::DelGameObject(*world->EnemyDino0Objs.back());
+		//		world->EnemyDino0Objs.pop_back();
+		//		world->EnemyDino0_SpawnPos.pop_back();
+		//	}
+		//}
+		//world->EnemyDino0_SpawnCount = result;
 	}
 }
 
@@ -259,18 +281,25 @@ void EditerCtrl::AddGround()
 	Vector2 size = WinUtility::GetVector2FromUser(WinGameApp::GetHwnd(), L"Ground Size");
 	if (size.x > 0 && size.y > 0)
 	{
-		printf("size : %f, %f\n", size.x, size.y);
+		DEBUG_PRINT("size : %f, %f\n", size.x, size.y);
 
-		world->GroundObjs.push_back(WorldManager::AddGameObject<Ground>(L"Ground"));
+		GameObjectBase* ground = WorldManager::AddGameObject<Ground>(L"Ground");
+		BoxCollider2D& coll = ground->GetComponent<BoxCollider2D>();
+		coll.ColliderSize = size;
+		coll.isDrawCollider = true;
+		BoxRenderer& boxDraw = ground->GetComponent<BoxRenderer>();
+		boxDraw.size = size;
+		
+
+		/*world->GroundObjs.push_back(WorldManager::AddGameObject<Ground>(L"Ground"));
 		world->GroundObjs.back()->GetComponent<BoxCollider2D>().ColliderSize = size;
 		world->GroundBox_Size.push_back(size);
 		world->GroundBox_SpawnCount++;
 		world->GroundBox_SpawnPos.push_back(Vector2());	
 
 		world->GroundObjs.back()->GetComponent<BoxCollider2D>().isDrawCollider = true;
-		world->GroundObjs.back()->GetComponent<BoxCollider2D>().isDrawCollider = true;
 		BoxRenderer& boxDraw = world->GroundObjs.back()->GetComponent<BoxRenderer>();
-		boxDraw.size = world->GroundObjs.back()->GetComponent<BoxCollider2D>().ColliderSize;
+		boxDraw.size = world->GroundObjs.back()->GetComponent<BoxCollider2D>().ColliderSize;*/
 	}
 	else
 	{
@@ -295,8 +324,27 @@ void EditerCtrl::SelectBackgroundPath()
 			}
 			bgPath = bgPath.substr(f, bgPath.size());
 			bg->GetComponent<SpriteRenderer>().LoadImage(bgPath.c_str());
-			world->bgPath = bgPath.c_str();
+			//world->bgPath = bgPath.c_str();
 		}
+	}
+
+}
+
+void EditerCtrl::SaveWorld()
+{
+	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
+	if (savePath != L"")
+	{
+		WorldManager::SaveCurrentWorldToJson(savePath.c_str());
+	}
+}
+
+void EditerCtrl::LoadWorld()
+{
+	std::wstring loadPath = WinUtility::GetOpenFilePath(L"json");
+	if (loadPath != L"")
+	{
+		WorldManager::LoadWorldToJson(loadPath.c_str());
 	}
 
 }

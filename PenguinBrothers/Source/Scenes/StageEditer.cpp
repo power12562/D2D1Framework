@@ -23,16 +23,16 @@ StageEditer::StageEditer()
 {
 	isEditer = true;
 	LoadStageToJson();
-	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
-	SpawnEditerObj();
+	//SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
+	//SpawnEditerObj();
 }
 
 StageEditer::StageEditer(const wchar_t* _stagePath, bool _isEditer)
 {
 	isEditer = _isEditer;
 	stagePath = _stagePath;
-	LoadStageToJson();
-	SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
+	//LoadStageToJson();
+	//SpawnSceneObjects(); //JSON 파일 기반으로 물체들 생성
 
 }
 
@@ -49,7 +49,11 @@ void StageEditer::LoadStageToJson()
 		{
 			stagePath = WinUtility::GetOpenFilePath(L"json");
 		}
+		WorldManager::LoadWorldToJson(stagePath.c_str());
+		return;
 
+		//구형 저장 로직 사용 X
+		/*
 		ordered_json stageJson;
 		if (JsonUtility::ordered_jsonLoadToFile(stagePath.c_str(), stageJson))
 		{
@@ -59,7 +63,7 @@ void StageEditer::LoadStageToJson()
 				   
 			playerSpawnPos = stageJson["playerSpawnPos"].get<JsonUtility::Vector2>();
 
-			EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; //EnemyDino0 오브젝트 소환 개수
+			EnemyDino0_SpawnCount = stageJson["EnemyDino0_SpawnCount"]; 
 			EnemyDino0_SpawnPos.resize(EnemyDino0_SpawnCount);
 			for (int i = 0; i < EnemyDino0_SpawnCount; i++)
 			{
@@ -83,6 +87,7 @@ void StageEditer::LoadStageToJson()
 				GroundBox_Size[i] = stageJson[key].get<JsonUtility::Vector2>();
 			};
 		}
+		*/
 	}
 	catch (detail::type_error& exc)
 	{
@@ -187,21 +192,3 @@ void StageEditer::SpawnEditerObj()
 	WorldManager::AddGameObject<Editer>(L"editer");
 }
 
-void StageEditer::SaveWorld()
-{
-	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
-	if (savePath != L"")
-	{
-		WorldManager::SaveCurrentWorldToJson(savePath.c_str());
-	}
-}
-
-void StageEditer::LoadWorld()
-{
-	std::wstring loadPath = WinUtility::GetOpenFilePath(L"json");
-	if (loadPath != L"")
-	{
-		WorldManager::LoadWorldToJson(loadPath.c_str());
-	}
-
-}

@@ -56,6 +56,8 @@ void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* othe
 			isJump = false;
 		}
 	}
+
+
 }
 
 void PlayerCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)

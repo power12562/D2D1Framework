@@ -23,6 +23,9 @@ public:
 	/** 물체가 이동하는 속도.*/
 	Vector2 Velocity;
 
+	/** 저항 값*/
+	float Drag = 0.1f;
+
 	/** 물체에 힘을 적용시킵니다.*/
 	void AddForce(const Vector2& force);
 protected:

@@ -10,7 +10,9 @@ Ground::Ground()
 {
 	tag = L"Ground";
 	OderLayer = 3;
-	AddComponent<BoxCollider2D>().ColliderSize = Vector2{100.f, 100.f};
+	BoxCollider2D& coll = AddComponent<BoxCollider2D>();
+	coll.ColliderSize = Vector2{ 100.f, 100.f };
+	coll.isDrawCollider = true;
 
 	BoxRenderer& boxDraw = AddComponent<BoxRenderer>();
 	boxDraw.isFill = true;

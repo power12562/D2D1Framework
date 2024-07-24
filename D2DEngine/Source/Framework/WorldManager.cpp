@@ -290,8 +290,12 @@ void WorldManager::SaveCurrentWorldToJson(const wchar_t* path)
 		}
 		//객체 타입 저장
 		objType = objType.substr(6, objType.size());
+		if (GameObjectFactory::GetRegistry().find(objType) == GameObjectFactory::GetRegistry().end())
+		{
+			continue; //레지스트리 매크로 플래그가 설정된 오브젝트만 저장
+		}
 		typeSet.insert(objType);   //중복 없이
-
+		
 		//오브젝트 저장
 		obj->SerializedJson(objJson);
 		worldJson[objType].push_back(objJson);

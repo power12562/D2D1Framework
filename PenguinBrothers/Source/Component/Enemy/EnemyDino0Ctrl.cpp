@@ -82,7 +82,8 @@ void EnemyDino0Ctrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* 
 {
 	if (otherCollider->gameObject.tag == L"Player")
 	{
-
+		otherCollider->GetComponent<Rigidbody2D>().AddForce(otherCollider->transform.position - transform.position);
+		fsm->SetState(L"Idle");
 	}
 
 }

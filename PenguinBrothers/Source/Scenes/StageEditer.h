@@ -34,7 +34,4 @@ private:
 	bool isEditer;
 	void SaveStageToJson();
 	void SpawnEditerObj();
-
-	void SaveWorld();
-	void LoadWorld();
 };

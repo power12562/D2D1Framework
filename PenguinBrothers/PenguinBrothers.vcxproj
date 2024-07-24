@@ -154,6 +154,7 @@
     <ClCompile Include="Source\Component\Player\PlayerBombCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\PlayerCtrl.cpp" />
     <ClCompile Include="Source\Component\StageObjectListDebug_Ctrl.cpp" />
+    <ClCompile Include="Source\GameObject\Block.cpp" />
     <ClCompile Include="Source\GameObject\GameManager.cpp" />
     <ClCompile Include="Source\GameObject\Ground.cpp" />
     <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Source\Component\Player\PlayerBombCtrl.h" />
     <ClInclude Include="Source\Component\Player\PlayerCtrl.h" />
     <ClInclude Include="Source\Component\StageObjectListDebug_Ctrl.h" />
+    <ClInclude Include="Source\GameObject\Block.h" />
     <ClInclude Include="Source\GameObject\GameManager.h" />
     <ClInclude Include="Source\GameObject\Ground.h" />
     <ClInclude Include="Source\GameObject\Player\BombEffect.h" />
