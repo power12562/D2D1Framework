@@ -1,7 +1,5 @@
 ﻿#include "PenguinBrothers.h"
 #include "Framework/WorldManager.h"
-
-#include "Source/Scenes/StageScene.h"
 #include "Source/Scenes/StageEditer.h"
 
 #include <Framework/GameObjectFactory.h>
@@ -13,8 +11,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
-    //WorldManager::LoadWorld<StageEditer>();  
-    WorldManager::LoadWorldToJson(L"Resource/Stage/Stage1.json");
+    WorldManager::LoadWorldToJson(L"Resource/Stage/EditerFile/New.json");
+    //WorldManager::LoadWorldToJson(L"Resource/Stage/Stage1.json");
     app.Run();
     app.Uninitialize();
 }

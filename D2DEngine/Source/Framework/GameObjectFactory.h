@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <map>
 #include <Framework/WorldManager.h>
@@ -24,12 +23,14 @@ public:
 		auto findIter = GetRegistry().find(GameObjectType);
 		if (findIter != GetRegistry().end())
 		{
+
 			GameObjectBase* gameObject = findIter->second();
 			gameObject->objName = ObjectName.c_str();
 			WorldManager::addQueueList.push(gameObject);
 
 			WorldManager::ObjListSortFlag = true;
 			return gameObject;
+
 		}
 		assert(!"존재하지 않는 키값입니다. 오브젝트 cpp에서 매크로 선언을 확인하세요.");
 		return nullptr;
@@ -45,6 +46,5 @@ public:
 		static std::map<std::string, CreatorFunction> registry;
 		return registry;
 	}
-private:
 
 };

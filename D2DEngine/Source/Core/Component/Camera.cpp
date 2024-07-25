@@ -24,7 +24,7 @@ Camera::~Camera()
 {
 	if (Camera::mainCam == this)
 	{
-		WorldManager::AddGameObject<MainCamera>(L"MainCamera");
+		Camera::mainCam = nullptr;
 	}
 	instanceList.erase(instanceIter);
 }

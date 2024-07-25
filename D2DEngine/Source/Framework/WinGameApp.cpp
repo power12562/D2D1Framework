@@ -4,9 +4,11 @@
 #include "Framework/InputSystem.h"
 #include "Framework/WorldManager.h"
 #include "Framework/ColliderManager.h"
+#include "Framework/GameObjectFactory.h"
 
 #include <Core/Scene/WorldBase.h>
 
+#include <Core/GameObject/MainCamera.h>
 #include "Core/Component/Transform.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Camera.h"
@@ -42,7 +44,7 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 	{
 		isEnd = true;
 	}
-
+	GameObjectFactory::RegisterGameObject("MainCamera", []()->GameObjectBase* {return new MainCamera; });
 }
 
 void WinGameApp::Uninitialize()

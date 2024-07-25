@@ -19,7 +19,6 @@
     <ClCompile Include="Source\Scenes\StageEditer.cpp" />
     <ClCompile Include="Source\GameObject\StageObjectListDebug.cpp" />
     <ClCompile Include="Source\Component\StageObjectListDebug_Ctrl.cpp" />
-    <ClCompile Include="Source\Scenes\StageScene.cpp" />
     <ClCompile Include="Source\GameObject\Editer.cpp" />
     <ClCompile Include="Source\Component\EditerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
@@ -44,7 +43,6 @@
     <ClInclude Include="Source\Scenes\StageEditer.h" />
     <ClInclude Include="Source\GameObject\StageObjectListDebug.h" />
     <ClInclude Include="Source\Component\StageObjectListDebug_Ctrl.h" />
-    <ClInclude Include="Source\Scenes\StageScene.h" />
     <ClInclude Include="Source\GameObject\Editer.h" />
     <ClInclude Include="Source\Component\EditerCtrl.h" />
     <ClInclude Include="Source\GameObject\Player\BombEffect.h" />

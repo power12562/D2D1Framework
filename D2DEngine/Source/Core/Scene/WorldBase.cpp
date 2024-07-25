@@ -10,10 +10,6 @@
 WorldBase::WorldBase()
 {
 	TimeSystem::Time.timeScale = 1.0f;
-	if (Camera::GetMainCamera() == nullptr)
-	{
-		WorldManager::AddGameObject<MainCamera>(L"MainCamera");
-	}
 }
 
 WorldBase::~WorldBase()
