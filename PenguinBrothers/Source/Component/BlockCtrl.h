@@ -8,6 +8,8 @@ class BlockCtrl : public ComponentBase, public ICollider2DNotify
 public:
 	BlockCtrl(GameObjectBase& gameObject);
 	virtual ~BlockCtrl() override;
+	
+	void Init();
 
 protected:
 	virtual void Start() override;
@@ -24,12 +26,18 @@ protected:
 private:
 	GameObjectBase* player;
 	class InputBinding* PlayerInput;
-	bool endRot = true;
+	bool downRot;
 	float elapsedTime;
+
 	float pLeft;
 	float pRight;
+	float pTop;
+	float pBottom;
+
 	float mLeft;
 	float mRight;
+	float mTop;
+	float mBottom;
 
 	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
 	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;

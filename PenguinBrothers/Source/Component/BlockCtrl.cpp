@@ -1,5 +1,8 @@
 #include "BlockCtrl.h"
+#include <Utility/Debug.h>
+
 #include <Framework/TimeSystem.h>
+
 #include <Core/Component/InputBinding.h>
 #include <Core/Component/Movement.h>
 #include <Core/Component/FSM/FiniteStateMachine.h>
@@ -9,7 +12,7 @@ using namespace TimeSystem;
 
 BlockCtrl::BlockCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
-
+	downRot = false;
 }
 
 BlockCtrl::~BlockCtrl()
@@ -17,19 +20,27 @@ BlockCtrl::~BlockCtrl()
 
 }
 
-void BlockCtrl::Start()
+void BlockCtrl::Init()
 {
 	player = nullptr;
 	PlayerInput = nullptr;
+	transform.rotation = 0.f;
+	elapsedTime = 0;
+}
+
+void BlockCtrl::Start()
+{
+	Init();
 }
 
 void BlockCtrl::Update()
-{
-	if (endRot && PlayerInput && PlayerInput->IsKeyDown("Duck"))
+{	
+	if (!downRot && PlayerInput && PlayerInput->IsKeyDown("Duck") && abs(pBottom - mTop) <= 1.0f)
 	{
+		DEBUG_PRINT("%f\n", pBottom - mTop);
 		if (pLeft >= mLeft - 2.0f && pRight <= mRight + 2.0f)
 		{
-			endRot = false;
+			downRot = true;
 			elapsedTime = 0;   
 			player->GetComponent<Movement>().enabled = false;
 			FiniteStateMachine& fsm = player->GetComponent<FiniteStateMachine>();
@@ -38,22 +49,27 @@ void BlockCtrl::Update()
 			player->GetComponent<Rigidbody2D>().enabled = false;
 		}	
 	}
-	if (!endRot)
+	if (downRot)
 	{						   
 		float dir = abs(pLeft - mLeft) > abs(pRight - mRight) ? 1.f : -1.f;
-		transform.rotation += dir * 180.f * Time.GetDeltatime();
+		transform.rotation += dir * 360.f * Time.GetDeltatime();
 		elapsedTime += Time.GetDeltatime();
-		if (elapsedTime >= 1.0f)
+		if (elapsedTime >= 0.5f)
 		{
-			player->GetComponent<Rigidbody2D>().enabled = true;
-			endRot = true;
+			if (Rigidbody2D* rb = player->IsComponent<Rigidbody2D>())
+			{
+				rb->enabled = true;
+				rb->Velocity = Vector2::Down * 10.0f;
+			}
+			
 			player->GetComponent<Movement>().enabled = true;
-			transform.rotation = 180.f * dir;
 			FiniteStateMachine& fsm = player->GetComponent<FiniteStateMachine>();
 			fsm.Transition = true;
-			fsm.SetState(L"Idle");
+			fsm.SetState(L"Airborne");
 			player->transform.SetParent();
 			player->transform.rotation = 0.f;
+			Init();
+			downRot = false;			
 		}
 	}	
 }
@@ -62,7 +78,17 @@ void BlockCtrl::Update()
 void BlockCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
 	if (otherCollider->gameObject.tag == L"Player")
-	{
+	{	
+		pLeft = otherCollider->GetLeft();
+		pRight = otherCollider->GetRight();
+		pTop = otherCollider->GetTop();
+		pBottom = otherCollider->GetBottom();
+
+		mLeft = myCollider->GetLeft();
+		mRight = myCollider->GetRight();
+		mTop = myCollider->GetTop();
+		mBottom = myCollider->GetBottom();
+
 		player = &otherCollider->gameObject;
 		player->transform.SetParent(transform);
 		PlayerInput = &player->GetComponent<InputBinding>();
@@ -75,23 +101,24 @@ void BlockCtrl::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherC
 	{
 		pLeft = otherCollider->GetLeft();
 		pRight = otherCollider->GetRight();
+		pTop = otherCollider->GetTop();
+		pBottom = otherCollider->GetBottom();
+
 		mLeft = myCollider->GetLeft();
 		mRight = myCollider->GetRight();
+		mTop = myCollider->GetTop();
+		mBottom = myCollider->GetBottom();
 	}
 }
 
 void BlockCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (player)
-		return;
-
 	if (otherCollider->gameObject.tag == L"Player")
 	{
 		if (player)
 		{
 			player->transform.SetParent();
-			PlayerInput = nullptr;
-			player = nullptr;
+ 			Init();
 		}	
 	}
 }

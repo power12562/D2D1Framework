@@ -11,6 +11,7 @@
 
 #include "Bounds/Bounds.h"
 #include <cstdlib>
+#include <dcommon.h>
 
 //게임 오브젝트를 상속받는 클래스의 cpp 파일에 다음 해더와 매크로를 추가해야 월드 json 저장이 가능합니다.
 //#include <Framework/GameObjectFactory.h>
@@ -20,6 +21,7 @@ GameObjectBase::GameObjectBase()
 {
 	pTransform = new Transform(*this);
 	pRigidbody = nullptr;
+	pRigidbodyEvent = nullptr;	
 }
 
 GameObjectBase::~GameObjectBase()
@@ -155,10 +157,12 @@ void GameObjectBase::SetOderLayer(int val)
 
 void GameObjectBase::UpdateCullingBounds()
 {
+	float scaleX = abs(transform.scale.x);
+	float scaleY = abs(transform.scale.y);
 	cullingBounds.center = transform.position;
 	cullingBounds.extents = transform.pivot;
-	cullingBounds.extents.x *= abs(transform.scale.x);
-	cullingBounds.extents.y *= abs(transform.scale.y);
+	cullingBounds.extents.x *= scaleX;
+	cullingBounds.extents.y *= scaleY;
 
 	cullingBounds.size = cullingBounds.extents * 2.f;
 
@@ -168,6 +172,18 @@ void GameObjectBase::UpdateCullingBounds()
 	cullingBounds.rightBottom.x = transform.position.x + cullingBounds.extents.x;	
 	cullingBounds.rightBottom.y = transform.position.y - cullingBounds.extents.y;
 
+	if (frameCenter)
+	{
+		cullingBounds.center.x += frameCenter->x * transform.scale.x;
+		cullingBounds.center.y += frameCenter->y * transform.scale.y;
+
+		cullingBounds.leftTop.x += frameCenter->x * transform.scale.x;
+		cullingBounds.leftTop.y += frameCenter->y * transform.scale.y;
+
+		cullingBounds.rightBottom.x += frameCenter->x * transform.scale.x;
+		cullingBounds.rightBottom.y += frameCenter->y * transform.scale.y;
+	}
+	
 	Bounds::GetRotationBounds(cullingBounds, transform.rotation);
 }
 

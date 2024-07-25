@@ -44,11 +44,13 @@ public:
 	class Transform& GetTransform();
 	__declspec(property(get = GetTransform)) Transform& transform;
 
+protected:
 	virtual void Start();
 	virtual void Update();
 	virtual void LateUpdate();
 	virtual void Render();
-protected:
+
+
 	/** Json 직렬화화가 필요한 내용을 오버라이딩 해서 작성합니다.*/
 	virtual void SerializedJson(ordered_json& jsonObj);
 	/** Json 역직렬화가 필요한 내용을 오버라이딩 해서 작성합니다.*/

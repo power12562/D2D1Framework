@@ -151,9 +151,9 @@ void EditerCtrl::EnableEditMode(bool _enable)
 			{
 				rb->enabled = false;
 			}
-			if (ComponentBase* ctrl = (ComponentBase*)i->IsComponent<BlockCtrl>())
+			if (BlockCtrl* ctrl = i->IsComponent<BlockCtrl>())
 			{
-				ctrl->Start();
+				ctrl->Init();
 			}
 		}
 		GameManagerCtrl::EnemyCount = (int)WorldManager::FindGameObjectsWithTag(L"Enemy").size();
@@ -198,46 +198,16 @@ void EditerCtrl::deleteSelObject()
 	{
 		WorldManager::DelGameObject(*selObject);
 		return;
-
-		/*auto objIter = world->EnemyDino0Objs.begin();
-		auto posIter = world->EnemyDino0_SpawnPos.begin();
-		for (int i = 0; i < world->EnemyDino0_SpawnCount; i++)
-		{
-			if (world->EnemyDino0Objs[i] == selObject)
-			{
-				world->EnemyDino0Objs.erase(objIter);
-				world->EnemyDino0_SpawnPos.erase(posIter);
-				world->EnemyDino0_SpawnCount--;
-				WorldManager::DelGameObject(*selObject);
-				break;
-			}
-			++objIter;
-			++posIter;
-		}*/
 	}
 	else if (selObject->tag == L"Ground")
 	{
 		WorldManager::DelGameObject(*selObject);
 		return;
-
-		/*auto objIter = world->GroundObjs.begin();
-		auto posIter = world->GroundBox_SpawnPos.begin();
-		auto sizeIter = world->GroundBox_Size.begin();
-		for (int i = 0; i < world->GroundBox_SpawnCount; i++)
-		{
-			if (world->GroundObjs[i] == selObject)
-			{
-				world->GroundObjs.erase(objIter);
-				world->GroundBox_SpawnPos.erase(posIter);
-				world->GroundBox_Size.erase(sizeIter);
-				world->GroundBox_SpawnCount--;
-				WorldManager::DelGameObject(*selObject);
-				break;
-			}
-			++objIter;
-			++posIter;
-			++sizeIter;
-		}*/
+	}
+	else if (selObject->tag == L"Block")
+	{
+		WorldManager::DelGameObject(*selObject);
+		return;
 	}
 
 	if (grabObject == selObject)
@@ -358,8 +328,8 @@ void EditerCtrl::AddGround()
 
 void EditerCtrl::AddBlock()
 {
-	DEBUG_PRINT("Add Block!");
-	GameObjectBase* ground = WorldManager::AddGameObject<Block>(L"Block");
+	DEBUG_PRINT("Add Block!\n");
+	GameObjectBase* nlock = WorldManager::AddGameObject<Block>(L"Block");
 }
 
 

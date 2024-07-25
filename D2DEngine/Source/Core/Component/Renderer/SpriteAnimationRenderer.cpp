@@ -33,6 +33,7 @@ SpriteAnimationRenderer::~SpriteAnimationRenderer()
 	}
 	Animations.clear();
 	instanceList.erase(myIter);
+	gameObject.SetCenter(nullptr);
 }
 
 void SpriteAnimationRenderer::LoadAnimationClip(const wchar_t* clipPath, const wchar_t* imagePath, const wchar_t* clipName)
@@ -205,10 +206,9 @@ void SpriteAnimationRenderer::UpdateCurrentPivot()
 	if (FrameInfo* frame = GetCurrentFrame())
 	{
 		Vector2 currentPivot = Vector2{ frame->source.right - frame->source.left, frame->source.bottom - frame->source.top };
-		//currentPivot.x -= frame->center.x;
-		//currentPivot.y += frame->center.y;
-		currentPivot *= 0.5f;	
+		currentPivot *= 0.5f;
 		gameObject.GetTransform().pivot = currentPivot;
+		gameObject.SetCenter(&frame->center);
 	}
 }
 

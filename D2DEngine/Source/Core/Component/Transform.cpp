@@ -185,7 +185,8 @@ void Transform::SetParent(Transform& parent)
 		}
 	}
 	this->parent = &parent;
-	this->transform.localPosition = this->transform.position - parent.transform.position;
+	D2D1_MATRIX_3X2_F LM = this->transform.WM * parent.transform.WM;
+	this->transform.localPosition = Vector2(LM.dx, LM.dy);
 	this->transform.localRotation = this->transform.rotation - parent.transform.rotation;
 	this->transform.localScale = Vector2(parent.transform.scale.x * this->transform.scale.x, parent.transform.scale.y * this->transform.scale.y);
 

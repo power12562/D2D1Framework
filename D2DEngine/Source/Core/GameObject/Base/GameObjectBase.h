@@ -53,6 +53,8 @@ private:
 	std::wstring objName; //오브젝트 이름
 	int oderLayer = 0; //같은 오브젝트끼리의 정렬 기준
 
+	struct D2D_VECTOR_2F* frameCenter{}; //애니메이션 Center값 SpriteAnimationRenderer에서만 수정 해야함!
+
 protected: 
 	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;
 
@@ -106,6 +108,9 @@ public:
 
 	/** 같은 타입끼리의 정렬 순서*/
 	__declspec(property(get = GetOderLayer, put = SetOderLayer)) int OderLayer;
+
+	/**애니메이션 Center값 SpriteAnimationRenderer에서만 수정 해야함!*/
+	void SetCenter(D2D_VECTOR_2F* FrameCenter) { frameCenter = FrameCenter; }
 
 protected:
 	/** 컬링용 바운딩 박스의 정보를 갱신한다.*/
