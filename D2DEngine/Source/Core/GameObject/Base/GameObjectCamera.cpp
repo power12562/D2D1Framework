@@ -24,11 +24,11 @@ void GameObjectCamera::UpdateCullingBounds()
 
 	cullingBounds.center = transform.position;
 
-	cullingBounds.leftTop.x = cullingBounds.center.x - cullingBounds.extents.x;
-	cullingBounds.leftTop.y = cullingBounds.center.y + cullingBounds.extents.y;
+	cullingBounds.leftTop.x = floor(cullingBounds.center.x - cullingBounds.extents.x);
+	cullingBounds.leftTop.y = ceil(cullingBounds.center.y + cullingBounds.extents.y);
 
-	cullingBounds.rightBottom.x = cullingBounds.center.x + cullingBounds.extents.x;
-	cullingBounds.rightBottom.y = cullingBounds.center.y - cullingBounds.extents.y;
+	cullingBounds.rightBottom.x = ceil(cullingBounds.center.x + cullingBounds.extents.x);
+	cullingBounds.rightBottom.y = floor(cullingBounds.center.y - cullingBounds.extents.y);
 
 	Bounds::GetRotationBounds(cullingBounds, transform.rotation);
 }

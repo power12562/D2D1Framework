@@ -2,6 +2,7 @@
 
 #include <Vector/Vector2.h>
 #include <Utility/JsonUtility.h>
+#include <Utility/Debug.h>
 #include <Framework/GameObjectFactory.h>
 
 #include "Core/Scene/WorldBase.h"
@@ -180,6 +181,8 @@ void WorldManager::Render()
 		{
 			assert(!"MainCamera is nullptr.");
 		}
+		
+		//DEBUG_PRINT("render : %d\n", renderCount);
 	}
 }
 
