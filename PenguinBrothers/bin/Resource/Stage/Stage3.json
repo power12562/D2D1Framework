@@ -4,6 +4,7 @@
     "Ground",
     "GameManager",
     "EnemyDino0",
+    "Block",
     "Player"
   ],
   "MainCamera": [
@@ -84,6 +85,18 @@
           "rotation": 0.0,
           "localRotation": 0.0
         }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            120.0,
+            120.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
       ]
     },
     {
@@ -109,6 +122,18 @@
           "rotation": 0.0,
           "localRotation": 0.0
         }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            120.0,
+            120.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
       ]
     },
     {
@@ -116,8 +141,8 @@
       "Transform": [
         {
           "position": [
-            179.0,
-            7.0
+            298.0,
+            5.0
           ],
           "localPosition": [
             0.0,
@@ -134,6 +159,94 @@
           "rotation": 0.0,
           "localRotation": 0.0
         }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            120.0,
+            120.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "Block": [
+    {
+      "name": "Block",
+      "Transform": [
+        {
+          "position": [
+            -455.0,
+            -78.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            178.0,
+            34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Block_0",
+      "Transform": [
+        {
+          "position": [
+            450.0,
+            -78.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            178.0,
+            34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
       ]
     }
   ],
@@ -143,8 +256,8 @@
       "Transform": [
         {
           "position": [
-            -498.0,
-            -210.0
+            -321.0,
+            -12.0
           ],
           "localPosition": [
             0.0,
@@ -177,63 +290,6 @@
     }
   ],
   "Ground": [
-    {
-      "name": "Ground",
-      "Transform": [
-        {
-          "position": [
-            3.0,
-            -85.0
-          ],
-          "localPosition": [
-            0.0,
-            0.0
-          ],
-          "scale": [
-            1.0,
-            1.0
-          ],
-          "localScale": [
-            1.0,
-            1.0
-          ],
-          "rotation": 0.0,
-          "localRotation": 0.0
-        }
-      ],
-      "BoxRenderer": [
-        {
-          "center": [
-            0.0,
-            0.0
-          ],
-          "size": [
-            700.0,
-            50.0
-          ],
-          "color": [
-            0.0,
-            0.501960813999176,
-            0.0,
-            1.0
-          ],
-          "isFill": true,
-          "alpha": 0.3499999940395355
-        }
-      ],
-      "BoxCollider2D": [
-        {
-          "ColliderSize": [
-            700.0,
-            50.0
-          ],
-          "Center": [
-            0.0,
-            0.0
-          ]
-        }
-      ]
-    },
     {
       "name": "Ground_0",
       "Transform": [
@@ -632,6 +688,63 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Ground",
+      "Transform": [
+        {
+          "position": [
+            -3.0,
+            -86.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            724.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            724.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
     }
   ],
   "StageObjectListDebug": [
@@ -640,8 +753,8 @@
       "Transform": [
         {
           "position": [
-            0.0,
-            0.0
+            -598.0,
+            448.0
           ],
           "localPosition": [
             0.0,
@@ -667,8 +780,8 @@
       "Transform": [
         {
           "position": [
-            0.0,
-            0.0
+            -598.0,
+            448.0
           ],
           "localPosition": [
             0.0,
