@@ -3,6 +3,8 @@
 #include <directxmath.h>
 #include <iostream>
 
+#include <Utility/Debug.h>
+
 #pragma comment(lib,"d2d1.lib")
 #pragma comment(lib,"dwrite.lib")
 #pragma comment(lib,"dxgi.lib")
@@ -512,7 +514,7 @@ ID2D1Bitmap* const* D2DRenderer::CreateD2DBitmap(const wchar_t* filePath)
 		message += L"\n\"";
 		message += filePath;
 		message += L"\"";
-		::MessageBox(GetActiveWindow(), message.c_str(), L"D2DRenderer::CreateBitmap Error", MB_OK);
+		DEBUG_WPRINT(L"D2DRenderer::CreateBitmap Error, %s\n", message.c_str());
 		delete ID2D1BitmapResourceMap[filePath]; //생성 실패시 삭제
 		ID2D1BitmapResourceMap.erase(filePath); 
 		return nullptr;

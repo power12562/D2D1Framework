@@ -76,7 +76,7 @@ void EnemyDino0Ctrl::Render()
 
 void EnemyDino0Ctrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (otherCollider->gameObject.tag == L"Player")
+	if (otherCollider->gameObject.tag == L"Player" || otherCollider->gameObject.tag == L"Enemy")
 	{
 		Vector2 velocityDir = (otherCollider->transform.position - transform.position).Normalized();
 		otherCollider->GetComponent<Rigidbody2D>().Velocity = velocityDir * 300.0f;
