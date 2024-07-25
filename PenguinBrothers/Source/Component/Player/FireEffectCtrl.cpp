@@ -62,7 +62,7 @@ void FireEffectCtrl::Update()
 
 void FireEffectCtrl::SpawnNext()
 {
-	constexpr float interval = 30.0f;
+	constexpr float interval = 50.0f;
 	if (bombDir > 0 && rightCount > 0)
 	{
 		SpawnFire(transform.position + Vector2::Right * interval, 1);

@@ -16,22 +16,6 @@ FireEffect::FireEffect()
 
 	AddComponent<SpriteAnimationRenderer>();
 	AddComponent<FireEffectCtrl>();
-
-	switch (bombType)
-	{
-	case BombType::blue:
-
-		break;
-	case BombType::red:
-
-		break;
-	case BombType::green:
-
-		break;
-	case BombType::skyblue:
-
-		break;
-	}
 	AddComponent<SpriteCollider2D>().isTrigger = true;
 }
 
