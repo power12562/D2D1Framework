@@ -2,47 +2,47 @@
   "Ainmations": [
     {
       "clipName": "Idle",
-      "clipPath": "Resource/Player/Normal/Ani/Idle.txt",
+      "clipPath": "Resource/Player/Normal/Ani/Idle.csv",
       "imagePath": "Resource/Player/Normal/Normal.png"
     },
     {
       "clipName": "Dead",
-      "clipPath": "Resource/Player/Dead/Dead.txt",
+      "clipPath": "Resource/Player/Dead/Dead.csv",
       "imagePath": "Resource/Player/Dead/Dead.png"
     },
     {
       "clipName": "Walk",
-      "clipPath": "Resource/Player/Normal/Ani/Walk.txt",
+      "clipPath": "Resource/Player/Normal/Ani/Walk.csv",
       "imagePath": "Resource/Player/Normal/Normal.png"
     },
     {
       "clipName": "Duck",
-      "clipPath": "Resource/Player/Normal/Ani/Duck.txt",
+      "clipPath": "Resource/Player/Normal/Ani/Duck.csv",
       "imagePath": "Resource/Player/Normal/Normal.png"
     },
     {
       "clipName": "Attack",
-      "clipPath": "Resource/Player/Normal/Ani/Attack.txt",
+      "clipPath": "Resource/Player/Normal/Ani/Attack.csv",
       "imagePath": "Resource/Player/Normal/Normal.png"
     },
     {
       "clipName": "Jump",
-      "clipPath": "Resource/Player/Normal/Ani/Jump.txt",
+      "clipPath": "Resource/Player/Normal/Ani/Jump.csv",
       "imagePath": "Resource/Player/Normal/Normal.png"
     },
     {
       "clipName": "Slide",
-      "clipPath": "Resource/Player/Normal/Ani/Slide.txt",
+      "clipPath": "Resource/Player/Normal/Ani/Slide.csv",
       "imagePath": "Resource/Player/Normal/Normal.png"
     },
     {
       "clipName": "Spawn",
-      "clipPath": "Resource/Player/Spawn/Spawn.txt",
+      "clipPath": "Resource/Player/Spawn/Spawn.csv",
       "imagePath": "Resource/Player/Spawn/Spawn.png"
     },
     {
       "clipName": "Win",
-      "clipPath": "Resource/Player/Win/Win.txt",
+      "clipPath": "Resource/Player/Win/Win.csv",
       "imagePath": "Resource/Player/Win/Win.png"
     }
   ]

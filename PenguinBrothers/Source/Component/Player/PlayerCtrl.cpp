@@ -46,12 +46,12 @@ void PlayerCtrl::Update()
 	}
 	//Vector2 velocity = GetComponent<Rigidbody2D>().Velocity;
 	//DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
-
+	DEBUG_PRINT("position { %f, %f }\n", transform.position.x, transform.position.y);
 }
 
 void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (otherCollider->gameObject.tag == L"Ground")
+	if (otherCollider->gameObject.tag == L"Ground" || otherCollider->gameObject.tag == L"Block")
 	{
 		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
 		{
@@ -63,7 +63,7 @@ void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* othe
 
 void PlayerCtrl::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (otherCollider->gameObject.tag == L"Ground")
+	if (otherCollider->gameObject.tag == L"Ground" || otherCollider->gameObject.tag == L"Block")
 	{
 		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
 		{
@@ -76,7 +76,7 @@ void PlayerCtrl::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* other
 
 void PlayerCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
 {
-	if (otherCollider->gameObject.tag == L"Ground")
+	if (otherCollider->gameObject.tag == L"Ground" || otherCollider->gameObject.tag == L"Block")
 	{
 		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
 		{

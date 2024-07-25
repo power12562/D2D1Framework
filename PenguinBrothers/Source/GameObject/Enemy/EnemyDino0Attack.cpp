@@ -16,7 +16,7 @@ EnemyDino0Attack::EnemyDino0Attack()
 	AddComponent<EnemyDino0AttackCtrl>();
 
 	SpriteAnimationRenderer& animationRenderer = AddComponent<SpriteAnimationRenderer>();
-	animationRenderer.LoadAnimationClip(L"Resource/Enemy/Dino0/Fire.txt", L"Resource/Enemy/Dino0/EnemyDino0.png", L"Fire");
+	animationRenderer.LoadAnimationClip(L"Resource/Enemy/Dino0/Fire.csv", L"Resource/Enemy/Dino0/EnemyDino0.png", L"Fire");
 	animationRenderer.SetAnimation(L"Fire");
 
 	SpriteCollider2D& coll = AddComponent<SpriteCollider2D>();

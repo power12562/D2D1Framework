@@ -38,7 +38,8 @@ void ColliderManager::CheckCollision()
 			if ((*j)->gameObject.enable == false)
 				continue;
 
-			if (((*i)->gameObject.pRigidbody && (*i)->gameObject.pRigidbody->enabled) || ((*j)->gameObject.pRigidbody && (*j)->gameObject.pRigidbody->enabled))
+			if (((*i)->gameObject.pRigidbody && (*i)->gameObject.pRigidbody->enabled) ||
+				((*j)->gameObject.pRigidbody && (*j)->gameObject.pRigidbody->enabled))			
 			{
 				if ((*i)->isCollide(*j))
 				{

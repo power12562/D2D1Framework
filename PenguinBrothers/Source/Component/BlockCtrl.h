@@ -1,40 +1,35 @@
 #pragma once
-#include "Vector/Vector2.h"
-
-#include "Core/Component/Base/ComponentBase.h"
+#include <Core/Component/Base/ComponentBase.h>
 #include <Core/Component/Collider/Interface/ICollider2DNotify.h>
+#include <Core/Component/Collider/Base/ColliderBase.h>
 
-enum class BombType
+class BlockCtrl : public ComponentBase, public ICollider2DNotify
 {
-	blue,
-	red,
-	green,
-	skyblue
-};
-
-class PlayerCtrl : public ComponentBase, public ICollider2DNotify
-{
-	class TextRenderer* stateDebugText = nullptr;
-	class FiniteStateMachine* fsm;
 public:
-	PlayerCtrl(GameObjectBase& gameObject);
-	virtual ~PlayerCtrl();
-
-	BombType bombType = BombType::red;
-
-	bool isJump;
-	bool isBlock;
-
-	float moveSpeed;
-	float slideSpeed;
-	void SpawnBomb();
+	BlockCtrl(GameObjectBase& gameObject);
+	virtual ~BlockCtrl() override;
 
 protected:
-	virtual void Start();
-	virtual void Update();
+	virtual void Start() override;
+	virtual void Update() override;
+	//virtual void LateUpdate() override;
+	//virtual void Render() override;
+
+	//virtual void SerializedJson(ordered_json& jsonObj) override;
+	//virtual void DeSerializedJson(ordered_json& jsonObj) override;
+
+
+
 
 private:
-	Vector2 dir = Vector2::Right;
+	GameObjectBase* player;
+	class InputBinding* PlayerInput;
+	bool endRot = true;
+	float elapsedTime;
+	float pLeft;
+	float pRight;
+	float mLeft;
+	float mRight;
 
 	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
 	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override;
@@ -44,4 +39,3 @@ private:
 	virtual void OnTriggerStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 	virtual void OnTriggerExit2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 };
-

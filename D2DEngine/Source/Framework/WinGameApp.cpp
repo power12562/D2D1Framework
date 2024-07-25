@@ -112,18 +112,14 @@ void WinGameApp::Run()
 			WorldManager::LateUpdate();
 			ColliderManager::CheckCollision();
 
-			SpriteAnimationRenderer::BegineRender();
+			WorldManager::UpdateMatrix();
+			WorldManager::UpdateCullingBouds();
+			D2DRenderer::BeginDraw();
 			{
-				WorldManager::UpdateMatrix();
-				WorldManager::UpdateCullingBouds();
-				D2DRenderer::BeginDraw();
-				{
-					D2DRenderer::Clear(bgColor);
-					WorldManager::Render();
-				}
-				D2DRenderer::EndDraw();
-			}	
-			SpriteAnimationRenderer::EndRender();
+				D2DRenderer::Clear(bgColor);
+				WorldManager::Render();
+			}
+			D2DRenderer::EndDraw();
 								
 			WorldManager::LoadNextWorld();
 			WorldManager::DelObjectToSetList();	

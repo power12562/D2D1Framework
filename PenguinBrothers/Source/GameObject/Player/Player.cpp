@@ -44,7 +44,6 @@ Player::Player()
 #endif // DEBUG
 
 	AddComponent<Rigidbody2D>();
-
 	AddComponent<PlayerCtrl>();
 	FiniteStateMachine& fsm = AddComponent<FiniteStateMachine>();
 	fsm.CreateState<Idle>(L"Idle");
@@ -70,10 +69,13 @@ Player::~Player()
 //state
 
 Vector2 PlayerState::SpawnPos = Vector2{0, 0};
+Vector2 PlayerState::SpawnScale = Vector2{0, 0};
 
 PlayerState::PlayerState(FiniteStateMachine& _owner, const wchar_t* _name) : FSMState(_owner, _name)
 {
 	SpawnPos = owner.gameObject.transform.position;
+	SpawnScale = owner.gameObject.transform.scale;
+
 	movement = &owner.gameObject.GetComponent<Movement>();
 	spriteAnimation = &owner.gameObject.GetComponent<SpriteAnimationRenderer>();
 	playerCtrl = &owner.gameObject.GetComponent<PlayerCtrl>();
@@ -83,8 +85,10 @@ PlayerState::PlayerState(FiniteStateMachine& _owner, const wchar_t* _name) : FSM
 
 void Spawn::Enter()
 {
+	playerCtrl->isJump = true;
 	spriteAnimation->SetAnimation(L"Spawn");
-	owner.IsComponent<Rigidbody2D>()->enabled = false;	
+	owner.IsComponent<Rigidbody2D>()->enabled = false;
+	owner.IsComponent<Rigidbody2D>()->Velocity = Vector2(0, 0);
 }
 
 void Spawn::Update()
@@ -92,7 +96,6 @@ void Spawn::Update()
 	if (spriteAnimation->CurrentClipEnd)
 	{
 		owner.SetState(L"Idle");
-		playerCtrl->isJump = false;
 	}
 }
 
@@ -100,7 +103,6 @@ void Spawn::Exit()
 {
 	owner.IsComponent<Rigidbody2D>()->enabled = true;
 	SpawnPos = owner.gameObject.transform.position;
-	playerCtrl->isJump = false;
 }
 
 
@@ -265,7 +267,11 @@ void Dead::Update()
 {
 	if (spriteAnimation->CurrentClipEnd)
 	{
+		owner.transform.SetParent();
 		owner.transform.position = SpawnPos;
+		owner.transform.scale = SpawnScale;
+		owner.transform.rotation = 0;
+
 		owner.Transition = true;
 		owner.SetState(L"Spawn");
 	}

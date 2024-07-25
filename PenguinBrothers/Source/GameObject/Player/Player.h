@@ -31,6 +31,7 @@ protected:
 	class SpriteAnimationRenderer* spriteAnimation;
 	class PlayerCtrl* playerCtrl;
 	static Vector2 SpawnPos;
+	static Vector2 SpawnScale;
 };
 
 class Spawn : public PlayerState

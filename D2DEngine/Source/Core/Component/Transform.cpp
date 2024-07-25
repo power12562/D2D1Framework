@@ -35,6 +35,7 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 	PM = Matrix3x2F::Identity();
 	IPM = Matrix3x2F::Identity();
 
+	right = Vector2::Right;
 }
 
 Transform::~Transform()
@@ -128,13 +129,8 @@ void Transform::UpdateWorldMatrix()
 		scale.value.x = parent->scale.value.x * localScale.value.x;
 		scale.value.y = parent->scale.value.y * localScale.value.y;
 
-		Vector2 translation = localPosition;
-		translation.x *= parent->scale.value.x;
-		translation.y *= parent->scale.value.y;
-
-		position.value = parent->position + translation;
-
 		rotation.angle = parent->rotation + localRotation;
+		position.value = Vector2(WM._31, - WM._32 +  ScreenSize.cy);
 	}
 }
 
@@ -189,6 +185,10 @@ void Transform::SetParent(Transform& parent)
 		}
 	}
 	this->parent = &parent;
+	this->transform.localPosition = this->transform.position - parent.transform.position;
+	this->transform.localRotation = this->transform.rotation - parent.transform.rotation;
+	this->transform.localScale = Vector2(parent.transform.scale.x * this->transform.scale.x, parent.transform.scale.y * this->transform.scale.y);
+
 	parent.childsList.push_back(this);
 
 #pragma warning(default:6011)
@@ -349,7 +349,8 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			//DEBUG_PRINT("부모가 있는 오브젝트는 월드 변경이 불가능 합니다.\n");
+			thisTransform->localPosition.value = other - thisTransform->parent->position.value;
+			this->value = other;
 			return *this;
 		}
 		else
@@ -375,7 +376,8 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			//DEBUG_PRINT("부모가 있는 오브젝트는 월드 변경이 불가능 합니다.\n");
+			thisTransform->localScale.value = Vector2(thisTransform->parent->scale.value.x * other.x, thisTransform->parent->scale.value.y * other.y);
+			this->value = other;
 			return *this;
 		}
 		else

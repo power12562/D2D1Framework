@@ -44,7 +44,7 @@ float Vector2::Magnitude() const
 	return magnitude;
 }
 
-Vector2 Vector2::Normalized()
+Vector2 Vector2::Normalized() const
 {
 	float magnitude = Magnitude();
 	if (magnitude != 0)
@@ -129,7 +129,7 @@ Vector2& Vector2::operator-=(const Vector2& other)
 	return *this;
 }
 
-Vector2 Vector2::operator+(const Vector2& other)
+Vector2 Vector2::operator+(const Vector2& other) const
 {
 	Vector2 sum = Vector2{ 0, 0 };
 	sum.x = this->x + other.x;
@@ -138,7 +138,7 @@ Vector2 Vector2::operator+(const Vector2& other)
 	return sum;
 }
 
-Vector2 Vector2::operator-(const Vector2& other)
+Vector2 Vector2::operator-(const Vector2& other) const
 {
 	Vector2 sub = Vector2{ 0, 0 };
 	sub.x = this->x - other.x;
@@ -147,17 +147,17 @@ Vector2 Vector2::operator-(const Vector2& other)
 	return sub;
 }
 
-Vector2 Vector2::operator-()
+Vector2 Vector2::operator-() const
 {
 	return Vector2(-this->x, -this->y);
 }
 
-bool Vector2::operator!=(const Vector2& other)
+bool Vector2::operator!=(const Vector2& other) const
 {
 	return (this->x != other.x || this->y != other.y);
 }
 
-bool Vector2::operator==(const Vector2& other)
+bool Vector2::operator==(const Vector2& other) const
 {
 	return (this->x == other.x && this->y == other.y);
 }

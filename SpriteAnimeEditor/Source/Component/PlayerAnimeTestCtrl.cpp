@@ -142,7 +142,7 @@ void PlayerAnimeTestCtrl::SelCurrentImage()
 
 void PlayerAnimeTestCtrl::SelCurrentAni()
 {
-	std::wstring inputPath = WinUtility::GetOpenFilePath(L"txt");
+	std::wstring inputPath = WinUtility::GetOpenFilePath(L"csv");
 	if (L"" != inputPath)
 	{
 		currentAniPath = inputPath;
@@ -181,7 +181,7 @@ void PlayerAnimeTestCtrl::SaveAsCurrentAniToFile()
 {
 	if (spriteAnimation->GetCurrentAnimation())
 	{
-		std::wstring savePath = WinUtility::GetSaveAsFilePath(L"txt");
+		std::wstring savePath = WinUtility::GetSaveAsFilePath(L"csv");
 		if (savePath != L"")
 			SpriteAnimationRenderer::SaveAnimationClipToFile(*spriteAnimation->GetCurrentAnimation()->clip, savePath.c_str());
 	}

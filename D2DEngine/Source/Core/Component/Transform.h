@@ -80,6 +80,9 @@ public:
 	TFloat localRotation = 0;
 	TVector2 localScale{ 1,1 };
 
+	const Vector2& GetRight() const { return right; }
+	__declspec(property(get = GetRight)) const Vector2& Right;
+
 	inline const D2D1_MATRIX_3X2_F& GetWorldMatrix() const { return WM; }
 	inline const D2D1_MATRIX_3X2_F& GetCameraMatrix() const { return CM; }
 
@@ -135,6 +138,8 @@ private:
 
 	bool isFlipX = false;
 	bool isFlipY = false;
+
+	Vector2 right{};
 
 	virtual void SerializedJson(ordered_json& jsonObj) override;
 	virtual void DeSerializedJson(ordered_json& jsonObj) override;

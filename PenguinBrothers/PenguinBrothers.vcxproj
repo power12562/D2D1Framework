@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\BlockCtrl.cpp" />
     <ClCompile Include="Source\Component\EditerCtrl.cpp" />
     <ClCompile Include="Source\Component\Enemy\EnemyDino0AttackCtrl.cpp" />
     <ClCompile Include="Source\Component\Enemy\EnemyDino0Ctrl.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Source\WinMain\PenguinBrothers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component\BlockCtrl.h" />
     <ClInclude Include="Source\Component\EditerCtrl.h" />
     <ClInclude Include="Source\Component\Enemy\EnemyDino0AttackCtrl.h" />
     <ClInclude Include="Source\Component\Enemy\EnemyDino0Ctrl.h" />

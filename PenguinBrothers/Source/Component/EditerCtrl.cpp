@@ -20,6 +20,8 @@
 #include "Source/Component/GameManagerCtrl.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 #include "Source/GameObject/Ground.h"
+#include "Source/GameObject/Block.h"
+#include "Source/Component/BlockCtrl.h"
 
 using namespace InputSystem;
 using namespace TimeSystem;
@@ -99,6 +101,10 @@ void EditerCtrl::Update()
 		{
 			AddGround();
 		}
+		if (Input.IsKeyDown(KeyCode::H))
+		{
+			AddBlock();
+		}
 
 
 		if (Input.IsKeyDown(KeyCode::B))
@@ -128,7 +134,7 @@ void EditerCtrl::EnableEditMode(bool _enable)
 		for (auto& i : WorldManager::GetCurrentObjList())
 		{
 			if(pos != initPos.end() && 
-				(i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground")
+				(i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground" || i->tag == L"Block")
 				)
 			{
 				i->enable = true;
@@ -143,29 +149,46 @@ void EditerCtrl::EnableEditMode(bool _enable)
 
 			if (Rigidbody2D* rb = i->IsComponent<Rigidbody2D>())
 			{
-				rb->isKinematic = true;
+				rb->enabled = false;
+			}
+			if (ComponentBase* ctrl = (ComponentBase*)i->IsComponent<BlockCtrl>())
+			{
+				ctrl->Start();
 			}
 		}
 		GameManagerCtrl::EnemyCount = (int)WorldManager::FindGameObjectsWithTag(L"Enemy").size();
+
+		for (auto& p : WorldManager::FindGameObjectsWithTag(L"Player"))
+		{
+			p->transform.SetParent();
+			p->transform.scale = Vector2(4.0f, 4.0f);
+			p->transform.rotation = 0;
+		}
+
+		for (auto& b : WorldManager::FindGameObjectsWithTag(L"Block"))
+		{
+			b->transform.rotation = 0;
+		}
 	}
 	else
 	{
 		Time.timeScale = 1.0f;
-		gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Spawn");
 		editMode = false;
 
 		initPos.clear();
 		for (auto& i : WorldManager::GetCurrentObjList())
 		{
-			if ((i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground"))
+			if (i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground" || i->tag == L"Block")
 			{
 				initPos.push_back(i->transform.position);
 			}		
 			if (Rigidbody2D* rb = i->IsComponent<Rigidbody2D>())
 			{
-				rb->isKinematic = false;
+				rb->enabled = true;
 			}
 		}
+
+		gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Spawn");
 	}
 }
 
@@ -333,6 +356,12 @@ void EditerCtrl::AddGround()
 	}
 }
 
+void EditerCtrl::AddBlock()
+{
+	DEBUG_PRINT("Add Block!");
+	GameObjectBase* ground = WorldManager::AddGameObject<Block>(L"Block");
+}
+
 
 void EditerCtrl::SelectBackgroundPath()
 {
@@ -361,7 +390,23 @@ void EditerCtrl::SaveWorld()
 	std::wstring savePath = WinUtility::GetSaveAsFilePath(L"json");
 	if (savePath != L"")
 	{
-		WorldManager::SaveCurrentWorldToJson(savePath.c_str());
+		bool ok = false;
+		if (std::wstring::npos == savePath.rfind(L".json"))
+		{
+			savePath += L".json";
+		}
+		if (std::filesystem::exists(savePath))
+		{
+			ok = WinUtility::ShowConfirmationDialog(L"경고", L"파일을 덮어쓰기 하시겠습니까?");
+		}
+		else
+		{
+			ok = true;
+		}
+		if (ok)
+		{
+			WorldManager::SaveCurrentWorldToJson(savePath.c_str());
+		}	
 	}
 }
 

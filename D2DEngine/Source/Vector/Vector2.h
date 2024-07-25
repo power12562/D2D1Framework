@@ -19,7 +19,7 @@ public:
 	float Magnitude() const;
 	float SqrMagnitude() const;
 
-	Vector2 Normalized();
+	Vector2 Normalized() const;
 
 	Vector2& operator=(const Vector2& other);
 	/*Json으로 읽은 position 값을 초기화 하기 위한 대입 연산자.*/
@@ -31,11 +31,11 @@ public:
 	Vector2& operator*=(const float scala);
 	Vector2& operator+=(const Vector2& other);
 	Vector2& operator-=(const Vector2& other);
-	Vector2 operator+(const Vector2& other);
-	Vector2 operator-(const Vector2& other);
-	Vector2 operator-();
-	bool operator!=(const Vector2& other);
-	bool operator==(const Vector2& other);
+	Vector2 operator+(const Vector2& other) const;
+	Vector2 operator-(const Vector2& other) const;
+	Vector2 operator-() const;
+	bool operator!=(const Vector2& other) const;
+	bool operator==(const Vector2& other) const;
 
 	//static:
 

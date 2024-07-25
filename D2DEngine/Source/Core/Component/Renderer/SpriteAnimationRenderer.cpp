@@ -192,7 +192,9 @@ void SpriteAnimationRenderer::Render()
 		{
 			FrameInfo* const frame = this->GetCurrentFrame();
 
-			D2D1_MATRIX_3X2_F objMatrix = gameObject.transform.GetInvertPivotMatrix() * gameObject.transform.GetCameraMatrix();
+			D2D1_MATRIX_3X2_F objMatrix = D2D1::Matrix3x2F::Translation(frame->center.x, -frame->center.y) *
+				gameObject.transform.GetInvertPivotMatrix() * 
+				gameObject.transform.GetCameraMatrix();
 			D2DRenderer::DrawBitmap(*image, objMatrix, frame->source);
 		}
 	}
@@ -203,7 +205,9 @@ void SpriteAnimationRenderer::UpdateCurrentPivot()
 	if (FrameInfo* frame = GetCurrentFrame())
 	{
 		Vector2 currentPivot = Vector2{ frame->source.right - frame->source.left, frame->source.bottom - frame->source.top };
-		currentPivot *= 0.5f;
+		//currentPivot.x -= frame->center.x;
+		//currentPivot.y += frame->center.y;
+		currentPivot *= 0.5f;	
 		gameObject.GetTransform().pivot = currentPivot;
 	}
 }
@@ -367,21 +371,5 @@ void SpriteAnimationRenderer::ReleaseAnimationClip(const wchar_t* filePath)
 	}
 }
 
-void SpriteAnimationRenderer::BegineRender()
-{
-	for (auto& componet : instanceList)
-	{
-		if(componet->enabled)
-			componet->SetRenderPos();
-	}
-}
 
-void SpriteAnimationRenderer::EndRender()
-{
-	for (auto& componet : instanceList)
-	{
-		if (componet->enabled)
-			componet->SetOriginPos();
-	}
-}
 

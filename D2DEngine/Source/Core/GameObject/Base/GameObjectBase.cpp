@@ -156,7 +156,6 @@ void GameObjectBase::SetOderLayer(int val)
 void GameObjectBase::UpdateCullingBounds()
 {
 	cullingBounds.center = transform.position;
-
 	cullingBounds.extents = transform.pivot;
 	cullingBounds.extents.x *= abs(transform.scale.x);
 	cullingBounds.extents.y *= abs(transform.scale.y);

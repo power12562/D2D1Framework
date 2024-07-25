@@ -76,13 +76,6 @@ private:
 	/** 생성된 컴포넌트 리스트*/
 	static std::list<SpriteAnimationRenderer*> instanceList;
 
-#pragma region WinGameApp->Run()루프에서만 호출하는 함수들
-	/** 그리기 위해 위치를 조정*/
-	static void BegineRender();
-	/** 그린 이후 위치를 원복 위치를 조정*/
-	static void EndRender();
-#pragma endregion
-
 public:
 	SpriteAnimationRenderer(GameObjectBase& gameObject);
 	virtual ~SpriteAnimationRenderer() override;

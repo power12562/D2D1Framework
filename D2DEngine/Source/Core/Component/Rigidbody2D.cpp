@@ -47,7 +47,7 @@ void Rigidbody2D::Update()
 
 void Rigidbody2D::AddGravity()
 {
-    if (useGravity && !isKinematic && currIsGravity)
+    if (enabled && useGravity && !isKinematic && currIsGravity)
     {
         force += Gravity * Time.GetDeltatime();
     }

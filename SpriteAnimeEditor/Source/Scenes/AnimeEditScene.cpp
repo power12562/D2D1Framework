@@ -2,6 +2,7 @@
 #include "Framework/WorldManager.h"
 
 #include "Core/Component/Camera.h"
+#include <Core/GameObject/MainCamera.h>
 
 #include "Source/Component/AnimeEditCameraCtrl.h"
 #include "Source/GameObject/PlayerAnimeTest.h"
@@ -10,7 +11,7 @@
 
 AnimeEditScene::AnimeEditScene()
 {
-	Camera::GetMainCamera()->gameObject.AddComponent<AnimeEditCameraCtrl>();
+	WorldManager::AddGameObject<MainCamera>(L"MainCamera")->AddComponent<AnimeEditCameraCtrl>();
 	WorldManager::AddGameObject<DebugUI>(L"DebugUI");
 	WorldManager::AddGameObject<PlayerAnimeTest>(L"AnimeTest");
 	WorldManager::AddGameObject<RectMode>(L"RectMode")->enable = false;
