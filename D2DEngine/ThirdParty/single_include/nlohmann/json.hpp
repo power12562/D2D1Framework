@@ -8214,6 +8214,7 @@ class lexer : public lexer_base<BasicJsonType>
         }
     }
 
+#pragma warning(disable : 26819)
     /*!
      * @brief scan a comment
      * @return whether comment could be scanned successfully

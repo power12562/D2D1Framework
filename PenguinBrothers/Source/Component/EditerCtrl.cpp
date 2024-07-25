@@ -146,7 +146,7 @@ void EditerCtrl::EnableEditMode(bool _enable)
 				rb->isKinematic = true;
 			}
 		}
-		GameManagerCtrl::EnemyCount = WorldManager::FindGameObjectsWithTag(L"Enemy").size();
+		GameManagerCtrl::EnemyCount = (int)WorldManager::FindGameObjectsWithTag(L"Enemy").size();
 	}
 	else
 	{
