@@ -2,7 +2,7 @@
 #include "Framework/WorldManager.h"
 
 #include <Core/Component/Rigidbody2D.h>
-#include "Core/Component/Collider/SpriteCollider2D.h"
+#include <Core/Component/Collider/BoxCollider2D.h>
 #include "Core/Component/FSM/FiniteStateMachine.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Movement.h"
@@ -19,7 +19,13 @@ EnemyDino0::EnemyDino0()
 	tag = L"Enemy";
 
 	AddComponent<Rigidbody2D>().enabled = false;
-	AddComponent<SpriteCollider2D>();
+	BoxCollider2D& coll = AddComponent<BoxCollider2D>();
+	coll.ColliderSize = Vector2{ 120,120 };
+#ifdef _DEBUG
+	coll.isDrawCollider = true;
+#endif
+
+
 	AddComponent<EnemyDino0Ctrl>();
 	AddComponent<Movement>();
 	auto& animationRenderer = AddComponent<SpriteAnimationRenderer>();
@@ -33,6 +39,8 @@ EnemyDino0::EnemyDino0()
 	fsm.CreateState<EnemyIdle>(L"Idle");
 	fsm.CreateState<EnemyTracking>(L"Tracking");
 	fsm.CreateState<EnemyAttack>(L"Attack");
+	fsm.CreateState<EnemyAirborne>(L"Airborne");
+
 }
 
 EnemyDino0::~EnemyDino0()
@@ -172,5 +180,19 @@ void EnemyAttack::Update()
 	{
 		dinoCtrl->SpawnFire();
 		attackSpawn = true;
+	}
+}
+
+void EnemyAirborne::Enter()
+{
+	movement->SetSpeed(0);
+	animationRenderer->SetAnimation(L"Idle", true);
+}
+
+void EnemyAirborne::Update()
+{
+	if (owner.GetComponent<Rigidbody2D>().Velocity == Vector2{0, 0})
+	{
+		owner.SetState(L"Idle");
 	}
 }

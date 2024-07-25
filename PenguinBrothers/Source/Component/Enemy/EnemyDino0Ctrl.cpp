@@ -1,6 +1,7 @@
 #include "EnemyDino0Ctrl.h"
 
 #include "Framework/WorldManager.h"
+#include <Utility/Debug.h>
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/GameObject/Base/GameObjectUI.h"
@@ -54,12 +55,7 @@ void EnemyDino0Ctrl::Start()
 		GameManagerCtrl::EnemyCount++;
 	}
 
-#ifdef _DEBUG
-	GetComponent<SpriteCollider2D>().isDrawCollider = true;
-#endif // _DEBUG
-
 	GetComponent<Rigidbody2D>().enabled = true;
-	gameObject.transform.position += Vector2(0.f, -9.f);
 	fsm = gameObject.IsComponent<FiniteStateMachine>();
 	fsm->SetState(L"Spawn");
 }
@@ -82,8 +78,12 @@ void EnemyDino0Ctrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* 
 {
 	if (otherCollider->gameObject.tag == L"Player")
 	{
-		otherCollider->GetComponent<Rigidbody2D>().AddForce(otherCollider->transform.position - transform.position);
-		fsm->SetState(L"Idle");
+		Vector2 velocityDir = (otherCollider->transform.position - transform.position).Normalized();
+		otherCollider->GetComponent<Rigidbody2D>().Velocity = velocityDir * 300.0f;
+		otherCollider->GetComponent<FiniteStateMachine>().SetState(L"Airborne");
+
+		GetComponent<Rigidbody2D>().Velocity = -velocityDir * 200.f;
+		fsm->SetState(L"Airborne");
 	}
 
 }

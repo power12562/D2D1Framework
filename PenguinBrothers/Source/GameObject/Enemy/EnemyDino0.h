@@ -69,3 +69,13 @@ protected:
 	virtual void Exit() override {}
 
 };
+
+class EnemyAirborne : public EnemyState
+{
+public:
+	EnemyAirborne(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
+protected:
+	virtual void Enter() override;
+	virtual void Update() override;
+	virtual void Exit() override {}
+};

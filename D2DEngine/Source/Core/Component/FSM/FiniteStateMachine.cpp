@@ -2,6 +2,7 @@
 #include "FSMState.h"
 
 #include <cassert>
+#include <Utility/Debug.h>
 
 FiniteStateMachine::FiniteStateMachine(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -26,7 +27,7 @@ void FiniteStateMachine::Update()
 }
 
 void FiniteStateMachine::SetState(const wchar_t* name)
-{
+{	
 	if (enabled && Transition)
 	{
 		auto find = stateMap.find(name);

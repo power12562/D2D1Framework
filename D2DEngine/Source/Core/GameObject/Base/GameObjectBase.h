@@ -45,6 +45,8 @@ class GameObjectBase
 private:
 	Transform* pTransform; //트렌스폼
 	class Rigidbody2D* pRigidbody; //리지드바디
+	ICollider2DNotify* pRigidbodyEvent; 
+
 	std::list<ComponentBase*> componentsList; //컴포넌트 리스트
 	std::list<ColliderBase*> colliderList; //콜라이더 리스트
 	std::unordered_map<ComponentBase*, ICollider2DNotify*> collider2DNotifyTable;

@@ -71,6 +71,17 @@ GameObjectBase* WorldManager::FindGameObject(const wchar_t* objectName)
 	return nullptr;	
 }
 
+std::vector<GameObjectBase*> WorldManager::FindGameObjectsWithTag(const wchar_t* tag)
+{
+	std::vector<GameObjectBase*> list;
+	for (auto& obj : currentWorld->gameObjectList)
+	{
+		if (obj->tag == tag)
+			list.push_back(obj);
+	}
+	return list;
+}
+
 bool WorldManager::IsGameObject(const wchar_t* objectName)
 {
 	if (currentWorld)

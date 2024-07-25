@@ -147,6 +147,11 @@ Vector2 Vector2::operator-(const Vector2& other)
 	return sub;
 }
 
+Vector2 Vector2::operator-()
+{
+	return Vector2(-this->x, -this->y);
+}
+
 bool Vector2::operator!=(const Vector2& other)
 {
 	return (this->x != other.x || this->y != other.y);

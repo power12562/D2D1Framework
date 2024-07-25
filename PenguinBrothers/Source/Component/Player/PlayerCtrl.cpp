@@ -12,6 +12,7 @@
 #include "Core/Component/Renderer/TextRenderer.h"
 #include "Core/Component/Camera.h"
 
+#include <Utility/Debug.h>
 
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/GameObject/Player/Player.h"
@@ -33,7 +34,6 @@ void PlayerCtrl::Start()
 {
 	moveSpeed = 350.f;
 	slideSpeed = 525.f;
-	gameObject.transform.position += Vector2(0.f, -25.f);
 
 	fsm = IsComponent<FiniteStateMachine>();
 }
@@ -44,6 +44,8 @@ void PlayerCtrl::Update()
 	{
 		fsm->SetState(L"Dead");
 	}
+	//Vector2 velocity = GetComponent<Rigidbody2D>().Velocity;
+	//DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
 
 }
 
@@ -54,10 +56,22 @@ void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* othe
 		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
 		{
 			isJump = false;
+			//DEBUG_PRINT("isJump = %d\n", isJump);
 		}
 	}
+}
 
-
+void PlayerCtrl::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider)
+{
+	if (otherCollider->gameObject.tag == L"Ground")
+	{
+		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
+		{
+			if(fsm->GetCurrState()->GetName() != L"Jump")
+				isJump = false;
+			//DEBUG_PRINT("isJump = %d\n", isJump);
+		}
+	}
 }
 
 void PlayerCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* otherCollider)
@@ -67,6 +81,7 @@ void PlayerCtrl::OnCollisionExit2D(ColliderBase* myCollider, ColliderBase* other
 		if (myCollider->GetBottom() >= otherCollider->GetTop() - 1.0f)
 		{
 			isJump = true;
+			//DEBUG_PRINT("isJump = %d\n", isJump);
 		}
 	}
 }

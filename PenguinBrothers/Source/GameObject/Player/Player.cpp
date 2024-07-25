@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <Framework/WorldManager.h>
+#include <Framework/TimeSystem.h>
 
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Collider/SpriteCollider2D.h"
@@ -55,6 +56,7 @@ Player::Player()
 	fsm.CreateState<Dead>(L"Dead");
 	fsm.CreateState<Jump>(L"Jump");
 	fsm.CreateState<Win>(L"Win");
+	fsm.CreateState<Airborne>(L"Airborne");
 
 	fsm.SetState(L"Spawn");
 }
@@ -106,6 +108,7 @@ void Idle::Enter()
 {
 	spriteAnimation->SetAnimation(L"Idle", true);
 	BoxCollider2D& coll = owner.GetComponent<BoxCollider2D>();
+	owner.GetComponent<Rigidbody2D>().Velocity.x = 0;
 	coll.ColliderSize = { 80.0, 80.0 };
 	coll.Center = { 0,0 };
 }
@@ -301,6 +304,25 @@ void Jump::Update()
 	}
 }
 
+void Jump::Exit()
+{
+	
+}
+
+void Airborne::Enter()
+{
+	spriteAnimation->SetAnimation(L"Jump");
+	playerCtrl->isJump = true;
+}
+
+void Airborne::Update()
+{
+	if (owner.GetComponent<Rigidbody2D>().Velocity == Vector2{0,0})
+	{
+		owner.SetState(L"Idle");
+	}
+}
+
 void Win::Enter()
 {
 	owner.Transition = false;
@@ -315,3 +337,4 @@ void Win::Update()
 		owner.gameObject.Find(L"GameManager")->GetComponent<GameManagerCtrl>().LoadNextStage();
 	}
 }
+

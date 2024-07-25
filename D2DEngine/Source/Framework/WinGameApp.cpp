@@ -26,6 +26,7 @@ SIZE WinGameApp::size = {1920, 1080};
 bool WinGameApp::isResize = false;
 bool WinGameApp::isMaxsize = false;
 
+WinGameApp* WinGameApp::RunApp = nullptr;
 
 void WinGameApp::Initialize(HINSTANCE hinstance)
 {
@@ -58,6 +59,8 @@ void WinGameApp::Run()
 {
 	using namespace TimeSystem;
 	using namespace InputSystem;
+
+	RunApp = this;
 
 	//게임용 루프	
 	MSG msg;	

@@ -30,6 +30,9 @@ public:
 	/** 현재 씬에 오브젝트를 검색합니다.*/
 	static GameObjectBase* FindGameObject(const wchar_t* objectName);
 
+	/** 현재 씬에 해당 태그를 가진 오브젝트를 전부 검색합니다. 속도가 느립니다. 주의해서 사용하세요.*/
+	static std::vector<GameObjectBase*> FindGameObjectsWithTag(const wchar_t* tag);
+
 	/** 현재 씬에 오브젝트 존재 유무를 반환합니다.*/
 	static bool IsGameObject(const wchar_t* objectName);
 

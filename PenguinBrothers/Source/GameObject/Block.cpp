@@ -10,6 +10,7 @@ REGISTER_GAMEOBJECFT(Block)
 
 Block::Block()
 {
+	tag = L"Ground";
 	AddComponent<SpriteRenderer>().LoadImage(L"Resource/block.png");
 	AddComponent<BoxCollider2D>().ColliderSize = Vector2{ 178, 34 };
 

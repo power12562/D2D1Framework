@@ -9,6 +9,7 @@
 
 class WinGameApp
 {
+	static WinGameApp* RunApp; //현재 실행중인 앱
 public:
 	WinGameApp() {}
 	virtual ~WinGameApp() {}
@@ -17,7 +18,7 @@ public:
 	void Run(); //기본 메시지 루프
 	void Uninitialize();
 
-	void End() { isEnd = true; } //루프 종료
+	static void End() { RunApp->isEnd = true; } //루프 종료
 
 	/**클라이언트를 화면 가운데로 위치 시킨다.*/
 	static void WinToScrrenCenter(HWND hwnd);

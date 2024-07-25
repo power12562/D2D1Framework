@@ -17,7 +17,7 @@
 #include <Utility/Ray.h>
 #include <Utility/Debug.h>
 
-#include "Source/Scenes/StageEditer.h"
+#include "Source/Component/GameManagerCtrl.h"
 #include "Source/GameObject/Enemy/EnemyDino0.h"
 #include "Source/GameObject/Ground.h"
 
@@ -37,7 +37,8 @@ EditerCtrl::~EditerCtrl()
 void EditerCtrl::Start()
 {
 	//world = (StageEditer*)WorldManager::GetCurrentWorld();
-	EnableEditMode(true);
+	Time.timeScale = 0.f;
+	editMode = true;
 }
 
 
@@ -114,27 +115,52 @@ void EditerCtrl::EnableEditMode(bool _enable)
 	if (grabObject != nullptr)
 		return;
 
+	static std::vector<Vector2> initPos{};
+
 	if (_enable)
 	{
 		//world->PosToSpawnPos();
 
 		Time.timeScale = 0.f;
 		editMode = true;
+
+		auto pos = initPos.begin();
 		for (auto& i : WorldManager::GetCurrentObjList())
 		{
+			if(pos != initPos.end() && 
+				(i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground")
+				)
+			{
+				i->enable = true;
+				if (auto fsm = i->IsComponent<FiniteStateMachine>())
+				{
+					fsm->Transition = true;
+					fsm->SetState(L"Idle");
+				}
+				i->transform.position = *pos;
+				++pos;
+			}
+
 			if (Rigidbody2D* rb = i->IsComponent<Rigidbody2D>())
 			{
 				rb->isKinematic = true;
 			}
 		}
+		GameManagerCtrl::EnemyCount = WorldManager::FindGameObjectsWithTag(L"Enemy").size();
 	}
 	else
 	{
 		Time.timeScale = 1.0f;
 		gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Spawn");
 		editMode = false;
+
+		initPos.clear();
 		for (auto& i : WorldManager::GetCurrentObjList())
 		{
+			if ((i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground"))
+			{
+				initPos.push_back(i->transform.position);
+			}		
 			if (Rigidbody2D* rb = i->IsComponent<Rigidbody2D>())
 			{
 				rb->isKinematic = false;

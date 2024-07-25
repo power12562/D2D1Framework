@@ -108,9 +108,22 @@ public:
 public:
 	virtual void Enter() override;
 	virtual void Update() override;
+	virtual void Exit() override;
+
+};
+
+class Airborne : public PlayerState
+{
+public:
+	Airborne(FiniteStateMachine& _owner, const wchar_t* _name) : PlayerState(_owner, _name) {}
+
+public:
+	virtual void Enter() override;
+	virtual void Update() override;
 	virtual void Exit() override {}
 
 };
+
 
 class Win : public PlayerState
 {

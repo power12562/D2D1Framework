@@ -90,25 +90,39 @@ void ColliderManager::CallEnterEvent(ColliderBase* i, ColliderBase* j)
 				event.second->OnTriggerEnter2D(i, j);
 
 			}
+		}
+		if (j->gameObject.enable == true)
+		{
 			for (auto& event : j->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnTriggerEnter2D(j, i);
 			}
-		}
+		}	
 	}
 	else
 	{
-		if(j->gameObject.enable == true)
+		if(i->gameObject.enable == true)
 		{
+			if (i->gameObject.pRigidbody)
+			{
+				i->gameObject.pRigidbodyEvent->OnCollisionEnter2D(i, j);
+			}
 			for (auto& event : i->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnCollisionEnter2D(i, j);
+			}
+		}
+		if (j->gameObject.enable == true)
+		{
+			if (j->gameObject.pRigidbody)
+			{
+				j->gameObject.pRigidbodyEvent->OnCollisionEnter2D(j, i);
 			}
 			for (auto& event : j->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnCollisionEnter2D(j, i);
 			}
-		}
+		}		
 	}
 }
 
@@ -121,7 +135,6 @@ void ColliderManager::CallStayEvent(ColliderBase* i, ColliderBase* j)
 			for (auto& event : i->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnTriggerStay2D(i, j);
-
 			}
 		}
 		if(j->gameObject.enable == true)
@@ -136,6 +149,10 @@ void ColliderManager::CallStayEvent(ColliderBase* i, ColliderBase* j)
 	{
 		if (i->gameObject.enable == true)
 		{
+			if (i->gameObject.pRigidbody)
+			{
+				i->gameObject.pRigidbodyEvent->OnCollisionStay2D(i, j);
+			}
 			for (auto& event : i->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnCollisionStay2D(i, j);
@@ -143,6 +160,10 @@ void ColliderManager::CallStayEvent(ColliderBase* i, ColliderBase* j)
 		}
 		if (j->gameObject.enable == true)
 		{
+			if (j->gameObject.pRigidbody)
+			{
+				j->gameObject.pRigidbodyEvent->OnCollisionStay2D(j, i);
+			}
 			for (auto& event : j->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnCollisionStay2D(j, i);
@@ -175,6 +196,10 @@ void ColliderManager::CallExitEvent(ColliderBase* i, ColliderBase* j)
 	{
 		if (i->gameObject.enable == true)
 		{
+			if (i->gameObject.pRigidbody)
+			{
+				i->gameObject.pRigidbodyEvent->OnCollisionExit2D(i, j);
+			}
 			for (auto& event : i->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnCollisionExit2D(i, j);
@@ -182,6 +207,10 @@ void ColliderManager::CallExitEvent(ColliderBase* i, ColliderBase* j)
 		}
 		if (j->gameObject.enable == true)
 		{
+			if (j->gameObject.pRigidbody)
+			{
+				j->gameObject.pRigidbodyEvent->OnCollisionExit2D(j, i);
+			}
 			for (auto& event : j->gameObject.collider2DNotifyTable)
 			{
 				event.second->OnCollisionExit2D(j, i);

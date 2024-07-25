@@ -26,7 +26,8 @@ GameObjectBase::~GameObjectBase()
 {
 	delete pTransform;
 	delete pRigidbody;
-	EraseColliderNotipyTable(pRigidbody);
+	pRigidbodyEvent = nullptr;
+
 ;	for (auto& collider : colliderList)
 	{
 		if (collider)
@@ -236,7 +237,7 @@ Rigidbody2D& GameObjectBase::AddComponent()
 	if (pRigidbody == nullptr)
 	{
 		pRigidbody = new Rigidbody2D(*this);
-		PushColliderNotipyTable(pRigidbody);
+		pRigidbodyEvent = dynamic_cast<ICollider2DNotify*>(pRigidbody);
 	}
 	return *pRigidbody;
 }
