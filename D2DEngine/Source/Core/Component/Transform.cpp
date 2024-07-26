@@ -130,7 +130,7 @@ void Transform::UpdateWorldMatrix()
 		scale.value.y = parent->scale.value.y * localScale.value.y;
 
 		rotation.angle = parent->rotation + localRotation;
-		position.value = Vector2(WM._31, - WM._32 +  ScreenSize.cy);
+		position.value = Vector2(WM._31, -WM._32 +  ScreenSize.cy);
 	}
 }
 
@@ -185,8 +185,8 @@ void Transform::SetParent(Transform& parent)
 		}
 	}
 	this->parent = &parent;
-	D2D1_MATRIX_3X2_F LM = this->transform.WM * parent.transform.WM;
-	this->transform.localPosition = Vector2(LM.dx, LM.dy);
+	D2D1_MATRIX_3X2_F LM = this->transform.WM *parent.transform.IWM;
+	this->transform.localPosition = Vector2(LM.dx, -LM.dy);
 	this->transform.localRotation = this->transform.rotation - parent.transform.rotation;
 	this->transform.localScale = Vector2(parent.transform.scale.x * this->transform.scale.x, parent.transform.scale.y * this->transform.scale.y);
 
@@ -350,7 +350,7 @@ Transform::TVector2& Transform::TVector2::SetTVector(const Vector2& other)
 	{
 		if (thisTransform->parent)
 		{
-			thisTransform->localPosition.value = other - thisTransform->parent->position.value;
+ 			thisTransform->localPosition.value = other - thisTransform->parent->position.value;
 			this->value = other;
 			return *this;
 		}
@@ -449,7 +449,7 @@ void Transform::TFloat::SetAngle(const float& rotation)
 	{
 		if (thisTransform->parent)
 		{
-			//DEBUG_PRINT("부모가 있는 오브젝트는 월드 변경이 불가능 합니다.\n");
+			thisTransform->localRotation = thisTransform->parent->rotation.angle + rotation;
 			return;
 		}
 		else

@@ -37,9 +37,9 @@ void BlockCtrl::Update()
 {	
 	if (!downRot && PlayerInput && PlayerInput->IsKeyDown("Duck") && abs(pBottom - mTop) <= 1.0f)
 	{
-		DEBUG_PRINT("%f\n", pBottom - mTop);
 		if (pLeft >= mLeft - 2.0f && pRight <= mRight + 2.0f)
 		{
+			DEBUG_PRINT("Down rot\n");
 			downRot = true;
 			elapsedTime = 0;   
 			player->GetComponent<Movement>().enabled = false;
@@ -72,6 +72,24 @@ void BlockCtrl::Update()
 			downRot = false;			
 		}
 	}	
+	if (upRot)
+	{
+		float dir = abs(pLeft - mLeft) > abs(pRight - mRight) ? -1.f : 1.f;
+		transform.rotation += dir * 360.f * Time.GetDeltatime();
+		elapsedTime += Time.GetDeltatime();
+		if (elapsedTime >= 0.5f)
+		{
+			transform.rotation = 0.f;	
+			player->transform.rotation = 0.f;
+			player->GetComponent<Movement>().enabled = true;
+			if (Rigidbody2D* rb = player->IsComponent<Rigidbody2D>())
+			{
+				rb->enabled = true;
+				rb->Velocity = Vector2{ 0,0 };
+			}
+			upRot = false;
+		}
+	}
 }
 
 
@@ -92,6 +110,19 @@ void BlockCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* other
 		player = &otherCollider->gameObject;
 		player->transform.SetParent(transform);
 		PlayerInput = &player->GetComponent<InputBinding>();
+
+		if (abs(pTop - mBottom) <= 1.0f)
+		{
+			//DEBUG_PRINT("upRot\n");
+			if (Rigidbody2D* rb = player->IsComponent<Rigidbody2D>())
+			{
+				rb->enabled = false;
+			}
+			player->GetComponent<Movement>().enabled = false;
+			player->GetComponent<FiniteStateMachine>().SetState(L"Airborne");
+			player->transform.rotation = 180.f;
+			upRot = true;
+		}
 	}
 }
 

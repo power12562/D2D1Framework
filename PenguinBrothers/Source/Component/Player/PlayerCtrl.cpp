@@ -47,6 +47,7 @@ void PlayerCtrl::Update()
 	//Vector2 velocity = GetComponent<Rigidbody2D>().Velocity;
 	//DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
 	DEBUG_PRINT("position { %f, %f }\n", transform.position.x, transform.position.y);
+	//DEBUG_PRINT("angle : %f\n", (float)transform.rotation);
 }
 
 void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)

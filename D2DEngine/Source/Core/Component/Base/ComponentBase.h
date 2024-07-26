@@ -1,6 +1,7 @@
 #pragma once
 #include <Vector/Vector2.h>
 #include <Utility/JsonUtility.h>
+#include <Utility/Debug.h>
 
 class GameObjectBase;
 

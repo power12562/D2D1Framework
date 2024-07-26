@@ -27,6 +27,7 @@ private:
 	GameObjectBase* player;
 	class InputBinding* PlayerInput;
 	bool downRot;
+	bool upRot;
 	float elapsedTime;
 
 	float pLeft;

@@ -13,6 +13,7 @@
 #include <Core/Component/Collider/BoxCollider2D.h>
 #include <Core/Component/Rigidbody2D.h>
 #include <Core/Component/Renderer/BoxRenderer.h>
+#include <Core/Component/Movement.h>
 
 #include <Utility/Ray.h>
 #include <Utility/Debug.h>
@@ -163,6 +164,7 @@ void EditerCtrl::EnableEditMode(bool _enable)
 			p->transform.SetParent();
 			p->transform.scale = Vector2(4.0f, 4.0f);
 			p->transform.rotation = 0;
+			p->GetComponent<Movement>().enabled = true;
 		}
 
 		for (auto& b : WorldManager::FindGameObjectsWithTag(L"Block"))
