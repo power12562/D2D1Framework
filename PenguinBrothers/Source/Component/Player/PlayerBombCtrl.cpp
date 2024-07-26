@@ -65,7 +65,8 @@ void PlayerBombCtrl::Update()
 		switch (((PlayerBomb&)gameObject).playerCtrl->bombType)
 		{
 		case BombType::blue:
-			
+			fireEffectCtrl.lefttCount = 1;
+			fireEffectCtrl.rightCount = 1;
 			break;
 		case BombType::red:
 			fireEffectCtrl.lefttCount = 3;
@@ -75,11 +76,11 @@ void PlayerBombCtrl::Update()
 			if (transform.flipX == false)
 			{
 				fireEffectCtrl.lefttCount = 2;
-				fireEffectCtrl.rightCount = 5;
+				fireEffectCtrl.rightCount = 6;
 			}
 			else
 			{
-				fireEffectCtrl.lefttCount = 5;
+				fireEffectCtrl.lefttCount = 6;
 				fireEffectCtrl.rightCount = 2;
 			}		
 			break;

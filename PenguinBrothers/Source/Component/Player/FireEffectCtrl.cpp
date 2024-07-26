@@ -36,7 +36,7 @@ void FireEffectCtrl::Start()
 	switch (((FireEffect&)gameObject).bombType)
 	{
 	case BombType::blue:
-
+		animationRenderer->LoadAnimationClip(L"Resource/bomb/blueeffect.csv", L"Resource/bomb/blueeffect.png", L"fire");
 		break;
 	case BombType::red:
 		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.csv", L"Resource/bomb/redeffect.png", L"fire");
@@ -45,6 +45,7 @@ void FireEffectCtrl::Start()
 		animationRenderer->LoadAnimationClip(L"Resource/bomb/greeneffect.csv", L"Resource/bomb/greeneffect.png", L"fire");
 		break;
 	case BombType::skyblue:
+
 		break;
 	default:
 		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.csv", L"Resource/bomb/redeffect.png", L"fire");

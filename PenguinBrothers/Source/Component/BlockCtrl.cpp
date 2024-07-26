@@ -8,6 +8,8 @@
 #include <Core/Component/FSM/FiniteStateMachine.h>
 #include <Core/Component/Rigidbody2D.h>
 
+#include "Source/Component/GameManagerCtrl.h"
+
 using namespace TimeSystem;
 
 BlockCtrl::BlockCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
@@ -70,9 +72,12 @@ void BlockCtrl::Update()
 			}
 			
 			player->GetComponent<Movement>().enabled = true;
-			FiniteStateMachine& fsm = player->GetComponent<FiniteStateMachine>();
-			fsm.Transition = true;
-			fsm.SetState(L"Airborne");
+			if (GameManagerCtrl::EnemyCount > 0)
+			{
+				FiniteStateMachine& fsm = player->GetComponent<FiniteStateMachine>();
+				fsm.Transition = true;
+				fsm.SetState(L"Airborne");
+			}	
 			player->transform.SetParent();
 			player->transform.rotation = 0.f;
 			Init();

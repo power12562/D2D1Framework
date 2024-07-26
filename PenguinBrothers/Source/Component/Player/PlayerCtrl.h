@@ -20,7 +20,7 @@ public:
 	PlayerCtrl(GameObjectBase& gameObject);
 	virtual ~PlayerCtrl();
 
-	BombType bombType = BombType::green;
+	static BombType bombType;
 
 	bool isJump;
 	bool isBlock;

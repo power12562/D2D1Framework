@@ -18,12 +18,13 @@
 #include "Source/GameObject/Player/Player.h"
 #include "Source/Component/Player/PlayerBombCtrl.h"
 
+BombType PlayerCtrl::bombType = BombType::blue;
 
 using namespace TimeSystem;
 using namespace InputSystem;
 PlayerCtrl::PlayerCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
-
+	
 }
 
 PlayerCtrl::~PlayerCtrl()
@@ -49,6 +50,22 @@ void PlayerCtrl::Update()
 	//DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
 	//DEBUG_PRINT("position { %f, %f }\n", transform.position.x, transform.position.y);
 	//DEBUG_PRINT("angle : %f\n", (float)transform.rotation);
+
+#ifdef _DEBUG
+	if (Input.IsKeyDown(KeyCode::Q))
+	{
+		bombType = BombType::blue;
+	}
+	if (Input.IsKeyDown(KeyCode::W))
+	{
+		bombType = BombType::red;
+	}
+	if (Input.IsKeyDown(KeyCode::E))
+	{
+		bombType = BombType::green;
+	}
+
+#endif // _DEBUG
 }
 
 void PlayerCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
