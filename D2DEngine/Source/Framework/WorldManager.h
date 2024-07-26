@@ -21,7 +21,7 @@ public:
 	/** 현재 씬에 기본 오브젝트를 추가합니다.*/
 	static GameObjectBase* AddGameObject(const wchar_t* objectName);
 	/** 현재 씬에 특정 오브젝트를 추가합니다.*/
-	template<typename T> static GameObjectBase* AddGameObject(const wchar_t* objectName);
+	template<typename T> static T* AddGameObject(const wchar_t* objectName);
 
 	/** 현재 씬에 오브젝트를 삭제합니다.*/
 	static void DelGameObject(const wchar_t* objectName);
@@ -144,12 +144,12 @@ inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
 }
 
 template<typename T>
-inline GameObjectBase* WorldManager::AddGameObject(const wchar_t* objectName)
+inline T* WorldManager::AddGameObject(const wchar_t* objectName)
 {
 	// T가 GameObject로부터 상속받는지 확인
 	static_assert(std::is_base_of<GameObjectBase, T>::value, "Is not Object");
 
-	GameObjectBase* gameObject = new T;
+	T* gameObject = new T;
 	gameObject->objName = objectName;
 	addQueueList.push(gameObject);
 

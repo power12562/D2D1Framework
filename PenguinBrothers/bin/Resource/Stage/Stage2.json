@@ -1,5 +1,6 @@
 {
   "GameObjectTypes": [
+    "BombRing",
     "MainCamera",
     "Ground",
     "GameManager",
@@ -29,6 +30,50 @@
           ],
           "rotation": 0.0,
           "localRotation": 0.0
+        }
+      ]
+    }
+  ],
+  "BombRing": [
+    {
+      "name": "Ring0",
+      "Transform": [
+        {
+          "position": [
+            247.0,
+            -140.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BombRingCtrl": [
+        {
+          "type": 1
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            66.0,
+            66.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
         }
       ]
     }
@@ -66,7 +111,7 @@
       "Transform": [
         {
           "position": [
-            33.0,
+            37.0,
             -215.0
           ],
           "localPosition": [
@@ -84,6 +129,18 @@
           "rotation": 0.0,
           "localRotation": 0.0
         }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            120.0,
+            120.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
       ]
     },
     {
@@ -91,8 +148,47 @@
       "Transform": [
         {
           "position": [
-            -459.0,
-            150.0
+            -490.0,
+            142.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            -4.0,
+            4.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            120.0,
+            120.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "Player": [
+    {
+      "name": "Player",
+      "Transform": [
+        {
+          "position": [
+            -505.0,
+            -234.0
           ],
           "localPosition": [
             0.0,
@@ -108,6 +204,18 @@
           ],
           "rotation": 0.0,
           "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            80.0,
+            80.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
         }
       ]
     }
@@ -574,8 +682,8 @@
       "Transform": [
         {
           "position": [
-            4.0,
-            9.0
+            10.0,
+            26.0
           ],
           "localPosition": [
             0.0,
@@ -747,8 +855,8 @@
       "Transform": [
         {
           "position": [
-            0.0,
-            0.0
+            -598.0,
+            448.0
           ],
           "localPosition": [
             0.0,
@@ -774,8 +882,8 @@
       "Transform": [
         {
           "position": [
-            0.0,
-            0.0
+            -598.0,
+            448.0
           ],
           "localPosition": [
             0.0,
@@ -791,45 +899,6 @@
           ],
           "rotation": 0.0,
           "localRotation": 0.0
-        }
-      ]
-    }
-  ],
-  "Player": [
-    {
-      "name": "Player",
-      "Transform": [
-        {
-          "position": [
-            -500.0,
-            -220.0
-          ],
-          "localPosition": [
-            0.0,
-            0.0
-          ],
-          "scale": [
-            4.0,
-            4.0
-          ],
-          "localScale": [
-            1.0,
-            1.0
-          ],
-          "rotation": 0.0,
-          "localRotation": 0.0
-        }
-      ],
-      "BoxCollider2D": [
-        {
-          "ColliderSize": [
-            80.0,
-            80.0
-          ],
-          "Center": [
-            0.0,
-            0.0
-          ]
         }
       ]
     }

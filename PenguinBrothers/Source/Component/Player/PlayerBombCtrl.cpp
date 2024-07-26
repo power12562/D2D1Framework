@@ -75,13 +75,13 @@ void PlayerBombCtrl::Update()
 		case BombType::green:
 			if (transform.flipX == false)
 			{
-				fireEffectCtrl.lefttCount = 2;
-				fireEffectCtrl.rightCount = 6;
+				fireEffectCtrl.lefttCount = 1;
+				fireEffectCtrl.rightCount = 5;
 			}
 			else
 			{
-				fireEffectCtrl.lefttCount = 6;
-				fireEffectCtrl.rightCount = 2;
+				fireEffectCtrl.lefttCount = 5;
+				fireEffectCtrl.rightCount = 1;
 			}		
 			break;
 		case BombType::skyblue:

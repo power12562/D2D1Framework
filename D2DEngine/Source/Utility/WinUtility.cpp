@@ -172,10 +172,10 @@ INT_PTR CALLBACK DialogProcInt(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 	return (INT_PTR)FALSE;
 }
 
-int WinUtility::GetIntFromUser(HWND hWnd, LPCWSTR title, LPCWSTR text)
+int WinUtility::GetIntFromUser(LPCWSTR title, LPCWSTR text)
 {
 	DialogDataInt data = { title, text };
-	int reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_INT_DIALOG), hWnd, DialogProcInt, (LPARAM)&data);
+	int reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_INT_DIALOG), WinGameApp::GetHwnd(), DialogProcInt, (LPARAM)&data);
 	if (auto error = GetLastError())
 	{
 		assert(false);

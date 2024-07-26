@@ -22,10 +22,10 @@ private:
 	
 	void EnableEditMode(bool enable);
 	void deleteSelObject();
-	void SetObjectPos(GameObjectBase* object);
 	void SetDino0();
 	void AddGround();
 	void AddBlock();
+	void AddRing();
 	void SelectBackgroundPath();
 
 	void SaveWorld();

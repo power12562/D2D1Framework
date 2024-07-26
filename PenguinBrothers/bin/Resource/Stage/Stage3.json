@@ -1,6 +1,7 @@
 {
   "GameObjectTypes": [
     "MainCamera",
+    "BombRing",
     "Ground",
     "GameManager",
     "EnemyDino0",
@@ -204,6 +205,50 @@
           "ColliderSize": [
             178.0,
             34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "BombRing": [
+    {
+      "name": "Ring0",
+      "Transform": [
+        {
+          "position": [
+            504.0,
+            161.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BombRingCtrl": [
+        {
+          "type": 0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            66.0,
+            66.0
           ],
           "Center": [
             0.0,

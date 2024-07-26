@@ -45,6 +45,9 @@ public:
 	class Transform& GetTransform();
 	__declspec(property(get = GetTransform)) Transform& transform;
 
+	/** 게임 오브젝트를 삭제합니다.*/
+	void Destroy(GameObjectBase& gameObject);
+
 protected:
 	virtual void Start();
 	virtual void Update();

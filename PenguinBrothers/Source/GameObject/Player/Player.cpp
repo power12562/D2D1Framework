@@ -2,6 +2,8 @@
 #include <Framework/WorldManager.h>
 #include <Framework/TimeSystem.h>
 
+#include <Core/GameObject/Base/GameObjectUI.h>
+#include <Core/Component/Renderer/SpriteRenderer.h>
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Collider/SpriteCollider2D.h"
 #include "Core/Component/Movement.h"
@@ -334,6 +336,10 @@ void Win::Enter()
 	owner.Transition = false;
 	owner.GetComponent<Rigidbody2D>().isKinematic = true;
 	spriteAnimation->SetAnimation(L"Win");
+
+	GameObjectBase* cool = WorldManager::AddGameObject<GameObjectUI>(L"Cool");
+	cool->AddComponent<SpriteRenderer>().LoadImage(L"Resource/COOL.png");
+	cool->transform.scale = Vector2(4.0f, 4.0f);;
 }
 
 void Win::Update()

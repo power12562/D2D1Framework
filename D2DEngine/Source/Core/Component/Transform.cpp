@@ -40,7 +40,15 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 
 Transform::~Transform()
 {
-	
+	SetParent();
+	if (!childsList.empty())
+	{
+		for (auto& child : childsList)
+		{
+			child->parent = nullptr;
+		}
+		childsList.clear();
+	}
 }
 
 void Transform::UpdateMatrix()
@@ -77,7 +85,8 @@ void Transform::UpdateChildTransform()
 		stack.pop();
 		current->UpdateWorldMatrix();
 
-		for (auto iter = current->childsList.rbegin(); iter != current->childsList.rend(); ++iter) {
+		for (auto iter = current->childsList.rbegin(); iter != current->childsList.rend(); ++iter) 
+		{
 			stack.push(*iter);
 		}
 	}
@@ -185,8 +194,15 @@ void Transform::SetParent(Transform& parent)
 		}
 	}
 	this->parent = &parent;
-	D2D1_MATRIX_3X2_F LM = this->transform.WM *parent.transform.IWM;
-	this->transform.localPosition = Vector2(LM.dx, -LM.dy);
+	D2D1_MATRIX_3X2_F LM = this->transform.WM * parent.transform.IWM;
+	if (parent.gameObject.GetType() == OBJECT_TYPE::CAMERA)
+	{
+		this->transform.localPosition = Vector2(LM.dx, LM.dy);
+	}
+	else
+	{
+		this->transform.localPosition = Vector2(LM.dx, -LM.dy);
+	}
 	this->transform.localRotation = this->transform.rotation - parent.transform.rotation;
 	this->transform.localScale = Vector2(parent.transform.scale.x * this->transform.scale.x, parent.transform.scale.y * this->transform.scale.y);
 
@@ -205,7 +221,7 @@ void Transform::SetParent()
 {
 	if (this->parent)
 	{
-		std::list<Transform*> parentChilds = this->parent->childsList;
+		std::list<Transform*>& parentChilds = this->parent->childsList;
 		for (auto iter = parentChilds.begin(); iter != parentChilds.end(); ++iter)
 		{
 			if (this == *iter)

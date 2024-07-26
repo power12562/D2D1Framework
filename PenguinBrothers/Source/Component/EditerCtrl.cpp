@@ -23,6 +23,8 @@
 #include "Source/GameObject/Ground.h"
 #include "Source/GameObject/Block.h"
 #include "Source/Component/BlockCtrl.h"
+#include "Source/GameObject/BombRing.h"
+#include "Source/Component/BombRingCtrl.h"
 
 using namespace InputSystem;
 using namespace TimeSystem;
@@ -106,6 +108,11 @@ void EditerCtrl::Update()
 		{
 			AddBlock();
 		}
+		if (Input.IsKeyDown(KeyCode::R))
+		{
+			AddRing();
+		}
+
 
 
 		if (Input.IsKeyDown(KeyCode::B))
@@ -126,8 +133,11 @@ void EditerCtrl::EnableEditMode(bool _enable)
 
 	if (_enable)
 	{
-		//world->PosToSpawnPos();
-
+		if (GameObjectBase* cool = WorldManager::FindGameObject(L"Cool"))
+		{
+			WorldManager::DelGameObject(*cool);
+			return;
+		}
 		Time.timeScale = 0.f;
 		editMode = true;
 
@@ -135,7 +145,7 @@ void EditerCtrl::EnableEditMode(bool _enable)
 		for (auto& i : WorldManager::GetCurrentObjList())
 		{
 			if(pos != initPos.end() && 
-				(i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground" || i->tag == L"Block")
+				(i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground" || i->tag == L"Block" || i->tag == L"Item")
 				)
 			{
 				i->enable = true;
@@ -180,7 +190,7 @@ void EditerCtrl::EnableEditMode(bool _enable)
 		initPos.clear();
 		for (auto& i : WorldManager::GetCurrentObjList())
 		{
-			if (i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground" || i->tag == L"Block")
+			if (i->tag == L"Player" || i->tag == L"Enemy" || i->tag == L"Ground" || i->tag == L"Block" || i->tag == L"Item")
 			{
 				initPos.push_back(i->transform.position);
 			}		
@@ -211,6 +221,11 @@ void EditerCtrl::deleteSelObject()
 		WorldManager::DelGameObject(*selObject);
 		return;
 	}
+	else if (selObject->tag == L"Item")
+	{
+		WorldManager::DelGameObject(*selObject);
+		return;
+	}
 
 	if (grabObject == selObject)
 	{
@@ -219,40 +234,9 @@ void EditerCtrl::deleteSelObject()
 	selObject = nullptr;
 }
 
-void EditerCtrl::SetObjectPos(GameObjectBase* object) 
-{
-	if (object->tag == L"Player")
-	{
-		//world->playerSpawnPos = object->transform.position + Vector2(0.f, 25.f);
-	}
-
-	if (object->tag == L"Enemy")
-	{
-		/*for (int i = 0; i < world->EnemyDino0_SpawnCount; i++)
-		{
-			if (world->EnemyDino0Objs[i] == object)
-			{
-				world->EnemyDino0_SpawnPos[i] = object->transform.position + Vector2(0.f, 9.f);;
-			}
-		}*/
-
-	}
-
-	if (object->tag == L"Ground")
-	{
-		/*for (int i = 0; i < world->GroundBox_SpawnCount; i++)
-		{
-			if (world->GroundObjs[i] == object)
-			{
-				world->GroundBox_SpawnPos[i] = object->transform.position;
-			}
-		}*/
-	}
-}
-
 void EditerCtrl::SetDino0()
 {
-	int result = WinUtility::GetIntFromUser(WinGameApp::GetHwnd(), L"Dino0 Count", L"Count : ");
+	int result = WinUtility::GetIntFromUser(L"Dino0 Count", L"Count : ");
 	if (result >= 0)
 	{
 		int dinoCount = -1;
@@ -331,7 +315,21 @@ void EditerCtrl::AddGround()
 void EditerCtrl::AddBlock()
 {
 	DEBUG_PRINT("Add Block!\n");
-	GameObjectBase* nlock = WorldManager::AddGameObject<Block>(L"Block");
+	GameObjectBase* block = WorldManager::AddGameObject<Block>(L"Block");
+}
+
+void EditerCtrl::AddRing()
+{
+	int reslut = WinUtility::GetIntFromUser(L"타입을 입력하세요.", L"타입 : (0~3)");
+	if (reslut != -1 && 0 <= reslut && reslut <= 3)
+	{
+		GameObjectBase* AddRing = WorldManager::AddGameObject<BombRing>(L"Ring0");
+		AddRing->GetComponent<BombRingCtrl>().type = static_cast<RingType>(reslut);
+	}
+	else
+	{
+		printf("잘못된 타입입니다.\n");
+	}
 }
 
 

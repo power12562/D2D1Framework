@@ -5,7 +5,6 @@
 #include <d2d1.h>
 #undef LoadImage
 
-class SpriteAnimationRenderer;
 struct ID2D1Bitmap;
 
 class SpriteRenderer : public ComponentBase

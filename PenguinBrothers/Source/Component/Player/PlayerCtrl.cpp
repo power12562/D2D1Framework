@@ -52,19 +52,18 @@ void PlayerCtrl::Update()
 	//DEBUG_PRINT("angle : %f\n", (float)transform.rotation);
 
 #ifdef _DEBUG
-	if (Input.IsKeyDown(KeyCode::Q))
-	{
-		bombType = BombType::blue;
-	}
-	if (Input.IsKeyDown(KeyCode::W))
-	{
-		bombType = BombType::red;
-	}
-	if (Input.IsKeyDown(KeyCode::E))
-	{
-		bombType = BombType::green;
-	}
-
+	//if (Input.IsKeyDown(KeyCode::Q))
+	//{
+	//	bombType = BombType::blue;
+	//}
+	//if (Input.IsKeyDown(KeyCode::W))
+	//{
+	//	bombType = BombType::red;
+	//}
+	//if (Input.IsKeyDown(KeyCode::E))
+	//{
+	//	bombType = BombType::green;
+	//}
 #endif // _DEBUG
 }
 

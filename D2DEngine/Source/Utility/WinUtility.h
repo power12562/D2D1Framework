@@ -33,7 +33,7 @@ namespace WinUtility
       * title : 박스의 제목
       * text : 설명
     */
-    int GetIntFromUser(HWND hWnd, LPCWSTR title, LPCWSTR text);
+    int GetIntFromUser(LPCWSTR title, LPCWSTR text);
 
     /*
     * 사용할려면 프로젝트에 D2DEngine.rc 파일을 추가 해야 합니다.

@@ -30,6 +30,8 @@
     <ClCompile Include="Source\Component\GameManagerCtrl.cpp" />
     <ClCompile Include="Source\GameObject\Block.cpp" />
     <ClCompile Include="Source\Component\BlockCtrl.cpp" />
+    <ClCompile Include="Source\GameObject\BombRing.cpp" />
+    <ClCompile Include="Source\Component\BombRingCtrl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
@@ -55,6 +57,8 @@
     <ClInclude Include="Source\Component\GameManagerCtrl.h" />
     <ClInclude Include="Source\GameObject\Block.h" />
     <ClInclude Include="Source\Component\BlockCtrl.h" />
+    <ClInclude Include="Source\GameObject\BombRing.h" />
+    <ClInclude Include="Source\Component\BombRingCtrl.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\D2DEngine\D2DEngine.rc">
