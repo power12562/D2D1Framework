@@ -39,11 +39,18 @@ void BlockCtrl::Update()
 	{
 		if (pLeft >= mLeft - 2.0f && pRight <= mRight + 2.0f)
 		{
-			DEBUG_PRINT("Down rot\n");
-			downRot = true;
-			elapsedTime = 0;   
+			//DEBUG_PRINT("Down rot\n"); 
 			player->GetComponent<Movement>().enabled = false;
 			FiniteStateMachine& fsm = player->GetComponent<FiniteStateMachine>();
+			if (fsm.Transition == false)
+			{
+				downRot = false; 
+				Init();
+				return;
+			}
+
+			downRot = true;
+			elapsedTime = 0;
 			fsm.SetState(L"Duck");
 			fsm.Transition = false;
 			player->GetComponent<Rigidbody2D>().enabled = false;
@@ -114,14 +121,19 @@ void BlockCtrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* other
 		if (abs(pTop - mBottom) <= 1.0f)
 		{
 			//DEBUG_PRINT("upRot\n");
+			FiniteStateMachine& fsm = player->GetComponent<FiniteStateMachine>();
+			if (fsm.Transition == false)
+				return;
+
+			fsm.SetState(L"Airborne");
 			if (Rigidbody2D* rb = player->IsComponent<Rigidbody2D>())
 			{
 				rb->enabled = false;
 			}
 			player->GetComponent<Movement>().enabled = false;
-			player->GetComponent<FiniteStateMachine>().SetState(L"Airborne");
 			player->transform.rotation = 180.f;
 			upRot = true;
+			elapsedTime = 0.f;
 		}
 	}
 }
