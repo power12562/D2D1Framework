@@ -27,22 +27,27 @@ void FireEffectCtrl::Start()
 #ifdef _DEBUG
 	GetComponent<SpriteCollider2D>().isDrawCollider = true;
 #endif 
-
 	animationRenderer = &GetComponent<SpriteAnimationRenderer>();
+	if (bombDir < 0)
+	{
+		transform.FlipX(true);
+	}
+
 	switch (((FireEffect&)gameObject).bombType)
 	{
 	case BombType::blue:
 
 		break;
 	case BombType::red:
-		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.txt", L"Resource/bomb/redeffect.png", L"fire");
+		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.csv", L"Resource/bomb/redeffect.png", L"fire");
 		break;
 	case BombType::green:
+		animationRenderer->LoadAnimationClip(L"Resource/bomb/greeneffect.csv", L"Resource/bomb/greeneffect.png", L"fire");
 		break;
 	case BombType::skyblue:
 		break;
 	default:
-		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.txt", L"Resource/bomb/redeffect.png", L"fire");
+		animationRenderer->LoadAnimationClip(L"Resource/bomb/redeffect.csv", L"Resource/bomb/redeffect.png", L"fire");
 		break;
 	}
 	animationRenderer->SetAnimation(L"fire");	
@@ -115,7 +120,12 @@ void FireEffectCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* ot
 		GameManagerCtrl::EnemyCount--;
 		if (GameManagerCtrl::EnemyCount == 0)
 		{
-			gameObject.Find(L"Player")->GetComponent<FiniteStateMachine>().SetState(L"Win");
+			for (auto& p : WorldManager::FindGameObjectsWithTag(L"Player"))
+			{
+				FiniteStateMachine& fsm = p->GetComponent<FiniteStateMachine>();
+				fsm.Transition = true;
+				fsm.SetState(L"Win");
+			}
 		}
 	}
 }

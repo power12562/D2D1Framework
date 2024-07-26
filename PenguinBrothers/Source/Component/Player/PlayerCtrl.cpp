@@ -16,6 +16,7 @@
 
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/GameObject/Player/Player.h"
+#include "Source/Component/Player/PlayerBombCtrl.h"
 
 
 using namespace TimeSystem;
@@ -92,7 +93,7 @@ void PlayerCtrl::SpawnBomb()
 	GameObjectBase* bomb = WorldManager::AddGameObject<PlayerBomb>(L"Bomb");
 	((PlayerBomb*)bomb)->playerCtrl = this;
 	bomb->transform.position = gameObject.transform.position;
-	bomb->transform.scale = gameObject.transform.scale;
+	bomb->transform.FlipX(gameObject.transform.flipX);
 }
 
 

@@ -17,7 +17,6 @@ protected:
 private:
 	class SpriteRenderer* spriteRenderer = nullptr;
 	class SpriteAnimationRenderer* spriteAnimation = nullptr;
-	class GameObjectBase* player = nullptr;
 
 	float elapsedTime = 0;
 

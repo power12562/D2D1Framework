@@ -1,0 +1,1431 @@
+{
+  "GameObjectTypes": [
+    "MainCamera",
+    "Ground",
+    "GameManager",
+    "EnemyDino0",
+    "Block",
+    "Player"
+  ],
+  "MainCamera": [
+    {
+      "name": "MainCamera",
+      "Transform": [
+        {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ]
+    }
+  ],
+  "GameManager": [
+    {
+      "name": "GameManager",
+      "Transform": [
+        {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ]
+    }
+  ],
+  "EnemyDino0": [
+    {
+      "name": "dino0",
+      "Transform": [
+        {
+          "position": [
+            472.0,
+            191.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            4.0,
+            4.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            120.0,
+            120.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "Block": [
+    {
+      "name": "Block",
+      "Transform": [
+        {
+          "position": [
+            -450.0,
+            -186.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            178.0,
+            34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Block_1",
+      "Transform": [
+        {
+          "position": [
+            -249.0,
+            -29.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            178.0,
+            34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Block_0",
+      "Transform": [
+        {
+          "position": [
+            248.0,
+            111.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            178.0,
+            34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Block_2",
+      "Transform": [
+        {
+          "position": [
+            445.0,
+            -58.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            178.0,
+            34.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "Player": [
+    {
+      "name": "Player",
+      "Transform": [
+        {
+          "position": [
+            -486.0,
+            -344.0
+          ],
+          "localPosition": [
+            -106.09852600097656,
+            57.545440673828125
+          ],
+          "scale": [
+            4.0,
+            4.0
+          ],
+          "localScale": [
+            -4.0,
+            4.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.1369476318359375
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            80.0,
+            80.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "Ground": [
+    {
+      "name": "Ground_2",
+      "Transform": [
+        {
+          "position": [
+            -469.0,
+            -419.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            250.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_3",
+      "Transform": [
+        {
+          "position": [
+            -234.0,
+            -194.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            250.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_4",
+      "Transform": [
+        {
+          "position": [
+            4.0,
+            -367.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            700.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            700.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_5",
+      "Transform": [
+        {
+          "position": [
+            -568.0,
+            -43.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            700.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            700.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground",
+      "Transform": [
+        {
+          "position": [
+            564.0,
+            180.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            100.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            100.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_0",
+      "Transform": [
+        {
+          "position": [
+            -440.0,
+            -37.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            200.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            200.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_6",
+      "Transform": [
+        {
+          "position": [
+            -133.0,
+            -87.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            150.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            150.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_7",
+      "Transform": [
+        {
+          "position": [
+            -457.0,
+            17.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_8",
+      "Transform": [
+        {
+          "position": [
+            -509.0,
+            71.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_9",
+      "Transform": [
+        {
+          "position": [
+            -225.0,
+            123.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            20.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            250.0,
+            20.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_10",
+      "Transform": [
+        {
+          "position": [
+            136.0,
+            -47.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            40.0,
+            350.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            40.0,
+            350.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_1",
+      "Transform": [
+        {
+          "position": [
+            438.0,
+            108.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            200.0,
+            40.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            200.0,
+            40.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_11",
+      "Transform": [
+        {
+          "position": [
+            2.0,
+            34.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            50.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            50.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_12",
+      "Transform": [
+        {
+          "position": [
+            557.0,
+            18.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            40.0,
+            150.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            40.0,
+            150.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_13",
+      "Transform": [
+        {
+          "position": [
+            256.0,
+            -61.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            200.0,
+            40.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            200.0,
+            40.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_14",
+      "Transform": [
+        {
+          "position": [
+            382.0,
+            -344.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            100.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            100.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_15",
+      "Transform": [
+        {
+          "position": [
+            436.0,
+            -318.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            150.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            150.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_16",
+      "Transform": [
+        {
+          "position": [
+            490.0,
+            -294.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            200.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            200.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ground_17",
+      "Transform": [
+        {
+          "position": [
+            563.0,
+            -211.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ],
+      "BoxRenderer": [
+        {
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            50.0,
+            300.0
+          ],
+          "color": [
+            0.0,
+            0.501960813999176,
+            0.0,
+            1.0
+          ],
+          "isFill": true,
+          "alpha": 0.3499999940395355
+        }
+      ],
+      "BoxCollider2D": [
+        {
+          "ColliderSize": [
+            50.0,
+            300.0
+          ],
+          "Center": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "StageObjectListDebug": [
+    {
+      "name": "StageObjectListDebug",
+      "Transform": [
+        {
+          "position": [
+            -598.0,
+            448.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ]
+    }
+  ],
+  "Editer": [
+    {
+      "name": "editer",
+      "Transform": [
+        {
+          "position": [
+            -598.0,
+            448.0
+          ],
+          "localPosition": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "localScale": [
+            1.0,
+            1.0
+          ],
+          "rotation": 0.0,
+          "localRotation": 0.0
+        }
+      ]
+    }
+  ]
+}

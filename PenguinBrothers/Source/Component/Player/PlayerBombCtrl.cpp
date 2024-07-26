@@ -33,16 +33,16 @@ void PlayerBombCtrl::Start()
 	switch (((PlayerBomb&)gameObject).playerCtrl->bombType)
 	{
 	case BombType::blue :
-		spriteAnimation->LoadAnimationClip(L"Resource/bomb/blue.txt", L"Resource/bomb/bomb.png", L"bomb");
+		spriteAnimation->LoadAnimationClip(L"Resource/bomb/blue.csv", L"Resource/bomb/bomb.png", L"bomb");
 		break;
 	case BombType::red :
-		spriteAnimation->LoadAnimationClip(L"Resource/bomb/red.txt", L"Resource/bomb/bomb.png", L"bomb");
+		spriteAnimation->LoadAnimationClip(L"Resource/bomb/red.csv", L"Resource/bomb/bomb.png", L"bomb");
 		break;
 	case BombType::green :
-		spriteAnimation->LoadAnimationClip(L"Resource/bomb/green.txt", L"Resource/bomb/bomb.png", L"bomb");
+		spriteAnimation->LoadAnimationClip(L"Resource/bomb/green.csv", L"Resource/bomb/bomb.png", L"bomb");
 		break;
 	case BombType::skyblue :
-		spriteAnimation->LoadAnimationClip(L"Resource/bomb/skyblue.txt", L"Resource/bomb/bomb.png", L"bomb");
+		spriteAnimation->LoadAnimationClip(L"Resource/bomb/skyblue.csv", L"Resource/bomb/bomb.png", L"bomb");
 		break;
 	}
 	spriteAnimation->SetAnimation(L"bomb");
@@ -72,7 +72,16 @@ void PlayerBombCtrl::Update()
 			fireEffectCtrl.rightCount = 3;
 			break;
 		case BombType::green:
-			
+			if (transform.flipX == false)
+			{
+				fireEffectCtrl.lefttCount = 2;
+				fireEffectCtrl.rightCount = 5;
+			}
+			else
+			{
+				fireEffectCtrl.lefttCount = 5;
+				fireEffectCtrl.rightCount = 2;
+			}		
 			break;
 		case BombType::skyblue:
 			
@@ -86,7 +95,10 @@ void PlayerBombCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* ot
 {
 	if (otherCollider->gameObject.tag == L"Attack")
 	{
-		spriteAnimation->SetCurrentFrameIndex(spriteAnimation->LastFrameIndex);
+		if (spriteAnimation)
+		{
+			spriteAnimation->SetCurrentFrameIndex(spriteAnimation->LastFrameIndex);
+		}
 	}
 }
 
