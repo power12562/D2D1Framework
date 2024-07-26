@@ -344,3 +344,9 @@ void Win::Update()
 	}
 }
 
+void Win::Exit()
+{
+	owner.Transition = true;
+	owner.GetComponent<Rigidbody2D>().isKinematic = false;
+}
+

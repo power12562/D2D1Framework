@@ -269,7 +269,7 @@ void EditerCtrl::SetDino0()
 			else if(dinoCount < result)
 			{
 				GameObjectBase* dino = WorldManager::AddGameObject<EnemyDino0>(L"dino0");
-				dino->GetComponent<Rigidbody2D>().isKinematic = true;
+				dino->GetComponent<Rigidbody2D>().enabled = false;
 			}
 			else
 			{
