@@ -78,6 +78,23 @@
     <ClInclude Include="Source\Framework\GameObjectFactory.h" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\JsonConvert.h" />
     <ClInclude Include="Source\Utility\Debug.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod.hpp" />
+    <ClInclude Include="ThirdParty\fmod\fmod_codec.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_common.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_dsp.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_dsp_effects.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_errors.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_output.h" />
+    <ClInclude Include="Source\Framework\SoundSystem.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod.hpp" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_codec.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_common.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_dsp.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_dsp_effects.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_errors.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_output.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />

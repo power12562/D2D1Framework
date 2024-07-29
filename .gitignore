@@ -398,6 +398,8 @@ FodyWeavers.xsd
 
 # lib
 *.lib
+!fmod_vc.lib
+!fmodL_vc.lib
 *.idb
 
 # my

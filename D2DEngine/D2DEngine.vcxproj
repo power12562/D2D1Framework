@@ -84,6 +84,7 @@
     <ClInclude Include="Source\Framework\GameObjectFactory.h" />
     <ClInclude Include="Source\Framework\InputSystem.h" />
     <ClInclude Include="Source\Framework\ReferenceCounter.h" />
+    <ClInclude Include="Source\Framework\SoundSystem.h" />
     <ClInclude Include="Source\Framework\WorldManager.h" />
     <ClInclude Include="Source\Framework\TimeSystem.h" />
     <ClInclude Include="Source\Framework\WinGameApp.h" />
@@ -93,6 +94,22 @@
     <ClInclude Include="Source\Utility\Ray.h" />
     <ClInclude Include="Source\Utility\WinUtility.h" />
     <ClInclude Include="Source\Vector\Vector2.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod.hpp" />
+    <ClInclude Include="ThirdParty\fmod\fmod_codec.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_common.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_dsp.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_dsp_effects.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_errors.h" />
+    <ClInclude Include="ThirdParty\fmod\fmod_output.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod.hpp" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_codec.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_common.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_dsp.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_dsp_effects.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_errors.h" />
+    <ClInclude Include="ThirdParty\fmod\headers\fmod_output.h" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\json.hpp" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\JsonConvert.h" />
     <ClInclude Include="ThirdParty\single_include\nlohmann\json_fwd.hpp" />
@@ -156,11 +173,13 @@
     <OutDir>$(SolutionDir)lib\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ThirdPary\fmod\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)lib\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ThirdPary\fmod\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
