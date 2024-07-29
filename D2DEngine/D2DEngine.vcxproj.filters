@@ -36,6 +36,7 @@
     <ClCompile Include="Source\Core\Component\Renderer\BoxRenderer.cpp" />
     <ClCompile Include="ThirdParty\single_include\nlohmann\jsonConvert.cpp" />
     <ClCompile Include="Source\Framework\SoundSystem.cpp" />
+    <ClCompile Include="Source\Core\Component\AudioClip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="ThirdParty\fmod\headers\fmod_dsp_effects.h" />
     <ClInclude Include="ThirdParty\fmod\headers\fmod_errors.h" />
     <ClInclude Include="ThirdParty\fmod\headers\fmod_output.h" />
+    <ClInclude Include="Source\Core\Component\AudioClip.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />

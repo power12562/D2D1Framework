@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Bounds\Bounds.cpp" />
+    <ClCompile Include="Source\Core\Component\AudioClip.cpp" />
     <ClCompile Include="Source\Core\Component\Base\ComponentBase.cpp" />
     <ClCompile Include="Source\Core\Component\Collider\BoxCollider2D.cpp" />
     <ClCompile Include="Source\Core\Component\Collider\SpriteCollider2D.cpp" />
@@ -58,6 +59,7 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Bounds\Bounds.h" />
+    <ClInclude Include="Source\Core\Component\AudioClip.h" />
     <ClInclude Include="Source\Core\Component\Base\ComponentBase.h" />
     <ClInclude Include="Source\Core\Component\Collider\Base\ColliderBase.h" />
     <ClInclude Include="Source\Core\Component\Collider\BoxCollider2D.h" />

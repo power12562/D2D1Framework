@@ -16,6 +16,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpriteAnimeEditor", "Sprite
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundTest", "ProjectBase\ProjectBase.vcxproj", "{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0CF823D4-3F75-4A2E-A4BD-E03D04E605C2} = {0CF823D4-3F75-4A2E-A4BD-E03D04E605C2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

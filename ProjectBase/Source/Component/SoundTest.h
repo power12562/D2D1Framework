@@ -4,12 +4,13 @@
 
 class SoundTest : public ComponentBase
 {
+	class AudioClip* audio;
 public:
 	SoundTest(GameObjectBase& gameObject);
 	virtual ~SoundTest() override;
 
 protected:
-	//virtual void Start() override;
+	virtual void Start() override;
 	virtual void Update() override;
 	//virtual void LateUpdate() override;
 	//virtual void Render() override;

@@ -54,8 +54,7 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 	{
 		isEnd = true;
 	}
-	SoundSystem::Fmod.Init();
-
+	SoundSystem::FMODManager::Init();
 	GameObjectFactory::RegisterGameObject("MainCamera", []()->GameObjectBase* {return new MainCamera; });
 }
 
@@ -115,6 +114,7 @@ void WinGameApp::Run()
 		}
 		else if(!isEnd)
 		{
+			SoundSystem::FMODManager::system->update();
 			Time.UpdateTime();
 			Input.UpdateMouse();
 			InputBinding::UpdateAllInputBinding();
