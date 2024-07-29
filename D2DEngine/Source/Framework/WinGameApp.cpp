@@ -5,6 +5,9 @@
 #include "Framework/WorldManager.h"
 #include "Framework/ColliderManager.h"
 #include "Framework/GameObjectFactory.h"
+#include "Framework/SoundSystem.h"
+
+#include <Utility/Debug.h>
 
 #include <Core/Scene/WorldBase.h>
 
@@ -39,11 +42,20 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 		FILE* _tempFile;
 		freopen_s(&_tempFile, "CONOUT$", "w", stdout);
 	}
+
+	// 컴포넌트 오브젝트 모델 (COM) 초기화.
+	if (HRESULT hr = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED))
+	{
+		_com_error er(hr);
+		DEBUG_PRINT("%s", (const char*)er.ErrorMessage());
+	}
 	WinInitialize(hinstance);
 	if (!D2DRenderer::InitDirect2D())
 	{
 		isEnd = true;
 	}
+	SoundSystem::Fmod.Init();
+
 	GameObjectFactory::RegisterGameObject("MainCamera", []()->GameObjectBase* {return new MainCamera; });
 }
 
@@ -55,6 +67,7 @@ void WinGameApp::Uninitialize()
 	}
 	D2DRenderer::ReleaseAllID2D1Bitmap();
 	D2DRenderer::UninitDirect2D();
+	CoUninitialize();
 }
 
 void WinGameApp::Run()

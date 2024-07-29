@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Utility\Ray.cpp" />
     <ClCompile Include="Source\Core\Component\Renderer\BoxRenderer.cpp" />
     <ClCompile Include="ThirdParty\single_include\nlohmann\jsonConvert.cpp" />
+    <ClCompile Include="Source\Framework\SoundSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />

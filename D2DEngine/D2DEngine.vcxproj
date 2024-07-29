@@ -44,6 +44,7 @@
     <ClCompile Include="Source\Framework\D2DRenderer.cpp" />
     <ClCompile Include="Source\Framework\InputSystem.cpp" />
     <ClCompile Include="Source\Framework\ReferenceCounter.cpp" />
+    <ClCompile Include="Source\Framework\SoundSystem.cpp" />
     <ClCompile Include="Source\Framework\WorldManager.cpp" />
     <ClCompile Include="Source\Framework\TimeSystem.cpp" />
     <ClCompile Include="Source\Framework\WinGameApp.cpp" />

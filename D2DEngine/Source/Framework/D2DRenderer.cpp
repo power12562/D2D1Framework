@@ -38,8 +38,7 @@ bool D2DRenderer::InitDirect2D()
 	UninitDirect2D();	
 	
 	HRESULT hr = S_OK;
-	// 컴포넌트 오브젝트 모델 (COM) 초기화.
-	hr = CoInitialize(NULL);
+
 	if (FAILED(hr))
 		return FALSE;
 
@@ -193,7 +192,6 @@ void D2DRenderer::UninitDirect2D()
 		pWICFactory = nullptr;
 	}
 
-	CoUninitialize();
 }
 
 void D2DRenderer::BeginDraw()
