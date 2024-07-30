@@ -306,19 +306,23 @@ void Jump::Enter()
 	{
 		rb.AddForce(Vector2::Up * jumpPowerHalf);
 		rb.AddForce(Vector2::Left * jumpPowerHalf);
+		isMove = false;
 	}
 	else if (Input->IsKey("Right"))
 	{
 		rb.AddForce(Vector2::Up * jumpPowerHalf);
 		rb.AddForce(Vector2::Right * jumpPowerHalf);
+		isMove = false;
 	}
 	else
 	{
 		rb.AddForce(Vector2::Up * jumpPower * 0.7f);
+		isMove = true;
 	}
 
 	spriteAnimation->SetAnimation(L"Jump");
 	playerCtrl->isJump = true;
+	isAttack = true;
 }
 
 void Jump::Update()
@@ -326,6 +330,36 @@ void Jump::Update()
 	if (!playerCtrl->isJump)
 	{
 		owner.SetState(L"Idle");
+	}
+	if (isAttack && Input->IsKeyDown("Attack"))
+	{
+		spriteAnimation->SetAnimation(L"Attack");
+		owner.GetComponent<Rigidbody2D>().Velocity = Vector2(0.f, 0.f);
+		isAttack = false;
+	}
+	else if(isAttack == false)
+	{
+		if (spriteAnimation->CurrentClipEnd)
+		{
+			owner.SetState(L"Airborne");
+			playerCtrl->SpawnBomb();
+		}
+		else
+		{
+			owner.GetComponent<Rigidbody2D>().Velocity = Vector2(0.f, 0.f);
+		}
+	}
+	if (isMove && Input->IsKeyDown("Left"))
+	{
+		owner.GetComponent<Rigidbody2D>().AddForce(Vector2::Left * 180.f);
+		owner.transform.flipX = true;
+		isMove = false;
+	}
+	else if (isMove && Input->IsKeyDown("Right"))
+	{
+		owner.GetComponent<Rigidbody2D>().AddForce(Vector2::Right * 180.f);
+		owner.transform.flipX = false;
+		isMove = false;
 	}
 }
 

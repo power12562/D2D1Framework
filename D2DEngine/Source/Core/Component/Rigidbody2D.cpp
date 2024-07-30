@@ -103,7 +103,7 @@ void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* othe
         if (Velocity.y <= 0)
         {
             Velocity.y = 0;
-            transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f - myCollider->Center.y) ;
+            transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f - myCollider->Center.y);
         } 
         if (Velocity.x != 0)
         {
@@ -120,12 +120,18 @@ void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* othe
         
     }
     else if (min == disRL)
-    {
-        transform.position = Vector2(otherCollider->GetLeft() - (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f + myCollider->Center.x, transform.position.y) ;
+    {               
+        if (Velocity.x >= 0)
+        {
+            transform.position = Vector2(otherCollider->GetLeft() - (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f + myCollider->Center.x, transform.position.y);
+        }
     }
     else if (min == disLR)
     {
-        transform.position = Vector2(otherCollider->GetRight() + (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f - myCollider->Center.x, transform.position.y) ;
+        if (Velocity.x <= 0)
+        {
+            transform.position = Vector2(otherCollider->GetRight() + (myCollider->GetRight() - myCollider->GetLeft()) * 0.5f - myCollider->Center.x, transform.position.y);
+        }   
     }
 
 }

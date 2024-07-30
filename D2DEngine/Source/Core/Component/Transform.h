@@ -105,11 +105,11 @@ public:
 	void FlipY();
 
 	bool IsFlipX() const { return isFlipX; } 
-	/** 현재 좌우반전 여부. 읽기 전용*/
-	__declspec(property(get = IsFlipX)) bool flipX;
+	/** 좌우 반전*/
+	__declspec(property(get = IsFlipX, put = FlipX)) bool flipX;
 	bool IsFlipY() const { return isFlipY; } 
-	/** 현재 좌우반전 여부. 읽기 전용*/
-	__declspec(property(get = IsFlipY)) bool flipY;
+	/** 상하 반전*/
+	__declspec(property(get = IsFlipY, put = FlipY)) bool flipY;
 
 private:
 	Transform* parent{};
