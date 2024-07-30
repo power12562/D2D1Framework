@@ -25,6 +25,7 @@ protected:
 
 private:
 	GameObjectBase* player;
+	GameObjectBase* bomb;
 	class InputBinding* PlayerInput;
 	bool downRot;
 	bool upRot;

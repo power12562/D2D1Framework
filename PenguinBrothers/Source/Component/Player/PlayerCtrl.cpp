@@ -44,10 +44,10 @@ void PlayerCtrl::Update()
 {
 	if (transform.position.y < -450)
 	{
-		fsm->SetState(L"Dead");
+		transform.position = Vector2(transform.position.x, 450.f);
 	}
-	Vector2 velocity = GetComponent<Rigidbody2D>().Velocity;
-	DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
+	//Vector2 velocity = GetComponent<Rigidbody2D>().Velocity;
+	//DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
 	//DEBUG_PRINT("position { %f, %f }\n", transform.position.x, transform.position.y);
 	//DEBUG_PRINT("angle : %f\n", (float)transform.rotation);
 

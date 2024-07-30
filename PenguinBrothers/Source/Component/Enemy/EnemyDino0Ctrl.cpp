@@ -65,7 +65,7 @@ void EnemyDino0Ctrl::Update()
 {
 	if (transform.position.y < -450)
 	{
-		fsm->SetState(L"Dead");
+		transform.position = Vector2(transform.position.x, 450.f);
 	}
 }
 
