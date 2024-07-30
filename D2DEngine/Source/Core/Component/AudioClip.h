@@ -20,7 +20,10 @@ public:
 	SoundSystem::ChannelGroup group;
 
 	/* 오디오 클립 재생*/
-	void Play(bool isLoop);
+	void Play(bool isLoop = false);
+
+	/* 오디오 재생 유무*/
+	bool IsPlay() { return playChannel != nullptr; }
 
 	/* 재생중인 클립을 일시정지합니다. 일시정지 중에 호출하면 이어서 재생합니다.*/
 	void Pause();
@@ -34,8 +37,8 @@ public:
 	float GetVolume() { return volume; }
 	/* 재생할 클립의 소리 크기*/
 	__declspec(property(put = SetVolume, get = GetVolume)) float Volume;
-	
-	
+
+
 protected:
 	//virtual void Start() override;
 	//virtual void Update() override;

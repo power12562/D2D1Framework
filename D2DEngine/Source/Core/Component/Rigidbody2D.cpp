@@ -14,6 +14,7 @@ Rigidbody2D::Rigidbody2D(GameObjectBase& gameObject)
     currIsGravity = false;
     Velocity = Vector2();
     Gravity = Vector2{ 0.f, -2000.f };
+    Drag = 700.f;
 }
 
 Rigidbody2D::~Rigidbody2D()
@@ -106,8 +107,9 @@ void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* othe
         } 
         if (Velocity.x != 0)
         {
-            Velocity.x += ((Velocity.x > 0) ? -1 : 1) * Drag;
-            if (abs(Velocity.x) <= Drag)
+            float deltaDrag = Drag * Time.GetDeltatime();
+            Velocity.x += ((Velocity.x > 0) ? -1 : 1) * deltaDrag;
+            if (abs(Velocity.x) <= deltaDrag)
             {
                 Velocity.x = 0;
             }

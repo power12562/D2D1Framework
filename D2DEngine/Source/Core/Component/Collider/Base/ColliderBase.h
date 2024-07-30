@@ -56,7 +56,11 @@ public:
 	bool isTrigger = false; //오버랩 여부 (true = 오버랩)
 	inline Type GetType() const { return type; }
 
+	/** 중심 위치*/
 	Vector2 Center{ 0, 0 };
+
+	/** 충돌 무시할 태그 목록*/
+	std::vector<std::wstring> ExceptionTag;
 
 	virtual float GetTop() = 0;
 	virtual float GetBottom() = 0;

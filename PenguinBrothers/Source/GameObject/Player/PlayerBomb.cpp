@@ -2,7 +2,7 @@
 #include "Source/Component/Player/PlayerBombCtrl.h"
 
 #include "Core/Component/Collider/SpriteCollider2D.h"
-#include <Core/Component/Rigidbody2D.h>
+#include <Core/Component/Rigidbody2D.h>				
 
 #include <string>
 
@@ -18,9 +18,11 @@ PlayerBomb::PlayerBomb()
 
 	objectCount++;
 
-	AddComponent<Rigidbody2D>().isKinematic = true;
+	AddComponent<Rigidbody2D>().isKinematic = false;
 	AddComponent<PlayerBombCtrl>();
-	AddComponent<SpriteCollider2D>().isTrigger = true;
+	SpriteCollider2D& coll = AddComponent<SpriteCollider2D>();
+	coll.ExceptionTag.push_back(L"Player");
+	coll.ExceptionTag.push_back(L"Enemy");
 
 	transform.scale = Vector2{ 4.0f, 4.0f };
 	OderLayer = 1;

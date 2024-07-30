@@ -6,8 +6,10 @@
 #include "Core/Component/FSM/FiniteStateMachine.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Movement.h"
+#include "Core/Component/AudioClip.h"
 
 #include "Source/Component/Enemy/EnemyDino0Ctrl.h"
+#include "Source/Component/GameManagerCtrl.h"
 
 #include <Framework/GameObjectFactory.h>
 REGISTER_GAMEOBJECFT(EnemyDino0)
@@ -25,6 +27,9 @@ EnemyDino0::EnemyDino0()
 	coll.isDrawCollider = true;
 #endif
 
+	AudioClip& audioClip = AddComponent<AudioClip>();
+	audioClip.LoadAudio(L"Resource/Enemy/Dino0/Dead.wav");
+	audioClip.group = SoundSystem::ChannelGroup::sfx;
 
 	AddComponent<EnemyDino0Ctrl>();
 	AddComponent<Movement>();
@@ -40,6 +45,7 @@ EnemyDino0::EnemyDino0()
 	fsm.CreateState<EnemyTracking>(L"Tracking");
 	fsm.CreateState<EnemyAttack>(L"Attack");
 	fsm.CreateState<EnemyAirborne>(L"Airborne");
+	fsm.CreateState<EnemyDead>(L"Dead");
 
 }
 
@@ -194,5 +200,21 @@ void EnemyAirborne::Update()
 	if (owner.GetComponent<Rigidbody2D>().Velocity == Vector2{0, 0})
 	{
 		owner.SetState(L"Idle");
+	}
+}
+
+void EnemyDead::Enter()
+{
+	owner.GetComponent<AudioClip>().Play();
+	owner.gameObject.enable = false;
+	GameManagerCtrl::EnemyCount--;
+	if (GameManagerCtrl::EnemyCount == 0)
+	{
+		for (auto& p : WorldManager::FindGameObjectsWithTag(L"Player"))
+		{
+			FiniteStateMachine& fsm = p->GetComponent<FiniteStateMachine>();
+			fsm.Transition = true;
+			fsm.SetState(L"Win");
+		}
 	}
 }

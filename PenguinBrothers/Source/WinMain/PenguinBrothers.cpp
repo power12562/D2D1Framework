@@ -11,8 +11,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     PenguinBrothers app;
     app.Initialize(hInstance);
+#ifdef _DEBUG
     WorldManager::LoadWorldToJson(L"Resource/Stage/EditerFile/New.json");
     //WorldManager::LoadWorldToJson(L"Resource/Stage/Stage1.json");
+#else 
+    WorldManager::LoadWorldToJson(L"Resource/Stage/Stage1.json");
+#endif
     app.Run();
     app.Uninitialize();
 }

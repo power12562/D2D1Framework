@@ -63,7 +63,10 @@ void EnemyDino0Ctrl::Start()
 
 void EnemyDino0Ctrl::Update()
 {
-
+	if (transform.position.y < -450)
+	{
+		fsm->SetState(L"Dead");
+	}
 }
 
 void EnemyDino0Ctrl::LateUpdate()

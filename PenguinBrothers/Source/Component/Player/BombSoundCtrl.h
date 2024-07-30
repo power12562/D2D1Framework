@@ -1,13 +1,12 @@
 #pragma once
 #include <Core/Component/Base/ComponentBase.h>
-#include <Core/GameObject/Base/GameObjectBase.h>
 
-class SoundTest : public ComponentBase
+class BombSoundCtrl : public ComponentBase
 {
-	class AudioClip* audio;
+	class AudioClip* audioClip;
 public:
-	SoundTest(GameObjectBase& gameObject);
-	virtual ~SoundTest() override;
+	BombSoundCtrl(GameObjectBase& gameObject);
+	virtual ~BombSoundCtrl() override;
 
 protected:
 	virtual void Start() override;

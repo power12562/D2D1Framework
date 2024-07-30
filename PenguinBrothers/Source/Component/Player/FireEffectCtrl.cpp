@@ -4,6 +4,7 @@
 #include <Core/Component/Collider/SpriteCollider2D.h>
 #include <Core/Component/Renderer/SpriteAnimationRenderer.h>
 #include <Core/Component/FSM/FiniteStateMachine.h>
+#include <Core/Component/AudioClip.h>
 
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/FireEffect.h"
@@ -117,17 +118,7 @@ void FireEffectCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* ot
 	}
 	if (otherCollider->gameObject.tag == L"Enemy")
 	{
-		otherCollider->gameObject.enable = false;
-		GameManagerCtrl::EnemyCount--;
-		if (GameManagerCtrl::EnemyCount == 0)
-		{
-			for (auto& p : WorldManager::FindGameObjectsWithTag(L"Player"))
-			{
-				FiniteStateMachine& fsm = p->GetComponent<FiniteStateMachine>();
-				fsm.Transition = true;
-				fsm.SetState(L"Win");
-			}
-		}
+		otherCollider->GetComponent<FiniteStateMachine>().SetState(L"Dead");
 	}
 }
 

@@ -24,7 +24,7 @@ public:
 	Vector2 Velocity;
 
 	/** 저항 값*/
-	float Drag = 0.3f;
+	float Drag;
 
 	/** 물체에 힘을 적용시킵니다.*/
 	void AddForce(const Vector2& force);

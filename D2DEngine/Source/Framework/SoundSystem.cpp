@@ -67,7 +67,7 @@ bool FMODManager::CheckErr(FMOD_RESULT result)
 {
 	if (result != FMOD_OK)
 	{
-		DEBUG_PRINT("%s", FMOD_ErrorString(result));
+		DEBUG_PRINT("FOMD : %s", FMOD_ErrorString(result));
 		return false;
 	}
 	return true;

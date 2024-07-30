@@ -79,3 +79,12 @@ protected:
 	virtual void Update() override;
 	virtual void Exit() override {}
 };
+
+class EnemyDead : public EnemyState
+{
+public:
+	EnemyDead(FiniteStateMachine& _owner, const wchar_t* _name) : EnemyState(_owner, _name) {}
+	virtual void Enter() override;
+	virtual void Update() override {}
+	virtual void Exit() override {}
+};

@@ -15,11 +15,10 @@ protected:
 	//virtual void Render() override;
 
 private:
-	class SpriteRenderer* spriteRenderer = nullptr;
 	class SpriteAnimationRenderer* spriteAnimation = nullptr;
+	class Rigidbody2D* rb;
 
 	float elapsedTime = 0;
-
 
 	virtual void OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};
 	virtual void OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* otherCollider) override {};

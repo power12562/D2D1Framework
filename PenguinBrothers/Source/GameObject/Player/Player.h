@@ -30,6 +30,8 @@ protected:
 	class Movement* movement;
 	class SpriteAnimationRenderer* spriteAnimation;
 	class PlayerCtrl* playerCtrl;
+	class AudioClip* audioClip;
+
 	static Vector2 SpawnPos;
 	static Vector2 SpawnScale;
 };
@@ -98,7 +100,7 @@ public:
 public:
 	virtual void Enter() override;
 	virtual void Update() override;
-	virtual void Exit() override {}
+	virtual void Exit() override;
 };
 
 class Jump : public PlayerState

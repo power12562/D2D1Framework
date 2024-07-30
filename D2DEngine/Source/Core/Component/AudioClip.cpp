@@ -11,7 +11,7 @@ AudioClip::AudioClip(GameObjectBase& gameObject)
 	sound = nullptr;
 	filePath.clear();
 	volume = 1.0f;
-
+	group = ChannelGroup::null;
 }
 
 AudioClip::~AudioClip()

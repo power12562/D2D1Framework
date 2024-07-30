@@ -152,6 +152,7 @@
     <ClCompile Include="Source\Component\Enemy\EnemyDino0Ctrl.cpp" />
     <ClCompile Include="Source\Component\GameManagerCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\BombEffectCtrl.cpp" />
+    <ClCompile Include="Source\Component\Player\BombSoundCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\FireEffectCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\PlayerBombCtrl.cpp" />
     <ClCompile Include="Source\Component\Player\PlayerCtrl.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Source\Component\Enemy\EnemyDino0Ctrl.h" />
     <ClInclude Include="Source\Component\GameManagerCtrl.h" />
     <ClInclude Include="Source\Component\Player\BombEffectCtrl.h" />
+    <ClInclude Include="Source\Component\Player\BombSoundCtrl.h" />
     <ClInclude Include="Source\Component\Player\FireEffectCtrl.h" />
     <ClInclude Include="Source\Component\Player\PlayerBombCtrl.h" />
     <ClInclude Include="Source\Component\Player\PlayerCtrl.h" />

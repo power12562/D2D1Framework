@@ -8,6 +8,7 @@
 #include "Core/Component/Collider/SpriteCollider2D.h"
 #include "Core/Component/Movement.h"
 #include "Core/Component/FSM/FiniteStateMachine.h"
+#include "Core/Component/AudioClip.h"
 #include "Core/Component/Rigidbody2D.h"
 
 #include "Source/Component/Player/PlayerCtrl.h"
@@ -45,6 +46,7 @@ Player::Player()
 	collider.isDrawCollider = true;
 #endif // DEBUG
 
+	AddComponent<AudioClip>();
 	AddComponent<Rigidbody2D>();
 	AddComponent<PlayerCtrl>();
 	FiniteStateMachine& fsm = AddComponent<FiniteStateMachine>();
@@ -82,6 +84,9 @@ PlayerState::PlayerState(FiniteStateMachine& _owner, const wchar_t* _name) : FSM
 	spriteAnimation = &owner.gameObject.GetComponent<SpriteAnimationRenderer>();
 	playerCtrl = &owner.gameObject.GetComponent<PlayerCtrl>();
 	Input = &owner.GetComponent<InputBinding>();
+
+	audioClip = &owner.GetComponent<AudioClip>();
+	audioClip->group = SoundSystem::ChannelGroup::sfx;
 }
 
 
@@ -91,6 +96,9 @@ void Spawn::Enter()
 	spriteAnimation->SetAnimation(L"Spawn");
 	owner.IsComponent<Rigidbody2D>()->enabled = false;
 	owner.IsComponent<Rigidbody2D>()->Velocity = Vector2(0, 0);
+
+	audioClip->LoadAudio(L"Resource/Player/Spawn/spawn.wav");
+	audioClip->Play(false);
 }
 
 void Spawn::Update()
@@ -105,6 +113,7 @@ void Spawn::Exit()
 {
 	owner.IsComponent<Rigidbody2D>()->enabled = true;
 	SpawnPos = owner.gameObject.transform.position;
+	audioClip->Stop();
 }
 
 
@@ -263,6 +272,9 @@ void Dead::Enter()
 	spriteAnimation->SetAnimation(L"Dead");
 	owner.GetComponent<Rigidbody2D>().enabled = false;
 	owner.Transition = false;
+
+	audioClip->LoadAudio(L"Resource/Player/Dead/Dead.wav");
+	audioClip->Play();
 }
 												
 void Dead::Update()
@@ -277,6 +289,11 @@ void Dead::Update()
 		owner.Transition = true;
 		owner.SetState(L"Spawn");
 	}
+}
+
+void Dead::Exit()
+{
+	audioClip->Stop();
 }
 
 void Jump::Enter()
@@ -340,6 +357,9 @@ void Win::Enter()
 	GameObjectBase* cool = WorldManager::AddGameObject<GameObjectUI>(L"Cool");
 	cool->AddComponent<SpriteRenderer>().LoadImage(L"Resource/COOL.png");
 	cool->transform.scale = Vector2(4.0f, 4.0f);;
+
+	audioClip->LoadAudio(L"Resource/Player/Win/Win.wav");
+	audioClip->Play(false);
 }
 
 void Win::Update()

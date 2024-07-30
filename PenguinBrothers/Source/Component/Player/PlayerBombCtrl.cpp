@@ -5,12 +5,15 @@
 #include "Core/GameObject/Base/GameObjectBase.h"
 #include "Core/Component/Renderer/SpriteAnimationRenderer.h"
 #include "Core/Component/Collider/SpriteCollider2D.h"
+#include "Core/Component/Rigidbody2D.h"
+#include "Core/Component/AudioClip.h"
 
 #include "Source/GameObject/Player/PlayerBomb.h"
 #include "Source/Component/Player/PlayerCtrl.h"
 #include "Source/GameObject/Player/BombEffect.h"
 #include "Source/GameObject/Player/FireEffect.h"
 #include "Source/Component/Player/FireEffectCtrl.h"
+#include "Source/Component/Player/BombSoundCtrl.h"
 
 PlayerBombCtrl::PlayerBombCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject), ICollider2DNotify(this)
 {
@@ -27,7 +30,6 @@ void PlayerBombCtrl::Start()
 #ifdef _DEBUG
 	GetComponent<SpriteCollider2D>().isDrawCollider = true;
 #endif // _DEBUG
-
 
 	spriteAnimation = &gameObject.AddComponent<SpriteAnimationRenderer>();
 	switch (((PlayerBomb&)gameObject).playerCtrl->bombType)
@@ -46,6 +48,16 @@ void PlayerBombCtrl::Start()
 		break;
 	}
 	spriteAnimation->SetAnimation(L"bomb");
+
+	rb = &GetComponent<Rigidbody2D>();
+	if (transform.flipX)
+	{
+		rb->AddForce(Vector2(-180.f, 300.f));
+	}
+	else
+	{
+		rb->AddForce(Vector2(180.f, 300.f));
+	}
 }
 
 void PlayerBombCtrl::Update()
@@ -53,7 +65,6 @@ void PlayerBombCtrl::Update()
 	elapsedTime += TimeSystem::Time.GetDeltatime();
 	if (spriteAnimation->CurrentClipEnd)
 	{
-		WorldManager::DelGameObject(gameObject);
 		GameObjectBase* bombEffect = WorldManager::AddGameObject<BombEffect>(L"bombEffect");
 		bombEffect->transform.position = gameObject.transform.position;
 
@@ -84,11 +95,13 @@ void PlayerBombCtrl::Update()
 				fireEffectCtrl.rightCount = 1;
 			}		
 			break;
-		case BombType::skyblue:
-			
+		case BombType::skyblue:	
 			break;
 		}
-
+		WorldManager::DelGameObject(gameObject);
+		GameObjectBase* bombSound = WorldManager::AddGameObject(L"BombSound");
+		bombSound->AddComponent<AudioClip>();
+		bombSound->AddComponent<BombSoundCtrl>();
 	}
 }
 

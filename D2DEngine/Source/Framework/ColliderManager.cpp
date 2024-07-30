@@ -35,7 +35,27 @@ void ColliderManager::CheckCollision()
 		++j;	
 		for (; j != colliderInstanceList.end(); ++j)
 		{
-			if ((*j)->gameObject.enable == false)
+			bool isException = false;
+			for (auto& excTag : (*i)->ExceptionTag)
+			{
+				if (excTag == (*j)->gameObject.tag)
+				{
+					isException = true;
+					break;
+				}
+			}
+			if (isException == false)
+			{
+				for (auto& excTag : (*j)->ExceptionTag)
+				{
+					if (excTag == (*i)->gameObject.tag)
+					{
+						isException = true;
+						break;
+					}
+				}
+			}
+			if ((*j)->gameObject.enable == false || isException)
 				continue;
 
 			if (((*i)->gameObject.pRigidbody && (*i)->gameObject.pRigidbody->enabled) ||

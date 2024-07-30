@@ -7,6 +7,10 @@
 
 #include "Core/Component/Camera.h"
 
+#include <windef.h>
+#include <d2d1helper.h>
+#include <dcommon.h>
+
 BoxCollider2D::BoxCollider2D(GameObjectBase& gameObject) :
 	ColliderBase(gameObject)
 {
