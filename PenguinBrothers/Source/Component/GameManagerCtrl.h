@@ -3,6 +3,7 @@
 
 class GameManagerCtrl : public ComponentBase
 {
+	GameObjectBase* bgm;
 public:
 	GameManagerCtrl(GameObjectBase& gameObject) : ComponentBase(gameObject) {}
 	virtual ~GameManagerCtrl() override;

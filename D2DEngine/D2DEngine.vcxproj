@@ -120,6 +120,9 @@
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ProjectBase\ProjectBase.vcxproj" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

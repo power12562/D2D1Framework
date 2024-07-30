@@ -44,7 +44,8 @@ void WinGameApp::Initialize(HINSTANCE hinstance)
 	}
 
 	// 컴포넌트 오브젝트 모델 (COM) 초기화.
-	if (HRESULT hr = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED))
+	HRESULT hr = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+	if(FAILED(hr))
 	{
 		_com_error er(hr);
 		DEBUG_PRINT("%s", (const char*)er.ErrorMessage());

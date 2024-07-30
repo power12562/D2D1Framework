@@ -1,4 +1,5 @@
 #include "GameManagerCtrl.h"
+#include <Core/Component/AudioClip.h>
 
 #include <filesystem>
 #include <string>
@@ -19,8 +20,15 @@ GameManagerCtrl::~GameManagerCtrl()
 
 void GameManagerCtrl::Start()
 {
-	
-
+	bgm = WorldManager::FindGameObject(L"BGM");
+	if (bgm == nullptr)
+	{
+		bgm = WorldManager::AddGameObject(L"BGM");
+		AudioClip& audioClip = bgm->AddComponent<AudioClip>();
+		audioClip.LoadAudio(L"Resource/level.mp3");
+		audioClip.Play(true, SoundSystem::ChannelGroup::music);
+		WorldManager::DontDestroyOnLoad(bgm);
+	}
 }
 
 void GameManagerCtrl::Update()

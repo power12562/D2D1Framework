@@ -18,6 +18,10 @@ WorldBase::~WorldBase()
 	{
 		for (auto& item : gameObjectList)
 		{
+			if (item->DontDestroyOnload)
+			{
+				continue;
+			}
 			delete item;
 		}
 	}

@@ -1,5 +1,6 @@
 #include "BombRingCtrl.h"
 #include <Core/Component/Renderer/SpriteRenderer.h>
+#include <Core/Component/AudioClip.h>
 
 #include "Source/Component/Player/PlayerCtrl.h"
 
@@ -32,6 +33,9 @@ void BombRingCtrl::Start()
 		GetComponent<SpriteRenderer>().LoadImage(L"Resource/Item/skyblueRing.png");
 		break;
 	}
+
+	audioCilp = &GetComponent<AudioClip>();
+	audioCilp->LoadAudio(L"Resource/Item/ring.wav");
 }
 
 void BombRingCtrl::Update()
@@ -59,8 +63,9 @@ void BombRingCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* othe
 {
 	if (otherCollider->gameObject.tag == L"Player")
 	{
+		audioCilp->Play(false, SoundSystem::ChannelGroup::sfx);
 		otherCollider->GetComponent<PlayerCtrl>().bombType = static_cast<BombType>(type);
-		gameObject.enable = false;
+		gameObject.enable = false;	
 	}
 
 }

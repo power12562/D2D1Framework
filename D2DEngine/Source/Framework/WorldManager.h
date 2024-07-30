@@ -59,6 +59,10 @@ public:
 	/*현재 씬의 모든 오브젝트 삭제*/
 	static void ClearObjectList();
 
+	/* 씬이 로드되도 파괴되지 않는 오브젝트로 만듭니다.*/
+	static void DontDestroyOnLoad(GameObjectBase& gameObject);
+	static void DontDestroyOnLoad(GameObjectBase* gameObject) { DontDestroyOnLoad(*gameObject); }
+	
 private:
 	WorldManager();
 	~WorldManager();
@@ -112,14 +116,24 @@ inline void WorldManager::LoadWorld()
 
 	if (nextWorld)
 	{
-		delete nextWorld;
-		nextWorld = nullptr;
-		
 		while (!addQueueList.empty())
 		{
 			addQueueList.pop();
 		}
 		delNameSetList.clear();
+
+		delete nextWorld;
+		nextWorld = nullptr;
+	}
+	if (currentWorld)
+	{
+		for (auto object : currentWorld->gameObjectList)
+		{
+			if (object->DontDestroyOnload)
+			{
+				addQueueList.push(object);
+			}
+		}
 	}
 	nextWorld = new T;
 }

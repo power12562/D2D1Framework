@@ -12,6 +12,7 @@ enum class RingType
 
 class BombRingCtrl : public ComponentBase, public ICollider2DNotify
 {
+	class AudioClip* audioCilp;
 public:
 	RingType type;
 	BombRingCtrl(GameObjectBase& gameObject);

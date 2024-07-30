@@ -15,19 +15,20 @@ AudioClip::AudioClip(GameObjectBase& gameObject)
 
 AudioClip::~AudioClip()
 {
+	UnloadAudio();
 }
 
-void AudioClip::LoadClip(const wchar_t* path)
+void AudioClip::LoadAudio(const wchar_t* path)
 {
 	if (sound != nullptr)
 	{
-		UnloadClip();
+		UnloadAudio();
 	}
 	filePath = path;
 	sound = FMODManager::CreateSound(path);
 }						  
 
-void AudioClip::UnloadClip()
+void AudioClip::UnloadAudio()
 {
 	if (sound != nullptr)
 	{

@@ -194,7 +194,10 @@ void WorldManager::AddObjectToQList()
 		while (!addList.empty())
 		{		
 			auto& obj = addList.front();
-			obj->Start();	
+			if (!obj->DontDestroyOnload)
+			{
+				obj->Start();
+			}			
 			obj->objName = WorldManager::GenerateUniqueName(obj->name);
 			currentWorld->gameObjectList.push_back(obj);
 			currentWorld->gameObjectMap[obj->name] = std::prev(currentWorld->gameObjectList.end());		
@@ -372,4 +375,9 @@ void WorldManager::ClearObjectList()
 	} 
 	currentWorld->gameObjectList.clear();
 	currentWorld->gameObjectMap.clear();
+}
+
+void WorldManager::DontDestroyOnLoad(GameObjectBase& gameObject)
+{
+	gameObject.dontDestroyOnload = true;
 }
