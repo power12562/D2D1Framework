@@ -102,7 +102,4 @@
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\ProjectBase\ProjectBase.vcxproj" />
-  </ItemGroup>
 </Project>

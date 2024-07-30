@@ -26,7 +26,8 @@ void GameManagerCtrl::Start()
 		bgm = WorldManager::AddGameObject(L"BGM");
 		AudioClip& audioClip = bgm->AddComponent<AudioClip>();
 		audioClip.LoadAudio(L"Resource/level.mp3");
-		audioClip.Play(true, SoundSystem::ChannelGroup::music);
+		audioClip.group = SoundSystem::ChannelGroup::music;
+		audioClip.Play(true);
 		WorldManager::DontDestroyOnLoad(bgm);
 	}
 }

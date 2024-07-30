@@ -129,7 +129,7 @@ FMOD::Channel* SoundSystem::FMODManager::PlaySound(Sound* sound, ChannelGroup gr
 }
 
 
-void SoundSystem::FMODManager::SetVolume(ChannelGroup group, float volume)
+void SoundSystem::FMODManager::SetVolumeGroup(ChannelGroup group, float volume)
 {
 	switch (group)
 	{
@@ -146,4 +146,26 @@ void SoundSystem::FMODManager::SetVolume(ChannelGroup group, float volume)
 		DEBUG_PRINT("존재하지 않는 채널 입니다.");
 		break;
 	}
+}
+
+float SoundSystem::FMODManager::GetVolumeGroup(ChannelGroup group)
+{
+	float volume;
+	switch (group)
+	{
+	case SoundSystem::ChannelGroup::master:
+		masterGroup->getVolume(&volume);
+		break;
+	case SoundSystem::ChannelGroup::music:
+		musicGroup->getVolume(&volume);
+		break;
+	case SoundSystem::ChannelGroup::sfx:
+		sfxGroup->getVolume(&volume);
+		break;
+	default:
+		DEBUG_PRINT("존재하지 않는 채널 입니다.");
+		volume = 0.f;
+		break;
+	}
+	return volume;
 }

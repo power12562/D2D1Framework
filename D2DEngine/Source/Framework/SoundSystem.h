@@ -63,7 +63,9 @@ namespace SoundSystem
 		static FMOD::Channel* PlaySound(Sound* sound, ChannelGroup group);
 
 		/* 특정 그룹에 소리를 조절합니다.*/
-		static void SetVolume(ChannelGroup group, float volume);
+		static void SetVolumeGroup(ChannelGroup group, float volume);
+		/* 특정 그룹에 소리 크기.*/
+		static float GetVolumeGroup(ChannelGroup group);
 
 	private:
 		FMODManager() = delete;

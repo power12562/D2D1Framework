@@ -10,6 +10,7 @@ AudioClip::AudioClip(GameObjectBase& gameObject)
 	playChannel = nullptr;
 	sound = nullptr;
 	filePath.clear();
+	volume = 1.0f;
 
 }
 
@@ -50,7 +51,7 @@ FMOD_RESULT F_CALLBACK EndOfSoundCallback(FMOD_CHANNELCONTROL* channelcontrol, F
 	return FMOD_OK;
 }
 
-void AudioClip::Play(bool isLoop, SoundSystem::ChannelGroup group)
+void AudioClip::Play(bool isLoop)
 {
 	if (sound == nullptr || playChannel != nullptr)
 	{
@@ -61,6 +62,7 @@ void AudioClip::Play(bool isLoop, SoundSystem::ChannelGroup group)
 	playChannel = FMODManager::PlaySound(sound, group);																						    
 	playChannel->setUserData(&playChannel);
 	playChannel->setCallback(EndOfSoundCallback);
+	playChannel->setVolume(volume);
 }
 
 void AudioClip::Pause()
@@ -81,4 +83,13 @@ void AudioClip::Stop()
 	{
 		playChannel->stop();
 	}
+}
+
+void AudioClip::SetVolume(float _volume)
+{
+	if (playChannel)
+	{
+		playChannel->setVolume(_volume);
+	}
+	volume = _volume;
 }

@@ -15,8 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpriteAnimeEditor", "Sprite
 		{0CF823D4-3F75-4A2E-A4BD-E03D04E605C2} = {0CF823D4-3F75-4A2E-A4BD-E03D04E605C2}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectBase", "ProjectBase\ProjectBase.vcxproj", "{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -49,14 +47,6 @@ Global
 		{68B958DB-95CC-423A-8B96-8197B35EDD76}.Release|x64.Build.0 = Release|x64
 		{68B958DB-95CC-423A-8B96-8197B35EDD76}.Release|x86.ActiveCfg = Release|Win32
 		{68B958DB-95CC-423A-8B96-8197B35EDD76}.Release|x86.Build.0 = Release|Win32
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Debug|x64.ActiveCfg = Debug|x64
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Debug|x64.Build.0 = Debug|x64
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Debug|x86.ActiveCfg = Debug|Win32
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Debug|x86.Build.0 = Debug|Win32
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Release|x64.ActiveCfg = Release|x64
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Release|x64.Build.0 = Release|x64
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Release|x86.ActiveCfg = Release|Win32
-		{833E4FBF-C9DE-474E-AD3F-AFFBFE5D4FAF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

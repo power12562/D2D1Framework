@@ -35,6 +35,7 @@ void BombRingCtrl::Start()
 	}
 
 	audioCilp = &GetComponent<AudioClip>();
+	audioCilp->group = SoundSystem::ChannelGroup::sfx;
 	audioCilp->LoadAudio(L"Resource/Item/ring.wav");
 }
 
@@ -63,7 +64,7 @@ void BombRingCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* othe
 {
 	if (otherCollider->gameObject.tag == L"Player")
 	{
-		audioCilp->Play(false, SoundSystem::ChannelGroup::sfx);
+		audioCilp->Play(false);
 		otherCollider->GetComponent<PlayerCtrl>().bombType = static_cast<BombType>(type);
 		gameObject.enable = false;	
 	}

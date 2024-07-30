@@ -1,5 +1,6 @@
 #include "SoundTest.h"
 #include <Framework/InputSystem.h>
+#include <Utility/Debug.h>
 
 #include <Core/Component/AudioClip.h>
 
@@ -47,12 +48,13 @@ void SoundTest::Update()
 
 	if (Input.IsKeyDown(KeyCode::DownArrow))
 	{
-		SoundSystem::FMODManager::SetVolume(ChannelGroup::music, 0.25f);
+		audio->Volume = 0.5f;
 	}
 	if (Input.IsKeyDown(KeyCode::UpArrow))
 	{
-		SoundSystem::FMODManager::SetVolume(ChannelGroup::music, 1.0f);
+		audio->Volume = 1.0f;
 	}
+	DEBUG_PRINT("Volume : %f\n", audio->Volume);
 	
 
 }
