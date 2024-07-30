@@ -263,6 +263,14 @@ void Attack::Update()
 	{
 		owner.SetState(L"Idle");
 		playerCtrl->SpawnBomb();
+		if (owner.transform.flipX)
+		{
+			owner.GetComponent<Rigidbody2D>().Velocity = Vector2(200.f, 0.f);
+		}
+		else
+		{
+			owner.GetComponent<Rigidbody2D>().Velocity = Vector2(-200.f, 0.f);
+		}
 	}
 }
 
@@ -343,6 +351,14 @@ void Jump::Update()
 		{
 			owner.SetState(L"Airborne");
 			playerCtrl->SpawnBomb();
+			if (owner.transform.flipX)
+			{
+				owner.GetComponent<Rigidbody2D>().Velocity = Vector2(150.f, 0.f);
+			}
+			else
+			{
+				owner.GetComponent<Rigidbody2D>().Velocity = Vector2(-150.f, 0.f);
+			}		
 		}
 		else
 		{
