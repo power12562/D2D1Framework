@@ -44,7 +44,7 @@ void Rigidbody2D::Update()
         currIsGravity = true;
     }
     //gameObject.transform.rotation += angularVelocity * Time.DeltaTime;
-}
+}                          
 
 void Rigidbody2D::AddGravity()
 {
