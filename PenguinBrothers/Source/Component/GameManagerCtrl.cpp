@@ -55,7 +55,8 @@ void GameManagerCtrl::LoadNextStage()
 	}
 	else
 	{
-		DEBUG_WPRINT(L"존재하지 않는 파일 입니다. %s.\n", jsonPath.c_str());	 
-		WinGameApp::End();
+		CurrentStage = 1;
+		jsonPath = L"Resource/Stage/Stage" + std::to_wstring(CurrentStage) + L".json";
+		WorldManager::LoadWorldToJson(jsonPath.c_str());
 	}
 }

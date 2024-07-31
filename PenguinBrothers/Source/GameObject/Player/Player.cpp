@@ -339,7 +339,7 @@ void Jump::Update()
 	{
 		owner.SetState(L"Idle");
 	}
-	if (isAttack && Input->IsKeyDown("Attack"))
+	if (isAttack && Input->IsKeyDown("Attack") && PlayerBomb::GetObjectCount() == 0)
 	{
 		spriteAnimation->SetAnimation(L"Attack");
 		owner.GetComponent<Rigidbody2D>().Velocity = Vector2(0.f, 0.f);
