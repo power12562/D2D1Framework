@@ -46,6 +46,11 @@ void PlayerCtrl::Update()
 	{
 		transform.position = Vector2(transform.position.x, 450.f);
 	}
+	if (abs(transform.position.x >= WinGameApp::GetClientSize().cx * 0.5f + gameObject.cullingBounds.extents.x))
+	{
+		fsm->SetState(L"Dead");
+	}
+
 	//Vector2 velocity = GetComponent<Rigidbody2D>().Velocity;
 	//DEBUG_PRINT("Velocity { %f, %f }\n", velocity.x, velocity.y);
 	//DEBUG_PRINT("position { %f, %f }\n", transform.position.x, transform.position.y);

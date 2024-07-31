@@ -266,10 +266,12 @@ void Attack::Update()
 		if (owner.transform.flipX)
 		{
 			owner.GetComponent<Rigidbody2D>().Velocity = Vector2(200.f, 0.f);
+			owner.SetState(L"Airborne");
 		}
 		else
 		{
 			owner.GetComponent<Rigidbody2D>().Velocity = Vector2(-200.f, 0.f);
+			owner.SetState(L"Airborne");
 		}
 	}
 }

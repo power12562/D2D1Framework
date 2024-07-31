@@ -103,6 +103,10 @@ void PlayerBombCtrl::Update()
 		bombSound->AddComponent<AudioClip>();
 		bombSound->AddComponent<BombSoundCtrl>();
 	}
+	if (transform.position.y < -450)
+	{
+		transform.position = Vector2(transform.position.x, 450.f);
+	}
 }
 
 void PlayerBombCtrl::OnTriggerEnter2D(ColliderBase* myCollider, ColliderBase* otherCollider)
