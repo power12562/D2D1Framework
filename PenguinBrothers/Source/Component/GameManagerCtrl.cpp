@@ -40,6 +40,11 @@ void GameManagerCtrl::Update()
 	}
 
 	//DEBUG_PRINT("Enemy : %d\n", GameManagerCtrl::EnemyCount);
+	//if (bgm)
+	//{
+	//	static AudioClip& bgmAudio = bgm->GetComponent<AudioClip>();
+	//	DEBUG_PRINT("%.5Lf\n", bgmAudio.GetPlayTime());
+	//}
 }
 
 void GameManagerCtrl::LoadNextStage()

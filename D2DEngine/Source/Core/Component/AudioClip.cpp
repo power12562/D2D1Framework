@@ -12,6 +12,7 @@ AudioClip::AudioClip(GameObjectBase& gameObject)
 	filePath.clear();
 	volume = 1.0f;
 	group = ChannelGroup::null;
+	FMODManager::GetSampleRate(&sampleRate);
 }
 
 AudioClip::~AudioClip()
@@ -92,4 +93,18 @@ void AudioClip::SetVolume(float _volume)
 		playChannel->setVolume(_volume);
 	}
 	volume = _volume;
+}
+
+long double AudioClip::GetPlayTime()
+{
+	if (playChannel)
+	{
+		unsigned int currPCM; 
+		playChannel->getPosition(&currPCM, FMOD_TIMEUNIT_PCM);
+
+		long double timeInNanoseconds = (static_cast<long double>(currPCM) / sampleRate) * 1e9;
+		std::cout.precision(20);
+		return timeInNanoseconds;
+	}
+	return 0;
 }

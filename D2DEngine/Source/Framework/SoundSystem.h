@@ -67,6 +67,9 @@ namespace SoundSystem
 		/* 특정 그룹에 소리 크기.*/
 		static float GetVolumeGroup(ChannelGroup group);
 
+		/* 현재 FMOD의 샘플레이트 값을 가져옵니다.*/
+		static void GetSampleRate(int* outBuffer);
+
 	private:
 		FMODManager() = delete;
 		~FMODManager() = delete;

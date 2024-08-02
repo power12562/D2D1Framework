@@ -169,3 +169,8 @@ float SoundSystem::FMODManager::GetVolumeGroup(ChannelGroup group)
 	}
 	return volume;
 }
+
+void SoundSystem::FMODManager::GetSampleRate(int* outBuffer)
+{
+	FMODManager::system->getSoftwareFormat(outBuffer, nullptr, nullptr);
+}

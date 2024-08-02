@@ -9,6 +9,7 @@ class AudioClip : public ComponentBase
 	std::wstring filePath;
 	FMOD::Channel* playChannel;
 	float volume;
+	int sampleRate;
 public:
 	AudioClip(GameObjectBase& gameObject);
 	virtual ~AudioClip() override;
@@ -38,6 +39,8 @@ public:
 	/* 재생할 클립의 소리 크기*/
 	__declspec(property(put = SetVolume, get = GetVolume)) float Volume;
 
+	/* 현재 클립의 재생 시점이 몇초인지 나노초 단위로 가져옵니다.*/
+	long double GetPlayTime();
 
 protected:
 	//virtual void Start() override;
