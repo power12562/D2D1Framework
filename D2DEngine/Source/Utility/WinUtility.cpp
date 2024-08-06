@@ -199,8 +199,8 @@ INT_PTR CALLBACK DialogProcVector(HWND hDlg, UINT message, WPARAM wParam, LPARAM
 		data = (DialogDataVector*)lParam;
 		temp = data->vector2;
 		SetWindowText(hDlg, data->title); // 다이얼로그 제목 설정
-		SetDlgItemText(hDlg, IDC_EDIT1, L"Width");
-		SetDlgItemText(hDlg, IDC_EDIT2, L"Height");
+		SetDlgItemText(hDlg, IDC_EDIT1, L"x");
+		SetDlgItemText(hDlg, IDC_EDIT2, L"y");
 		WinGameApp::WinToScrrenCenter(hDlg);
 		return (INT_PTR)TRUE;
 	}
