@@ -7,7 +7,7 @@
 #include <d2d1helper.h>
 
 class D2D1::Matrix3x2F;
-
+class Vector3;
 class Transform : public ComponentBase
 {
 	friend class WorldManager;
@@ -44,6 +44,7 @@ class Transform : public ComponentBase
 		Vector2 operator-(const Vector2& other);
 		bool operator!=(const Vector2& other);
 		bool operator==(const Vector2& other);
+		operator Vector3();
 	private: 
 		void InitTVector2(Transform* thisTransform);
 		TVector2& SetTVector(const Vector2& other);		
@@ -80,8 +81,11 @@ public:
 	TFloat localRotation = 0;
 	TVector2 localScale{ 1,1 };
 
-	const Vector2& GetRight() const { return right; }
-	__declspec(property(get = GetRight)) const Vector2& Right;
+	Vector2 GetRight() const;
+	__declspec(property(get = GetRight)) Vector2 Right;
+
+	Vector2 GetUp() const;
+	__declspec(property(get = GetUp)) Vector2 Up;
 
 	inline const D2D1_MATRIX_3X2_F& GetWorldMatrix() const { return WM; }
 	inline const D2D1_MATRIX_3X2_F& GetCameraMatrix() const { return CM; }
@@ -138,8 +142,6 @@ private:
 
 	bool isFlipX = false;
 	bool isFlipY = false;
-
-	Vector2 right{};
 
 	virtual void SerializedJson(ordered_json& jsonObj) override;
 	virtual void DeSerializedJson(ordered_json& jsonObj) override;

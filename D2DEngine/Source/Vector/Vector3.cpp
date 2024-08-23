@@ -148,12 +148,12 @@ Vector3::operator Vector2()
 	return Vector2{ this->x, this->y };
 }
 
-float Vector3::Dot(Vector3 lhs, Vector3 rhs)
+float Vector3::Dot(const Vector3& lhs,const Vector3& rhs)
 {
 	return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
-Vector3 Vector3::Cross(Vector3 lhs, Vector3 rhs)
+Vector3 Vector3::Cross(const Vector3& lhs, const Vector3& rhs)
 {
 	float x = lhs.y * rhs.z - lhs.z * rhs.y;
 	float y = lhs.z * rhs.x - lhs.x * rhs.z;

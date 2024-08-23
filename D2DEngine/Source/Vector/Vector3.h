@@ -54,6 +54,6 @@ public:
 	/** Back Vector3(0, 0, -1) */
 	static const Vector3 Back;
 
-	static float Dot(Vector3 lhs, Vector3 rhs);
-	static Vector3 Cross(Vector3 lhs, Vector3 rhs);
+	static float Dot(const Vector3& lhs, const Vector3& rhs);
+	static Vector3 Cross(const Vector3& lhs, const Vector3& rhs);
 };

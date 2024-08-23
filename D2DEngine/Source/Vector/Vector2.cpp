@@ -53,12 +53,22 @@ float Vector2::Magnitude() const
 Vector2 Vector2::Normalized() const
 {
 	float magnitude = Magnitude();
-	if (fabs(magnitude) > std::numeric_limits<float>::epsilon())
+	if (std::abs(magnitude) > std::numeric_limits<float>::epsilon())
 	{
 		Vector2 normal = Vector2{ float(x / magnitude) , float(y / magnitude) };
 		return normal;
 	}
 	return Vector2{ 0,0 };
+}
+
+void Vector2::Normalize()
+{
+	float magnitude = Magnitude();
+	if (std::abs(magnitude) > std::numeric_limits<float>::epsilon())
+	{
+		this->x = float(x / magnitude);
+		this->y	= float(y / magnitude);
+	}
 }
 
 Vector2& Vector2::operator=(const Vector2& other)

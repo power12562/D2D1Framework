@@ -9,6 +9,8 @@
 #include <Utility/Debug.h>
 #include <stack>
 #include <cassert>
+#include <Vector/Vector3.h>
+#include <Math/Mathf.h>
 
 Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 {
@@ -34,8 +36,6 @@ Transform::Transform(GameObjectBase& gameObject) : ComponentBase(gameObject)
 	pivot.InitTVector2(this);
 	PM = Matrix3x2F::Identity();
 	IPM = Matrix3x2F::Identity();
-
-	right = Vector2::Right;
 }
 
 Transform::~Transform()
@@ -175,6 +175,30 @@ void Transform::DeSerializedJson(ordered_json& jsonObj)
 		gameObject.transform.rotation = transform["rotation"].get<float>();
 		gameObject.transform.localRotation = transform["localRotation"].get<float>();
 	}
+}
+
+Vector2 Transform::GetRight() const
+{
+	// 각도를 라디안으로 변환
+	float radian = rotation.angle * Mathf::Deg2Rad;
+
+	// 방향 벡터 계산
+	float x = std::cos(radian);
+	float y = -std::sin(radian);
+
+	return Vector2(x, y);
+}
+
+Vector2 Transform::GetUp() const
+{
+	// 각도를 라디안으로 변환
+	float radian = rotation.angle * Mathf::Deg2Rad;
+
+	// 방향 벡터 계산
+	float x = std::sin(radian);
+	float y = std::cos(radian);
+
+	return Vector2(x, y);
 }
 
 void Transform::SetParent(Transform& parent)
@@ -337,6 +361,11 @@ Transform::TVector2& Transform::TVector2::operator+=(const Vector2& other)
 Transform::TVector2& Transform::TVector2::operator-=(const Vector2& other)
 {
 	return SetTVector(value - other);
+}
+
+Transform::TVector2::operator Vector3()
+{
+	return value.operator Vector3();
 }
 
 void Transform::TVector2::InitTVector2(Transform* _thisTransform)

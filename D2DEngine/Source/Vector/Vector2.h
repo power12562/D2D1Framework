@@ -22,6 +22,7 @@ public:
 	float SqrMagnitude() const;
 
 	Vector2 Normalized() const;
+	void Normalize();
 
 	Vector2& operator=(const Vector2& other);
 	/*Json으로 읽은 position 값을 초기화 하기 위한 대입 연산자.*/
