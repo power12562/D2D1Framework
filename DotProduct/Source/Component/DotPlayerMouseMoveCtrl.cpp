@@ -80,9 +80,4 @@ void DotPlayerMouseMoveCtrl::Update()
 	}
 }
 
-void DotPlayerMouseMoveCtrl::LateUpdate()
-{
-
-}
-
 
