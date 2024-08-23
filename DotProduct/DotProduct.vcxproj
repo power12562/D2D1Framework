@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2c9b9cb6-c79f-48d4-ad36-729c0f3f3111}</ProjectGuid>
-    <RootNamespace>PenguinBrothers</RootNamespace>
+    <ProjectGuid>{833e4fbf-c9de-474e-ad3f-affbfe5d4faf}</ProjectGuid>
+    <RootNamespace>ProjectBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,13 +70,13 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,15 +112,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)PenguinBrothers\;$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\Debug\;$(SolutionDir)lib\;$(SolutionDir)lib\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\;$(SolutionDir)lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>D2DEngine.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,8 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)PenguinBrothers\;$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -142,68 +140,17 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\Release\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\;$(SolutionDir)lib\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\;$(SolutionDir)lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>D2DEngine.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Component\BlockCtrl.cpp" />
-    <ClCompile Include="Source\Component\BombRingCtrl.cpp" />
-    <ClCompile Include="Source\Component\EditerCtrl.cpp" />
-    <ClCompile Include="Source\Component\Enemy\EnemyDino0AttackCtrl.cpp" />
-    <ClCompile Include="Source\Component\Enemy\EnemyDino0Ctrl.cpp" />
-    <ClCompile Include="Source\Component\GameManagerCtrl.cpp" />
-    <ClCompile Include="Source\Component\Player\BombEffectCtrl.cpp" />
-    <ClCompile Include="Source\Component\Player\BombSoundCtrl.cpp" />
-    <ClCompile Include="Source\Component\Player\FireEffectCtrl.cpp" />
-    <ClCompile Include="Source\Component\Player\PlayerBombCtrl.cpp" />
-    <ClCompile Include="Source\Component\Player\PlayerCtrl.cpp" />
-    <ClCompile Include="Source\Component\StageObjectListDebug_Ctrl.cpp" />
-    <ClCompile Include="Source\GameObject\Block.cpp" />
-    <ClCompile Include="Source\GameObject\BombRing.cpp" />
-    <ClCompile Include="Source\GameObject\GameManager.cpp" />
-    <ClCompile Include="Source\GameObject\Ground.cpp" />
-    <ClCompile Include="Source\GameObject\Player\BombEffect.cpp" />
-    <ClCompile Include="Source\GameObject\Editer.cpp" />
-    <ClCompile Include="Source\GameObject\Enemy\EnemyDino0.cpp" />
-    <ClCompile Include="Source\GameObject\Enemy\EnemyDino0Attack.cpp" />
-    <ClCompile Include="Source\GameObject\Player\FireEffect.cpp" />
-    <ClCompile Include="Source\GameObject\Player\Player.cpp" />
-    <ClCompile Include="Source\GameObject\Player\PlayerBomb.cpp" />
-    <ClCompile Include="Source\GameObject\StageObjectListDebug.cpp" />
-    <ClCompile Include="Source\Scenes\StageEditer.cpp" />
-    <ClCompile Include="Source\WinMain\PenguinBrothers.cpp" />
+    <ClInclude Include="Source\Scenes\World1.h" />
+    <ClInclude Include="Source\WinMain\MyGameApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Component\BlockCtrl.h" />
-    <ClInclude Include="Source\Component\BombRingCtrl.h" />
-    <ClInclude Include="Source\Component\EditerCtrl.h" />
-    <ClInclude Include="Source\Component\Enemy\EnemyDino0AttackCtrl.h" />
-    <ClInclude Include="Source\Component\Enemy\EnemyDino0Ctrl.h" />
-    <ClInclude Include="Source\Component\GameManagerCtrl.h" />
-    <ClInclude Include="Source\Component\Player\BombEffectCtrl.h" />
-    <ClInclude Include="Source\Component\Player\BombSoundCtrl.h" />
-    <ClInclude Include="Source\Component\Player\FireEffectCtrl.h" />
-    <ClInclude Include="Source\Component\Player\PlayerBombCtrl.h" />
-    <ClInclude Include="Source\Component\Player\PlayerCtrl.h" />
-    <ClInclude Include="Source\Component\StageObjectListDebug_Ctrl.h" />
-    <ClInclude Include="Source\GameObject\Block.h" />
-    <ClInclude Include="Source\GameObject\BombRing.h" />
-    <ClInclude Include="Source\GameObject\GameManager.h" />
-    <ClInclude Include="Source\GameObject\Ground.h" />
-    <ClInclude Include="Source\GameObject\Player\BombEffect.h" />
-    <ClInclude Include="Source\GameObject\Editer.h" />
-    <ClInclude Include="Source\GameObject\Enemy\EnemyDino0.h" />
-    <ClInclude Include="Source\GameObject\Enemy\EnemyDino0Attack.h" />
-    <ClInclude Include="Source\GameObject\Player\FireEffect.h" />
-    <ClInclude Include="Source\GameObject\Player\Player.h" />
-    <ClInclude Include="Source\GameObject\Player\PlayerBomb.h" />
-    <ClInclude Include="Source\GameObject\StageObjectListDebug.h" />
-    <ClInclude Include="Source\Scenes\StageEditer.h" />
-    <ClInclude Include="Source\WinMain\PenguinBrothers.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\D2DEngine\D2DEngine.rc" />
+    <ClCompile Include="Source\Scenes\World1.cpp" />
+    <ClCompile Include="Source\WinMain\MyGameApp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

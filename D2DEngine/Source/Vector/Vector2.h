@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 
+class Vector3;
 class Vector2
 {
 public:
@@ -11,6 +12,7 @@ public:
 
 	explicit Vector2(float x = 0, float y = 0);
 	explicit Vector2(std::vector<float>&& vec);
+	explicit Vector2(const Vector3& vector3);
 
 	virtual ~Vector2() = default;
 
@@ -36,6 +38,7 @@ public:
 	Vector2 operator-() const;
 	bool operator!=(const Vector2& other) const;
 	bool operator==(const Vector2& other) const;
+	explicit operator Vector3();
 
 	//static:
 

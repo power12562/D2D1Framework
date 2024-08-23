@@ -3,6 +3,7 @@
 #include "Framework/WinGameApp.h"
 #include "Math/Mathf.h"
 
+#include <Vector/Vector3.h>
 #include <assert.h>
 
 const Vector2 Vector2::Zero{ 0,0 };
@@ -27,6 +28,12 @@ Vector2::Vector2(std::vector<float>&& vec)
 	this->y = vec[1];
 }
 
+Vector2::Vector2(const Vector3& vector3)
+{
+	this->x = vector3.x;
+	this->y = vector3.y;
+}
+
 Vector2::Vector2(const Vector2& other)
 {
 	this->x = other.x;
@@ -40,14 +47,13 @@ float Vector2::SqrMagnitude() const
 
 float Vector2::Magnitude() const
 {
-	float magnitude = sqrtf(SqrMagnitude());
-	return magnitude;
+	return sqrtf(SqrMagnitude());
 }
 
 Vector2 Vector2::Normalized() const
 {
 	float magnitude = Magnitude();
-	if (magnitude != 0)
+	if (fabs(magnitude) > std::numeric_limits<float>::epsilon())
 	{
 		Vector2 normal = Vector2{ float(x / magnitude) , float(y / magnitude) };
 		return normal;
@@ -162,6 +168,10 @@ bool Vector2::operator==(const Vector2& other) const
 	return (this->x == other.x && this->y == other.y);
 }
 
+Vector2::operator Vector3()
+{
+	return Vector3{ this->x, this->y, 0 };
+}
 
 //static:
 

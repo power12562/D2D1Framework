@@ -54,6 +54,7 @@
     <ClCompile Include="Source\Utility\Ray.cpp" />
     <ClCompile Include="Source\Utility\WinUtility.cpp" />
     <ClCompile Include="Source\Vector\Vector2.cpp" />
+    <ClCompile Include="Source\Vector\Vector3.cpp" />
     <ClCompile Include="ThirdParty\single_include\nlohmann\jsonConvert.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +98,7 @@
     <ClInclude Include="Source\Utility\Ray.h" />
     <ClInclude Include="Source\Utility\WinUtility.h" />
     <ClInclude Include="Source\Vector\Vector2.h" />
+    <ClInclude Include="Source\Vector\Vector3.h" />
     <ClInclude Include="ThirdParty\fmod\fmod.h" />
     <ClInclude Include="ThirdParty\fmod\fmod.hpp" />
     <ClInclude Include="ThirdParty\fmod\fmod_codec.h" />
@@ -229,6 +231,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -249,6 +252,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)D2DEngine\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
