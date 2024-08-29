@@ -3,6 +3,7 @@
 #include <Core/Component/Movement.h>
 
 #include "Source/Component/DotPlayerMouseMoveCtrl.h"
+#include "Source/Component/CollisionTestComponent.h"
 
 DotPlayer::DotPlayer()
 {
@@ -10,6 +11,7 @@ DotPlayer::DotPlayer()
 	spriteRenderer.LoadImage(L"Assets/Image/tank.png");
 	AddComponent<Movement>();
 	AddComponent<DotPlayerMouseMoveCtrl>();
+	//AddComponent<CollisionTestComponent>();
 }
 
 DotPlayer::~DotPlayer()
