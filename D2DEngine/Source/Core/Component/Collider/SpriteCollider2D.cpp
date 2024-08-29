@@ -20,31 +20,18 @@ SpriteCollider2D::~SpriteCollider2D()
 
 void SpriteCollider2D::Update()
 {
-	bounds = gameObject.cullingBounds;
+	D2D_VECTOR_2F center = gameObject.GetCenter();
+	Center.x = center.x;
+	Center.y = center.y;
+	ColliderSize.x = transform.pivot.x * 2.f * std::abs(transform.scale.x);
+	ColliderSize.y = transform.pivot.y * 2.f * std::abs(transform.scale.y);
 }
 
 void SpriteCollider2D::Render()
 {
 	if (isDrawCollider)
-	{
-		const SIZE& screenSize = WinGameApp::GetClientSize();
-
-		Vector2 worldScale = gameObject.transform.scale;
-		worldScale.x = abs(worldScale.x);
-		worldScale.y = abs(worldScale.y);
-		const D2D1_MATRIX_3X2_F& objMatrix = gameObject.transform.GetWorldMatrix();
-		const Vector2& objScale = Vector2::GetScaleFromMatrix(objMatrix);
-		const D2D1_MATRIX_3X2_F& drawMatrix =
-			(
-				D2D1::Matrix3x2F::Scale(objScale.x, objScale.y) *
-				D2D1::Matrix3x2F::Translation(bounds.center.x, screenSize.cy - bounds.center.y) *
-				Camera::GetMainCamera()->GetInvertMatrix()
-				); //회전 매트릭스는 제외한 월드 매트릭스 * 카메라 역행렬 매트릭스 (카메라 기준 좌표로)
-		D2D1_RECT_F drawRect = {
-			-bounds.extents.x, -bounds.extents.y,
-			bounds.extents.x, bounds.extents.y
-		};
-		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green));
+	{	
+		D2DRenderer::DrawRect(transform.GetCameraMatrix() * D2D1::Matrix3x2F::Translation(Center.x, -Center.y), { -transform.pivot.x, -transform.pivot.y, transform.pivot.x, transform.pivot.y }, D2D1::ColorF(D2D1::ColorF::Green));
 	}
 }
 

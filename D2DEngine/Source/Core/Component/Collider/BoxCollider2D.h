@@ -20,18 +20,23 @@ public:
 
 protected:
 	//virtual void Start() override;
-	virtual void Update() override;
+	//virtual void Update() override;
 	//virtual void LateUpdate() override;
 	virtual void Render() override;
 	virtual bool isCollide(ColliderBase* other) override;
 	virtual bool isCollide(const Vector2& point) override;
 
-	virtual float GetTop() override { return bounds.leftTop.y; }
-	virtual float GetBottom() override { return bounds.rightBottom.y; }
-	virtual float GetLeft() override { return bounds.leftTop.x; }
-	virtual float GetRight() override { return bounds.rightBottom.x; }
+	virtual float GetTop() override;
+	virtual float GetBottom() override;
+	virtual float GetLeft() override;
+	virtual float GetRight() override;
 
-	Bounds bounds;
+	//virtual float GetTop() override { return bounds.leftTop.y; }
+	//virtual float GetBottom() override { return bounds.rightBottom.y; }
+	//virtual float GetLeft() override { return bounds.leftTop.x; }
+	//virtual float GetRight() override { return bounds.rightBottom.x; }
+
+	//Bounds bounds;
 private:
 	virtual void SerializedJson(ordered_json& jsonObj) override;
 	virtual void DeSerializedJson(ordered_json& jsonObj) override;
