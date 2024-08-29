@@ -64,7 +64,7 @@ void Rigidbody2D::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* oth
     disTB = abs(myCollider->GetTop() - otherCollider->GetBottom());
     disBT = abs(myCollider->GetBottom() - otherCollider->GetTop());
 
-    float min = Mathf::FindMin(disRL, disLR, disTB, disBT);
+    float min = Mathf::FindMinValue(disRL, disLR, disTB, disBT);
     if (min == disBT)
     {
         transform.position = Vector2(transform.position.x, otherCollider->GetTop() + (myCollider->GetTop() - myCollider->GetBottom()) * 0.5f - myCollider->Center.y);
@@ -96,7 +96,7 @@ void Rigidbody2D::OnCollisionStay2D(ColliderBase* myCollider, ColliderBase* othe
     disTB = abs(myCollider->GetTop() - otherCollider->GetBottom());
     disBT = abs(myCollider->GetBottom() - otherCollider->GetTop());
 
-    float min = Mathf::FindMin(disRL, disLR, disTB, disBT);
+    float min = Mathf::FindMinValue(disRL, disLR, disTB, disBT);
     if (min == disBT)
     {
         currIsGravity = false;     
