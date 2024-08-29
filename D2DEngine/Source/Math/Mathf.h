@@ -16,39 +16,39 @@ namespace Mathf
 	
 	/* 전달받은 배열중 가장 작은 값을 찾습니다.*/
 	template<typename T, std::size_t N>
-	T FindMin(const T(&arr)[N])
+	T FindMinValue(const T(&arr)[N])
 	{
 		return *std::min_element(arr, arr + N);
 	};
 
 	/* 전달받은 배열중 가장 높은 값을 찾습니다.*/
 	template<typename T, std::size_t N>
-	T FindMax(const T(&arr)[N])
+	T FindMaxValue(const T(&arr)[N])
 	{
 		return *std::max_element(arr, arr + N);
 	};
 
 	template<typename T>
-	T FindMin(T value) 
+	T FindMinValue(T value) 
 	{
 		return value;
 	};
 	/** 전달받은 인자들중 가장 낮은 값을 찾습니다.*/
 	template<typename T, typename... Args>
-	T FindMin(T first, Args... args)
+	T FindMinValue(T first, Args... args)
 	{
-		return std::min(first, FindMin(args...));
+		return std::min(first, FindMinValue(args...));
 	};
 
 	template<typename T>
-	T FindMax(T value)
+	T FindMaxValue(T value)
 	{
 		return value;
 	};
 	/** 전달받은 인자들중 가장 높은 값을 찾습니다.*/
 	template<typename T, typename... Args>
-	T FindMax(T first, Args... args)
+	T FindMaxValue(T first, Args... args)
 	{
-		return std::max(first, FindMax(args...));
+		return std::max(first, FindMaxValue(args...));
 	};
 }
