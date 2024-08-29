@@ -54,6 +54,12 @@ public:
 	/** Down Vector2(0, -1) */
 	static const Vector2 Down;
 
+	/**내적 */
+	static float Dot(const Vector2& lhs, const Vector2& rhs);
+
+	/**외적 */
+	static float Cross(const Vector2& lhs, const Vector2& rhs);
+
 	/** 해당 매트릭스의 sclaeX 요소 추출하기*/
 	static Vector2 GetScaleFromMatrix(const D2D1_MATRIX_3X2_F& matrix);
 

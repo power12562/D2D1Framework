@@ -262,3 +262,13 @@ Vector2 Vector2::GetRotatedPoint(const Vector2& point, const float angle, const 
 
 	return Vector2{ rotX , rotY };
 }
+
+float Vector2::Dot(const Vector2& lhs, const Vector2& rhs)
+{
+	return lhs.x * rhs.x + lhs.y * rhs.y;
+}
+
+float Vector2::Cross(const Vector2& lhs, const Vector2& rhs)
+{
+	return lhs.x * rhs.y - lhs.y * rhs.x;
+}
