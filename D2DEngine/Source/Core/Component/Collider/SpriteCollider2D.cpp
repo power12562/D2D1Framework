@@ -41,8 +41,8 @@ void SpriteCollider2D::Render()
 				Camera::GetMainCamera()->GetInvertMatrix()
 				); //회전 매트릭스는 제외한 월드 매트릭스 * 카메라 역행렬 매트릭스 (카메라 기준 좌표로)
 		D2D1_RECT_F drawRect = {
-			-gameObject.transform.pivot.x, -gameObject.transform.pivot.y,
-			gameObject.transform.pivot.x, gameObject.transform.pivot.y
+			-bounds.extents.x, -bounds.extents.y,
+			bounds.extents.x, bounds.extents.y
 		};
 		D2DRenderer::DrawRect(drawMatrix, drawRect, D2D1::ColorF(D2D1::ColorF::Green));
 	}
