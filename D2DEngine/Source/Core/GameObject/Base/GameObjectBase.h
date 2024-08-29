@@ -55,7 +55,7 @@ private:
 
 	struct D2D_VECTOR_2F* frameCenter{}; //애니메이션 Center값 SpriteAnimationRenderer에서만 수정 해야함!
 
-	bool dontDestroyOnload; //해당 플래그가 활성화되면 씬 로드시 이 오브젝트는 삭제하지 않는다.
+	bool dontDestroyOnload = false; //해당 플래그가 활성화되면 씬 로드시 이 오브젝트는 삭제하지 않는다.
 protected: 
 	OBJECT_TYPE objType = OBJECT_TYPE::OBJECT;
 
@@ -112,6 +112,7 @@ public:
 
 	/**애니메이션 Center값 SpriteAnimationRenderer에서만 수정 해야함!*/
 	void SetCenter(D2D_VECTOR_2F* FrameCenter) { frameCenter = FrameCenter; }
+	D2D_VECTOR_2F GetCenter();
 
 	/** 다른 씬 로드시 파괴 제외 여부*/
 	bool GetDontDestroyOnload() { return dontDestroyOnload; }

@@ -155,6 +155,15 @@ void GameObjectBase::SetOderLayer(int val)
 	WorldManager::ObjListSortFlag = true;
 }
 
+D2D_VECTOR_2F GameObjectBase::GetCenter()
+{
+	if (frameCenter)
+	{
+		return *frameCenter;
+	}
+	return {0,0};
+}
+
 void GameObjectBase::UpdateCullingBounds()
 {
 	float scaleX = abs(transform.scale.x);
