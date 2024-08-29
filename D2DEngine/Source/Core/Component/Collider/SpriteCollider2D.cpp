@@ -21,8 +21,8 @@ SpriteCollider2D::~SpriteCollider2D()
 void SpriteCollider2D::Update()
 {
 	D2D_VECTOR_2F center = gameObject.GetCenter();
-	Center.x = center.x;
-	Center.y = center.y;
+	Center.x = center.x * transform.scale.x;
+	Center.y = center.y * transform.scale.y;
 	ColliderSize.x = transform.pivot.x * 2.f * std::abs(transform.scale.x);
 	ColliderSize.y = transform.pivot.y * 2.f * std::abs(transform.scale.y);
 }
