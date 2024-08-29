@@ -86,7 +86,10 @@ void EnemyDino0Ctrl::OnCollisionEnter2D(ColliderBase* myCollider, ColliderBase* 
 		otherCollider->GetComponent<FiniteStateMachine>().SetState(L"Airborne");
 
 		GetComponent<Rigidbody2D>().Velocity = -velocityDir * 200.f;
-		fsm->SetState(L"Airborne");
+		if (fsm)
+		{
+			fsm->SetState(L"Airborne");
+		}
 	}
 
 }
