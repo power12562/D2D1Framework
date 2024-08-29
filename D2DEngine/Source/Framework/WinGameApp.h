@@ -11,8 +11,8 @@ class WinGameApp
 {
 	static WinGameApp* RunApp; //현재 실행중인 앱
 public:
-	WinGameApp() {}
-	virtual ~WinGameApp() {}
+	WinGameApp() = default;
+	virtual ~WinGameApp() = default;
 
 	void Initialize(HINSTANCE hinstance);
 	void Run(); //기본 메시지 루프
