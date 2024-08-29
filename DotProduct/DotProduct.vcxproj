@@ -145,12 +145,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component\CollisionTestComponent.h" />
     <ClInclude Include="Source\Component\DotPlayerMouseMoveCtrl.h" />
     <ClInclude Include="Source\GameObject\DotPlayer.h" />
     <ClInclude Include="Source\Scenes\World1.h" />
     <ClInclude Include="Source\WinMain\MyGameApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\CollisionTestComponent.cpp" />
     <ClCompile Include="Source\Component\DotPlayerMouseMoveCtrl.cpp" />
     <ClCompile Include="Source\GameObject\DotPlayer.cpp" />
     <ClCompile Include="Source\Scenes\World1.cpp" />
