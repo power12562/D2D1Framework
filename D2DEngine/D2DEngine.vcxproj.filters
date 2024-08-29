@@ -38,6 +38,7 @@
     <ClCompile Include="Source\Framework\SoundSystem.cpp" />
     <ClCompile Include="Source\Core\Component\AudioClip.cpp" />
     <ClCompile Include="Source\Vector\Vector3.cpp" />
+    <ClCompile Include="Source\Math\OBB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\Component\Renderer\SpriteRenderer.h" />
@@ -100,6 +101,7 @@
     <ClInclude Include="ThirdParty\fmod\headers\fmod_output.h" />
     <ClInclude Include="Source\Core\Component\AudioClip.h" />
     <ClInclude Include="Source\Vector\Vector3.h" />
+    <ClInclude Include="Source\Math\OBB.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D2DEngine.rc" />
