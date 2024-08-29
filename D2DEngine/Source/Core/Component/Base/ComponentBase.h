@@ -42,7 +42,7 @@ public:
 	template<typename T> T& GetComponent();
 	template<typename T> T* IsComponent();
 
-	class Transform& GetTransform();
+	class Transform& GetTransform() const;
 	__declspec(property(get = GetTransform)) Transform& transform;
 
 	/** 게임 오브젝트를 삭제합니다.*/

@@ -14,7 +14,7 @@ ComponentBase::~ComponentBase()
 
 }
 
-Transform& ComponentBase::GetTransform()
+Transform& ComponentBase::GetTransform() const
 {
 	return gameObject.GetTransform();
 }
