@@ -243,6 +243,9 @@ Vector2 Vector2::LagranCurve(float x, Vector2* pointArray, int pointArraySize)
 
 Vector2 Vector2::GetRotatedPoint(const Vector2& point, const float angle, const Vector2& center)
 {
+	if (std::abs(angle) < 1e-9)
+		return point;
+
 	float radian = angle * Mathf::Deg2Rad;
 
 	float cos = cosf(radian);
