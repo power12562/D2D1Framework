@@ -3,6 +3,7 @@
 #include "Framework/D2DRenderer.h"
 #include "Framework/WinGameApp.h"
 #include "Math/OBB.h"
+#include "Math/Mathf.h"
 
 #include "Core/GameObject/Base/GameObjectBase.h"
 
@@ -55,22 +56,58 @@ bool BoxCollider2D::isCollide(const Vector2& point)
 
 float BoxCollider2D::GetTop()
 {
-	return transform.position.y + ColliderSize.y * 0.5f;
+	float halfSizeX = ColliderSize.x * 0.5f;
+	float halfSizeY = ColliderSize.y * 0.5f;
+
+	Vector2 v1 = Vector2(transform.position.x + halfSizeX, transform.position.y + halfSizeY);
+	Vector2 v2 = Vector2(transform.position.x - halfSizeX, transform.position.y + halfSizeY);
+
+	Vector2::GetRotatedPoint(v1, transform.rotation, transform.position);
+	Vector2::GetRotatedPoint(v2, transform.rotation, transform.position);
+
+	return Mathf::FindMaxValue(v1.y, v2.y);
 }
 
 float BoxCollider2D::GetBottom()
 {
-	return transform.position.y + -ColliderSize.y * 0.5f;
+	float halfSizeX = ColliderSize.x * 0.5f;
+	float halfSizeY = ColliderSize.y * 0.5f;
+
+	Vector2 v1 = Vector2(transform.position.x + halfSizeX, transform.position.y - halfSizeY);
+	Vector2 v2 = Vector2(transform.position.x - halfSizeX, transform.position.y - halfSizeY);
+
+	Vector2::GetRotatedPoint(v1, transform.rotation, transform.position);
+	Vector2::GetRotatedPoint(v2, transform.rotation, transform.position);
+
+	return Mathf::FindMinValue(v1.y, v2.y);
 }
 
 float BoxCollider2D::GetLeft()
 {
-	return transform.position.x + -ColliderSize.x * 0.5f;
+	float halfSizeX = ColliderSize.x * 0.5f;
+	float halfSizeY = ColliderSize.y * 0.5f;
+
+	Vector2 v1 = Vector2(transform.position.x - halfSizeX, transform.position.y + halfSizeY);
+	Vector2 v2 = Vector2(transform.position.x - halfSizeX, transform.position.y - halfSizeY);
+
+	Vector2::GetRotatedPoint(v1, transform.rotation, transform.position);
+	Vector2::GetRotatedPoint(v2, transform.rotation, transform.position);
+
+	return Mathf::FindMinValue(v1.x, v2.x);
 }
 
 float BoxCollider2D::GetRight()
 {
-	return transform.position.x + ColliderSize.x * 0.5f;
+	float halfSizeX = ColliderSize.x * 0.5f;
+	float halfSizeY = ColliderSize.y * 0.5f;
+
+	Vector2 v1 = Vector2(transform.position.x + halfSizeX, transform.position.y + halfSizeY);
+	Vector2 v2 = Vector2(transform.position.x + halfSizeX, transform.position.y - halfSizeY);
+
+	Vector2::GetRotatedPoint(v1, transform.rotation, transform.position);
+	Vector2::GetRotatedPoint(v2, transform.rotation, transform.position);
+
+	return Mathf::FindMaxValue(v1.x, v2.x);
 }
 
 void BoxCollider2D::SerializedJson(ordered_json& jsonObj)
