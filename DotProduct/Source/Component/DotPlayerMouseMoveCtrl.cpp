@@ -42,12 +42,12 @@ void DotPlayerMouseMoveCtrl::Update()
 	Vector2 dir = transform.Up;
 	const MouseState& mouseState = Input.GetMouseState();
 	mouseState.GetWorldPos();
-	if (mouseState.isLeftClickDown)
+	if (mouseState.isLeftClick)
 	{
 		lastClickPosition = mouseState.GetWorldPos();
 		leftClickDir = lastClickPosition - transform.position;
 		leftClickDir.Normalize();
-		dotProductValue = Vector3::Dot((Vector3)leftClickDir, (Vector3)dir);
+		dotProductValue = std::clamp(Vector3::Dot((Vector3)leftClickDir, (Vector3)dir), -1.0f, 1.0f);
 		rotationAngle = std::acos(dotProductValue) * Mathf::Rad2Deg; 
 		rotationDir = Vector3::Cross((Vector3)leftClickDir, (Vector3)dir).z > 0 ? 1.f : -1.f;
 		transform.rotation += rotationDir * rotationAngle;
