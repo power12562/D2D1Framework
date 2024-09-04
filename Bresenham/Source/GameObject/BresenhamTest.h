@@ -9,10 +9,10 @@ public:
 
 private:
 	SIZE gridSize{};
-	float stepPos{};
 
 private:
 	void SpawnGrid();
 	void DrawPixel(float x, float y);
+	void DrawLine(float x0, float y0, float x1, float y1);
 	void bresenham_line(float x0, float y0, float x1, float y1);
 };

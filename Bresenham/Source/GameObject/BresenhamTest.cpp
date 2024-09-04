@@ -5,15 +5,16 @@
 #include <Framework/WinGameApp.h>
 
 using namespace D2D1;
-constexpr int step = 20;
+constexpr int step = 25;
 
 BresenhamTest::BresenhamTest()
 {
 	gridSize = { 800, 800 };
-	stepPos = gridSize.cx / (step - 1);
 	SpawnGrid();
-	bresenham_line(0, 0, 19, 10);
-	bresenham_line(0, 19, 19, 10);
+	bresenham_line(1, 1, 31, 16);					 
+	bresenham_line(1, 31, 31, 16);
+	DrawLine(1, 1, 31, 16);
+	DrawLine(1, 31, 31, 16);
 }
 
 BresenhamTest::~BresenhamTest()
@@ -22,21 +23,21 @@ BresenhamTest::~BresenhamTest()
 
 void BresenhamTest::SpawnGrid()
 {
-	for (size_t i = 0; i < step; i++)
+	for (size_t i = 1; i * step <= gridSize.cy; i++)
 	{
 		LineRenderer& gridY = AddComponent<LineRenderer>();
 		gridY.Color = ColorF(ColorF::White);
-		gridY.Width = 2;
-		gridY.StartPosition = Vector2{ gridSize.cx * i / float(step - 1), (float)gridSize.cy };
-		gridY.EndPosition = Vector2{ gridSize.cx * i / float(step - 1), (float)0 };
+		gridY.Width = 1;
+		gridY.StartPosition = Vector2{ step * (float)i, step };
+		gridY.EndPosition =   Vector2{ step * (float)i, (float)gridSize.cy };
 	}
-	for (size_t i = 0; i < step; i++)
+	for (size_t i = 1; i * step <= gridSize.cx; i++)
 	{
 		LineRenderer& gridX = AddComponent<LineRenderer>();
 		gridX.Color = ColorF(ColorF::White);
-		gridX.Width = 2;
-		gridX.StartPosition = Vector2{ (float)gridSize.cx, gridSize.cy * i / float(step - 1) };
-		gridX.EndPosition = Vector2{ (float)0,gridSize.cy * i / float(step - 1) };
+		gridX.Width = 1;
+		gridX.StartPosition = Vector2{ step, step * (float)i};
+		gridX.EndPosition = Vector2{ (float)gridSize.cx, step * (float)i };
 	}
 }
 
@@ -44,9 +45,18 @@ void BresenhamTest::DrawPixel(float x, float y)
 {
 	BoxRenderer& pixel = AddComponent<BoxRenderer>();
 	pixel.color = ColorF(ColorF::Red);
-	pixel.center = Vector2(x * stepPos, y * stepPos);
+	pixel.center = Vector2(x * step + step * 0.5f, y * step + step * 0.5f);
 	pixel.size = Vector2(step, step);
 	pixel.isFill = true;
+}
+
+void BresenhamTest::DrawLine(float x0, float y0, float x1, float y1)
+{
+	LineRenderer& Line = AddComponent<LineRenderer>();
+	Line.Color = ColorF(ColorF::Violet);
+	Line.Width = 1;
+	Line.StartPosition = Vector2{ x0 * step + step * 0.5f, y0 * step + step * 0.5f };
+	Line.EndPosition = Vector2{ x1 * step + step * 0.5f, y1 * step + step * 0.5f };
 }
 
 void BresenhamTest::bresenham_line(float x0, float y0, float x1, float y1)
